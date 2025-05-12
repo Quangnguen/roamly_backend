@@ -1,0 +1,18 @@
+API user: 
+1. Lấy thông tin người dùng hiện tại: 
+   truyền access_token 
+   end_point: get http://localhost:3000/users/me
+2. Cập nhật thông tin người dùng: 
+   truyền access_token 
+   end_point: patch http://localhost:3000/users/me
+3. Thay đổi mật khẩu: 
+    truyền access_token 
+    end_point: patch http://localhost:3000/users/change_password
+    body raw: 
+    {
+        oldPassword: "",
+        newPassword:""
+    }
+4. Huyr tai khoan:
+   truyền access_token 
+   end_point: patch http://localhost:3000/users/soft-delete

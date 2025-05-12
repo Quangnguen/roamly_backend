@@ -8,7 +8,7 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'Quang_Roamly',
+      secret: process.env.JWT_SECRET || 'Roamly',
       signOptions: { expiresIn: '1h' },
     }),
   ],

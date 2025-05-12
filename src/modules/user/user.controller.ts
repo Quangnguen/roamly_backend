@@ -7,6 +7,6 @@ export class UserController {
 
   @Get()
   getUser() {
-    return "quang";
+    return 'quang';
   }
 }

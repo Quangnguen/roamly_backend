@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -42,7 +46,12 @@ export class AuthService {
         username,
         password: hashedPassword,
         name,
-        refreshToken, // Lưu refresh token
+        refreshToken,
+        accountStatus: true,
+        followers: [],
+        following: [],
+        role: 0, // or 1 depending on your definition
+        private: false, // Set default private value
       },
     });
 
@@ -90,7 +99,7 @@ export class AuthService {
     });
 
     // Generate JWT access token
-    const payload = { sub: user.id, username: user.username };
+    const payload = { sub: user.id, username: user.username, role: user.role };
     const accessToken = this.jwtService.sign(payload);
 
     return {

@@ -119,47 +119,52 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   password: 'password',
   name: 'name',
-  refreshToken: 'refreshToken',
   profilePic: 'profilePic',
   bio: 'bio',
+  accountStatus: 'accountStatus',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deleteAt: 'deleteAt',
+  followers: 'followers',
+  following: 'following',
+  role: 'role',
+  refreshToken: 'refreshToken',
+  private: 'private'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
+  authorId: 'authorId',
   imageUrl: 'imageUrl',
   caption: 'caption',
   createdAt: 'createdAt',
-  authorId: 'authorId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
+  postId: 'postId',
+  authorId: 'authorId',
   content: 'content',
   createdAt: 'createdAt',
-  authorId: 'authorId',
-  postId: 'postId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LikeScalarFieldEnum = {
   id: 'id',
+  postId: 'postId',
   userId: 'userId',
-  postId: 'postId'
-};
-
-exports.Prisma.FollowScalarFieldEnum = {
-  id: 'id',
-  followerId: 'followerId',
-  followingId: 'followingId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
   content: 'content',
   createdAt: 'createdAt',
-  senderId: 'senderId',
-  receiverId: 'receiverId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -168,9 +173,23 @@ exports.Prisma.NotificationScalarFieldEnum = {
   message: 'message',
   isRead: 'isRead',
   createdAt: 'createdAt',
-  recipientId: 'recipientId',
+  updatedAt: 'updatedAt',
   senderId: 'senderId',
+  recipientId: 'recipientId',
   postId: 'postId'
+};
+
+exports.Prisma.TripScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  userId: 'userId',
+  description: 'description',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  placesVisited: 'placesVisited',
+  sharedWith: 'sharedWith',
+  photos: 'photos',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -189,9 +208,9 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   Comment: 'Comment',
   Like: 'Like',
-  Follow: 'Follow',
   Message: 'Message',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  Trip: 'Trip'
 };
 
 /**

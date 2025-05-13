@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import * as bcrypt from 'bcrypt';
 import { BadRequestException } from '@nestjs/common';
+import { createResponse } from 'src/utils/response.util';
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
@@ -38,11 +42,14 @@ export class UserService {
   }
 
   async softDeleteUser(userId: string) {
-    return this.prisma.user.update({
+    await this.prisma.user.update({
       where: { id: userId },
       data: { deleteAt: new Date(), accountStatus: false },
     });
+
+    return { message: 'Tài khoản của bạn sẽ bị xóa sau 30 ngày' };
   }
+  
   async changePassword(userId: string, dto: ChangePasswordDto) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -64,7 +71,7 @@ export class UserService {
       data: { password: hashedNewPassword },
     });
 
-    return { message: 'Đổi mật khẩu thành công' };
+    return createResponse("Đổi mật khẩu thành công", 200, "success");
   }
 
   //   async followUser(currentUserId: string, targetUserId: string) {

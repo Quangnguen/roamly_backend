@@ -5,7 +5,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { Controller, Post, Body, HttpCode, HttpStatus, Req, UseGuards, UsePipes } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Req,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
@@ -18,7 +27,7 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
-    console.log("register")
+    console.log('register');
     return this.authService.register(registerDto);
   }
 

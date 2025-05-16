@@ -20,7 +20,7 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const { email, username, password, name } = registerDto;
+    const { email, username, phoneNumber, password, name } = registerDto;
 
     // Check if email or username exists
     const existingUser = await this.prisma.user.findFirst({
@@ -46,12 +46,13 @@ export class AuthService {
         username,
         password: hashedPassword,
         name,
+        phoneNumber,
         refreshToken,
         accountStatus: true,
-        followers: [],
-        following: [],
-        role: 0, // or 1 depending on your definition
-        private: false, // Set default private value
+        private: false,
+        role: 0, // Thay đổi theo đúng role bạn mong muốn
+        verified: false,
+        createdAt: new Date(), // Prisma tự động set rồi nên có thể bỏ cũng được
       },
     });
 
@@ -67,6 +68,14 @@ export class AuthService {
         email: user.email,
         username: user.username,
         name: user.name,
+        phoneNumber: user.phoneNumber,
+        profilePic: user.profilePic ?? null,
+        bio: user.bio ?? null,
+        address: user.address ?? null,
+        private: user.private,
+        verified: user.verified,
+        role: user.role,
+        createdAt: user.createdAt,
       },
     };
   }
@@ -88,14 +97,13 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Thông tin đăng nhập không hợp lệ');
     }
-
     // Create new refresh token
     const refreshToken = crypto.randomBytes(32).toString('hex');
 
     // Update user with new refresh token
     await this.prisma.user.update({
       where: { id: user.id },
-      data: { refreshToken },
+      data: { refreshToken, lastLogin: new Date() },
     });
 
     // Generate JWT access token

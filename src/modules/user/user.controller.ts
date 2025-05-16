@@ -8,6 +8,8 @@ import {
   HttpStatus,
   UseGuards,
   UsePipes,
+  UploadedFile,
+  UseInterceptors,
   Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -15,7 +17,7 @@ import { JwtAuthGuard } from 'src/common/guard/jwt-auth.guard';
 import { CustomValidationPipe } from 'src/common/pipe/validation.pipe';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-
+import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('users')
 @UseGuards(JwtAuthGuard)
 @UsePipes(new CustomValidationPipe())
@@ -44,5 +46,13 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   async changePassword(@Req() req: any, @Body() dto: ChangePasswordDto) {
     return this.userService.changePassword(req.user.id, dto);
+  }
+  @Patch(':id/profile-pic')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateProfilePic(
+    @Req() req: any,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.userService.updateProfilePic(req.user.id, file);
   }
 }

@@ -8,43 +8,91 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum NotificationType {
+  LIKE
+  COMMENT
+  FOLLOW
+  MESSAGE
+  TAG
+  TRIP_SHARED
+  SYSTEM
+}
+
 model User {
   id            String    @id @default(uuid()) @map("_id")
   email         String    @unique
   username      String    @unique
   password      String
   name          String
+  phoneNumber   String
   profilePic    String?
   bio           String?
-  accountStatus Boolean
+  gender        String?
+  dob           DateTime?
+  address       String?
+  verified      Boolean   @default(false)
+  lastLogin     DateTime?
+  accountStatus Boolean   @default(true)
+  private       Boolean   @default(false)
+  role          Int
+  refreshToken  String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   deleteAt      DateTime?
-  followers     Json // [{ userId: String, followStatus: String }]
-  following     Json // [{ userId: String, followStatus: String }]
-  role          Int
-  refreshToken  String?
-  private       Boolean
+  followers     Follow[]  @relation("FollowerRelation") // Người follow mình
+  following     Follow[]  @relation("FollowingRelation") // Mình follow người khác
 
   @@map("users")
 }
 
+model Follow {
+  id           String   @id @default(uuid()) @map("_id")
+  followerId   String
+  followingId  String
+  followStatus String // pending, accepted, blocked
+  createdAt    DateTime @default(now())
+
+  follower  User @relation("FollowerRelation", fields: [followerId], references: [id])
+  following User @relation("FollowingRelation", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
 model Post {
-  id        String   @id @default(uuid()) @map("_id")
-  authorId  String // ID của người tạo bài viết
-  imageUrl  String[]
-  caption   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid()) @map("_id")
+  authorId     String
+  imageUrl     String[]
+  caption      String?
+  location     String?
+  tags         String[] // ví dụ: ["#beach", "#hiking"]
+  isPublic     Boolean  @default(true)
+  likeCount    Int      @default(0)
+  commentCount Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@map("posts")
 }
 
+model PostTag {
+  id        String   @id @default(uuid()) @map("_id")
+  postId    String
+  userId    String // người bị gắn thẻ
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+  @@map("post_tags")
+}
+
 model Comment {
   id        String   @id @default(uuid()) @map("_id")
-  postId    String // ID bài viết
-  authorId  String // ID người viết bình luận
+  postId    String
+  authorId  String
   content   String
+  parentId  String? // hỗ trợ reply
+  likeCount Int      @default(0)
+  isEdited  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -53,19 +101,29 @@ model Comment {
 
 model Like {
   id        String   @id @default(uuid()) @map("_id")
-  postId    String // ID bài viết
-  userId    String // ID người like
+  userId    String
+  targetId  String // có thể là postId hoặc commentId
+  type      String // POST, COMMENT
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  @@unique([userId, targetId, type])
+  @@map("likes")
+}
+
+model SavedPost {
+  id      String   @id @default(uuid()) @map("_id")
+  userId  String
+  postId  String
+  savedAt DateTime @default(now())
 
   @@unique([userId, postId])
-  @@map("likes")
+  @@map("saved_posts")
 }
 
 model Message {
   id         String   @id @default(uuid()) @map("_id")
-  senderId   String // ID người gửi
-  receiverId String // ID người nhận
+  senderId   String
+  receiverId String
   content    String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -74,30 +132,47 @@ model Message {
 }
 
 model Notification {
-  id          String   @id @default(uuid()) @map("_id")
-  type        String // LIKE, COMMENT, FOLLOW, MESSAGE,...
+  id          String           @id @default(uuid()) @map("_id")
+  type        NotificationType
   message     String
-  isRead      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  senderId    String? // ID người gửi (nullable)
-  recipientId String // ID người nhận
-  postId      String? // ID bài viết (nếu có)
+  isRead      Boolean          @default(false)
+  senderId    String?
+  recipientId String
+  postId      String?
+  data        Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 
   @@map("notifications")
 }
 
 model Trip {
   id            String   @id @default(uuid()) @map("_id")
-  title         String
   userId        String
+  title         String
   description   String?
   startDate     DateTime
   endDate       DateTime
-  placesVisited String[]
-  sharedWith    String[]
-  photos        Json // Lưu danh sách ảnh nhúng trực tiếp [{ url, description, uploadedAt }]
+  placesVisited String[] // ["Hà Giang", "Đà Lạt", ...]
+  tags          String[] // #camping, #roadtrip
+  participants  String[] // danh sách userId
+  sharedWith    String[] // userId hoặc group
+  isPublic      Boolean  @default(true)
+  rating        Float? // trung bình đánh giá
+  photos        Json // [{ url, description, uploadedAt }]
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("trips")
+}
+
+model Report {
+  id         String   @id @default(uuid()) @map("_id")
+  reporterId String
+  targetType String // USER, POST, COMMENT, TRIP
+  targetId   String
+  reason     String
+  createdAt  DateTime @default(now())
+
+  @@map("reports")
 }

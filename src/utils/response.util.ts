@@ -1,4 +1,4 @@
-export function createResponse(message: string, statusCode: number, status: string) {
+export function response(message: string, statusCode: number, status: string) {
   return {
     message,
     statusCode,

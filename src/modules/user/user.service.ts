@@ -7,7 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import * as bcrypt from 'bcrypt';
 import { BadRequestException } from '@nestjs/common';
-import { createResponse } from 'src/utils/response.util';
+import { response } from 'src/utils/response.util';
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
@@ -31,14 +31,28 @@ export class UserService {
     });
 
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
-    return user;
+     return {
+        ...response('', 200, 'success'),
+        data: user,
+      };
   }
 
   async updateUser(userId: string, dto: UpdateUserDto) {
-    return this.prisma.user.update({
-      where: { id: userId },
-      data: { ...dto },
-    });
+    try {
+      const updatedUser = await this.prisma.user.update({
+        where: { id: userId },
+        data: { ...dto },
+      });
+      return {
+        ...response('Cập nhật thông tin thành công', 200, 'success'),
+        data: updatedUser,
+      };
+    } catch (error) {
+      return {
+        ...response('Cập nhật thông tin thất bại', 400, 'error'),
+        error: error.message,
+      };
+    }
   }
 
   async softDeleteUser(userId: string) {
@@ -71,7 +85,7 @@ export class UserService {
       data: { password: hashedNewPassword },
     });
 
-    return createResponse("Đổi mật khẩu thành công", 200, "success");
+    return response("Đổi mật khẩu thành công", 200, "success");
   }
 
   //   async followUser(currentUserId: string, targetUserId: string) {

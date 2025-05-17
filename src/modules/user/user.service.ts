@@ -31,10 +31,8 @@ export class UserService {
     });
 
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
-     return {
-        ...response('', 200, 'success'),
-        data: user,
-      };
+     return response('',200,'success', user)
+  
   }
 
   async updateUser(userId: string, dto: UpdateUserDto) {
@@ -43,15 +41,10 @@ export class UserService {
         where: { id: userId },
         data: { ...dto },
       });
-      return {
-        ...response('Cập nhật thông tin thành công', 200, 'success'),
-        data: updatedUser,
-      };
+      return response('Cập nhật thông tin thành công', 200, 'success',updatedUser)
     } catch (error) {
-      return {
-        ...response('Cập nhật thông tin thất bại', 400, 'error'),
-        error: error.message,
-      };
+      console.error('Error updating user:', error);
+      return response('Cập nhật thông tin thất bại', 400, 'error')
     }
   }
 
@@ -86,6 +79,30 @@ export class UserService {
     });
 
     return response("Đổi mật khẩu thành công", 200, "success");
+  }
+
+  async getUsers() {
+    try {
+      const users = await this.prisma.user.findMany({
+        select: {
+          id: true,
+          email: true,
+          username: true,
+          name: true,
+          bio: true,
+          profilePic: true,
+          followers: true,
+          following: true,
+          private: true,
+          role: true,
+          createdAt: true,
+        },
+      });
+      return response('', 200, 'success', users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      return response('Lấy danh sách người dùng thất bại', 400, 'error');
+    }
   }
 
   //   async followUser(currentUserId: string, targetUserId: string) {

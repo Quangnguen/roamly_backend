@@ -39,6 +39,15 @@ export class UserController {
     return this.userService.updateUser(req.user.id, dto);
   }
 
+  @Get('get-users')
+  @HttpCode(HttpStatus.OK)
+  async getUsers() {
+    return this.userService.getUsers();
+  }
+
+
+  
+
   @Patch('soft-delete')
   @HttpCode(HttpStatus.OK)
   async softDeleteMe(@Req() req: any) {
@@ -50,4 +59,13 @@ export class UserController {
   async changePassword(@Req() req: any, @Body() dto: ChangePasswordDto) {
     return this.userService.changePassword(req.user.id, dto);
   }
+
+
+  // cái này luôn để cuối cùng vì :id
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async getUserById(@Req() req: any) {
+    return this.userService.getUserById(req.params.id);
+  }
+  
 }

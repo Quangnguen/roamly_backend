@@ -1,10 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import * as bcrypt from 'bcrypt';
-import { BadRequestException } from '@nestjs/common';
-import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { response } from '../../common/utils/response.utils';
 
 @Injectable()
 export class UserService {
@@ -39,7 +43,6 @@ export class UserService {
 
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
 
-    // Lấy số lượng followers và following
     const [followersCount, followingCount] = await Promise.all([
       this.prisma.follow.count({
         where: {
@@ -55,11 +58,11 @@ export class UserService {
       }),
     ]);
 
-    return {
+    return response('Lấy thông tin người dùng thành công', 200, 'success', {
       ...user,
       followers: followersCount,
       following: followingCount,
-    };
+    });
   }
 
   async updateUser(userId: string, dto: UpdateUserDto) {
@@ -69,23 +72,37 @@ export class UserService {
 
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
 
-    return this.prisma.user.update({
+    const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: {
         ...dto,
         updatedAt: new Date(),
       },
     });
+
+    return response(
+      'Cập nhật người dùng thành công',
+      200,
+      'success',
+      updatedUser,
+    );
   }
 
   async softDeleteUser(userId: string) {
-    return this.prisma.user.update({
+    const deletedUser = await this.prisma.user.update({
       where: { id: userId },
       data: {
         deleteAt: new Date(),
         accountStatus: false,
       },
     });
+
+    return response(
+      'Xoá mềm người dùng thành công',
+      200,
+      'success',
+      deletedUser,
+    );
   }
 
   async changePassword(userId: string, dto: ChangePasswordDto) {
@@ -109,25 +126,24 @@ export class UserService {
       data: { password: hashedNewPassword, updatedAt: new Date() },
     });
 
-    return { message: 'Đổi mật khẩu thành công' };
+    return response('Đổi mật khẩu thành công', 200, 'success');
   }
 
-  // Optional: cập nhật lastLogin sau khi login thành công
   async updateLastLogin(userId: string) {
     await this.prisma.user.update({
       where: { id: userId },
       data: { lastLogin: new Date() },
     });
+
+    return response('Cập nhật đăng nhập lần cuối thành công', 200, 'success');
   }
+
   async updateProfilePic(userId: string, file: Express.Multer.File) {
-    // Kiểm tra user tồn tại
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
 
-    // Upload file lên Cloudinary
     const imageUrl = await this.cloudinary.uploadImage(file);
 
-    // Cập nhật URL ảnh đại diện vào DB
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: { profilePic: imageUrl.secure_url, updatedAt: new Date() },
@@ -137,26 +153,11 @@ export class UserService {
       },
     });
 
-    return updatedUser;
+    return response(
+      'Cập nhật ảnh đại diện thành công',
+      200,
+      'success',
+      updatedUser,
+    );
   }
-
-  //   async followUser(currentUserId: string, targetUserId: string) {
-  //     const currentUser = await this.prisma.user.findUnique({ where: { id: currentUserId } });
-  //     const targetUser = await this.prisma.user.findUnique({ where: { id: targetUserId } });
-
-  //     if (!targetUser) throw new NotFoundException('Người dùng không tồn tại');
-
-  //     const updatedCurrentFollowing = [...(currentUser.following as any[]), { userId: targetUserId, followStatus: 'following' }];
-  //     const updatedTargetFollowers = [...(targetUser.followers as any[]), { userId: currentUserId, followStatus: 'followed' }];
-
-  //     await this.prisma.user.update({
-  //       where: { id: currentUserId },
-  //       data: { following: updatedCurrentFollowing },
-  //     });
-
-  //     return this.prisma.user.update({
-  //       where: { id: targetUserId },
-  //       data: { followers: updatedTargetFollowers },
-  //     });
-  //   }
 }

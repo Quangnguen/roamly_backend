@@ -39,8 +39,23 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   deleteAt      DateTime?
-  followers     Follow[]  @relation("FollowerRelation") // Người follow mình
-  following     Follow[]  @relation("FollowingRelation") // Mình follow người khác
+
+  posts               Post[]         @relation("UserPosts")
+  comments            Comment[]
+  likes               Like[]
+  savedPosts          SavedPost[]
+  messagesSent        Message[]      @relation("SentMessages")
+  messagesRecv        Message[]      @relation("ReceivedMessages")
+  notificationsSent   Notification[] @relation("SenderNoti")
+  notificationsRecv   Notification[] @relation("ReceiverNoti")
+  trips               Trip[]
+  reports             Report[]       @relation("Reporter")
+  followers           Follow[]       @relation("FollowerRelation")
+  following           Follow[]       @relation("FollowingRelation")
+  taggedInPosts       PostTag[]
+  sharedPostsSent     SharedPost[]   @relation("SharedPostsSender")
+  sharedPostsReceived SharedPost[]   @relation("SharedPostsRecipient")
+  stories             Story[]
 
   @@map("users")
 }
@@ -49,7 +64,7 @@ model Follow {
   id           String   @id @default(uuid()) @map("_id")
   followerId   String
   followingId  String
-  followStatus String // pending, accepted, blocked
+  followStatus String
   createdAt    DateTime @default(now())
 
   follower  User @relation("FollowerRelation", fields: [followerId], references: [id])
@@ -65,21 +80,53 @@ model Post {
   imageUrl     String[]
   caption      String?
   location     String?
-  tags         String[] // ví dụ: ["#beach", "#hiking"]
+  tags         String[]
   isPublic     Boolean  @default(true)
   likeCount    Int      @default(0)
   commentCount Int      @default(0)
+  sharedCount  Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  author        User           @relation("UserPosts", fields: [authorId], references: [id])
+  taggedUsers   PostTag[]
+  sharedPosts   SharedPost[]
+  comments      Comment[]
+  savedBy       SavedPost[]
+  notifications Notification[]
+
   @@map("posts")
+}
+
+model SharedPost {
+  id          String   @id @default(uuid()) @map("_id")
+  senderId    String
+  recipientId String?
+  storyId     String?
+  tripId      String?
+  postId      String
+  message     String?
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  sender        User           @relation("SharedPostsSender", fields: [senderId], references: [id])
+  recipient     User?          @relation("SharedPostsRecipient", fields: [recipientId], references: [id])
+  story         Story?         @relation(fields: [storyId], references: [id])
+  trip          Trip?          @relation(fields: [tripId], references: [id])
+  post          Post           @relation(fields: [postId], references: [id])
+  notifications Notification[]
+
+  @@map("shared_posts")
 }
 
 model PostTag {
   id        String   @id @default(uuid()) @map("_id")
   postId    String
-  userId    String // người bị gắn thẻ
+  userId    String
   createdAt DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([postId, userId])
   @@map("post_tags")
@@ -90,11 +137,16 @@ model Comment {
   postId    String
   authorId  String
   content   String
-  parentId  String? // hỗ trợ reply
+  parentId  String?
   likeCount Int      @default(0)
   isEdited  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  post    Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author  User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent  Comment?  @relation("CommentReply", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies Comment[] @relation("CommentReply")
 
   @@map("comments")
 }
@@ -102,9 +154,11 @@ model Comment {
 model Like {
   id        String   @id @default(uuid()) @map("_id")
   userId    String
-  targetId  String // có thể là postId hoặc commentId
-  type      String // POST, COMMENT
+  targetId  String
+  type      String
   createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, targetId, type])
   @@map("likes")
@@ -115,6 +169,9 @@ model SavedPost {
   userId  String
   postId  String
   savedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
   @@map("saved_posts")
@@ -128,20 +185,28 @@ model Message {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+
   @@map("messages")
 }
 
 model Notification {
-  id          String           @id @default(uuid()) @map("_id")
-  type        NotificationType
-  message     String
-  isRead      Boolean          @default(false)
-  senderId    String?
-  recipientId String
-  postId      String?
-  data        Json?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id           String           @id @default(uuid()) @map("_id")
+  type         NotificationType
+  message      String
+  isRead       Boolean          @default(false)
+  senderId     String?
+  recipientId  String
+  postId       String?
+  sharedPostId String?
+  data         Json?
+  createdAt    DateTime         @default(now())
+
+  sender     User?       @relation("SenderNoti", fields: [senderId], references: [id])
+  recipient  User        @relation("ReceiverNoti", fields: [recipientId], references: [id])
+  post       Post?       @relation(fields: [postId], references: [id])
+  sharedPost SharedPost? @relation(fields: [sharedPostId], references: [id])
 
   @@map("notifications")
 }
@@ -153,17 +218,38 @@ model Trip {
   description   String?
   startDate     DateTime
   endDate       DateTime
-  placesVisited String[] // ["Hà Giang", "Đà Lạt", ...]
-  tags          String[] // #camping, #roadtrip
+  placesVisited String[]
+  tags          String[]
   participants  String[] // danh sách userId
   sharedWith    String[] // userId hoặc group
   isPublic      Boolean  @default(true)
-  rating        Float? // trung bình đánh giá
-  photos        Json // [{ url, description, uploadedAt }]
+  rating        Float?
+  photos        Json
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sharedPosts SharedPost[]
+
   @@map("trips")
+}
+
+model Story {
+  id          String       @id @default(uuid()) @map("_id")
+  userId      String
+  content     String? // caption hoặc text kèm theo
+  mediaUrls   String[] // chứa 1 hoặc nhiều url ảnh/video
+  mediaType   MediaType // ảnh hoặc video
+  expiresAt   DateTime // thời điểm story hết hạn (ví dụ 24h sau tạo)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  sharedPosts SharedPost[]
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
 }
 
 model Report {
@@ -173,6 +259,8 @@ model Report {
   targetId   String
   reason     String
   createdAt  DateTime @default(now())
+
+  reporter User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
 
   @@map("reports")
 }

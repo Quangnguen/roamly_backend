@@ -154,8 +154,21 @@ exports.Prisma.PostScalarFieldEnum = {
   isPublic: 'isPublic',
   likeCount: 'likeCount',
   commentCount: 'commentCount',
+  sharedCount: 'sharedCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SharedPostScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  recipientId: 'recipientId',
+  storyId: 'storyId',
+  tripId: 'tripId',
+  postId: 'postId',
+  message: 'message',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PostTagScalarFieldEnum = {
@@ -209,9 +222,9 @@ exports.Prisma.NotificationScalarFieldEnum = {
   senderId: 'senderId',
   recipientId: 'recipientId',
   postId: 'postId',
+  sharedPostId: 'sharedPostId',
   data: 'data',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.TripScalarFieldEnum = {
@@ -228,6 +241,17 @@ exports.Prisma.TripScalarFieldEnum = {
   isPublic: 'isPublic',
   rating: 'rating',
   photos: 'photos',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  content: 'content',
+  mediaUrls: 'mediaUrls',
+  mediaType: 'mediaType',
+  expiresAt: 'expiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -260,10 +284,16 @@ exports.NotificationType = exports.$Enums.NotificationType = {
   SYSTEM: 'SYSTEM'
 };
 
+exports.MediaType = exports.$Enums.MediaType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Follow: 'Follow',
   Post: 'Post',
+  SharedPost: 'SharedPost',
   PostTag: 'PostTag',
   Comment: 'Comment',
   Like: 'Like',
@@ -271,6 +301,7 @@ exports.Prisma.ModelName = {
   Message: 'Message',
   Notification: 'Notification',
   Trip: 'Trip',
+  Story: 'Story',
   Report: 'Report'
 };
 

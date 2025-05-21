@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { IsEmail, IsString, MinLength, IsNotEmpty } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  MinLength,
+  IsNotEmpty,
+  Matches,
+} from 'class-validator';
 
 export class RegisterDto {
   @IsEmail({}, { message: 'Chưa đúng định dạng email' })
@@ -10,6 +16,12 @@ export class RegisterDto {
   @MinLength(3, { message: 'Tên đăng nhập phải có ít nhất 3 ký tự' })
   @IsNotEmpty({ message: 'Tên đăng nhập không được để trống' })
   username: string;
+  @IsString({ message: 'Số điện thoại là kiểu chuỗi' })
+  @Matches(/^[0-9]{10,11}$/, {
+    message: 'Số điện thoại phải có 10 hoặc 11 chữ số',
+  })
+  @IsNotEmpty({ message: 'Số điện thoại không được để trống' })
+  phoneNumber: string;
 
   @IsString({ message: 'Mật khẩu là kiểu chuỗi' })
   @IsNotEmpty({ message: 'Mật khẩu không được để trống' })

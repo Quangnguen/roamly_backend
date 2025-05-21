@@ -119,17 +119,29 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   password: 'password',
   name: 'name',
+  phoneNumber: 'phoneNumber',
   profilePic: 'profilePic',
   bio: 'bio',
+  gender: 'gender',
+  dob: 'dob',
+  address: 'address',
+  verified: 'verified',
+  lastLogin: 'lastLogin',
   accountStatus: 'accountStatus',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deleteAt: 'deleteAt',
-  followers: 'followers',
-  following: 'following',
+  private: 'private',
   role: 'role',
   refreshToken: 'refreshToken',
-  private: 'private'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deleteAt: 'deleteAt'
+};
+
+exports.Prisma.FollowScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followingId: 'followingId',
+  followStatus: 'followStatus',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
@@ -137,8 +149,33 @@ exports.Prisma.PostScalarFieldEnum = {
   authorId: 'authorId',
   imageUrl: 'imageUrl',
   caption: 'caption',
+  location: 'location',
+  tags: 'tags',
+  isPublic: 'isPublic',
+  likeCount: 'likeCount',
+  commentCount: 'commentCount',
+  sharedCount: 'sharedCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SharedPostScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  recipientId: 'recipientId',
+  storyId: 'storyId',
+  tripId: 'tripId',
+  postId: 'postId',
+  message: 'message',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PostTagScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  userId: 'userId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
@@ -146,16 +183,26 @@ exports.Prisma.CommentScalarFieldEnum = {
   postId: 'postId',
   authorId: 'authorId',
   content: 'content',
+  parentId: 'parentId',
+  likeCount: 'likeCount',
+  isEdited: 'isEdited',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LikeScalarFieldEnum = {
   id: 'id',
-  postId: 'postId',
   userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  targetId: 'targetId',
+  type: 'type',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SavedPostScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  savedAt: 'savedAt'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
@@ -172,23 +219,49 @@ exports.Prisma.NotificationScalarFieldEnum = {
   type: 'type',
   message: 'message',
   isRead: 'isRead',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   senderId: 'senderId',
   recipientId: 'recipientId',
-  postId: 'postId'
+  postId: 'postId',
+  sharedPostId: 'sharedPostId',
+  data: 'data',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.TripScalarFieldEnum = {
   id: 'id',
-  title: 'title',
   userId: 'userId',
+  title: 'title',
   description: 'description',
   startDate: 'startDate',
   endDate: 'endDate',
   placesVisited: 'placesVisited',
+  tags: 'tags',
+  participants: 'participants',
   sharedWith: 'sharedWith',
+  isPublic: 'isPublic',
+  rating: 'rating',
   photos: 'photos',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  content: 'content',
+  mediaUrls: 'mediaUrls',
+  mediaType: 'mediaType',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  reason: 'reason',
   createdAt: 'createdAt'
 };
 
@@ -201,16 +274,35 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.NotificationType = exports.$Enums.NotificationType = {
+  LIKE: 'LIKE',
+  COMMENT: 'COMMENT',
+  FOLLOW: 'FOLLOW',
+  MESSAGE: 'MESSAGE',
+  TAG: 'TAG',
+  TRIP_SHARED: 'TRIP_SHARED',
+  SYSTEM: 'SYSTEM'
+};
 
+exports.MediaType = exports.$Enums.MediaType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Follow: 'Follow',
   Post: 'Post',
+  SharedPost: 'SharedPost',
+  PostTag: 'PostTag',
   Comment: 'Comment',
   Like: 'Like',
+  SavedPost: 'SavedPost',
   Message: 'Message',
   Notification: 'Notification',
-  Trip: 'Trip'
+  Trip: 'Trip',
+  Story: 'Story',
+  Report: 'Report'
 };
 
 /**

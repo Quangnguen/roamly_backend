@@ -1,0 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { v2 as cloudinary } from 'cloudinary';
+import { ConfigService } from '@nestjs/config';
+
+export const CloudinaryProvider = {
+  provide: 'CLOUDINARY',
+  inject: [ConfigService],
+  useFactory: (configService: ConfigService) => {
+    cloudinary.config({
+      cloud_name: configService.get<string>('CLOUDINARY_CLOUD_NAME'),
+      api_key: configService.get<string>('CLOUDINARY_API_KEY'),
+      api_secret: configService.get<string>('CLOUDINARY_API_SECRET'),
+    });
+    return cloudinary;
+  },
+};

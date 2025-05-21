@@ -19,10 +19,25 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Follow
+ * 
+ */
+export type Follow = $Result.DefaultSelection<Prisma.$FollowPayload>
+/**
  * Model Post
  * 
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+/**
+ * Model SharedPost
+ * 
+ */
+export type SharedPost = $Result.DefaultSelection<Prisma.$SharedPostPayload>
+/**
+ * Model PostTag
+ * 
+ */
+export type PostTag = $Result.DefaultSelection<Prisma.$PostTagPayload>
 /**
  * Model Comment
  * 
@@ -33,6 +48,11 @@ export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
  * 
  */
 export type Like = $Result.DefaultSelection<Prisma.$LikePayload>
+/**
+ * Model SavedPost
+ * 
+ */
+export type SavedPost = $Result.DefaultSelection<Prisma.$SavedPostPayload>
 /**
  * Model Message
  * 
@@ -48,6 +68,50 @@ export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
  * 
  */
 export type Trip = $Result.DefaultSelection<Prisma.$TripPayload>
+/**
+ * Model Story
+ * 
+ */
+export type Story = $Result.DefaultSelection<Prisma.$StoryPayload>
+/**
+ * Model Report
+ * 
+ */
+export type Report = $Result.DefaultSelection<Prisma.$ReportPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const NotificationType: {
+  LIKE: 'LIKE',
+  COMMENT: 'COMMENT',
+  FOLLOW: 'FOLLOW',
+  MESSAGE: 'MESSAGE',
+  TAG: 'TAG',
+  TRIP_SHARED: 'TRIP_SHARED',
+  SYSTEM: 'SYSTEM'
+};
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const MediaType: {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+};
+
+export type MediaType = (typeof MediaType)[keyof typeof MediaType]
+
+}
+
+export type NotificationType = $Enums.NotificationType
+
+export const NotificationType: typeof $Enums.NotificationType
+
+export type MediaType = $Enums.MediaType
+
+export const MediaType: typeof $Enums.MediaType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -152,6 +216,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.follow`: Exposes CRUD operations for the **Follow** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Follows
+    * const follows = await prisma.follow.findMany()
+    * ```
+    */
+  get follow(): Prisma.FollowDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.post`: Exposes CRUD operations for the **Post** model.
     * Example usage:
     * ```ts
@@ -160,6 +234,26 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sharedPost`: Exposes CRUD operations for the **SharedPost** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SharedPosts
+    * const sharedPosts = await prisma.sharedPost.findMany()
+    * ```
+    */
+  get sharedPost(): Prisma.SharedPostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postTag`: Exposes CRUD operations for the **PostTag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostTags
+    * const postTags = await prisma.postTag.findMany()
+    * ```
+    */
+  get postTag(): Prisma.PostTagDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
@@ -180,6 +274,16 @@ export class PrismaClient<
     * ```
     */
   get like(): Prisma.LikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.savedPost`: Exposes CRUD operations for the **SavedPost** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SavedPosts
+    * const savedPosts = await prisma.savedPost.findMany()
+    * ```
+    */
+  get savedPost(): Prisma.SavedPostDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.message`: Exposes CRUD operations for the **Message** model.
@@ -210,6 +314,26 @@ export class PrismaClient<
     * ```
     */
   get trip(): Prisma.TripDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.story`: Exposes CRUD operations for the **Story** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stories
+    * const stories = await prisma.story.findMany()
+    * ```
+    */
+  get story(): Prisma.StoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.report`: Exposes CRUD operations for the **Report** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reports
+    * const reports = await prisma.report.findMany()
+    * ```
+    */
+  get report(): Prisma.ReportDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -651,12 +775,18 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Follow: 'Follow',
     Post: 'Post',
+    SharedPost: 'SharedPost',
+    PostTag: 'PostTag',
     Comment: 'Comment',
     Like: 'Like',
+    SavedPost: 'SavedPost',
     Message: 'Message',
     Notification: 'Notification',
-    Trip: 'Trip'
+    Trip: 'Trip',
+    Story: 'Story',
+    Report: 'Report'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -675,7 +805,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "post" | "comment" | "like" | "message" | "notification" | "trip"
+      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "comment" | "like" | "savedPost" | "message" | "notification" | "trip" | "story" | "report"
       txIsolationLevel: never
     }
     model: {
@@ -753,6 +883,80 @@ export namespace Prisma {
           }
         }
       }
+      Follow: {
+        payload: Prisma.$FollowPayload<ExtArgs>
+        fields: Prisma.FollowFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FollowFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FollowFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>
+          }
+          findFirst: {
+            args: Prisma.FollowFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FollowFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>
+          }
+          findMany: {
+            args: Prisma.FollowFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>[]
+          }
+          create: {
+            args: Prisma.FollowCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>
+          }
+          createMany: {
+            args: Prisma.FollowCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.FollowDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>
+          }
+          update: {
+            args: Prisma.FollowUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>
+          }
+          deleteMany: {
+            args: Prisma.FollowDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FollowUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FollowUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FollowPayload>
+          }
+          aggregate: {
+            args: Prisma.FollowAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFollow>
+          }
+          groupBy: {
+            args: Prisma.FollowGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FollowGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.FollowFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.FollowAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.FollowCountArgs<ExtArgs>
+            result: $Utils.Optional<FollowCountAggregateOutputType> | number
+          }
+        }
+      }
       Post: {
         payload: Prisma.$PostPayload<ExtArgs>
         fields: Prisma.PostFieldRefs
@@ -824,6 +1028,154 @@ export namespace Prisma {
           count: {
             args: Prisma.PostCountArgs<ExtArgs>
             result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      SharedPost: {
+        payload: Prisma.$SharedPostPayload<ExtArgs>
+        fields: Prisma.SharedPostFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SharedPostFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SharedPostFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>
+          }
+          findFirst: {
+            args: Prisma.SharedPostFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SharedPostFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>
+          }
+          findMany: {
+            args: Prisma.SharedPostFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>[]
+          }
+          create: {
+            args: Prisma.SharedPostCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>
+          }
+          createMany: {
+            args: Prisma.SharedPostCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SharedPostDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>
+          }
+          update: {
+            args: Prisma.SharedPostUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>
+          }
+          deleteMany: {
+            args: Prisma.SharedPostDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SharedPostUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SharedPostUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedPostPayload>
+          }
+          aggregate: {
+            args: Prisma.SharedPostAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSharedPost>
+          }
+          groupBy: {
+            args: Prisma.SharedPostGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SharedPostGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.SharedPostFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.SharedPostAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.SharedPostCountArgs<ExtArgs>
+            result: $Utils.Optional<SharedPostCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostTag: {
+        payload: Prisma.$PostTagPayload<ExtArgs>
+        fields: Prisma.PostTagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostTagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostTagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          findFirst: {
+            args: Prisma.PostTagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostTagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          findMany: {
+            args: Prisma.PostTagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+          }
+          create: {
+            args: Prisma.PostTagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          createMany: {
+            args: Prisma.PostTagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PostTagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          update: {
+            args: Prisma.PostTagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostTagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostTagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PostTagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          aggregate: {
+            args: Prisma.PostTagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostTag>
+          }
+          groupBy: {
+            args: Prisma.PostTagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostTagGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.PostTagFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.PostTagAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.PostTagCountArgs<ExtArgs>
+            result: $Utils.Optional<PostTagCountAggregateOutputType> | number
           }
         }
       }
@@ -972,6 +1324,80 @@ export namespace Prisma {
           count: {
             args: Prisma.LikeCountArgs<ExtArgs>
             result: $Utils.Optional<LikeCountAggregateOutputType> | number
+          }
+        }
+      }
+      SavedPost: {
+        payload: Prisma.$SavedPostPayload<ExtArgs>
+        fields: Prisma.SavedPostFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SavedPostFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SavedPostFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>
+          }
+          findFirst: {
+            args: Prisma.SavedPostFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SavedPostFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>
+          }
+          findMany: {
+            args: Prisma.SavedPostFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>[]
+          }
+          create: {
+            args: Prisma.SavedPostCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>
+          }
+          createMany: {
+            args: Prisma.SavedPostCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SavedPostDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>
+          }
+          update: {
+            args: Prisma.SavedPostUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>
+          }
+          deleteMany: {
+            args: Prisma.SavedPostDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SavedPostUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SavedPostUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedPostPayload>
+          }
+          aggregate: {
+            args: Prisma.SavedPostAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavedPost>
+          }
+          groupBy: {
+            args: Prisma.SavedPostGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavedPostGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.SavedPostFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.SavedPostAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.SavedPostCountArgs<ExtArgs>
+            result: $Utils.Optional<SavedPostCountAggregateOutputType> | number
           }
         }
       }
@@ -1197,6 +1623,154 @@ export namespace Prisma {
           }
         }
       }
+      Story: {
+        payload: Prisma.$StoryPayload<ExtArgs>
+        fields: Prisma.StoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          findFirst: {
+            args: Prisma.StoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          findMany: {
+            args: Prisma.StoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>[]
+          }
+          create: {
+            args: Prisma.StoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          createMany: {
+            args: Prisma.StoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.StoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          update: {
+            args: Prisma.StoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.StoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StoryPayload>
+          }
+          aggregate: {
+            args: Prisma.StoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStory>
+          }
+          groupBy: {
+            args: Prisma.StoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoryGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.StoryFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.StoryAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.StoryCountArgs<ExtArgs>
+            result: $Utils.Optional<StoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Report: {
+        payload: Prisma.$ReportPayload<ExtArgs>
+        fields: Prisma.ReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>
+          }
+          findFirst: {
+            args: Prisma.ReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>
+          }
+          findMany: {
+            args: Prisma.ReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>[]
+          }
+          create: {
+            args: Prisma.ReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>
+          }
+          createMany: {
+            args: Prisma.ReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>
+          }
+          update: {
+            args: Prisma.ReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportPayload>
+          }
+          aggregate: {
+            args: Prisma.ReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReport>
+          }
+          groupBy: {
+            args: Prisma.ReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReportGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ReportFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ReportAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ReportCountArgs<ExtArgs>
+            result: $Utils.Optional<ReportCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1269,12 +1843,18 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    follow?: FollowOmit
     post?: PostOmit
+    sharedPost?: SharedPostOmit
+    postTag?: PostTagOmit
     comment?: CommentOmit
     like?: LikeOmit
+    savedPost?: SavedPostOmit
     message?: MessageOmit
     notification?: NotificationOmit
     trip?: TripOmit
+    story?: StoryOmit
+    report?: ReportOmit
   }
 
   /* Types for Logging */
@@ -1364,6 +1944,362 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    posts: number
+    comments: number
+    likes: number
+    savedPosts: number
+    messagesSent: number
+    messagesRecv: number
+    notificationsSent: number
+    notificationsRecv: number
+    trips: number
+    reports: number
+    followers: number
+    following: number
+    taggedInPosts: number
+    sharedPostsSent: number
+    sharedPostsReceived: number
+    stories: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | UserCountOutputTypeCountPostsArgs
+    comments?: boolean | UserCountOutputTypeCountCommentsArgs
+    likes?: boolean | UserCountOutputTypeCountLikesArgs
+    savedPosts?: boolean | UserCountOutputTypeCountSavedPostsArgs
+    messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
+    messagesRecv?: boolean | UserCountOutputTypeCountMessagesRecvArgs
+    notificationsSent?: boolean | UserCountOutputTypeCountNotificationsSentArgs
+    notificationsRecv?: boolean | UserCountOutputTypeCountNotificationsRecvArgs
+    trips?: boolean | UserCountOutputTypeCountTripsArgs
+    reports?: boolean | UserCountOutputTypeCountReportsArgs
+    followers?: boolean | UserCountOutputTypeCountFollowersArgs
+    following?: boolean | UserCountOutputTypeCountFollowingArgs
+    taggedInPosts?: boolean | UserCountOutputTypeCountTaggedInPostsArgs
+    sharedPostsSent?: boolean | UserCountOutputTypeCountSharedPostsSentArgs
+    sharedPostsReceived?: boolean | UserCountOutputTypeCountSharedPostsReceivedArgs
+    stories?: boolean | UserCountOutputTypeCountStoriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSavedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedPostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessagesSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessagesRecvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsRecvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTripsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TripWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReportWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFollowersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FollowWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFollowingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FollowWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTaggedInPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSharedPostsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedPostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSharedPostsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedPostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryWhereInput
+  }
+
+
+  /**
+   * Count Type PostCountOutputType
+   */
+
+  export type PostCountOutputType = {
+    taggedUsers: number
+    sharedPosts: number
+    comments: number
+    savedBy: number
+    notifications: number
+  }
+
+  export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taggedUsers?: boolean | PostCountOutputTypeCountTaggedUsersArgs
+    sharedPosts?: boolean | PostCountOutputTypeCountSharedPostsArgs
+    comments?: boolean | PostCountOutputTypeCountCommentsArgs
+    savedBy?: boolean | PostCountOutputTypeCountSavedByArgs
+    notifications?: boolean | PostCountOutputTypeCountNotificationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostCountOutputType
+     */
+    select?: PostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountTaggedUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountSharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedPostWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountSavedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedPostWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+
+  /**
+   * Count Type SharedPostCountOutputType
+   */
+
+  export type SharedPostCountOutputType = {
+    notifications: number
+  }
+
+  export type SharedPostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    notifications?: boolean | SharedPostCountOutputTypeCountNotificationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SharedPostCountOutputType without action
+   */
+  export type SharedPostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPostCountOutputType
+     */
+    select?: SharedPostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SharedPostCountOutputType without action
+   */
+  export type SharedPostCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+
+  /**
+   * Count Type CommentCountOutputType
+   */
+
+  export type CommentCountOutputType = {
+    replies: number
+  }
+
+  export type CommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | CommentCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommentCountOutputType
+     */
+    select?: CommentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+
+  /**
+   * Count Type TripCountOutputType
+   */
+
+  export type TripCountOutputType = {
+    sharedPosts: number
+  }
+
+  export type TripCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sharedPosts?: boolean | TripCountOutputTypeCountSharedPostsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCountOutputType
+     */
+    select?: TripCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountSharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedPostWhereInput
+  }
+
+
+  /**
+   * Count Type StoryCountOutputType
+   */
+
+  export type StoryCountOutputType = {
+    sharedPosts: number
+  }
+
+  export type StoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sharedPosts?: boolean | StoryCountOutputTypeCountSharedPostsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoryCountOutputType
+     */
+    select?: StoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StoryCountOutputType without action
+   */
+  export type StoryCountOutputTypeCountSharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedPostWhereInput
+  }
+
 
   /**
    * Models
@@ -1395,15 +2331,21 @@ export namespace Prisma {
     username: string | null
     password: string | null
     name: string | null
+    phoneNumber: string | null
     profilePic: string | null
     bio: string | null
+    gender: string | null
+    dob: Date | null
+    address: string | null
+    verified: boolean | null
+    lastLogin: Date | null
     accountStatus: boolean | null
+    private: boolean | null
+    role: number | null
+    refreshToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deleteAt: Date | null
-    role: number | null
-    refreshToken: string | null
-    private: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1412,15 +2354,21 @@ export namespace Prisma {
     username: string | null
     password: string | null
     name: string | null
+    phoneNumber: string | null
     profilePic: string | null
     bio: string | null
+    gender: string | null
+    dob: Date | null
+    address: string | null
+    verified: boolean | null
+    lastLogin: Date | null
     accountStatus: boolean | null
+    private: boolean | null
+    role: number | null
+    refreshToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deleteAt: Date | null
-    role: number | null
-    refreshToken: string | null
-    private: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1429,17 +2377,21 @@ export namespace Prisma {
     username: number
     password: number
     name: number
+    phoneNumber: number
     profilePic: number
     bio: number
+    gender: number
+    dob: number
+    address: number
+    verified: number
+    lastLogin: number
     accountStatus: number
+    private: number
+    role: number
+    refreshToken: number
     createdAt: number
     updatedAt: number
     deleteAt: number
-    followers: number
-    following: number
-    role: number
-    refreshToken: number
-    private: number
     _all: number
   }
 
@@ -1458,15 +2410,21 @@ export namespace Prisma {
     username?: true
     password?: true
     name?: true
+    phoneNumber?: true
     profilePic?: true
     bio?: true
+    gender?: true
+    dob?: true
+    address?: true
+    verified?: true
+    lastLogin?: true
     accountStatus?: true
+    private?: true
+    role?: true
+    refreshToken?: true
     createdAt?: true
     updatedAt?: true
     deleteAt?: true
-    role?: true
-    refreshToken?: true
-    private?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1475,15 +2433,21 @@ export namespace Prisma {
     username?: true
     password?: true
     name?: true
+    phoneNumber?: true
     profilePic?: true
     bio?: true
+    gender?: true
+    dob?: true
+    address?: true
+    verified?: true
+    lastLogin?: true
     accountStatus?: true
+    private?: true
+    role?: true
+    refreshToken?: true
     createdAt?: true
     updatedAt?: true
     deleteAt?: true
-    role?: true
-    refreshToken?: true
-    private?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1492,17 +2456,21 @@ export namespace Prisma {
     username?: true
     password?: true
     name?: true
+    phoneNumber?: true
     profilePic?: true
     bio?: true
+    gender?: true
+    dob?: true
+    address?: true
+    verified?: true
+    lastLogin?: true
     accountStatus?: true
+    private?: true
+    role?: true
+    refreshToken?: true
     createdAt?: true
     updatedAt?: true
     deleteAt?: true
-    followers?: true
-    following?: true
-    role?: true
-    refreshToken?: true
-    private?: true
     _all?: true
   }
 
@@ -1598,17 +2566,21 @@ export namespace Prisma {
     username: string
     password: string
     name: string
+    phoneNumber: string | null
     profilePic: string | null
     bio: string | null
+    gender: string | null
+    dob: Date | null
+    address: string | null
+    verified: boolean
+    lastLogin: Date | null
     accountStatus: boolean
+    private: boolean
+    role: number
+    refreshToken: string | null
     createdAt: Date
     updatedAt: Date
     deleteAt: Date | null
-    followers: JsonValue
-    following: JsonValue
-    role: number
-    refreshToken: string | null
-    private: boolean
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1636,17 +2608,38 @@ export namespace Prisma {
     username?: boolean
     password?: boolean
     name?: boolean
+    phoneNumber?: boolean
     profilePic?: boolean
     bio?: boolean
+    gender?: boolean
+    dob?: boolean
+    address?: boolean
+    verified?: boolean
+    lastLogin?: boolean
     accountStatus?: boolean
+    private?: boolean
+    role?: boolean
+    refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deleteAt?: boolean
-    followers?: boolean
-    following?: boolean
-    role?: boolean
-    refreshToken?: boolean
-    private?: boolean
+    posts?: boolean | User$postsArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
+    likes?: boolean | User$likesArgs<ExtArgs>
+    savedPosts?: boolean | User$savedPostsArgs<ExtArgs>
+    messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
+    messagesRecv?: boolean | User$messagesRecvArgs<ExtArgs>
+    notificationsSent?: boolean | User$notificationsSentArgs<ExtArgs>
+    notificationsRecv?: boolean | User$notificationsRecvArgs<ExtArgs>
+    trips?: boolean | User$tripsArgs<ExtArgs>
+    reports?: boolean | User$reportsArgs<ExtArgs>
+    followers?: boolean | User$followersArgs<ExtArgs>
+    following?: boolean | User$followingArgs<ExtArgs>
+    taggedInPosts?: boolean | User$taggedInPostsArgs<ExtArgs>
+    sharedPostsSent?: boolean | User$sharedPostsSentArgs<ExtArgs>
+    sharedPostsReceived?: boolean | User$sharedPostsReceivedArgs<ExtArgs>
+    stories?: boolean | User$storiesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
 
@@ -1657,41 +2650,85 @@ export namespace Prisma {
     username?: boolean
     password?: boolean
     name?: boolean
+    phoneNumber?: boolean
     profilePic?: boolean
     bio?: boolean
+    gender?: boolean
+    dob?: boolean
+    address?: boolean
+    verified?: boolean
+    lastLogin?: boolean
     accountStatus?: boolean
+    private?: boolean
+    role?: boolean
+    refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deleteAt?: boolean
-    followers?: boolean
-    following?: boolean
-    role?: boolean
-    refreshToken?: boolean
-    private?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "name" | "profilePic" | "bio" | "accountStatus" | "createdAt" | "updatedAt" | "deleteAt" | "followers" | "following" | "role" | "refreshToken" | "private", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "name" | "phoneNumber" | "profilePic" | "bio" | "gender" | "dob" | "address" | "verified" | "lastLogin" | "accountStatus" | "private" | "role" | "refreshToken" | "createdAt" | "updatedAt" | "deleteAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | User$postsArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
+    likes?: boolean | User$likesArgs<ExtArgs>
+    savedPosts?: boolean | User$savedPostsArgs<ExtArgs>
+    messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
+    messagesRecv?: boolean | User$messagesRecvArgs<ExtArgs>
+    notificationsSent?: boolean | User$notificationsSentArgs<ExtArgs>
+    notificationsRecv?: boolean | User$notificationsRecvArgs<ExtArgs>
+    trips?: boolean | User$tripsArgs<ExtArgs>
+    reports?: boolean | User$reportsArgs<ExtArgs>
+    followers?: boolean | User$followersArgs<ExtArgs>
+    following?: boolean | User$followingArgs<ExtArgs>
+    taggedInPosts?: boolean | User$taggedInPostsArgs<ExtArgs>
+    sharedPostsSent?: boolean | User$sharedPostsSentArgs<ExtArgs>
+    sharedPostsReceived?: boolean | User$sharedPostsReceivedArgs<ExtArgs>
+    stories?: boolean | User$storiesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      posts: Prisma.$PostPayload<ExtArgs>[]
+      comments: Prisma.$CommentPayload<ExtArgs>[]
+      likes: Prisma.$LikePayload<ExtArgs>[]
+      savedPosts: Prisma.$SavedPostPayload<ExtArgs>[]
+      messagesSent: Prisma.$MessagePayload<ExtArgs>[]
+      messagesRecv: Prisma.$MessagePayload<ExtArgs>[]
+      notificationsSent: Prisma.$NotificationPayload<ExtArgs>[]
+      notificationsRecv: Prisma.$NotificationPayload<ExtArgs>[]
+      trips: Prisma.$TripPayload<ExtArgs>[]
+      reports: Prisma.$ReportPayload<ExtArgs>[]
+      followers: Prisma.$FollowPayload<ExtArgs>[]
+      following: Prisma.$FollowPayload<ExtArgs>[]
+      taggedInPosts: Prisma.$PostTagPayload<ExtArgs>[]
+      sharedPostsSent: Prisma.$SharedPostPayload<ExtArgs>[]
+      sharedPostsReceived: Prisma.$SharedPostPayload<ExtArgs>[]
+      stories: Prisma.$StoryPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
       username: string
       password: string
       name: string
+      phoneNumber: string | null
       profilePic: string | null
       bio: string | null
+      gender: string | null
+      dob: Date | null
+      address: string | null
+      verified: boolean
+      lastLogin: Date | null
       accountStatus: boolean
+      private: boolean
+      role: number
+      refreshToken: string | null
       createdAt: Date
       updatedAt: Date
       deleteAt: Date | null
-      followers: Prisma.JsonValue
-      following: Prisma.JsonValue
-      role: number
-      refreshToken: string | null
-      private: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2055,6 +3092,22 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends User$likesArgs<ExtArgs> = {}>(args?: Subset<T, User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    savedPosts<T extends User$savedPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$savedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messagesSent<T extends User$messagesSentArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messagesRecv<T extends User$messagesRecvArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesRecvArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationsSent<T extends User$notificationsSentArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationsRecv<T extends User$notificationsRecvArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsRecvArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    trips<T extends User$tripsArgs<ExtArgs> = {}>(args?: Subset<T, User$tripsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reports<T extends User$reportsArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    followers<T extends User$followersArgs<ExtArgs> = {}>(args?: Subset<T, User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    following<T extends User$followingArgs<ExtArgs> = {}>(args?: Subset<T, User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    taggedInPosts<T extends User$taggedInPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$taggedInPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sharedPostsSent<T extends User$sharedPostsSentArgs<ExtArgs> = {}>(args?: Subset<T, User$sharedPostsSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sharedPostsReceived<T extends User$sharedPostsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$sharedPostsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stories<T extends User$storiesArgs<ExtArgs> = {}>(args?: Subset<T, User$storiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2089,17 +3142,21 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
     readonly profilePic: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
+    readonly gender: FieldRef<"User", 'String'>
+    readonly dob: FieldRef<"User", 'DateTime'>
+    readonly address: FieldRef<"User", 'String'>
+    readonly verified: FieldRef<"User", 'Boolean'>
+    readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly accountStatus: FieldRef<"User", 'Boolean'>
+    readonly private: FieldRef<"User", 'Boolean'>
+    readonly role: FieldRef<"User", 'Int'>
+    readonly refreshToken: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly deleteAt: FieldRef<"User", 'DateTime'>
-    readonly followers: FieldRef<"User", 'Json'>
-    readonly following: FieldRef<"User", 'Json'>
-    readonly role: FieldRef<"User", 'Int'>
-    readonly refreshToken: FieldRef<"User", 'String'>
-    readonly private: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -2116,6 +3173,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2135,6 +3196,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2152,6 +3217,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2201,6 +3270,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -2249,6 +3322,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -2292,6 +3369,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
@@ -2319,6 +3400,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -2360,6 +3445,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2385,6 +3474,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter which User to delete.
      */
@@ -2434,6 +3527,390 @@ export namespace Prisma {
   }
 
   /**
+   * User.posts
+   */
+  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * User.comments
+   */
+  export type User$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.likes
+   */
+  export type User$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    where?: LikeWhereInput
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    cursor?: LikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * User.savedPosts
+   */
+  export type User$savedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    where?: SavedPostWhereInput
+    orderBy?: SavedPostOrderByWithRelationInput | SavedPostOrderByWithRelationInput[]
+    cursor?: SavedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavedPostScalarFieldEnum | SavedPostScalarFieldEnum[]
+  }
+
+  /**
+   * User.messagesSent
+   */
+  export type User$messagesSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.messagesRecv
+   */
+  export type User$messagesRecvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.notificationsSent
+   */
+  export type User$notificationsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.notificationsRecv
+   */
+  export type User$notificationsRecvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.trips
+   */
+  export type User$tripsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trip
+     */
+    select?: TripSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trip
+     */
+    omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    where?: TripWhereInput
+    orderBy?: TripOrderByWithRelationInput | TripOrderByWithRelationInput[]
+    cursor?: TripWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TripScalarFieldEnum | TripScalarFieldEnum[]
+  }
+
+  /**
+   * User.reports
+   */
+  export type User$reportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    where?: ReportWhereInput
+    orderBy?: ReportOrderByWithRelationInput | ReportOrderByWithRelationInput[]
+    cursor?: ReportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReportScalarFieldEnum | ReportScalarFieldEnum[]
+  }
+
+  /**
+   * User.followers
+   */
+  export type User$followersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    where?: FollowWhereInput
+    orderBy?: FollowOrderByWithRelationInput | FollowOrderByWithRelationInput[]
+    cursor?: FollowWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+  /**
+   * User.following
+   */
+  export type User$followingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    where?: FollowWhereInput
+    orderBy?: FollowOrderByWithRelationInput | FollowOrderByWithRelationInput[]
+    cursor?: FollowWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+  /**
+   * User.taggedInPosts
+   */
+  export type User$taggedInPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    cursor?: PostTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * User.sharedPostsSent
+   */
+  export type User$sharedPostsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    where?: SharedPostWhereInput
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    cursor?: SharedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * User.sharedPostsReceived
+   */
+  export type User$sharedPostsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    where?: SharedPostWhereInput
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    cursor?: SharedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * User.stories
+   */
+  export type User$storiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    where?: StoryWhereInput
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    cursor?: StoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2445,6 +3922,993 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Follow
+   */
+
+  export type AggregateFollow = {
+    _count: FollowCountAggregateOutputType | null
+    _min: FollowMinAggregateOutputType | null
+    _max: FollowMaxAggregateOutputType | null
+  }
+
+  export type FollowMinAggregateOutputType = {
+    id: string | null
+    followerId: string | null
+    followingId: string | null
+    followStatus: string | null
+    createdAt: Date | null
+  }
+
+  export type FollowMaxAggregateOutputType = {
+    id: string | null
+    followerId: string | null
+    followingId: string | null
+    followStatus: string | null
+    createdAt: Date | null
+  }
+
+  export type FollowCountAggregateOutputType = {
+    id: number
+    followerId: number
+    followingId: number
+    followStatus: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type FollowMinAggregateInputType = {
+    id?: true
+    followerId?: true
+    followingId?: true
+    followStatus?: true
+    createdAt?: true
+  }
+
+  export type FollowMaxAggregateInputType = {
+    id?: true
+    followerId?: true
+    followingId?: true
+    followStatus?: true
+    createdAt?: true
+  }
+
+  export type FollowCountAggregateInputType = {
+    id?: true
+    followerId?: true
+    followingId?: true
+    followStatus?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type FollowAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Follow to aggregate.
+     */
+    where?: FollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Follows to fetch.
+     */
+    orderBy?: FollowOrderByWithRelationInput | FollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Follows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Follows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Follows
+    **/
+    _count?: true | FollowCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FollowMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FollowMaxAggregateInputType
+  }
+
+  export type GetFollowAggregateType<T extends FollowAggregateArgs> = {
+        [P in keyof T & keyof AggregateFollow]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFollow[P]>
+      : GetScalarType<T[P], AggregateFollow[P]>
+  }
+
+
+
+
+  export type FollowGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FollowWhereInput
+    orderBy?: FollowOrderByWithAggregationInput | FollowOrderByWithAggregationInput[]
+    by: FollowScalarFieldEnum[] | FollowScalarFieldEnum
+    having?: FollowScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FollowCountAggregateInputType | true
+    _min?: FollowMinAggregateInputType
+    _max?: FollowMaxAggregateInputType
+  }
+
+  export type FollowGroupByOutputType = {
+    id: string
+    followerId: string
+    followingId: string
+    followStatus: string
+    createdAt: Date
+    _count: FollowCountAggregateOutputType | null
+    _min: FollowMinAggregateOutputType | null
+    _max: FollowMaxAggregateOutputType | null
+  }
+
+  type GetFollowGroupByPayload<T extends FollowGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FollowGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FollowGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FollowGroupByOutputType[P]>
+            : GetScalarType<T[P], FollowGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FollowSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    followerId?: boolean
+    followingId?: boolean
+    followStatus?: boolean
+    createdAt?: boolean
+    follower?: boolean | UserDefaultArgs<ExtArgs>
+    following?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["follow"]>
+
+
+
+  export type FollowSelectScalar = {
+    id?: boolean
+    followerId?: boolean
+    followingId?: boolean
+    followStatus?: boolean
+    createdAt?: boolean
+  }
+
+  export type FollowOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "followerId" | "followingId" | "followStatus" | "createdAt", ExtArgs["result"]["follow"]>
+  export type FollowInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    follower?: boolean | UserDefaultArgs<ExtArgs>
+    following?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $FollowPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Follow"
+    objects: {
+      follower: Prisma.$UserPayload<ExtArgs>
+      following: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      followerId: string
+      followingId: string
+      followStatus: string
+      createdAt: Date
+    }, ExtArgs["result"]["follow"]>
+    composites: {}
+  }
+
+  type FollowGetPayload<S extends boolean | null | undefined | FollowDefaultArgs> = $Result.GetResult<Prisma.$FollowPayload, S>
+
+  type FollowCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FollowFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FollowCountAggregateInputType | true
+    }
+
+  export interface FollowDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Follow'], meta: { name: 'Follow' } }
+    /**
+     * Find zero or one Follow that matches the filter.
+     * @param {FollowFindUniqueArgs} args - Arguments to find a Follow
+     * @example
+     * // Get one Follow
+     * const follow = await prisma.follow.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FollowFindUniqueArgs>(args: SelectSubset<T, FollowFindUniqueArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Follow that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FollowFindUniqueOrThrowArgs} args - Arguments to find a Follow
+     * @example
+     * // Get one Follow
+     * const follow = await prisma.follow.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FollowFindUniqueOrThrowArgs>(args: SelectSubset<T, FollowFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Follow that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowFindFirstArgs} args - Arguments to find a Follow
+     * @example
+     * // Get one Follow
+     * const follow = await prisma.follow.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FollowFindFirstArgs>(args?: SelectSubset<T, FollowFindFirstArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Follow that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowFindFirstOrThrowArgs} args - Arguments to find a Follow
+     * @example
+     * // Get one Follow
+     * const follow = await prisma.follow.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FollowFindFirstOrThrowArgs>(args?: SelectSubset<T, FollowFindFirstOrThrowArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Follows that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Follows
+     * const follows = await prisma.follow.findMany()
+     * 
+     * // Get first 10 Follows
+     * const follows = await prisma.follow.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const followWithIdOnly = await prisma.follow.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FollowFindManyArgs>(args?: SelectSubset<T, FollowFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Follow.
+     * @param {FollowCreateArgs} args - Arguments to create a Follow.
+     * @example
+     * // Create one Follow
+     * const Follow = await prisma.follow.create({
+     *   data: {
+     *     // ... data to create a Follow
+     *   }
+     * })
+     * 
+     */
+    create<T extends FollowCreateArgs>(args: SelectSubset<T, FollowCreateArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Follows.
+     * @param {FollowCreateManyArgs} args - Arguments to create many Follows.
+     * @example
+     * // Create many Follows
+     * const follow = await prisma.follow.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FollowCreateManyArgs>(args?: SelectSubset<T, FollowCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Follow.
+     * @param {FollowDeleteArgs} args - Arguments to delete one Follow.
+     * @example
+     * // Delete one Follow
+     * const Follow = await prisma.follow.delete({
+     *   where: {
+     *     // ... filter to delete one Follow
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FollowDeleteArgs>(args: SelectSubset<T, FollowDeleteArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Follow.
+     * @param {FollowUpdateArgs} args - Arguments to update one Follow.
+     * @example
+     * // Update one Follow
+     * const follow = await prisma.follow.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FollowUpdateArgs>(args: SelectSubset<T, FollowUpdateArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Follows.
+     * @param {FollowDeleteManyArgs} args - Arguments to filter Follows to delete.
+     * @example
+     * // Delete a few Follows
+     * const { count } = await prisma.follow.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FollowDeleteManyArgs>(args?: SelectSubset<T, FollowDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Follows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Follows
+     * const follow = await prisma.follow.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FollowUpdateManyArgs>(args: SelectSubset<T, FollowUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Follow.
+     * @param {FollowUpsertArgs} args - Arguments to update or create a Follow.
+     * @example
+     * // Update or create a Follow
+     * const follow = await prisma.follow.upsert({
+     *   create: {
+     *     // ... data to create a Follow
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Follow we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FollowUpsertArgs>(args: SelectSubset<T, FollowUpsertArgs<ExtArgs>>): Prisma__FollowClient<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Follows that matches the filter.
+     * @param {FollowFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const follow = await prisma.follow.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: FollowFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Follow.
+     * @param {FollowAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const follow = await prisma.follow.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: FollowAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Follows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowCountArgs} args - Arguments to filter Follows to count.
+     * @example
+     * // Count the number of Follows
+     * const count = await prisma.follow.count({
+     *   where: {
+     *     // ... the filter for the Follows we want to count
+     *   }
+     * })
+    **/
+    count<T extends FollowCountArgs>(
+      args?: Subset<T, FollowCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FollowCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Follow.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FollowAggregateArgs>(args: Subset<T, FollowAggregateArgs>): Prisma.PrismaPromise<GetFollowAggregateType<T>>
+
+    /**
+     * Group by Follow.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FollowGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FollowGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FollowGroupByArgs['orderBy'] }
+        : { orderBy?: FollowGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FollowGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFollowGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Follow model
+   */
+  readonly fields: FollowFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Follow.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FollowClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    follower<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    following<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Follow model
+   */
+  interface FollowFieldRefs {
+    readonly id: FieldRef<"Follow", 'String'>
+    readonly followerId: FieldRef<"Follow", 'String'>
+    readonly followingId: FieldRef<"Follow", 'String'>
+    readonly followStatus: FieldRef<"Follow", 'String'>
+    readonly createdAt: FieldRef<"Follow", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Follow findUnique
+   */
+  export type FollowFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * Filter, which Follow to fetch.
+     */
+    where: FollowWhereUniqueInput
+  }
+
+  /**
+   * Follow findUniqueOrThrow
+   */
+  export type FollowFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * Filter, which Follow to fetch.
+     */
+    where: FollowWhereUniqueInput
+  }
+
+  /**
+   * Follow findFirst
+   */
+  export type FollowFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * Filter, which Follow to fetch.
+     */
+    where?: FollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Follows to fetch.
+     */
+    orderBy?: FollowOrderByWithRelationInput | FollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Follows.
+     */
+    cursor?: FollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Follows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Follows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Follows.
+     */
+    distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+  /**
+   * Follow findFirstOrThrow
+   */
+  export type FollowFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * Filter, which Follow to fetch.
+     */
+    where?: FollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Follows to fetch.
+     */
+    orderBy?: FollowOrderByWithRelationInput | FollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Follows.
+     */
+    cursor?: FollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Follows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Follows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Follows.
+     */
+    distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+  /**
+   * Follow findMany
+   */
+  export type FollowFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * Filter, which Follows to fetch.
+     */
+    where?: FollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Follows to fetch.
+     */
+    orderBy?: FollowOrderByWithRelationInput | FollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Follows.
+     */
+    cursor?: FollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Follows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Follows.
+     */
+    skip?: number
+    distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+  /**
+   * Follow create
+   */
+  export type FollowCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Follow.
+     */
+    data: XOR<FollowCreateInput, FollowUncheckedCreateInput>
+  }
+
+  /**
+   * Follow createMany
+   */
+  export type FollowCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Follows.
+     */
+    data: FollowCreateManyInput | FollowCreateManyInput[]
+  }
+
+  /**
+   * Follow update
+   */
+  export type FollowUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Follow.
+     */
+    data: XOR<FollowUpdateInput, FollowUncheckedUpdateInput>
+    /**
+     * Choose, which Follow to update.
+     */
+    where: FollowWhereUniqueInput
+  }
+
+  /**
+   * Follow updateMany
+   */
+  export type FollowUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Follows.
+     */
+    data: XOR<FollowUpdateManyMutationInput, FollowUncheckedUpdateManyInput>
+    /**
+     * Filter which Follows to update
+     */
+    where?: FollowWhereInput
+    /**
+     * Limit how many Follows to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Follow upsert
+   */
+  export type FollowUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Follow to update in case it exists.
+     */
+    where: FollowWhereUniqueInput
+    /**
+     * In case the Follow found by the `where` argument doesn't exist, create a new Follow with this data.
+     */
+    create: XOR<FollowCreateInput, FollowUncheckedCreateInput>
+    /**
+     * In case the Follow was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FollowUpdateInput, FollowUncheckedUpdateInput>
+  }
+
+  /**
+   * Follow delete
+   */
+  export type FollowDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
+    /**
+     * Filter which Follow to delete.
+     */
+    where: FollowWhereUniqueInput
+  }
+
+  /**
+   * Follow deleteMany
+   */
+  export type FollowDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Follows to delete
+     */
+    where?: FollowWhereInput
+    /**
+     * Limit how many Follows to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Follow findRaw
+   */
+  export type FollowFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Follow aggregateRaw
+   */
+  export type FollowAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Follow without action
+   */
+  export type FollowDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Follow
+     */
+    select?: FollowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Follow
+     */
+    omit?: FollowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FollowInclude<ExtArgs> | null
   }
 
 
@@ -2454,14 +4918,33 @@ export namespace Prisma {
 
   export type AggregatePost = {
     _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
     _max: PostMaxAggregateOutputType | null
+  }
+
+  export type PostAvgAggregateOutputType = {
+    likeCount: number | null
+    commentCount: number | null
+    sharedCount: number | null
+  }
+
+  export type PostSumAggregateOutputType = {
+    likeCount: number | null
+    commentCount: number | null
+    sharedCount: number | null
   }
 
   export type PostMinAggregateOutputType = {
     id: string | null
     authorId: string | null
     caption: string | null
+    location: string | null
+    isPublic: boolean | null
+    likeCount: number | null
+    commentCount: number | null
+    sharedCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2470,6 +4953,11 @@ export namespace Prisma {
     id: string | null
     authorId: string | null
     caption: string | null
+    location: string | null
+    isPublic: boolean | null
+    likeCount: number | null
+    commentCount: number | null
+    sharedCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2479,16 +4967,39 @@ export namespace Prisma {
     authorId: number
     imageUrl: number
     caption: number
+    location: number
+    tags: number
+    isPublic: number
+    likeCount: number
+    commentCount: number
+    sharedCount: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type PostAvgAggregateInputType = {
+    likeCount?: true
+    commentCount?: true
+    sharedCount?: true
+  }
+
+  export type PostSumAggregateInputType = {
+    likeCount?: true
+    commentCount?: true
+    sharedCount?: true
+  }
+
   export type PostMinAggregateInputType = {
     id?: true
     authorId?: true
     caption?: true
+    location?: true
+    isPublic?: true
+    likeCount?: true
+    commentCount?: true
+    sharedCount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2497,6 +5008,11 @@ export namespace Prisma {
     id?: true
     authorId?: true
     caption?: true
+    location?: true
+    isPublic?: true
+    likeCount?: true
+    commentCount?: true
+    sharedCount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2506,6 +5022,12 @@ export namespace Prisma {
     authorId?: true
     imageUrl?: true
     caption?: true
+    location?: true
+    tags?: true
+    isPublic?: true
+    likeCount?: true
+    commentCount?: true
+    sharedCount?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2549,6 +5071,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PostAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PostMinAggregateInputType
@@ -2579,6 +5113,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PostCountAggregateInputType | true
+    _avg?: PostAvgAggregateInputType
+    _sum?: PostSumAggregateInputType
     _min?: PostMinAggregateInputType
     _max?: PostMaxAggregateInputType
   }
@@ -2588,9 +5124,17 @@ export namespace Prisma {
     authorId: string
     imageUrl: string[]
     caption: string | null
+    location: string | null
+    tags: string[]
+    isPublic: boolean
+    likeCount: number
+    commentCount: number
+    sharedCount: number
     createdAt: Date
     updatedAt: Date
     _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
     _max: PostMaxAggregateOutputType | null
   }
@@ -2614,8 +5158,21 @@ export namespace Prisma {
     authorId?: boolean
     imageUrl?: boolean
     caption?: boolean
+    location?: boolean
+    tags?: boolean
+    isPublic?: boolean
+    likeCount?: boolean
+    commentCount?: boolean
+    sharedCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    taggedUsers?: boolean | Post$taggedUsersArgs<ExtArgs>
+    sharedPosts?: boolean | Post$sharedPostsArgs<ExtArgs>
+    comments?: boolean | Post$commentsArgs<ExtArgs>
+    savedBy?: boolean | Post$savedByArgs<ExtArgs>
+    notifications?: boolean | Post$notificationsArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
 
@@ -2625,20 +5182,48 @@ export namespace Prisma {
     authorId?: boolean
     imageUrl?: boolean
     caption?: boolean
+    location?: boolean
+    tags?: boolean
+    isPublic?: boolean
+    likeCount?: boolean
+    commentCount?: boolean
+    sharedCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "authorId" | "imageUrl" | "caption" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "authorId" | "imageUrl" | "caption" | "location" | "tags" | "isPublic" | "likeCount" | "commentCount" | "sharedCount" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+  export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    taggedUsers?: boolean | Post$taggedUsersArgs<ExtArgs>
+    sharedPosts?: boolean | Post$sharedPostsArgs<ExtArgs>
+    comments?: boolean | Post$commentsArgs<ExtArgs>
+    savedBy?: boolean | Post$savedByArgs<ExtArgs>
+    notifications?: boolean | Post$notificationsArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Post"
-    objects: {}
+    objects: {
+      author: Prisma.$UserPayload<ExtArgs>
+      taggedUsers: Prisma.$PostTagPayload<ExtArgs>[]
+      sharedPosts: Prisma.$SharedPostPayload<ExtArgs>[]
+      comments: Prisma.$CommentPayload<ExtArgs>[]
+      savedBy: Prisma.$SavedPostPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       authorId: string
       imageUrl: string[]
       caption: string | null
+      location: string | null
+      tags: string[]
+      isPublic: boolean
+      likeCount: number
+      commentCount: number
+      sharedCount: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["post"]>
@@ -3004,6 +5589,12 @@ export namespace Prisma {
    */
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    taggedUsers<T extends Post$taggedUsersArgs<ExtArgs> = {}>(args?: Subset<T, Post$taggedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sharedPosts<T extends Post$sharedPostsArgs<ExtArgs> = {}>(args?: Subset<T, Post$sharedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends Post$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    savedBy<T extends Post$savedByArgs<ExtArgs> = {}>(args?: Subset<T, Post$savedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends Post$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Post$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3037,6 +5628,12 @@ export namespace Prisma {
     readonly authorId: FieldRef<"Post", 'String'>
     readonly imageUrl: FieldRef<"Post", 'String[]'>
     readonly caption: FieldRef<"Post", 'String'>
+    readonly location: FieldRef<"Post", 'String'>
+    readonly tags: FieldRef<"Post", 'String[]'>
+    readonly isPublic: FieldRef<"Post", 'Boolean'>
+    readonly likeCount: FieldRef<"Post", 'Int'>
+    readonly commentCount: FieldRef<"Post", 'Int'>
+    readonly sharedCount: FieldRef<"Post", 'Int'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
     readonly updatedAt: FieldRef<"Post", 'DateTime'>
   }
@@ -3056,6 +5653,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where: PostWhereUniqueInput
@@ -3074,6 +5675,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where: PostWhereUniqueInput
@@ -3091,6 +5696,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * Filter, which Post to fetch.
      */
@@ -3140,6 +5749,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where?: PostWhereInput
@@ -3188,6 +5801,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Posts to fetch.
      */
     where?: PostWhereInput
@@ -3231,6 +5848,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * The data needed to create a Post.
      */
     data: XOR<PostCreateInput, PostUncheckedCreateInput>
@@ -3258,6 +5879,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * The data needed to update a Post.
      */
@@ -3299,6 +5924,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * The filter to search for the Post to update in case it exists.
      */
     where: PostWhereUniqueInput
@@ -3324,6 +5953,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * Filter which Post to delete.
      */
@@ -3373,6 +6006,126 @@ export namespace Prisma {
   }
 
   /**
+   * Post.taggedUsers
+   */
+  export type Post$taggedUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    cursor?: PostTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * Post.sharedPosts
+   */
+  export type Post$sharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    where?: SharedPostWhereInput
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    cursor?: SharedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * Post.comments
+   */
+  export type Post$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Post.savedBy
+   */
+  export type Post$savedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    where?: SavedPostWhereInput
+    orderBy?: SavedPostOrderByWithRelationInput | SavedPostOrderByWithRelationInput[]
+    cursor?: SavedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavedPostScalarFieldEnum | SavedPostScalarFieldEnum[]
+  }
+
+  /**
+   * Post.notifications
+   */
+  export type Post$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
    * Post without action
    */
   export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3384,6 +6137,2108 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SharedPost
+   */
+
+  export type AggregateSharedPost = {
+    _count: SharedPostCountAggregateOutputType | null
+    _min: SharedPostMinAggregateOutputType | null
+    _max: SharedPostMaxAggregateOutputType | null
+  }
+
+  export type SharedPostMinAggregateOutputType = {
+    id: string | null
+    senderId: string | null
+    recipientId: string | null
+    storyId: string | null
+    tripId: string | null
+    postId: string | null
+    message: string | null
+    isPublic: boolean | null
+    createdAt: Date | null
+  }
+
+  export type SharedPostMaxAggregateOutputType = {
+    id: string | null
+    senderId: string | null
+    recipientId: string | null
+    storyId: string | null
+    tripId: string | null
+    postId: string | null
+    message: string | null
+    isPublic: boolean | null
+    createdAt: Date | null
+  }
+
+  export type SharedPostCountAggregateOutputType = {
+    id: number
+    senderId: number
+    recipientId: number
+    storyId: number
+    tripId: number
+    postId: number
+    message: number
+    isPublic: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SharedPostMinAggregateInputType = {
+    id?: true
+    senderId?: true
+    recipientId?: true
+    storyId?: true
+    tripId?: true
+    postId?: true
+    message?: true
+    isPublic?: true
+    createdAt?: true
+  }
+
+  export type SharedPostMaxAggregateInputType = {
+    id?: true
+    senderId?: true
+    recipientId?: true
+    storyId?: true
+    tripId?: true
+    postId?: true
+    message?: true
+    isPublic?: true
+    createdAt?: true
+  }
+
+  export type SharedPostCountAggregateInputType = {
+    id?: true
+    senderId?: true
+    recipientId?: true
+    storyId?: true
+    tripId?: true
+    postId?: true
+    message?: true
+    isPublic?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SharedPostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SharedPost to aggregate.
+     */
+    where?: SharedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedPosts to fetch.
+     */
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SharedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SharedPosts
+    **/
+    _count?: true | SharedPostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SharedPostMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SharedPostMaxAggregateInputType
+  }
+
+  export type GetSharedPostAggregateType<T extends SharedPostAggregateArgs> = {
+        [P in keyof T & keyof AggregateSharedPost]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSharedPost[P]>
+      : GetScalarType<T[P], AggregateSharedPost[P]>
+  }
+
+
+
+
+  export type SharedPostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedPostWhereInput
+    orderBy?: SharedPostOrderByWithAggregationInput | SharedPostOrderByWithAggregationInput[]
+    by: SharedPostScalarFieldEnum[] | SharedPostScalarFieldEnum
+    having?: SharedPostScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SharedPostCountAggregateInputType | true
+    _min?: SharedPostMinAggregateInputType
+    _max?: SharedPostMaxAggregateInputType
+  }
+
+  export type SharedPostGroupByOutputType = {
+    id: string
+    senderId: string
+    recipientId: string | null
+    storyId: string | null
+    tripId: string | null
+    postId: string
+    message: string | null
+    isPublic: boolean
+    createdAt: Date
+    _count: SharedPostCountAggregateOutputType | null
+    _min: SharedPostMinAggregateOutputType | null
+    _max: SharedPostMaxAggregateOutputType | null
+  }
+
+  type GetSharedPostGroupByPayload<T extends SharedPostGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SharedPostGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SharedPostGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SharedPostGroupByOutputType[P]>
+            : GetScalarType<T[P], SharedPostGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SharedPostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    senderId?: boolean
+    recipientId?: boolean
+    storyId?: boolean
+    tripId?: boolean
+    postId?: boolean
+    message?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SharedPost$recipientArgs<ExtArgs>
+    story?: boolean | SharedPost$storyArgs<ExtArgs>
+    trip?: boolean | SharedPost$tripArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    notifications?: boolean | SharedPost$notificationsArgs<ExtArgs>
+    _count?: boolean | SharedPostCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sharedPost"]>
+
+
+
+  export type SharedPostSelectScalar = {
+    id?: boolean
+    senderId?: boolean
+    recipientId?: boolean
+    storyId?: boolean
+    tripId?: boolean
+    postId?: boolean
+    message?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+  }
+
+  export type SharedPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "recipientId" | "storyId" | "tripId" | "postId" | "message" | "isPublic" | "createdAt", ExtArgs["result"]["sharedPost"]>
+  export type SharedPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SharedPost$recipientArgs<ExtArgs>
+    story?: boolean | SharedPost$storyArgs<ExtArgs>
+    trip?: boolean | SharedPost$tripArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    notifications?: boolean | SharedPost$notificationsArgs<ExtArgs>
+    _count?: boolean | SharedPostCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $SharedPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SharedPost"
+    objects: {
+      sender: Prisma.$UserPayload<ExtArgs>
+      recipient: Prisma.$UserPayload<ExtArgs> | null
+      story: Prisma.$StoryPayload<ExtArgs> | null
+      trip: Prisma.$TripPayload<ExtArgs> | null
+      post: Prisma.$PostPayload<ExtArgs>
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      senderId: string
+      recipientId: string | null
+      storyId: string | null
+      tripId: string | null
+      postId: string
+      message: string | null
+      isPublic: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["sharedPost"]>
+    composites: {}
+  }
+
+  type SharedPostGetPayload<S extends boolean | null | undefined | SharedPostDefaultArgs> = $Result.GetResult<Prisma.$SharedPostPayload, S>
+
+  type SharedPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SharedPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SharedPostCountAggregateInputType | true
+    }
+
+  export interface SharedPostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SharedPost'], meta: { name: 'SharedPost' } }
+    /**
+     * Find zero or one SharedPost that matches the filter.
+     * @param {SharedPostFindUniqueArgs} args - Arguments to find a SharedPost
+     * @example
+     * // Get one SharedPost
+     * const sharedPost = await prisma.sharedPost.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SharedPostFindUniqueArgs>(args: SelectSubset<T, SharedPostFindUniqueArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SharedPost that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SharedPostFindUniqueOrThrowArgs} args - Arguments to find a SharedPost
+     * @example
+     * // Get one SharedPost
+     * const sharedPost = await prisma.sharedPost.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SharedPostFindUniqueOrThrowArgs>(args: SelectSubset<T, SharedPostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SharedPost that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostFindFirstArgs} args - Arguments to find a SharedPost
+     * @example
+     * // Get one SharedPost
+     * const sharedPost = await prisma.sharedPost.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SharedPostFindFirstArgs>(args?: SelectSubset<T, SharedPostFindFirstArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SharedPost that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostFindFirstOrThrowArgs} args - Arguments to find a SharedPost
+     * @example
+     * // Get one SharedPost
+     * const sharedPost = await prisma.sharedPost.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SharedPostFindFirstOrThrowArgs>(args?: SelectSubset<T, SharedPostFindFirstOrThrowArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SharedPosts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SharedPosts
+     * const sharedPosts = await prisma.sharedPost.findMany()
+     * 
+     * // Get first 10 SharedPosts
+     * const sharedPosts = await prisma.sharedPost.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sharedPostWithIdOnly = await prisma.sharedPost.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SharedPostFindManyArgs>(args?: SelectSubset<T, SharedPostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SharedPost.
+     * @param {SharedPostCreateArgs} args - Arguments to create a SharedPost.
+     * @example
+     * // Create one SharedPost
+     * const SharedPost = await prisma.sharedPost.create({
+     *   data: {
+     *     // ... data to create a SharedPost
+     *   }
+     * })
+     * 
+     */
+    create<T extends SharedPostCreateArgs>(args: SelectSubset<T, SharedPostCreateArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SharedPosts.
+     * @param {SharedPostCreateManyArgs} args - Arguments to create many SharedPosts.
+     * @example
+     * // Create many SharedPosts
+     * const sharedPost = await prisma.sharedPost.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SharedPostCreateManyArgs>(args?: SelectSubset<T, SharedPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SharedPost.
+     * @param {SharedPostDeleteArgs} args - Arguments to delete one SharedPost.
+     * @example
+     * // Delete one SharedPost
+     * const SharedPost = await prisma.sharedPost.delete({
+     *   where: {
+     *     // ... filter to delete one SharedPost
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SharedPostDeleteArgs>(args: SelectSubset<T, SharedPostDeleteArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SharedPost.
+     * @param {SharedPostUpdateArgs} args - Arguments to update one SharedPost.
+     * @example
+     * // Update one SharedPost
+     * const sharedPost = await prisma.sharedPost.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SharedPostUpdateArgs>(args: SelectSubset<T, SharedPostUpdateArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SharedPosts.
+     * @param {SharedPostDeleteManyArgs} args - Arguments to filter SharedPosts to delete.
+     * @example
+     * // Delete a few SharedPosts
+     * const { count } = await prisma.sharedPost.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SharedPostDeleteManyArgs>(args?: SelectSubset<T, SharedPostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SharedPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SharedPosts
+     * const sharedPost = await prisma.sharedPost.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SharedPostUpdateManyArgs>(args: SelectSubset<T, SharedPostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SharedPost.
+     * @param {SharedPostUpsertArgs} args - Arguments to update or create a SharedPost.
+     * @example
+     * // Update or create a SharedPost
+     * const sharedPost = await prisma.sharedPost.upsert({
+     *   create: {
+     *     // ... data to create a SharedPost
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SharedPost we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SharedPostUpsertArgs>(args: SelectSubset<T, SharedPostUpsertArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SharedPosts that matches the filter.
+     * @param {SharedPostFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const sharedPost = await prisma.sharedPost.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: SharedPostFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a SharedPost.
+     * @param {SharedPostAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const sharedPost = await prisma.sharedPost.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: SharedPostAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of SharedPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostCountArgs} args - Arguments to filter SharedPosts to count.
+     * @example
+     * // Count the number of SharedPosts
+     * const count = await prisma.sharedPost.count({
+     *   where: {
+     *     // ... the filter for the SharedPosts we want to count
+     *   }
+     * })
+    **/
+    count<T extends SharedPostCountArgs>(
+      args?: Subset<T, SharedPostCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SharedPostCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SharedPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SharedPostAggregateArgs>(args: Subset<T, SharedPostAggregateArgs>): Prisma.PrismaPromise<GetSharedPostAggregateType<T>>
+
+    /**
+     * Group by SharedPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedPostGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SharedPostGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SharedPostGroupByArgs['orderBy'] }
+        : { orderBy?: SharedPostGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SharedPostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSharedPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SharedPost model
+   */
+  readonly fields: SharedPostFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SharedPost.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SharedPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recipient<T extends SharedPost$recipientArgs<ExtArgs> = {}>(args?: Subset<T, SharedPost$recipientArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    story<T extends SharedPost$storyArgs<ExtArgs> = {}>(args?: Subset<T, SharedPost$storyArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    trip<T extends SharedPost$tripArgs<ExtArgs> = {}>(args?: Subset<T, SharedPost$tripArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    notifications<T extends SharedPost$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, SharedPost$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SharedPost model
+   */
+  interface SharedPostFieldRefs {
+    readonly id: FieldRef<"SharedPost", 'String'>
+    readonly senderId: FieldRef<"SharedPost", 'String'>
+    readonly recipientId: FieldRef<"SharedPost", 'String'>
+    readonly storyId: FieldRef<"SharedPost", 'String'>
+    readonly tripId: FieldRef<"SharedPost", 'String'>
+    readonly postId: FieldRef<"SharedPost", 'String'>
+    readonly message: FieldRef<"SharedPost", 'String'>
+    readonly isPublic: FieldRef<"SharedPost", 'Boolean'>
+    readonly createdAt: FieldRef<"SharedPost", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SharedPost findUnique
+   */
+  export type SharedPostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedPost to fetch.
+     */
+    where: SharedPostWhereUniqueInput
+  }
+
+  /**
+   * SharedPost findUniqueOrThrow
+   */
+  export type SharedPostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedPost to fetch.
+     */
+    where: SharedPostWhereUniqueInput
+  }
+
+  /**
+   * SharedPost findFirst
+   */
+  export type SharedPostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedPost to fetch.
+     */
+    where?: SharedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedPosts to fetch.
+     */
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SharedPosts.
+     */
+    cursor?: SharedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SharedPosts.
+     */
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * SharedPost findFirstOrThrow
+   */
+  export type SharedPostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedPost to fetch.
+     */
+    where?: SharedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedPosts to fetch.
+     */
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SharedPosts.
+     */
+    cursor?: SharedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SharedPosts.
+     */
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * SharedPost findMany
+   */
+  export type SharedPostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedPosts to fetch.
+     */
+    where?: SharedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedPosts to fetch.
+     */
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SharedPosts.
+     */
+    cursor?: SharedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedPosts.
+     */
+    skip?: number
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * SharedPost create
+   */
+  export type SharedPostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SharedPost.
+     */
+    data: XOR<SharedPostCreateInput, SharedPostUncheckedCreateInput>
+  }
+
+  /**
+   * SharedPost createMany
+   */
+  export type SharedPostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SharedPosts.
+     */
+    data: SharedPostCreateManyInput | SharedPostCreateManyInput[]
+  }
+
+  /**
+   * SharedPost update
+   */
+  export type SharedPostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SharedPost.
+     */
+    data: XOR<SharedPostUpdateInput, SharedPostUncheckedUpdateInput>
+    /**
+     * Choose, which SharedPost to update.
+     */
+    where: SharedPostWhereUniqueInput
+  }
+
+  /**
+   * SharedPost updateMany
+   */
+  export type SharedPostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SharedPosts.
+     */
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyInput>
+    /**
+     * Filter which SharedPosts to update
+     */
+    where?: SharedPostWhereInput
+    /**
+     * Limit how many SharedPosts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedPost upsert
+   */
+  export type SharedPostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SharedPost to update in case it exists.
+     */
+    where: SharedPostWhereUniqueInput
+    /**
+     * In case the SharedPost found by the `where` argument doesn't exist, create a new SharedPost with this data.
+     */
+    create: XOR<SharedPostCreateInput, SharedPostUncheckedCreateInput>
+    /**
+     * In case the SharedPost was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SharedPostUpdateInput, SharedPostUncheckedUpdateInput>
+  }
+
+  /**
+   * SharedPost delete
+   */
+  export type SharedPostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    /**
+     * Filter which SharedPost to delete.
+     */
+    where: SharedPostWhereUniqueInput
+  }
+
+  /**
+   * SharedPost deleteMany
+   */
+  export type SharedPostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SharedPosts to delete
+     */
+    where?: SharedPostWhereInput
+    /**
+     * Limit how many SharedPosts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedPost findRaw
+   */
+  export type SharedPostFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * SharedPost aggregateRaw
+   */
+  export type SharedPostAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * SharedPost.recipient
+   */
+  export type SharedPost$recipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * SharedPost.story
+   */
+  export type SharedPost$storyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    where?: StoryWhereInput
+  }
+
+  /**
+   * SharedPost.trip
+   */
+  export type SharedPost$tripArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trip
+     */
+    select?: TripSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trip
+     */
+    omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    where?: TripWhereInput
+  }
+
+  /**
+   * SharedPost.notifications
+   */
+  export type SharedPost$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * SharedPost without action
+   */
+  export type SharedPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostTag
+   */
+
+  export type AggregatePostTag = {
+    _count: PostTagCountAggregateOutputType | null
+    _min: PostTagMinAggregateOutputType | null
+    _max: PostTagMaxAggregateOutputType | null
+  }
+
+  export type PostTagMinAggregateOutputType = {
+    id: string | null
+    postId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type PostTagMaxAggregateOutputType = {
+    id: string | null
+    postId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type PostTagCountAggregateOutputType = {
+    id: number
+    postId: number
+    userId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PostTagMinAggregateInputType = {
+    id?: true
+    postId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type PostTagMaxAggregateInputType = {
+    id?: true
+    postId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type PostTagCountAggregateInputType = {
+    id?: true
+    postId?: true
+    userId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PostTagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostTag to aggregate.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostTags
+    **/
+    _count?: true | PostTagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostTagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostTagMaxAggregateInputType
+  }
+
+  export type GetPostTagAggregateType<T extends PostTagAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostTag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostTag[P]>
+      : GetScalarType<T[P], AggregatePostTag[P]>
+  }
+
+
+
+
+  export type PostTagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithAggregationInput | PostTagOrderByWithAggregationInput[]
+    by: PostTagScalarFieldEnum[] | PostTagScalarFieldEnum
+    having?: PostTagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostTagCountAggregateInputType | true
+    _min?: PostTagMinAggregateInputType
+    _max?: PostTagMaxAggregateInputType
+  }
+
+  export type PostTagGroupByOutputType = {
+    id: string
+    postId: string
+    userId: string
+    createdAt: Date
+    _count: PostTagCountAggregateOutputType | null
+    _min: PostTagMinAggregateOutputType | null
+    _max: PostTagMaxAggregateOutputType | null
+  }
+
+  type GetPostTagGroupByPayload<T extends PostTagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostTagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostTagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostTagGroupByOutputType[P]>
+            : GetScalarType<T[P], PostTagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostTagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postTag"]>
+
+
+
+  export type PostTagSelectScalar = {
+    id?: boolean
+    postId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+  }
+
+  export type PostTagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "userId" | "createdAt", ExtArgs["result"]["postTag"]>
+  export type PostTagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PostTagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostTag"
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      postId: string
+      userId: string
+      createdAt: Date
+    }, ExtArgs["result"]["postTag"]>
+    composites: {}
+  }
+
+  type PostTagGetPayload<S extends boolean | null | undefined | PostTagDefaultArgs> = $Result.GetResult<Prisma.$PostTagPayload, S>
+
+  type PostTagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostTagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostTagCountAggregateInputType | true
+    }
+
+  export interface PostTagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostTag'], meta: { name: 'PostTag' } }
+    /**
+     * Find zero or one PostTag that matches the filter.
+     * @param {PostTagFindUniqueArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostTagFindUniqueArgs>(args: SelectSubset<T, PostTagFindUniqueArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostTag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostTagFindUniqueOrThrowArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostTagFindUniqueOrThrowArgs>(args: SelectSubset<T, PostTagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostTag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagFindFirstArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostTagFindFirstArgs>(args?: SelectSubset<T, PostTagFindFirstArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostTag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagFindFirstOrThrowArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostTagFindFirstOrThrowArgs>(args?: SelectSubset<T, PostTagFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostTags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostTags
+     * const postTags = await prisma.postTag.findMany()
+     * 
+     * // Get first 10 PostTags
+     * const postTags = await prisma.postTag.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postTagWithIdOnly = await prisma.postTag.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostTagFindManyArgs>(args?: SelectSubset<T, PostTagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostTag.
+     * @param {PostTagCreateArgs} args - Arguments to create a PostTag.
+     * @example
+     * // Create one PostTag
+     * const PostTag = await prisma.postTag.create({
+     *   data: {
+     *     // ... data to create a PostTag
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostTagCreateArgs>(args: SelectSubset<T, PostTagCreateArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostTags.
+     * @param {PostTagCreateManyArgs} args - Arguments to create many PostTags.
+     * @example
+     * // Create many PostTags
+     * const postTag = await prisma.postTag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostTagCreateManyArgs>(args?: SelectSubset<T, PostTagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PostTag.
+     * @param {PostTagDeleteArgs} args - Arguments to delete one PostTag.
+     * @example
+     * // Delete one PostTag
+     * const PostTag = await prisma.postTag.delete({
+     *   where: {
+     *     // ... filter to delete one PostTag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostTagDeleteArgs>(args: SelectSubset<T, PostTagDeleteArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostTag.
+     * @param {PostTagUpdateArgs} args - Arguments to update one PostTag.
+     * @example
+     * // Update one PostTag
+     * const postTag = await prisma.postTag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostTagUpdateArgs>(args: SelectSubset<T, PostTagUpdateArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostTags.
+     * @param {PostTagDeleteManyArgs} args - Arguments to filter PostTags to delete.
+     * @example
+     * // Delete a few PostTags
+     * const { count } = await prisma.postTag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostTagDeleteManyArgs>(args?: SelectSubset<T, PostTagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostTags
+     * const postTag = await prisma.postTag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostTagUpdateManyArgs>(args: SelectSubset<T, PostTagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PostTag.
+     * @param {PostTagUpsertArgs} args - Arguments to update or create a PostTag.
+     * @example
+     * // Update or create a PostTag
+     * const postTag = await prisma.postTag.upsert({
+     *   create: {
+     *     // ... data to create a PostTag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostTag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostTagUpsertArgs>(args: SelectSubset<T, PostTagUpsertArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostTags that matches the filter.
+     * @param {PostTagFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const postTag = await prisma.postTag.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: PostTagFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a PostTag.
+     * @param {PostTagAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const postTag = await prisma.postTag.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: PostTagAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of PostTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagCountArgs} args - Arguments to filter PostTags to count.
+     * @example
+     * // Count the number of PostTags
+     * const count = await prisma.postTag.count({
+     *   where: {
+     *     // ... the filter for the PostTags we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostTagCountArgs>(
+      args?: Subset<T, PostTagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostTagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostTagAggregateArgs>(args: Subset<T, PostTagAggregateArgs>): Prisma.PrismaPromise<GetPostTagAggregateType<T>>
+
+    /**
+     * Group by PostTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostTagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostTagGroupByArgs['orderBy'] }
+        : { orderBy?: PostTagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostTagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostTag model
+   */
+  readonly fields: PostTagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostTag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostTagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostTag model
+   */
+  interface PostTagFieldRefs {
+    readonly id: FieldRef<"PostTag", 'String'>
+    readonly postId: FieldRef<"PostTag", 'String'>
+    readonly userId: FieldRef<"PostTag", 'String'>
+    readonly createdAt: FieldRef<"PostTag", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostTag findUnique
+   */
+  export type PostTagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag findUniqueOrThrow
+   */
+  export type PostTagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag findFirst
+   */
+  export type PostTagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostTags.
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostTags.
+     */
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * PostTag findFirstOrThrow
+   */
+  export type PostTagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostTags.
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostTags.
+     */
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * PostTag findMany
+   */
+  export type PostTagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTags to fetch.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostTags.
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * PostTag create
+   */
+  export type PostTagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostTag.
+     */
+    data: XOR<PostTagCreateInput, PostTagUncheckedCreateInput>
+  }
+
+  /**
+   * PostTag createMany
+   */
+  export type PostTagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostTags.
+     */
+    data: PostTagCreateManyInput | PostTagCreateManyInput[]
+  }
+
+  /**
+   * PostTag update
+   */
+  export type PostTagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostTag.
+     */
+    data: XOR<PostTagUpdateInput, PostTagUncheckedUpdateInput>
+    /**
+     * Choose, which PostTag to update.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag updateMany
+   */
+  export type PostTagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostTags.
+     */
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyInput>
+    /**
+     * Filter which PostTags to update
+     */
+    where?: PostTagWhereInput
+    /**
+     * Limit how many PostTags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostTag upsert
+   */
+  export type PostTagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostTag to update in case it exists.
+     */
+    where: PostTagWhereUniqueInput
+    /**
+     * In case the PostTag found by the `where` argument doesn't exist, create a new PostTag with this data.
+     */
+    create: XOR<PostTagCreateInput, PostTagUncheckedCreateInput>
+    /**
+     * In case the PostTag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostTagUpdateInput, PostTagUncheckedUpdateInput>
+  }
+
+  /**
+   * PostTag delete
+   */
+  export type PostTagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter which PostTag to delete.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag deleteMany
+   */
+  export type PostTagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostTags to delete
+     */
+    where?: PostTagWhereInput
+    /**
+     * Limit how many PostTags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostTag findRaw
+   */
+  export type PostTagFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * PostTag aggregateRaw
+   */
+  export type PostTagAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * PostTag without action
+   */
+  export type PostTagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
   }
 
 
@@ -3393,8 +8248,18 @@ export namespace Prisma {
 
   export type AggregateComment = {
     _count: CommentCountAggregateOutputType | null
+    _avg: CommentAvgAggregateOutputType | null
+    _sum: CommentSumAggregateOutputType | null
     _min: CommentMinAggregateOutputType | null
     _max: CommentMaxAggregateOutputType | null
+  }
+
+  export type CommentAvgAggregateOutputType = {
+    likeCount: number | null
+  }
+
+  export type CommentSumAggregateOutputType = {
+    likeCount: number | null
   }
 
   export type CommentMinAggregateOutputType = {
@@ -3402,6 +8267,9 @@ export namespace Prisma {
     postId: string | null
     authorId: string | null
     content: string | null
+    parentId: string | null
+    likeCount: number | null
+    isEdited: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3411,6 +8279,9 @@ export namespace Prisma {
     postId: string | null
     authorId: string | null
     content: string | null
+    parentId: string | null
+    likeCount: number | null
+    isEdited: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3420,17 +8291,31 @@ export namespace Prisma {
     postId: number
     authorId: number
     content: number
+    parentId: number
+    likeCount: number
+    isEdited: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type CommentAvgAggregateInputType = {
+    likeCount?: true
+  }
+
+  export type CommentSumAggregateInputType = {
+    likeCount?: true
+  }
+
   export type CommentMinAggregateInputType = {
     id?: true
     postId?: true
     authorId?: true
     content?: true
+    parentId?: true
+    likeCount?: true
+    isEdited?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3440,6 +8325,9 @@ export namespace Prisma {
     postId?: true
     authorId?: true
     content?: true
+    parentId?: true
+    likeCount?: true
+    isEdited?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3449,6 +8337,9 @@ export namespace Prisma {
     postId?: true
     authorId?: true
     content?: true
+    parentId?: true
+    likeCount?: true
+    isEdited?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3492,6 +8383,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CommentMinAggregateInputType
@@ -3522,6 +8425,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CommentCountAggregateInputType | true
+    _avg?: CommentAvgAggregateInputType
+    _sum?: CommentSumAggregateInputType
     _min?: CommentMinAggregateInputType
     _max?: CommentMaxAggregateInputType
   }
@@ -3531,9 +8436,14 @@ export namespace Prisma {
     postId: string
     authorId: string
     content: string
+    parentId: string | null
+    likeCount: number
+    isEdited: boolean
     createdAt: Date
     updatedAt: Date
     _count: CommentCountAggregateOutputType | null
+    _avg: CommentAvgAggregateOutputType | null
+    _sum: CommentSumAggregateOutputType | null
     _min: CommentMinAggregateOutputType | null
     _max: CommentMaxAggregateOutputType | null
   }
@@ -3557,8 +8467,16 @@ export namespace Prisma {
     postId?: boolean
     authorId?: boolean
     content?: boolean
+    parentId?: boolean
+    likeCount?: boolean
+    isEdited?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | Comment$parentArgs<ExtArgs>
+    replies?: boolean | Comment$repliesArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
 
@@ -3568,20 +8486,38 @@ export namespace Prisma {
     postId?: boolean
     authorId?: boolean
     content?: boolean
+    parentId?: boolean
+    likeCount?: boolean
+    isEdited?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "authorId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "authorId" | "content" | "parentId" | "likeCount" | "isEdited" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
+  export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | Comment$parentArgs<ExtArgs>
+    replies?: boolean | Comment$repliesArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
-    objects: {}
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>
+      author: Prisma.$UserPayload<ExtArgs>
+      parent: Prisma.$CommentPayload<ExtArgs> | null
+      replies: Prisma.$CommentPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       postId: string
       authorId: string
       content: string
+      parentId: string | null
+      likeCount: number
+      isEdited: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["comment"]>
@@ -3947,6 +8883,10 @@ export namespace Prisma {
    */
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent<T extends Comment$parentArgs<ExtArgs> = {}>(args?: Subset<T, Comment$parentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends Comment$repliesArgs<ExtArgs> = {}>(args?: Subset<T, Comment$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3980,6 +8920,9 @@ export namespace Prisma {
     readonly postId: FieldRef<"Comment", 'String'>
     readonly authorId: FieldRef<"Comment", 'String'>
     readonly content: FieldRef<"Comment", 'String'>
+    readonly parentId: FieldRef<"Comment", 'String'>
+    readonly likeCount: FieldRef<"Comment", 'Int'>
+    readonly isEdited: FieldRef<"Comment", 'Boolean'>
     readonly createdAt: FieldRef<"Comment", 'DateTime'>
     readonly updatedAt: FieldRef<"Comment", 'DateTime'>
   }
@@ -3999,6 +8942,10 @@ export namespace Prisma {
      */
     omit?: CommentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
      * Filter, which Comment to fetch.
      */
     where: CommentWhereUniqueInput
@@ -4017,6 +8964,10 @@ export namespace Prisma {
      */
     omit?: CommentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
      * Filter, which Comment to fetch.
      */
     where: CommentWhereUniqueInput
@@ -4034,6 +8985,10 @@ export namespace Prisma {
      * Omit specific fields from the Comment
      */
     omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
     /**
      * Filter, which Comment to fetch.
      */
@@ -4083,6 +9038,10 @@ export namespace Prisma {
      */
     omit?: CommentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
      * Filter, which Comment to fetch.
      */
     where?: CommentWhereInput
@@ -4131,6 +9090,10 @@ export namespace Prisma {
      */
     omit?: CommentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
      * Filter, which Comments to fetch.
      */
     where?: CommentWhereInput
@@ -4174,6 +9137,10 @@ export namespace Prisma {
      */
     omit?: CommentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
      * The data needed to create a Comment.
      */
     data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
@@ -4201,6 +9168,10 @@ export namespace Prisma {
      * Omit specific fields from the Comment
      */
     omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
     /**
      * The data needed to update a Comment.
      */
@@ -4242,6 +9213,10 @@ export namespace Prisma {
      */
     omit?: CommentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
      * The filter to search for the Comment to update in case it exists.
      */
     where: CommentWhereUniqueInput
@@ -4267,6 +9242,10 @@ export namespace Prisma {
      * Omit specific fields from the Comment
      */
     omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
     /**
      * Filter which Comment to delete.
      */
@@ -4316,6 +9295,49 @@ export namespace Prisma {
   }
 
   /**
+   * Comment.parent
+   */
+  export type Comment$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+  }
+
+  /**
+   * Comment.replies
+   */
+  export type Comment$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
    * Comment without action
    */
   export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4327,6 +9349,10 @@ export namespace Prisma {
      * Omit specific fields from the Comment
      */
     omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
   }
 
 
@@ -4342,52 +9368,52 @@ export namespace Prisma {
 
   export type LikeMinAggregateOutputType = {
     id: string | null
-    postId: string | null
     userId: string | null
+    targetId: string | null
+    type: string | null
     createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type LikeMaxAggregateOutputType = {
     id: string | null
-    postId: string | null
     userId: string | null
+    targetId: string | null
+    type: string | null
     createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type LikeCountAggregateOutputType = {
     id: number
-    postId: number
     userId: number
+    targetId: number
+    type: number
     createdAt: number
-    updatedAt: number
     _all: number
   }
 
 
   export type LikeMinAggregateInputType = {
     id?: true
-    postId?: true
     userId?: true
+    targetId?: true
+    type?: true
     createdAt?: true
-    updatedAt?: true
   }
 
   export type LikeMaxAggregateInputType = {
     id?: true
-    postId?: true
     userId?: true
+    targetId?: true
+    type?: true
     createdAt?: true
-    updatedAt?: true
   }
 
   export type LikeCountAggregateInputType = {
     id?: true
-    postId?: true
     userId?: true
+    targetId?: true
+    type?: true
     createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
@@ -4465,10 +9491,10 @@ export namespace Prisma {
 
   export type LikeGroupByOutputType = {
     id: string
-    postId: string
     userId: string
+    targetId: string
+    type: string
     createdAt: Date
-    updatedAt: Date
     _count: LikeCountAggregateOutputType | null
     _min: LikeMinAggregateOutputType | null
     _max: LikeMaxAggregateOutputType | null
@@ -4490,33 +9516,39 @@ export namespace Prisma {
 
   export type LikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    postId?: boolean
     userId?: boolean
+    targetId?: boolean
+    type?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["like"]>
 
 
 
   export type LikeSelectScalar = {
     id?: boolean
-    postId?: boolean
     userId?: boolean
+    targetId?: boolean
+    type?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type LikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["like"]>
+  export type LikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "targetId" | "type" | "createdAt", ExtArgs["result"]["like"]>
+  export type LikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $LikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Like"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      postId: string
       userId: string
+      targetId: string
+      type: string
       createdAt: Date
-      updatedAt: Date
     }, ExtArgs["result"]["like"]>
     composites: {}
   }
@@ -4880,6 +9912,7 @@ export namespace Prisma {
    */
   export interface Prisma__LikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4910,10 +9943,10 @@ export namespace Prisma {
    */
   interface LikeFieldRefs {
     readonly id: FieldRef<"Like", 'String'>
-    readonly postId: FieldRef<"Like", 'String'>
     readonly userId: FieldRef<"Like", 'String'>
+    readonly targetId: FieldRef<"Like", 'String'>
+    readonly type: FieldRef<"Like", 'String'>
     readonly createdAt: FieldRef<"Like", 'DateTime'>
-    readonly updatedAt: FieldRef<"Like", 'DateTime'>
   }
     
 
@@ -4930,6 +9963,10 @@ export namespace Prisma {
      * Omit specific fields from the Like
      */
     omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
     /**
      * Filter, which Like to fetch.
      */
@@ -4949,6 +9986,10 @@ export namespace Prisma {
      */
     omit?: LikeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
      * Filter, which Like to fetch.
      */
     where: LikeWhereUniqueInput
@@ -4966,6 +10007,10 @@ export namespace Prisma {
      * Omit specific fields from the Like
      */
     omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
     /**
      * Filter, which Like to fetch.
      */
@@ -5015,6 +10060,10 @@ export namespace Prisma {
      */
     omit?: LikeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
      * Filter, which Like to fetch.
      */
     where?: LikeWhereInput
@@ -5063,6 +10112,10 @@ export namespace Prisma {
      */
     omit?: LikeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
      * Filter, which Likes to fetch.
      */
     where?: LikeWhereInput
@@ -5106,6 +10159,10 @@ export namespace Prisma {
      */
     omit?: LikeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
      * The data needed to create a Like.
      */
     data: XOR<LikeCreateInput, LikeUncheckedCreateInput>
@@ -5133,6 +10190,10 @@ export namespace Prisma {
      * Omit specific fields from the Like
      */
     omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
     /**
      * The data needed to update a Like.
      */
@@ -5174,6 +10235,10 @@ export namespace Prisma {
      */
     omit?: LikeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
      * The filter to search for the Like to update in case it exists.
      */
     where: LikeWhereUniqueInput
@@ -5199,6 +10264,10 @@ export namespace Prisma {
      * Omit specific fields from the Like
      */
     omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
     /**
      * Filter which Like to delete.
      */
@@ -5259,6 +10328,982 @@ export namespace Prisma {
      * Omit specific fields from the Like
      */
     omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SavedPost
+   */
+
+  export type AggregateSavedPost = {
+    _count: SavedPostCountAggregateOutputType | null
+    _min: SavedPostMinAggregateOutputType | null
+    _max: SavedPostMaxAggregateOutputType | null
+  }
+
+  export type SavedPostMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    postId: string | null
+    savedAt: Date | null
+  }
+
+  export type SavedPostMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    postId: string | null
+    savedAt: Date | null
+  }
+
+  export type SavedPostCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    savedAt: number
+    _all: number
+  }
+
+
+  export type SavedPostMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    savedAt?: true
+  }
+
+  export type SavedPostMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    savedAt?: true
+  }
+
+  export type SavedPostCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    savedAt?: true
+    _all?: true
+  }
+
+  export type SavedPostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedPost to aggregate.
+     */
+    where?: SavedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedPosts to fetch.
+     */
+    orderBy?: SavedPostOrderByWithRelationInput | SavedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SavedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SavedPosts
+    **/
+    _count?: true | SavedPostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SavedPostMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SavedPostMaxAggregateInputType
+  }
+
+  export type GetSavedPostAggregateType<T extends SavedPostAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavedPost]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSavedPost[P]>
+      : GetScalarType<T[P], AggregateSavedPost[P]>
+  }
+
+
+
+
+  export type SavedPostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedPostWhereInput
+    orderBy?: SavedPostOrderByWithAggregationInput | SavedPostOrderByWithAggregationInput[]
+    by: SavedPostScalarFieldEnum[] | SavedPostScalarFieldEnum
+    having?: SavedPostScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SavedPostCountAggregateInputType | true
+    _min?: SavedPostMinAggregateInputType
+    _max?: SavedPostMaxAggregateInputType
+  }
+
+  export type SavedPostGroupByOutputType = {
+    id: string
+    userId: string
+    postId: string
+    savedAt: Date
+    _count: SavedPostCountAggregateOutputType | null
+    _min: SavedPostMinAggregateOutputType | null
+    _max: SavedPostMaxAggregateOutputType | null
+  }
+
+  type GetSavedPostGroupByPayload<T extends SavedPostGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SavedPostGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SavedPostGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SavedPostGroupByOutputType[P]>
+            : GetScalarType<T[P], SavedPostGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SavedPostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    savedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedPost"]>
+
+
+
+  export type SavedPostSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    savedAt?: boolean
+  }
+
+  export type SavedPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "savedAt", ExtArgs["result"]["savedPost"]>
+  export type SavedPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+
+  export type $SavedPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SavedPost"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$PostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      postId: string
+      savedAt: Date
+    }, ExtArgs["result"]["savedPost"]>
+    composites: {}
+  }
+
+  type SavedPostGetPayload<S extends boolean | null | undefined | SavedPostDefaultArgs> = $Result.GetResult<Prisma.$SavedPostPayload, S>
+
+  type SavedPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SavedPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SavedPostCountAggregateInputType | true
+    }
+
+  export interface SavedPostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavedPost'], meta: { name: 'SavedPost' } }
+    /**
+     * Find zero or one SavedPost that matches the filter.
+     * @param {SavedPostFindUniqueArgs} args - Arguments to find a SavedPost
+     * @example
+     * // Get one SavedPost
+     * const savedPost = await prisma.savedPost.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SavedPostFindUniqueArgs>(args: SelectSubset<T, SavedPostFindUniqueArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SavedPost that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SavedPostFindUniqueOrThrowArgs} args - Arguments to find a SavedPost
+     * @example
+     * // Get one SavedPost
+     * const savedPost = await prisma.savedPost.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SavedPostFindUniqueOrThrowArgs>(args: SelectSubset<T, SavedPostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavedPost that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostFindFirstArgs} args - Arguments to find a SavedPost
+     * @example
+     * // Get one SavedPost
+     * const savedPost = await prisma.savedPost.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SavedPostFindFirstArgs>(args?: SelectSubset<T, SavedPostFindFirstArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavedPost that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostFindFirstOrThrowArgs} args - Arguments to find a SavedPost
+     * @example
+     * // Get one SavedPost
+     * const savedPost = await prisma.savedPost.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SavedPostFindFirstOrThrowArgs>(args?: SelectSubset<T, SavedPostFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SavedPosts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SavedPosts
+     * const savedPosts = await prisma.savedPost.findMany()
+     * 
+     * // Get first 10 SavedPosts
+     * const savedPosts = await prisma.savedPost.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const savedPostWithIdOnly = await prisma.savedPost.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SavedPostFindManyArgs>(args?: SelectSubset<T, SavedPostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SavedPost.
+     * @param {SavedPostCreateArgs} args - Arguments to create a SavedPost.
+     * @example
+     * // Create one SavedPost
+     * const SavedPost = await prisma.savedPost.create({
+     *   data: {
+     *     // ... data to create a SavedPost
+     *   }
+     * })
+     * 
+     */
+    create<T extends SavedPostCreateArgs>(args: SelectSubset<T, SavedPostCreateArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SavedPosts.
+     * @param {SavedPostCreateManyArgs} args - Arguments to create many SavedPosts.
+     * @example
+     * // Create many SavedPosts
+     * const savedPost = await prisma.savedPost.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SavedPostCreateManyArgs>(args?: SelectSubset<T, SavedPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SavedPost.
+     * @param {SavedPostDeleteArgs} args - Arguments to delete one SavedPost.
+     * @example
+     * // Delete one SavedPost
+     * const SavedPost = await prisma.savedPost.delete({
+     *   where: {
+     *     // ... filter to delete one SavedPost
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SavedPostDeleteArgs>(args: SelectSubset<T, SavedPostDeleteArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SavedPost.
+     * @param {SavedPostUpdateArgs} args - Arguments to update one SavedPost.
+     * @example
+     * // Update one SavedPost
+     * const savedPost = await prisma.savedPost.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SavedPostUpdateArgs>(args: SelectSubset<T, SavedPostUpdateArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SavedPosts.
+     * @param {SavedPostDeleteManyArgs} args - Arguments to filter SavedPosts to delete.
+     * @example
+     * // Delete a few SavedPosts
+     * const { count } = await prisma.savedPost.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SavedPostDeleteManyArgs>(args?: SelectSubset<T, SavedPostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SavedPosts
+     * const savedPost = await prisma.savedPost.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SavedPostUpdateManyArgs>(args: SelectSubset<T, SavedPostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SavedPost.
+     * @param {SavedPostUpsertArgs} args - Arguments to update or create a SavedPost.
+     * @example
+     * // Update or create a SavedPost
+     * const savedPost = await prisma.savedPost.upsert({
+     *   create: {
+     *     // ... data to create a SavedPost
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SavedPost we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SavedPostUpsertArgs>(args: SelectSubset<T, SavedPostUpsertArgs<ExtArgs>>): Prisma__SavedPostClient<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SavedPosts that matches the filter.
+     * @param {SavedPostFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const savedPost = await prisma.savedPost.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: SavedPostFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a SavedPost.
+     * @param {SavedPostAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const savedPost = await prisma.savedPost.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: SavedPostAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of SavedPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostCountArgs} args - Arguments to filter SavedPosts to count.
+     * @example
+     * // Count the number of SavedPosts
+     * const count = await prisma.savedPost.count({
+     *   where: {
+     *     // ... the filter for the SavedPosts we want to count
+     *   }
+     * })
+    **/
+    count<T extends SavedPostCountArgs>(
+      args?: Subset<T, SavedPostCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SavedPostCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SavedPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SavedPostAggregateArgs>(args: Subset<T, SavedPostAggregateArgs>): Prisma.PrismaPromise<GetSavedPostAggregateType<T>>
+
+    /**
+     * Group by SavedPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedPostGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SavedPostGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SavedPostGroupByArgs['orderBy'] }
+        : { orderBy?: SavedPostGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SavedPostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavedPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SavedPost model
+   */
+  readonly fields: SavedPostFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SavedPost.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SavedPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SavedPost model
+   */
+  interface SavedPostFieldRefs {
+    readonly id: FieldRef<"SavedPost", 'String'>
+    readonly userId: FieldRef<"SavedPost", 'String'>
+    readonly postId: FieldRef<"SavedPost", 'String'>
+    readonly savedAt: FieldRef<"SavedPost", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SavedPost findUnique
+   */
+  export type SavedPostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedPost to fetch.
+     */
+    where: SavedPostWhereUniqueInput
+  }
+
+  /**
+   * SavedPost findUniqueOrThrow
+   */
+  export type SavedPostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedPost to fetch.
+     */
+    where: SavedPostWhereUniqueInput
+  }
+
+  /**
+   * SavedPost findFirst
+   */
+  export type SavedPostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedPost to fetch.
+     */
+    where?: SavedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedPosts to fetch.
+     */
+    orderBy?: SavedPostOrderByWithRelationInput | SavedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedPosts.
+     */
+    cursor?: SavedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedPosts.
+     */
+    distinct?: SavedPostScalarFieldEnum | SavedPostScalarFieldEnum[]
+  }
+
+  /**
+   * SavedPost findFirstOrThrow
+   */
+  export type SavedPostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedPost to fetch.
+     */
+    where?: SavedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedPosts to fetch.
+     */
+    orderBy?: SavedPostOrderByWithRelationInput | SavedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedPosts.
+     */
+    cursor?: SavedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedPosts.
+     */
+    distinct?: SavedPostScalarFieldEnum | SavedPostScalarFieldEnum[]
+  }
+
+  /**
+   * SavedPost findMany
+   */
+  export type SavedPostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedPosts to fetch.
+     */
+    where?: SavedPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedPosts to fetch.
+     */
+    orderBy?: SavedPostOrderByWithRelationInput | SavedPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SavedPosts.
+     */
+    cursor?: SavedPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedPosts.
+     */
+    skip?: number
+    distinct?: SavedPostScalarFieldEnum | SavedPostScalarFieldEnum[]
+  }
+
+  /**
+   * SavedPost create
+   */
+  export type SavedPostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SavedPost.
+     */
+    data: XOR<SavedPostCreateInput, SavedPostUncheckedCreateInput>
+  }
+
+  /**
+   * SavedPost createMany
+   */
+  export type SavedPostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SavedPosts.
+     */
+    data: SavedPostCreateManyInput | SavedPostCreateManyInput[]
+  }
+
+  /**
+   * SavedPost update
+   */
+  export type SavedPostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SavedPost.
+     */
+    data: XOR<SavedPostUpdateInput, SavedPostUncheckedUpdateInput>
+    /**
+     * Choose, which SavedPost to update.
+     */
+    where: SavedPostWhereUniqueInput
+  }
+
+  /**
+   * SavedPost updateMany
+   */
+  export type SavedPostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SavedPosts.
+     */
+    data: XOR<SavedPostUpdateManyMutationInput, SavedPostUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedPosts to update
+     */
+    where?: SavedPostWhereInput
+    /**
+     * Limit how many SavedPosts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedPost upsert
+   */
+  export type SavedPostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SavedPost to update in case it exists.
+     */
+    where: SavedPostWhereUniqueInput
+    /**
+     * In case the SavedPost found by the `where` argument doesn't exist, create a new SavedPost with this data.
+     */
+    create: XOR<SavedPostCreateInput, SavedPostUncheckedCreateInput>
+    /**
+     * In case the SavedPost was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavedPostUpdateInput, SavedPostUncheckedUpdateInput>
+  }
+
+  /**
+   * SavedPost delete
+   */
+  export type SavedPostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
+    /**
+     * Filter which SavedPost to delete.
+     */
+    where: SavedPostWhereUniqueInput
+  }
+
+  /**
+   * SavedPost deleteMany
+   */
+  export type SavedPostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedPosts to delete
+     */
+    where?: SavedPostWhereInput
+    /**
+     * Limit how many SavedPosts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedPost findRaw
+   */
+  export type SavedPostFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * SavedPost aggregateRaw
+   */
+  export type SavedPostAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * SavedPost without action
+   */
+  export type SavedPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedPost
+     */
+    select?: SavedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedPost
+     */
+    omit?: SavedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedPostInclude<ExtArgs> | null
   }
 
 
@@ -5434,6 +11479,8 @@ export namespace Prisma {
     content?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
 
@@ -5448,10 +11495,17 @@ export namespace Prisma {
   }
 
   export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "receiverId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["message"]>
+  export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Message"
-    objects: {}
+    objects: {
+      sender: Prisma.$UserPayload<ExtArgs>
+      receiver: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       senderId: string
@@ -5822,6 +11876,8 @@ export namespace Prisma {
    */
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5874,6 +11930,10 @@ export namespace Prisma {
      */
     omit?: MessageOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
      * Filter, which Message to fetch.
      */
     where: MessageWhereUniqueInput
@@ -5892,6 +11952,10 @@ export namespace Prisma {
      */
     omit?: MessageOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
      * Filter, which Message to fetch.
      */
     where: MessageWhereUniqueInput
@@ -5909,6 +11973,10 @@ export namespace Prisma {
      * Omit specific fields from the Message
      */
     omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
     /**
      * Filter, which Message to fetch.
      */
@@ -5958,6 +12026,10 @@ export namespace Prisma {
      */
     omit?: MessageOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
      * Filter, which Message to fetch.
      */
     where?: MessageWhereInput
@@ -6006,6 +12078,10 @@ export namespace Prisma {
      */
     omit?: MessageOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
      * Filter, which Messages to fetch.
      */
     where?: MessageWhereInput
@@ -6049,6 +12125,10 @@ export namespace Prisma {
      */
     omit?: MessageOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
      * The data needed to create a Message.
      */
     data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
@@ -6076,6 +12156,10 @@ export namespace Prisma {
      * Omit specific fields from the Message
      */
     omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
     /**
      * The data needed to update a Message.
      */
@@ -6117,6 +12201,10 @@ export namespace Prisma {
      */
     omit?: MessageOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
      * The filter to search for the Message to update in case it exists.
      */
     where: MessageWhereUniqueInput
@@ -6142,6 +12230,10 @@ export namespace Prisma {
      * Omit specific fields from the Message
      */
     omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
     /**
      * Filter which Message to delete.
      */
@@ -6202,6 +12294,10 @@ export namespace Prisma {
      * Omit specific fields from the Message
      */
     omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
   }
 
 
@@ -6217,26 +12313,26 @@ export namespace Prisma {
 
   export type NotificationMinAggregateOutputType = {
     id: string | null
-    type: string | null
+    type: $Enums.NotificationType | null
     message: string | null
     isRead: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
     senderId: string | null
     recipientId: string | null
     postId: string | null
+    sharedPostId: string | null
+    createdAt: Date | null
   }
 
   export type NotificationMaxAggregateOutputType = {
     id: string | null
-    type: string | null
+    type: $Enums.NotificationType | null
     message: string | null
     isRead: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
     senderId: string | null
     recipientId: string | null
     postId: string | null
+    sharedPostId: string | null
+    createdAt: Date | null
   }
 
   export type NotificationCountAggregateOutputType = {
@@ -6244,11 +12340,12 @@ export namespace Prisma {
     type: number
     message: number
     isRead: number
-    createdAt: number
-    updatedAt: number
     senderId: number
     recipientId: number
     postId: number
+    sharedPostId: number
+    data: number
+    createdAt: number
     _all: number
   }
 
@@ -6258,11 +12355,11 @@ export namespace Prisma {
     type?: true
     message?: true
     isRead?: true
-    createdAt?: true
-    updatedAt?: true
     senderId?: true
     recipientId?: true
     postId?: true
+    sharedPostId?: true
+    createdAt?: true
   }
 
   export type NotificationMaxAggregateInputType = {
@@ -6270,11 +12367,11 @@ export namespace Prisma {
     type?: true
     message?: true
     isRead?: true
-    createdAt?: true
-    updatedAt?: true
     senderId?: true
     recipientId?: true
     postId?: true
+    sharedPostId?: true
+    createdAt?: true
   }
 
   export type NotificationCountAggregateInputType = {
@@ -6282,11 +12379,12 @@ export namespace Prisma {
     type?: true
     message?: true
     isRead?: true
-    createdAt?: true
-    updatedAt?: true
     senderId?: true
     recipientId?: true
     postId?: true
+    sharedPostId?: true
+    data?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -6364,14 +12462,15 @@ export namespace Prisma {
 
   export type NotificationGroupByOutputType = {
     id: string
-    type: string
+    type: $Enums.NotificationType
     message: string
     isRead: boolean
-    createdAt: Date
-    updatedAt: Date
     senderId: string | null
     recipientId: string
     postId: string | null
+    sharedPostId: string | null
+    data: JsonValue | null
+    createdAt: Date
     _count: NotificationCountAggregateOutputType | null
     _min: NotificationMinAggregateOutputType | null
     _max: NotificationMaxAggregateOutputType | null
@@ -6396,11 +12495,16 @@ export namespace Prisma {
     type?: boolean
     message?: boolean
     isRead?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     senderId?: boolean
     recipientId?: boolean
     postId?: boolean
+    sharedPostId?: boolean
+    data?: boolean
+    createdAt?: boolean
+    sender?: boolean | Notification$senderArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | Notification$postArgs<ExtArgs>
+    sharedPost?: boolean | Notification$sharedPostArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
 
@@ -6410,28 +12514,41 @@ export namespace Prisma {
     type?: boolean
     message?: boolean
     isRead?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     senderId?: boolean
     recipientId?: boolean
     postId?: boolean
+    sharedPostId?: boolean
+    data?: boolean
+    createdAt?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "message" | "isRead" | "createdAt" | "updatedAt" | "senderId" | "recipientId" | "postId", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "message" | "isRead" | "senderId" | "recipientId" | "postId" | "sharedPostId" | "data" | "createdAt", ExtArgs["result"]["notification"]>
+  export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sender?: boolean | Notification$senderArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | Notification$postArgs<ExtArgs>
+    sharedPost?: boolean | Notification$sharedPostArgs<ExtArgs>
+  }
 
   export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Notification"
-    objects: {}
+    objects: {
+      sender: Prisma.$UserPayload<ExtArgs> | null
+      recipient: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$PostPayload<ExtArgs> | null
+      sharedPost: Prisma.$SharedPostPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      type: string
+      type: $Enums.NotificationType
       message: string
       isRead: boolean
-      createdAt: Date
-      updatedAt: Date
       senderId: string | null
       recipientId: string
       postId: string | null
+      sharedPostId: string | null
+      data: Prisma.JsonValue | null
+      createdAt: Date
     }, ExtArgs["result"]["notification"]>
     composites: {}
   }
@@ -6795,6 +12912,10 @@ export namespace Prisma {
    */
   export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    sender<T extends Notification$senderArgs<ExtArgs> = {}>(args?: Subset<T, Notification$senderArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    recipient<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends Notification$postArgs<ExtArgs> = {}>(args?: Subset<T, Notification$postArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    sharedPost<T extends Notification$sharedPostArgs<ExtArgs> = {}>(args?: Subset<T, Notification$sharedPostArgs<ExtArgs>>): Prisma__SharedPostClient<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6825,14 +12946,15 @@ export namespace Prisma {
    */
   interface NotificationFieldRefs {
     readonly id: FieldRef<"Notification", 'String'>
-    readonly type: FieldRef<"Notification", 'String'>
+    readonly type: FieldRef<"Notification", 'NotificationType'>
     readonly message: FieldRef<"Notification", 'String'>
     readonly isRead: FieldRef<"Notification", 'Boolean'>
-    readonly createdAt: FieldRef<"Notification", 'DateTime'>
-    readonly updatedAt: FieldRef<"Notification", 'DateTime'>
     readonly senderId: FieldRef<"Notification", 'String'>
     readonly recipientId: FieldRef<"Notification", 'String'>
     readonly postId: FieldRef<"Notification", 'String'>
+    readonly sharedPostId: FieldRef<"Notification", 'String'>
+    readonly data: FieldRef<"Notification", 'Json'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
   }
     
 
@@ -6849,6 +12971,10 @@ export namespace Prisma {
      * Omit specific fields from the Notification
      */
     omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
     /**
      * Filter, which Notification to fetch.
      */
@@ -6868,6 +12994,10 @@ export namespace Prisma {
      */
     omit?: NotificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
      * Filter, which Notification to fetch.
      */
     where: NotificationWhereUniqueInput
@@ -6885,6 +13015,10 @@ export namespace Prisma {
      * Omit specific fields from the Notification
      */
     omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
     /**
      * Filter, which Notification to fetch.
      */
@@ -6934,6 +13068,10 @@ export namespace Prisma {
      */
     omit?: NotificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
      * Filter, which Notification to fetch.
      */
     where?: NotificationWhereInput
@@ -6982,6 +13120,10 @@ export namespace Prisma {
      */
     omit?: NotificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
      * Filter, which Notifications to fetch.
      */
     where?: NotificationWhereInput
@@ -7025,6 +13167,10 @@ export namespace Prisma {
      */
     omit?: NotificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
      * The data needed to create a Notification.
      */
     data: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
@@ -7052,6 +13198,10 @@ export namespace Prisma {
      * Omit specific fields from the Notification
      */
     omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
     /**
      * The data needed to update a Notification.
      */
@@ -7093,6 +13243,10 @@ export namespace Prisma {
      */
     omit?: NotificationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
      * The filter to search for the Notification to update in case it exists.
      */
     where: NotificationWhereUniqueInput
@@ -7118,6 +13272,10 @@ export namespace Prisma {
      * Omit specific fields from the Notification
      */
     omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
     /**
      * Filter which Notification to delete.
      */
@@ -7167,6 +13325,63 @@ export namespace Prisma {
   }
 
   /**
+   * Notification.sender
+   */
+  export type Notification$senderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Notification.post
+   */
+  export type Notification$postArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+  }
+
+  /**
+   * Notification.sharedPost
+   */
+  export type Notification$sharedPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    where?: SharedPostWhereInput
+  }
+
+  /**
    * Notification without action
    */
   export type NotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7178,6 +13393,10 @@ export namespace Prisma {
      * Omit specific fields from the Notification
      */
     omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
   }
 
 
@@ -7187,76 +13406,116 @@ export namespace Prisma {
 
   export type AggregateTrip = {
     _count: TripCountAggregateOutputType | null
+    _avg: TripAvgAggregateOutputType | null
+    _sum: TripSumAggregateOutputType | null
     _min: TripMinAggregateOutputType | null
     _max: TripMaxAggregateOutputType | null
   }
 
+  export type TripAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type TripSumAggregateOutputType = {
+    rating: number | null
+  }
+
   export type TripMinAggregateOutputType = {
     id: string | null
-    title: string | null
     userId: string | null
+    title: string | null
     description: string | null
     startDate: Date | null
     endDate: Date | null
+    isPublic: boolean | null
+    rating: number | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type TripMaxAggregateOutputType = {
     id: string | null
-    title: string | null
     userId: string | null
+    title: string | null
     description: string | null
     startDate: Date | null
     endDate: Date | null
+    isPublic: boolean | null
+    rating: number | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type TripCountAggregateOutputType = {
     id: number
-    title: number
     userId: number
+    title: number
     description: number
     startDate: number
     endDate: number
     placesVisited: number
+    tags: number
+    participants: number
     sharedWith: number
+    isPublic: number
+    rating: number
     photos: number
     createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
+  export type TripAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type TripSumAggregateInputType = {
+    rating?: true
+  }
+
   export type TripMinAggregateInputType = {
     id?: true
-    title?: true
     userId?: true
+    title?: true
     description?: true
     startDate?: true
     endDate?: true
+    isPublic?: true
+    rating?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type TripMaxAggregateInputType = {
     id?: true
-    title?: true
     userId?: true
+    title?: true
     description?: true
     startDate?: true
     endDate?: true
+    isPublic?: true
+    rating?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type TripCountAggregateInputType = {
     id?: true
-    title?: true
     userId?: true
+    title?: true
     description?: true
     startDate?: true
     endDate?: true
     placesVisited?: true
+    tags?: true
+    participants?: true
     sharedWith?: true
+    isPublic?: true
+    rating?: true
     photos?: true
     createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -7298,6 +13557,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TripAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TripSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TripMinAggregateInputType
@@ -7328,22 +13599,31 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TripCountAggregateInputType | true
+    _avg?: TripAvgAggregateInputType
+    _sum?: TripSumAggregateInputType
     _min?: TripMinAggregateInputType
     _max?: TripMaxAggregateInputType
   }
 
   export type TripGroupByOutputType = {
     id: string
-    title: string
     userId: string
+    title: string
     description: string | null
     startDate: Date
     endDate: Date
     placesVisited: string[]
+    tags: string[]
+    participants: string[]
     sharedWith: string[]
+    isPublic: boolean
+    rating: number | null
     photos: JsonValue
     createdAt: Date
+    updatedAt: Date
     _count: TripCountAggregateOutputType | null
+    _avg: TripAvgAggregateOutputType | null
+    _sum: TripSumAggregateOutputType | null
     _min: TripMinAggregateOutputType | null
     _max: TripMaxAggregateOutputType | null
   }
@@ -7364,48 +13644,74 @@ export namespace Prisma {
 
   export type TripSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
     userId?: boolean
+    title?: boolean
     description?: boolean
     startDate?: boolean
     endDate?: boolean
     placesVisited?: boolean
+    tags?: boolean
+    participants?: boolean
     sharedWith?: boolean
+    isPublic?: boolean
+    rating?: boolean
     photos?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    sharedPosts?: boolean | Trip$sharedPostsArgs<ExtArgs>
+    _count?: boolean | TripCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trip"]>
 
 
 
   export type TripSelectScalar = {
     id?: boolean
-    title?: boolean
     userId?: boolean
+    title?: boolean
     description?: boolean
     startDate?: boolean
     endDate?: boolean
     placesVisited?: boolean
+    tags?: boolean
+    participants?: boolean
     sharedWith?: boolean
+    isPublic?: boolean
+    rating?: boolean
     photos?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId" | "description" | "startDate" | "endDate" | "placesVisited" | "sharedWith" | "photos" | "createdAt", ExtArgs["result"]["trip"]>
+  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "startDate" | "endDate" | "placesVisited" | "tags" | "participants" | "sharedWith" | "isPublic" | "rating" | "photos" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
+  export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    sharedPosts?: boolean | Trip$sharedPostsArgs<ExtArgs>
+    _count?: boolean | TripCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $TripPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Trip"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      sharedPosts: Prisma.$SharedPostPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
       userId: string
+      title: string
       description: string | null
       startDate: Date
       endDate: Date
       placesVisited: string[]
+      tags: string[]
+      participants: string[]
       sharedWith: string[]
+      isPublic: boolean
+      rating: number | null
       photos: Prisma.JsonValue
       createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["trip"]>
     composites: {}
   }
@@ -7769,6 +14075,8 @@ export namespace Prisma {
    */
   export interface Prisma__TripClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sharedPosts<T extends Trip$sharedPostsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$sharedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7799,15 +14107,20 @@ export namespace Prisma {
    */
   interface TripFieldRefs {
     readonly id: FieldRef<"Trip", 'String'>
-    readonly title: FieldRef<"Trip", 'String'>
     readonly userId: FieldRef<"Trip", 'String'>
+    readonly title: FieldRef<"Trip", 'String'>
     readonly description: FieldRef<"Trip", 'String'>
     readonly startDate: FieldRef<"Trip", 'DateTime'>
     readonly endDate: FieldRef<"Trip", 'DateTime'>
     readonly placesVisited: FieldRef<"Trip", 'String[]'>
+    readonly tags: FieldRef<"Trip", 'String[]'>
+    readonly participants: FieldRef<"Trip", 'String[]'>
     readonly sharedWith: FieldRef<"Trip", 'String[]'>
+    readonly isPublic: FieldRef<"Trip", 'Boolean'>
+    readonly rating: FieldRef<"Trip", 'Float'>
     readonly photos: FieldRef<"Trip", 'Json'>
     readonly createdAt: FieldRef<"Trip", 'DateTime'>
+    readonly updatedAt: FieldRef<"Trip", 'DateTime'>
   }
     
 
@@ -7824,6 +14137,10 @@ export namespace Prisma {
      * Omit specific fields from the Trip
      */
     omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
     /**
      * Filter, which Trip to fetch.
      */
@@ -7843,6 +14160,10 @@ export namespace Prisma {
      */
     omit?: TripOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    /**
      * Filter, which Trip to fetch.
      */
     where: TripWhereUniqueInput
@@ -7860,6 +14181,10 @@ export namespace Prisma {
      * Omit specific fields from the Trip
      */
     omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
     /**
      * Filter, which Trip to fetch.
      */
@@ -7909,6 +14234,10 @@ export namespace Prisma {
      */
     omit?: TripOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    /**
      * Filter, which Trip to fetch.
      */
     where?: TripWhereInput
@@ -7957,6 +14286,10 @@ export namespace Prisma {
      */
     omit?: TripOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    /**
      * Filter, which Trips to fetch.
      */
     where?: TripWhereInput
@@ -8000,6 +14333,10 @@ export namespace Prisma {
      */
     omit?: TripOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    /**
      * The data needed to create a Trip.
      */
     data: XOR<TripCreateInput, TripUncheckedCreateInput>
@@ -8027,6 +14364,10 @@ export namespace Prisma {
      * Omit specific fields from the Trip
      */
     omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
     /**
      * The data needed to update a Trip.
      */
@@ -8068,6 +14409,10 @@ export namespace Prisma {
      */
     omit?: TripOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    /**
      * The filter to search for the Trip to update in case it exists.
      */
     where: TripWhereUniqueInput
@@ -8093,6 +14438,10 @@ export namespace Prisma {
      * Omit specific fields from the Trip
      */
     omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
     /**
      * Filter which Trip to delete.
      */
@@ -8142,6 +14491,30 @@ export namespace Prisma {
   }
 
   /**
+   * Trip.sharedPosts
+   */
+  export type Trip$sharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    where?: SharedPostWhereInput
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    cursor?: SharedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
    * Trip without action
    */
   export type TripDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8153,6 +14526,2038 @@ export namespace Prisma {
      * Omit specific fields from the Trip
      */
     omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Story
+   */
+
+  export type AggregateStory = {
+    _count: StoryCountAggregateOutputType | null
+    _min: StoryMinAggregateOutputType | null
+    _max: StoryMaxAggregateOutputType | null
+  }
+
+  export type StoryMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    content: string | null
+    mediaType: $Enums.MediaType | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StoryMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    content: string | null
+    mediaType: $Enums.MediaType | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    content: number
+    mediaUrls: number
+    mediaType: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    content?: true
+    mediaType?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    content?: true
+    mediaType?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    content?: true
+    mediaUrls?: true
+    mediaType?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Story to aggregate.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Stories
+    **/
+    _count?: true | StoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoryMaxAggregateInputType
+  }
+
+  export type GetStoryAggregateType<T extends StoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateStory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStory[P]>
+      : GetScalarType<T[P], AggregateStory[P]>
+  }
+
+
+
+
+  export type StoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoryWhereInput
+    orderBy?: StoryOrderByWithAggregationInput | StoryOrderByWithAggregationInput[]
+    by: StoryScalarFieldEnum[] | StoryScalarFieldEnum
+    having?: StoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoryCountAggregateInputType | true
+    _min?: StoryMinAggregateInputType
+    _max?: StoryMaxAggregateInputType
+  }
+
+  export type StoryGroupByOutputType = {
+    id: string
+    userId: string
+    content: string | null
+    mediaUrls: string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: StoryCountAggregateOutputType | null
+    _min: StoryMinAggregateOutputType | null
+    _max: StoryMaxAggregateOutputType | null
+  }
+
+  type GetStoryGroupByPayload<T extends StoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoryGroupByOutputType[P]>
+            : GetScalarType<T[P], StoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    content?: boolean
+    mediaUrls?: boolean
+    mediaType?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    sharedPosts?: boolean | Story$sharedPostsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | StoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["story"]>
+
+
+
+  export type StorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    content?: boolean
+    mediaUrls?: boolean
+    mediaType?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "content" | "mediaUrls" | "mediaType" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["story"]>
+  export type StoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sharedPosts?: boolean | Story$sharedPostsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | StoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $StoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Story"
+    objects: {
+      sharedPosts: Prisma.$SharedPostPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      content: string | null
+      mediaUrls: string[]
+      mediaType: $Enums.MediaType
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["story"]>
+    composites: {}
+  }
+
+  type StoryGetPayload<S extends boolean | null | undefined | StoryDefaultArgs> = $Result.GetResult<Prisma.$StoryPayload, S>
+
+  type StoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StoryCountAggregateInputType | true
+    }
+
+  export interface StoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Story'], meta: { name: 'Story' } }
+    /**
+     * Find zero or one Story that matches the filter.
+     * @param {StoryFindUniqueArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoryFindUniqueArgs>(args: SelectSubset<T, StoryFindUniqueArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Story that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StoryFindUniqueOrThrowArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoryFindUniqueOrThrowArgs>(args: SelectSubset<T, StoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Story that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindFirstArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoryFindFirstArgs>(args?: SelectSubset<T, StoryFindFirstArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Story that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindFirstOrThrowArgs} args - Arguments to find a Story
+     * @example
+     * // Get one Story
+     * const story = await prisma.story.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoryFindFirstOrThrowArgs>(args?: SelectSubset<T, StoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Stories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stories
+     * const stories = await prisma.story.findMany()
+     * 
+     * // Get first 10 Stories
+     * const stories = await prisma.story.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storyWithIdOnly = await prisma.story.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StoryFindManyArgs>(args?: SelectSubset<T, StoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Story.
+     * @param {StoryCreateArgs} args - Arguments to create a Story.
+     * @example
+     * // Create one Story
+     * const Story = await prisma.story.create({
+     *   data: {
+     *     // ... data to create a Story
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoryCreateArgs>(args: SelectSubset<T, StoryCreateArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Stories.
+     * @param {StoryCreateManyArgs} args - Arguments to create many Stories.
+     * @example
+     * // Create many Stories
+     * const story = await prisma.story.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoryCreateManyArgs>(args?: SelectSubset<T, StoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Story.
+     * @param {StoryDeleteArgs} args - Arguments to delete one Story.
+     * @example
+     * // Delete one Story
+     * const Story = await prisma.story.delete({
+     *   where: {
+     *     // ... filter to delete one Story
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoryDeleteArgs>(args: SelectSubset<T, StoryDeleteArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Story.
+     * @param {StoryUpdateArgs} args - Arguments to update one Story.
+     * @example
+     * // Update one Story
+     * const story = await prisma.story.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoryUpdateArgs>(args: SelectSubset<T, StoryUpdateArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Stories.
+     * @param {StoryDeleteManyArgs} args - Arguments to filter Stories to delete.
+     * @example
+     * // Delete a few Stories
+     * const { count } = await prisma.story.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoryDeleteManyArgs>(args?: SelectSubset<T, StoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stories
+     * const story = await prisma.story.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoryUpdateManyArgs>(args: SelectSubset<T, StoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Story.
+     * @param {StoryUpsertArgs} args - Arguments to update or create a Story.
+     * @example
+     * // Update or create a Story
+     * const story = await prisma.story.upsert({
+     *   create: {
+     *     // ... data to create a Story
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Story we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoryUpsertArgs>(args: SelectSubset<T, StoryUpsertArgs<ExtArgs>>): Prisma__StoryClient<$Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Stories that matches the filter.
+     * @param {StoryFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const story = await prisma.story.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: StoryFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Story.
+     * @param {StoryAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const story = await prisma.story.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: StoryAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Stories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryCountArgs} args - Arguments to filter Stories to count.
+     * @example
+     * // Count the number of Stories
+     * const count = await prisma.story.count({
+     *   where: {
+     *     // ... the filter for the Stories we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoryCountArgs>(
+      args?: Subset<T, StoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Story.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoryAggregateArgs>(args: Subset<T, StoryAggregateArgs>): Prisma.PrismaPromise<GetStoryAggregateType<T>>
+
+    /**
+     * Group by Story.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoryGroupByArgs['orderBy'] }
+        : { orderBy?: StoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Story model
+   */
+  readonly fields: StoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Story.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sharedPosts<T extends Story$sharedPostsArgs<ExtArgs> = {}>(args?: Subset<T, Story$sharedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Story model
+   */
+  interface StoryFieldRefs {
+    readonly id: FieldRef<"Story", 'String'>
+    readonly userId: FieldRef<"Story", 'String'>
+    readonly content: FieldRef<"Story", 'String'>
+    readonly mediaUrls: FieldRef<"Story", 'String[]'>
+    readonly mediaType: FieldRef<"Story", 'MediaType'>
+    readonly expiresAt: FieldRef<"Story", 'DateTime'>
+    readonly createdAt: FieldRef<"Story", 'DateTime'>
+    readonly updatedAt: FieldRef<"Story", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Story findUnique
+   */
+  export type StoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story findUniqueOrThrow
+   */
+  export type StoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story findFirst
+   */
+  export type StoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stories.
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stories.
+     */
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
+   * Story findFirstOrThrow
+   */
+  export type StoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Story to fetch.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stories.
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stories.
+     */
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
+   * Story findMany
+   */
+  export type StoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Stories to fetch.
+     */
+    where?: StoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stories to fetch.
+     */
+    orderBy?: StoryOrderByWithRelationInput | StoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Stories.
+     */
+    cursor?: StoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stories.
+     */
+    skip?: number
+    distinct?: StoryScalarFieldEnum | StoryScalarFieldEnum[]
+  }
+
+  /**
+   * Story create
+   */
+  export type StoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Story.
+     */
+    data: XOR<StoryCreateInput, StoryUncheckedCreateInput>
+  }
+
+  /**
+   * Story createMany
+   */
+  export type StoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Stories.
+     */
+    data: StoryCreateManyInput | StoryCreateManyInput[]
+  }
+
+  /**
+   * Story update
+   */
+  export type StoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Story.
+     */
+    data: XOR<StoryUpdateInput, StoryUncheckedUpdateInput>
+    /**
+     * Choose, which Story to update.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story updateMany
+   */
+  export type StoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Stories.
+     */
+    data: XOR<StoryUpdateManyMutationInput, StoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Stories to update
+     */
+    where?: StoryWhereInput
+    /**
+     * Limit how many Stories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Story upsert
+   */
+  export type StoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Story to update in case it exists.
+     */
+    where: StoryWhereUniqueInput
+    /**
+     * In case the Story found by the `where` argument doesn't exist, create a new Story with this data.
+     */
+    create: XOR<StoryCreateInput, StoryUncheckedCreateInput>
+    /**
+     * In case the Story was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoryUpdateInput, StoryUncheckedUpdateInput>
+  }
+
+  /**
+   * Story delete
+   */
+  export type StoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+    /**
+     * Filter which Story to delete.
+     */
+    where: StoryWhereUniqueInput
+  }
+
+  /**
+   * Story deleteMany
+   */
+  export type StoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Stories to delete
+     */
+    where?: StoryWhereInput
+    /**
+     * Limit how many Stories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Story findRaw
+   */
+  export type StoryFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Story aggregateRaw
+   */
+  export type StoryAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Story.sharedPosts
+   */
+  export type Story$sharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedPost
+     */
+    select?: SharedPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedPost
+     */
+    omit?: SharedPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedPostInclude<ExtArgs> | null
+    where?: SharedPostWhereInput
+    orderBy?: SharedPostOrderByWithRelationInput | SharedPostOrderByWithRelationInput[]
+    cursor?: SharedPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedPostScalarFieldEnum | SharedPostScalarFieldEnum[]
+  }
+
+  /**
+   * Story without action
+   */
+  export type StoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Story
+     */
+    select?: StorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Story
+     */
+    omit?: StoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Report
+   */
+
+  export type AggregateReport = {
+    _count: ReportCountAggregateOutputType | null
+    _min: ReportMinAggregateOutputType | null
+    _max: ReportMaxAggregateOutputType | null
+  }
+
+  export type ReportMinAggregateOutputType = {
+    id: string | null
+    reporterId: string | null
+    targetType: string | null
+    targetId: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type ReportMaxAggregateOutputType = {
+    id: string | null
+    reporterId: string | null
+    targetType: string | null
+    targetId: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type ReportCountAggregateOutputType = {
+    id: number
+    reporterId: number
+    targetType: number
+    targetId: number
+    reason: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ReportMinAggregateInputType = {
+    id?: true
+    reporterId?: true
+    targetType?: true
+    targetId?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type ReportMaxAggregateInputType = {
+    id?: true
+    reporterId?: true
+    targetType?: true
+    targetId?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type ReportCountAggregateInputType = {
+    id?: true
+    reporterId?: true
+    targetType?: true
+    targetId?: true
+    reason?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Report to aggregate.
+     */
+    where?: ReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reports to fetch.
+     */
+    orderBy?: ReportOrderByWithRelationInput | ReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Reports
+    **/
+    _count?: true | ReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReportMaxAggregateInputType
+  }
+
+  export type GetReportAggregateType<T extends ReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReport[P]>
+      : GetScalarType<T[P], AggregateReport[P]>
+  }
+
+
+
+
+  export type ReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReportWhereInput
+    orderBy?: ReportOrderByWithAggregationInput | ReportOrderByWithAggregationInput[]
+    by: ReportScalarFieldEnum[] | ReportScalarFieldEnum
+    having?: ReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReportCountAggregateInputType | true
+    _min?: ReportMinAggregateInputType
+    _max?: ReportMaxAggregateInputType
+  }
+
+  export type ReportGroupByOutputType = {
+    id: string
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt: Date
+    _count: ReportCountAggregateOutputType | null
+    _min: ReportMinAggregateOutputType | null
+    _max: ReportMaxAggregateOutputType | null
+  }
+
+  type GetReportGroupByPayload<T extends ReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReportGroupByOutputType[P]>
+            : GetScalarType<T[P], ReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reporterId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["report"]>
+
+
+
+  export type ReportSelectScalar = {
+    id?: boolean
+    reporterId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }
+
+  export type ReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporterId" | "targetType" | "targetId" | "reason" | "createdAt", ExtArgs["result"]["report"]>
+  export type ReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Report"
+    objects: {
+      reporter: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      reporterId: string
+      targetType: string
+      targetId: string
+      reason: string
+      createdAt: Date
+    }, ExtArgs["result"]["report"]>
+    composites: {}
+  }
+
+  type ReportGetPayload<S extends boolean | null | undefined | ReportDefaultArgs> = $Result.GetResult<Prisma.$ReportPayload, S>
+
+  type ReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReportCountAggregateInputType | true
+    }
+
+  export interface ReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Report'], meta: { name: 'Report' } }
+    /**
+     * Find zero or one Report that matches the filter.
+     * @param {ReportFindUniqueArgs} args - Arguments to find a Report
+     * @example
+     * // Get one Report
+     * const report = await prisma.report.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReportFindUniqueArgs>(args: SelectSubset<T, ReportFindUniqueArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Report that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReportFindUniqueOrThrowArgs} args - Arguments to find a Report
+     * @example
+     * // Get one Report
+     * const report = await prisma.report.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReportFindUniqueOrThrowArgs>(args: SelectSubset<T, ReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Report that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportFindFirstArgs} args - Arguments to find a Report
+     * @example
+     * // Get one Report
+     * const report = await prisma.report.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReportFindFirstArgs>(args?: SelectSubset<T, ReportFindFirstArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Report that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportFindFirstOrThrowArgs} args - Arguments to find a Report
+     * @example
+     * // Get one Report
+     * const report = await prisma.report.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReportFindFirstOrThrowArgs>(args?: SelectSubset<T, ReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reports
+     * const reports = await prisma.report.findMany()
+     * 
+     * // Get first 10 Reports
+     * const reports = await prisma.report.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reportWithIdOnly = await prisma.report.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReportFindManyArgs>(args?: SelectSubset<T, ReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Report.
+     * @param {ReportCreateArgs} args - Arguments to create a Report.
+     * @example
+     * // Create one Report
+     * const Report = await prisma.report.create({
+     *   data: {
+     *     // ... data to create a Report
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReportCreateArgs>(args: SelectSubset<T, ReportCreateArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reports.
+     * @param {ReportCreateManyArgs} args - Arguments to create many Reports.
+     * @example
+     * // Create many Reports
+     * const report = await prisma.report.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReportCreateManyArgs>(args?: SelectSubset<T, ReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Report.
+     * @param {ReportDeleteArgs} args - Arguments to delete one Report.
+     * @example
+     * // Delete one Report
+     * const Report = await prisma.report.delete({
+     *   where: {
+     *     // ... filter to delete one Report
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReportDeleteArgs>(args: SelectSubset<T, ReportDeleteArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Report.
+     * @param {ReportUpdateArgs} args - Arguments to update one Report.
+     * @example
+     * // Update one Report
+     * const report = await prisma.report.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReportUpdateArgs>(args: SelectSubset<T, ReportUpdateArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reports.
+     * @param {ReportDeleteManyArgs} args - Arguments to filter Reports to delete.
+     * @example
+     * // Delete a few Reports
+     * const { count } = await prisma.report.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReportDeleteManyArgs>(args?: SelectSubset<T, ReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reports
+     * const report = await prisma.report.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReportUpdateManyArgs>(args: SelectSubset<T, ReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Report.
+     * @param {ReportUpsertArgs} args - Arguments to update or create a Report.
+     * @example
+     * // Update or create a Report
+     * const report = await prisma.report.upsert({
+     *   create: {
+     *     // ... data to create a Report
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Report we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReportUpsertArgs>(args: SelectSubset<T, ReportUpsertArgs<ExtArgs>>): Prisma__ReportClient<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reports that matches the filter.
+     * @param {ReportFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const report = await prisma.report.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ReportFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Report.
+     * @param {ReportAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const report = await prisma.report.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ReportAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Reports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportCountArgs} args - Arguments to filter Reports to count.
+     * @example
+     * // Count the number of Reports
+     * const count = await prisma.report.count({
+     *   where: {
+     *     // ... the filter for the Reports we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReportCountArgs>(
+      args?: Subset<T, ReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Report.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReportAggregateArgs>(args: Subset<T, ReportAggregateArgs>): Prisma.PrismaPromise<GetReportAggregateType<T>>
+
+    /**
+     * Group by Report.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReportGroupByArgs['orderBy'] }
+        : { orderBy?: ReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Report model
+   */
+  readonly fields: ReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Report.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reporter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Report model
+   */
+  interface ReportFieldRefs {
+    readonly id: FieldRef<"Report", 'String'>
+    readonly reporterId: FieldRef<"Report", 'String'>
+    readonly targetType: FieldRef<"Report", 'String'>
+    readonly targetId: FieldRef<"Report", 'String'>
+    readonly reason: FieldRef<"Report", 'String'>
+    readonly createdAt: FieldRef<"Report", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Report findUnique
+   */
+  export type ReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * Filter, which Report to fetch.
+     */
+    where: ReportWhereUniqueInput
+  }
+
+  /**
+   * Report findUniqueOrThrow
+   */
+  export type ReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * Filter, which Report to fetch.
+     */
+    where: ReportWhereUniqueInput
+  }
+
+  /**
+   * Report findFirst
+   */
+  export type ReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * Filter, which Report to fetch.
+     */
+    where?: ReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reports to fetch.
+     */
+    orderBy?: ReportOrderByWithRelationInput | ReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reports.
+     */
+    cursor?: ReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reports.
+     */
+    distinct?: ReportScalarFieldEnum | ReportScalarFieldEnum[]
+  }
+
+  /**
+   * Report findFirstOrThrow
+   */
+  export type ReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * Filter, which Report to fetch.
+     */
+    where?: ReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reports to fetch.
+     */
+    orderBy?: ReportOrderByWithRelationInput | ReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reports.
+     */
+    cursor?: ReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reports.
+     */
+    distinct?: ReportScalarFieldEnum | ReportScalarFieldEnum[]
+  }
+
+  /**
+   * Report findMany
+   */
+  export type ReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * Filter, which Reports to fetch.
+     */
+    where?: ReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reports to fetch.
+     */
+    orderBy?: ReportOrderByWithRelationInput | ReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Reports.
+     */
+    cursor?: ReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reports.
+     */
+    skip?: number
+    distinct?: ReportScalarFieldEnum | ReportScalarFieldEnum[]
+  }
+
+  /**
+   * Report create
+   */
+  export type ReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Report.
+     */
+    data: XOR<ReportCreateInput, ReportUncheckedCreateInput>
+  }
+
+  /**
+   * Report createMany
+   */
+  export type ReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Reports.
+     */
+    data: ReportCreateManyInput | ReportCreateManyInput[]
+  }
+
+  /**
+   * Report update
+   */
+  export type ReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Report.
+     */
+    data: XOR<ReportUpdateInput, ReportUncheckedUpdateInput>
+    /**
+     * Choose, which Report to update.
+     */
+    where: ReportWhereUniqueInput
+  }
+
+  /**
+   * Report updateMany
+   */
+  export type ReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Reports.
+     */
+    data: XOR<ReportUpdateManyMutationInput, ReportUncheckedUpdateManyInput>
+    /**
+     * Filter which Reports to update
+     */
+    where?: ReportWhereInput
+    /**
+     * Limit how many Reports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Report upsert
+   */
+  export type ReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Report to update in case it exists.
+     */
+    where: ReportWhereUniqueInput
+    /**
+     * In case the Report found by the `where` argument doesn't exist, create a new Report with this data.
+     */
+    create: XOR<ReportCreateInput, ReportUncheckedCreateInput>
+    /**
+     * In case the Report was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReportUpdateInput, ReportUncheckedUpdateInput>
+  }
+
+  /**
+   * Report delete
+   */
+  export type ReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
+    /**
+     * Filter which Report to delete.
+     */
+    where: ReportWhereUniqueInput
+  }
+
+  /**
+   * Report deleteMany
+   */
+  export type ReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reports to delete
+     */
+    where?: ReportWhereInput
+    /**
+     * Limit how many Reports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Report findRaw
+   */
+  export type ReportFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Report aggregateRaw
+   */
+  export type ReportAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Report without action
+   */
+  export type ReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Report
+     */
+    select?: ReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Report
+     */
+    omit?: ReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportInclude<ExtArgs> | null
   }
 
 
@@ -8166,20 +16571,35 @@ export namespace Prisma {
     username: 'username',
     password: 'password',
     name: 'name',
+    phoneNumber: 'phoneNumber',
     profilePic: 'profilePic',
     bio: 'bio',
+    gender: 'gender',
+    dob: 'dob',
+    address: 'address',
+    verified: 'verified',
+    lastLogin: 'lastLogin',
     accountStatus: 'accountStatus',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    deleteAt: 'deleteAt',
-    followers: 'followers',
-    following: 'following',
+    private: 'private',
     role: 'role',
     refreshToken: 'refreshToken',
-    private: 'private'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deleteAt: 'deleteAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const FollowScalarFieldEnum: {
+    id: 'id',
+    followerId: 'followerId',
+    followingId: 'followingId',
+    followStatus: 'followStatus',
+    createdAt: 'createdAt'
+  };
+
+  export type FollowScalarFieldEnum = (typeof FollowScalarFieldEnum)[keyof typeof FollowScalarFieldEnum]
 
 
   export const PostScalarFieldEnum: {
@@ -8187,6 +16607,12 @@ export namespace Prisma {
     authorId: 'authorId',
     imageUrl: 'imageUrl',
     caption: 'caption',
+    location: 'location',
+    tags: 'tags',
+    isPublic: 'isPublic',
+    likeCount: 'likeCount',
+    commentCount: 'commentCount',
+    sharedCount: 'sharedCount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8194,11 +16620,39 @@ export namespace Prisma {
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
+  export const SharedPostScalarFieldEnum: {
+    id: 'id',
+    senderId: 'senderId',
+    recipientId: 'recipientId',
+    storyId: 'storyId',
+    tripId: 'tripId',
+    postId: 'postId',
+    message: 'message',
+    isPublic: 'isPublic',
+    createdAt: 'createdAt'
+  };
+
+  export type SharedPostScalarFieldEnum = (typeof SharedPostScalarFieldEnum)[keyof typeof SharedPostScalarFieldEnum]
+
+
+  export const PostTagScalarFieldEnum: {
+    id: 'id',
+    postId: 'postId',
+    userId: 'userId',
+    createdAt: 'createdAt'
+  };
+
+  export type PostTagScalarFieldEnum = (typeof PostTagScalarFieldEnum)[keyof typeof PostTagScalarFieldEnum]
+
+
   export const CommentScalarFieldEnum: {
     id: 'id',
     postId: 'postId',
     authorId: 'authorId',
     content: 'content',
+    parentId: 'parentId',
+    likeCount: 'likeCount',
+    isEdited: 'isEdited',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8208,13 +16662,23 @@ export namespace Prisma {
 
   export const LikeScalarFieldEnum: {
     id: 'id',
-    postId: 'postId',
     userId: 'userId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    targetId: 'targetId',
+    type: 'type',
+    createdAt: 'createdAt'
   };
 
   export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
+
+
+  export const SavedPostScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    savedAt: 'savedAt'
+  };
+
+  export type SavedPostScalarFieldEnum = (typeof SavedPostScalarFieldEnum)[keyof typeof SavedPostScalarFieldEnum]
 
 
   export const MessageScalarFieldEnum: {
@@ -8234,11 +16698,12 @@ export namespace Prisma {
     type: 'type',
     message: 'message',
     isRead: 'isRead',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
     senderId: 'senderId',
     recipientId: 'recipientId',
-    postId: 'postId'
+    postId: 'postId',
+    sharedPostId: 'sharedPostId',
+    data: 'data',
+    createdAt: 'createdAt'
   };
 
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -8246,18 +16711,49 @@ export namespace Prisma {
 
   export const TripScalarFieldEnum: {
     id: 'id',
-    title: 'title',
     userId: 'userId',
+    title: 'title',
     description: 'description',
     startDate: 'startDate',
     endDate: 'endDate',
     placesVisited: 'placesVisited',
+    tags: 'tags',
+    participants: 'participants',
     sharedWith: 'sharedWith',
+    isPublic: 'isPublic',
+    rating: 'rating',
     photos: 'photos',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type TripScalarFieldEnum = (typeof TripScalarFieldEnum)[keyof typeof TripScalarFieldEnum]
+
+
+  export const StoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    content: 'content',
+    mediaUrls: 'mediaUrls',
+    mediaType: 'mediaType',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof StoryScalarFieldEnum]
+
+
+  export const ReportScalarFieldEnum: {
+    id: 'id',
+    reporterId: 'reporterId',
+    targetType: 'targetType',
+    targetId: 'targetId',
+    reason: 'reason',
+    createdAt: 'createdAt'
+  };
+
+  export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8296,13 +16792,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -8317,9 +16806,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
+   * Reference to a field of type 'Boolean'
    */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -8338,6 +16827,27 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'NotificationType'
+   */
+  export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'NotificationType[]'
+   */
+  export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8348,6 +16858,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaType'
+   */
+  export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaType[]'
+   */
+  export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
     
   /**
    * Deep Input Types
@@ -8363,17 +16887,37 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     profilePic?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
+    gender?: StringNullableFilter<"User"> | string | null
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    address?: StringNullableFilter<"User"> | string | null
+    verified?: BoolFilter<"User"> | boolean
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     accountStatus?: BoolFilter<"User"> | boolean
+    private?: BoolFilter<"User"> | boolean
+    role?: IntFilter<"User"> | number
+    refreshToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deleteAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    followers?: JsonFilter<"User">
-    following?: JsonFilter<"User">
-    role?: IntFilter<"User"> | number
-    refreshToken?: StringNullableFilter<"User"> | string | null
-    private?: BoolFilter<"User"> | boolean
+    posts?: PostListRelationFilter
+    comments?: CommentListRelationFilter
+    likes?: LikeListRelationFilter
+    savedPosts?: SavedPostListRelationFilter
+    messagesSent?: MessageListRelationFilter
+    messagesRecv?: MessageListRelationFilter
+    notificationsSent?: NotificationListRelationFilter
+    notificationsRecv?: NotificationListRelationFilter
+    trips?: TripListRelationFilter
+    reports?: ReportListRelationFilter
+    followers?: FollowListRelationFilter
+    following?: FollowListRelationFilter
+    taggedInPosts?: PostTagListRelationFilter
+    sharedPostsSent?: SharedPostListRelationFilter
+    sharedPostsReceived?: SharedPostListRelationFilter
+    stories?: StoryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8382,17 +16926,37 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    phoneNumber?: SortOrder
     profilePic?: SortOrder
     bio?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    verified?: SortOrder
+    lastLogin?: SortOrder
     accountStatus?: SortOrder
+    private?: SortOrder
+    role?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deleteAt?: SortOrder
-    followers?: SortOrder
-    following?: SortOrder
-    role?: SortOrder
-    refreshToken?: SortOrder
-    private?: SortOrder
+    posts?: PostOrderByRelationAggregateInput
+    comments?: CommentOrderByRelationAggregateInput
+    likes?: LikeOrderByRelationAggregateInput
+    savedPosts?: SavedPostOrderByRelationAggregateInput
+    messagesSent?: MessageOrderByRelationAggregateInput
+    messagesRecv?: MessageOrderByRelationAggregateInput
+    notificationsSent?: NotificationOrderByRelationAggregateInput
+    notificationsRecv?: NotificationOrderByRelationAggregateInput
+    trips?: TripOrderByRelationAggregateInput
+    reports?: ReportOrderByRelationAggregateInput
+    followers?: FollowOrderByRelationAggregateInput
+    following?: FollowOrderByRelationAggregateInput
+    taggedInPosts?: PostTagOrderByRelationAggregateInput
+    sharedPostsSent?: SharedPostOrderByRelationAggregateInput
+    sharedPostsReceived?: SharedPostOrderByRelationAggregateInput
+    stories?: StoryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8404,17 +16968,37 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     profilePic?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
+    gender?: StringNullableFilter<"User"> | string | null
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    address?: StringNullableFilter<"User"> | string | null
+    verified?: BoolFilter<"User"> | boolean
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     accountStatus?: BoolFilter<"User"> | boolean
+    private?: BoolFilter<"User"> | boolean
+    role?: IntFilter<"User"> | number
+    refreshToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deleteAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    followers?: JsonFilter<"User">
-    following?: JsonFilter<"User">
-    role?: IntFilter<"User"> | number
-    refreshToken?: StringNullableFilter<"User"> | string | null
-    private?: BoolFilter<"User"> | boolean
+    posts?: PostListRelationFilter
+    comments?: CommentListRelationFilter
+    likes?: LikeListRelationFilter
+    savedPosts?: SavedPostListRelationFilter
+    messagesSent?: MessageListRelationFilter
+    messagesRecv?: MessageListRelationFilter
+    notificationsSent?: NotificationListRelationFilter
+    notificationsRecv?: NotificationListRelationFilter
+    trips?: TripListRelationFilter
+    reports?: ReportListRelationFilter
+    followers?: FollowListRelationFilter
+    following?: FollowListRelationFilter
+    taggedInPosts?: PostTagListRelationFilter
+    sharedPostsSent?: SharedPostListRelationFilter
+    sharedPostsReceived?: SharedPostListRelationFilter
+    stories?: StoryListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -8423,17 +17007,21 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    phoneNumber?: SortOrder
     profilePic?: SortOrder
     bio?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    verified?: SortOrder
+    lastLogin?: SortOrder
     accountStatus?: SortOrder
+    private?: SortOrder
+    role?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deleteAt?: SortOrder
-    followers?: SortOrder
-    following?: SortOrder
-    role?: SortOrder
-    refreshToken?: SortOrder
-    private?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -8450,17 +17038,80 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     profilePic?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    gender?: StringNullableWithAggregatesFilter<"User"> | string | null
+    dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    verified?: BoolWithAggregatesFilter<"User"> | boolean
+    lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     accountStatus?: BoolWithAggregatesFilter<"User"> | boolean
+    private?: BoolWithAggregatesFilter<"User"> | boolean
+    role?: IntWithAggregatesFilter<"User"> | number
+    refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     deleteAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    followers?: JsonWithAggregatesFilter<"User">
-    following?: JsonWithAggregatesFilter<"User">
-    role?: IntWithAggregatesFilter<"User"> | number
-    refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    private?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
+  export type FollowWhereInput = {
+    AND?: FollowWhereInput | FollowWhereInput[]
+    OR?: FollowWhereInput[]
+    NOT?: FollowWhereInput | FollowWhereInput[]
+    id?: StringFilter<"Follow"> | string
+    followerId?: StringFilter<"Follow"> | string
+    followingId?: StringFilter<"Follow"> | string
+    followStatus?: StringFilter<"Follow"> | string
+    createdAt?: DateTimeFilter<"Follow"> | Date | string
+    follower?: XOR<UserScalarRelationFilter, UserWhereInput>
+    following?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type FollowOrderByWithRelationInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followingId?: SortOrder
+    followStatus?: SortOrder
+    createdAt?: SortOrder
+    follower?: UserOrderByWithRelationInput
+    following?: UserOrderByWithRelationInput
+  }
+
+  export type FollowWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    followerId_followingId?: FollowFollowerIdFollowingIdCompoundUniqueInput
+    AND?: FollowWhereInput | FollowWhereInput[]
+    OR?: FollowWhereInput[]
+    NOT?: FollowWhereInput | FollowWhereInput[]
+    followerId?: StringFilter<"Follow"> | string
+    followingId?: StringFilter<"Follow"> | string
+    followStatus?: StringFilter<"Follow"> | string
+    createdAt?: DateTimeFilter<"Follow"> | Date | string
+    follower?: XOR<UserScalarRelationFilter, UserWhereInput>
+    following?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "followerId_followingId">
+
+  export type FollowOrderByWithAggregationInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followingId?: SortOrder
+    followStatus?: SortOrder
+    createdAt?: SortOrder
+    _count?: FollowCountOrderByAggregateInput
+    _max?: FollowMaxOrderByAggregateInput
+    _min?: FollowMinOrderByAggregateInput
+  }
+
+  export type FollowScalarWhereWithAggregatesInput = {
+    AND?: FollowScalarWhereWithAggregatesInput | FollowScalarWhereWithAggregatesInput[]
+    OR?: FollowScalarWhereWithAggregatesInput[]
+    NOT?: FollowScalarWhereWithAggregatesInput | FollowScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Follow"> | string
+    followerId?: StringWithAggregatesFilter<"Follow"> | string
+    followingId?: StringWithAggregatesFilter<"Follow"> | string
+    followStatus?: StringWithAggregatesFilter<"Follow"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Follow"> | Date | string
   }
 
   export type PostWhereInput = {
@@ -8471,8 +17122,20 @@ export namespace Prisma {
     authorId?: StringFilter<"Post"> | string
     imageUrl?: StringNullableListFilter<"Post">
     caption?: StringNullableFilter<"Post"> | string | null
+    location?: StringNullableFilter<"Post"> | string | null
+    tags?: StringNullableListFilter<"Post">
+    isPublic?: BoolFilter<"Post"> | boolean
+    likeCount?: IntFilter<"Post"> | number
+    commentCount?: IntFilter<"Post"> | number
+    sharedCount?: IntFilter<"Post"> | number
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    taggedUsers?: PostTagListRelationFilter
+    sharedPosts?: SharedPostListRelationFilter
+    comments?: CommentListRelationFilter
+    savedBy?: SavedPostListRelationFilter
+    notifications?: NotificationListRelationFilter
   }
 
   export type PostOrderByWithRelationInput = {
@@ -8480,8 +17143,20 @@ export namespace Prisma {
     authorId?: SortOrder
     imageUrl?: SortOrder
     caption?: SortOrder
+    location?: SortOrder
+    tags?: SortOrder
+    isPublic?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    author?: UserOrderByWithRelationInput
+    taggedUsers?: PostTagOrderByRelationAggregateInput
+    sharedPosts?: SharedPostOrderByRelationAggregateInput
+    comments?: CommentOrderByRelationAggregateInput
+    savedBy?: SavedPostOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -8492,8 +17167,20 @@ export namespace Prisma {
     authorId?: StringFilter<"Post"> | string
     imageUrl?: StringNullableListFilter<"Post">
     caption?: StringNullableFilter<"Post"> | string | null
+    location?: StringNullableFilter<"Post"> | string | null
+    tags?: StringNullableListFilter<"Post">
+    isPublic?: BoolFilter<"Post"> | boolean
+    likeCount?: IntFilter<"Post"> | number
+    commentCount?: IntFilter<"Post"> | number
+    sharedCount?: IntFilter<"Post"> | number
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    taggedUsers?: PostTagListRelationFilter
+    sharedPosts?: SharedPostListRelationFilter
+    comments?: CommentListRelationFilter
+    savedBy?: SavedPostListRelationFilter
+    notifications?: NotificationListRelationFilter
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
@@ -8501,11 +17188,19 @@ export namespace Prisma {
     authorId?: SortOrder
     imageUrl?: SortOrder
     caption?: SortOrder
+    location?: SortOrder
+    tags?: SortOrder
+    isPublic?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PostCountOrderByAggregateInput
+    _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
     _min?: PostMinOrderByAggregateInput
+    _sum?: PostSumOrderByAggregateInput
   }
 
   export type PostScalarWhereWithAggregatesInput = {
@@ -8516,8 +17211,158 @@ export namespace Prisma {
     authorId?: StringWithAggregatesFilter<"Post"> | string
     imageUrl?: StringNullableListFilter<"Post">
     caption?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    location?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    tags?: StringNullableListFilter<"Post">
+    isPublic?: BoolWithAggregatesFilter<"Post"> | boolean
+    likeCount?: IntWithAggregatesFilter<"Post"> | number
+    commentCount?: IntWithAggregatesFilter<"Post"> | number
+    sharedCount?: IntWithAggregatesFilter<"Post"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  }
+
+  export type SharedPostWhereInput = {
+    AND?: SharedPostWhereInput | SharedPostWhereInput[]
+    OR?: SharedPostWhereInput[]
+    NOT?: SharedPostWhereInput | SharedPostWhereInput[]
+    id?: StringFilter<"SharedPost"> | string
+    senderId?: StringFilter<"SharedPost"> | string
+    recipientId?: StringNullableFilter<"SharedPost"> | string | null
+    storyId?: StringNullableFilter<"SharedPost"> | string | null
+    tripId?: StringNullableFilter<"SharedPost"> | string | null
+    postId?: StringFilter<"SharedPost"> | string
+    message?: StringNullableFilter<"SharedPost"> | string | null
+    isPublic?: BoolFilter<"SharedPost"> | boolean
+    createdAt?: DateTimeFilter<"SharedPost"> | Date | string
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    story?: XOR<StoryNullableScalarRelationFilter, StoryWhereInput> | null
+    trip?: XOR<TripNullableScalarRelationFilter, TripWhereInput> | null
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    notifications?: NotificationListRelationFilter
+  }
+
+  export type SharedPostOrderByWithRelationInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    storyId?: SortOrder
+    tripId?: SortOrder
+    postId?: SortOrder
+    message?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    sender?: UserOrderByWithRelationInput
+    recipient?: UserOrderByWithRelationInput
+    story?: StoryOrderByWithRelationInput
+    trip?: TripOrderByWithRelationInput
+    post?: PostOrderByWithRelationInput
+    notifications?: NotificationOrderByRelationAggregateInput
+  }
+
+  export type SharedPostWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SharedPostWhereInput | SharedPostWhereInput[]
+    OR?: SharedPostWhereInput[]
+    NOT?: SharedPostWhereInput | SharedPostWhereInput[]
+    senderId?: StringFilter<"SharedPost"> | string
+    recipientId?: StringNullableFilter<"SharedPost"> | string | null
+    storyId?: StringNullableFilter<"SharedPost"> | string | null
+    tripId?: StringNullableFilter<"SharedPost"> | string | null
+    postId?: StringFilter<"SharedPost"> | string
+    message?: StringNullableFilter<"SharedPost"> | string | null
+    isPublic?: BoolFilter<"SharedPost"> | boolean
+    createdAt?: DateTimeFilter<"SharedPost"> | Date | string
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    story?: XOR<StoryNullableScalarRelationFilter, StoryWhereInput> | null
+    trip?: XOR<TripNullableScalarRelationFilter, TripWhereInput> | null
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    notifications?: NotificationListRelationFilter
+  }, "id">
+
+  export type SharedPostOrderByWithAggregationInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    storyId?: SortOrder
+    tripId?: SortOrder
+    postId?: SortOrder
+    message?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    _count?: SharedPostCountOrderByAggregateInput
+    _max?: SharedPostMaxOrderByAggregateInput
+    _min?: SharedPostMinOrderByAggregateInput
+  }
+
+  export type SharedPostScalarWhereWithAggregatesInput = {
+    AND?: SharedPostScalarWhereWithAggregatesInput | SharedPostScalarWhereWithAggregatesInput[]
+    OR?: SharedPostScalarWhereWithAggregatesInput[]
+    NOT?: SharedPostScalarWhereWithAggregatesInput | SharedPostScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SharedPost"> | string
+    senderId?: StringWithAggregatesFilter<"SharedPost"> | string
+    recipientId?: StringNullableWithAggregatesFilter<"SharedPost"> | string | null
+    storyId?: StringNullableWithAggregatesFilter<"SharedPost"> | string | null
+    tripId?: StringNullableWithAggregatesFilter<"SharedPost"> | string | null
+    postId?: StringWithAggregatesFilter<"SharedPost"> | string
+    message?: StringNullableWithAggregatesFilter<"SharedPost"> | string | null
+    isPublic?: BoolWithAggregatesFilter<"SharedPost"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SharedPost"> | Date | string
+  }
+
+  export type PostTagWhereInput = {
+    AND?: PostTagWhereInput | PostTagWhereInput[]
+    OR?: PostTagWhereInput[]
+    NOT?: PostTagWhereInput | PostTagWhereInput[]
+    id?: StringFilter<"PostTag"> | string
+    postId?: StringFilter<"PostTag"> | string
+    userId?: StringFilter<"PostTag"> | string
+    createdAt?: DateTimeFilter<"PostTag"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PostTagOrderByWithRelationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    post?: PostOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PostTagWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    postId_userId?: PostTagPostIdUserIdCompoundUniqueInput
+    AND?: PostTagWhereInput | PostTagWhereInput[]
+    OR?: PostTagWhereInput[]
+    NOT?: PostTagWhereInput | PostTagWhereInput[]
+    postId?: StringFilter<"PostTag"> | string
+    userId?: StringFilter<"PostTag"> | string
+    createdAt?: DateTimeFilter<"PostTag"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "postId_userId">
+
+  export type PostTagOrderByWithAggregationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    _count?: PostTagCountOrderByAggregateInput
+    _max?: PostTagMaxOrderByAggregateInput
+    _min?: PostTagMinOrderByAggregateInput
+  }
+
+  export type PostTagScalarWhereWithAggregatesInput = {
+    AND?: PostTagScalarWhereWithAggregatesInput | PostTagScalarWhereWithAggregatesInput[]
+    OR?: PostTagScalarWhereWithAggregatesInput[]
+    NOT?: PostTagScalarWhereWithAggregatesInput | PostTagScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PostTag"> | string
+    postId?: StringWithAggregatesFilter<"PostTag"> | string
+    userId?: StringWithAggregatesFilter<"PostTag"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PostTag"> | Date | string
   }
 
   export type CommentWhereInput = {
@@ -8528,8 +17373,15 @@ export namespace Prisma {
     postId?: StringFilter<"Comment"> | string
     authorId?: StringFilter<"Comment"> | string
     content?: StringFilter<"Comment"> | string
+    parentId?: StringNullableFilter<"Comment"> | string | null
+    likeCount?: IntFilter<"Comment"> | number
+    isEdited?: BoolFilter<"Comment"> | boolean
     createdAt?: DateTimeFilter<"Comment"> | Date | string
     updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    replies?: CommentListRelationFilter
   }
 
   export type CommentOrderByWithRelationInput = {
@@ -8537,8 +17389,15 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    post?: PostOrderByWithRelationInput
+    author?: UserOrderByWithRelationInput
+    parent?: CommentOrderByWithRelationInput
+    replies?: CommentOrderByRelationAggregateInput
   }
 
   export type CommentWhereUniqueInput = Prisma.AtLeast<{
@@ -8549,8 +17408,15 @@ export namespace Prisma {
     postId?: StringFilter<"Comment"> | string
     authorId?: StringFilter<"Comment"> | string
     content?: StringFilter<"Comment"> | string
+    parentId?: StringNullableFilter<"Comment"> | string | null
+    likeCount?: IntFilter<"Comment"> | number
+    isEdited?: BoolFilter<"Comment"> | boolean
     createdAt?: DateTimeFilter<"Comment"> | Date | string
     updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    replies?: CommentListRelationFilter
   }, "id">
 
   export type CommentOrderByWithAggregationInput = {
@@ -8558,11 +17424,16 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CommentCountOrderByAggregateInput
+    _avg?: CommentAvgOrderByAggregateInput
     _max?: CommentMaxOrderByAggregateInput
     _min?: CommentMinOrderByAggregateInput
+    _sum?: CommentSumOrderByAggregateInput
   }
 
   export type CommentScalarWhereWithAggregatesInput = {
@@ -8573,6 +17444,9 @@ export namespace Prisma {
     postId?: StringWithAggregatesFilter<"Comment"> | string
     authorId?: StringWithAggregatesFilter<"Comment"> | string
     content?: StringWithAggregatesFilter<"Comment"> | string
+    parentId?: StringNullableWithAggregatesFilter<"Comment"> | string | null
+    likeCount?: IntWithAggregatesFilter<"Comment"> | number
+    isEdited?: BoolWithAggregatesFilter<"Comment"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
   }
@@ -8582,38 +17456,41 @@ export namespace Prisma {
     OR?: LikeWhereInput[]
     NOT?: LikeWhereInput | LikeWhereInput[]
     id?: StringFilter<"Like"> | string
-    postId?: StringFilter<"Like"> | string
     userId?: StringFilter<"Like"> | string
+    targetId?: StringFilter<"Like"> | string
+    type?: StringFilter<"Like"> | string
     createdAt?: DateTimeFilter<"Like"> | Date | string
-    updatedAt?: DateTimeFilter<"Like"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type LikeOrderByWithRelationInput = {
     id?: SortOrder
-    postId?: SortOrder
     userId?: SortOrder
+    targetId?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type LikeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId_postId?: LikeUserIdPostIdCompoundUniqueInput
+    userId_targetId_type?: LikeUserIdTargetIdTypeCompoundUniqueInput
     AND?: LikeWhereInput | LikeWhereInput[]
     OR?: LikeWhereInput[]
     NOT?: LikeWhereInput | LikeWhereInput[]
-    postId?: StringFilter<"Like"> | string
     userId?: StringFilter<"Like"> | string
+    targetId?: StringFilter<"Like"> | string
+    type?: StringFilter<"Like"> | string
     createdAt?: DateTimeFilter<"Like"> | Date | string
-    updatedAt?: DateTimeFilter<"Like"> | Date | string
-  }, "id" | "userId_postId">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_targetId_type">
 
   export type LikeOrderByWithAggregationInput = {
     id?: SortOrder
-    postId?: SortOrder
     userId?: SortOrder
+    targetId?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     _count?: LikeCountOrderByAggregateInput
     _max?: LikeMaxOrderByAggregateInput
     _min?: LikeMinOrderByAggregateInput
@@ -8624,10 +17501,64 @@ export namespace Prisma {
     OR?: LikeScalarWhereWithAggregatesInput[]
     NOT?: LikeScalarWhereWithAggregatesInput | LikeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Like"> | string
-    postId?: StringWithAggregatesFilter<"Like"> | string
     userId?: StringWithAggregatesFilter<"Like"> | string
+    targetId?: StringWithAggregatesFilter<"Like"> | string
+    type?: StringWithAggregatesFilter<"Like"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Like"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Like"> | Date | string
+  }
+
+  export type SavedPostWhereInput = {
+    AND?: SavedPostWhereInput | SavedPostWhereInput[]
+    OR?: SavedPostWhereInput[]
+    NOT?: SavedPostWhereInput | SavedPostWhereInput[]
+    id?: StringFilter<"SavedPost"> | string
+    userId?: StringFilter<"SavedPost"> | string
+    postId?: StringFilter<"SavedPost"> | string
+    savedAt?: DateTimeFilter<"SavedPost"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }
+
+  export type SavedPostOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    savedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: PostOrderByWithRelationInput
+  }
+
+  export type SavedPostWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_postId?: SavedPostUserIdPostIdCompoundUniqueInput
+    AND?: SavedPostWhereInput | SavedPostWhereInput[]
+    OR?: SavedPostWhereInput[]
+    NOT?: SavedPostWhereInput | SavedPostWhereInput[]
+    userId?: StringFilter<"SavedPost"> | string
+    postId?: StringFilter<"SavedPost"> | string
+    savedAt?: DateTimeFilter<"SavedPost"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }, "id" | "userId_postId">
+
+  export type SavedPostOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    savedAt?: SortOrder
+    _count?: SavedPostCountOrderByAggregateInput
+    _max?: SavedPostMaxOrderByAggregateInput
+    _min?: SavedPostMinOrderByAggregateInput
+  }
+
+  export type SavedPostScalarWhereWithAggregatesInput = {
+    AND?: SavedPostScalarWhereWithAggregatesInput | SavedPostScalarWhereWithAggregatesInput[]
+    OR?: SavedPostScalarWhereWithAggregatesInput[]
+    NOT?: SavedPostScalarWhereWithAggregatesInput | SavedPostScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SavedPost"> | string
+    userId?: StringWithAggregatesFilter<"SavedPost"> | string
+    postId?: StringWithAggregatesFilter<"SavedPost"> | string
+    savedAt?: DateTimeWithAggregatesFilter<"SavedPost"> | Date | string
   }
 
   export type MessageWhereInput = {
@@ -8640,6 +17571,8 @@ export namespace Prisma {
     content?: StringFilter<"Message"> | string
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type MessageOrderByWithRelationInput = {
@@ -8649,6 +17582,8 @@ export namespace Prisma {
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sender?: UserOrderByWithRelationInput
+    receiver?: UserOrderByWithRelationInput
   }
 
   export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -8661,6 +17596,8 @@ export namespace Prisma {
     content?: StringFilter<"Message"> | string
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    receiver?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type MessageOrderByWithAggregationInput = {
@@ -8692,14 +17629,19 @@ export namespace Prisma {
     OR?: NotificationWhereInput[]
     NOT?: NotificationWhereInput | NotificationWhereInput[]
     id?: StringFilter<"Notification"> | string
-    type?: StringFilter<"Notification"> | string
+    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
-    createdAt?: DateTimeFilter<"Notification"> | Date | string
-    updatedAt?: DateTimeFilter<"Notification"> | Date | string
     senderId?: StringNullableFilter<"Notification"> | string | null
     recipientId?: StringFilter<"Notification"> | string
     postId?: StringNullableFilter<"Notification"> | string | null
+    sharedPostId?: StringNullableFilter<"Notification"> | string | null
+    data?: JsonNullableFilter<"Notification">
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    sender?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null
+    sharedPost?: XOR<SharedPostNullableScalarRelationFilter, SharedPostWhereInput> | null
   }
 
   export type NotificationOrderByWithRelationInput = {
@@ -8707,11 +17649,16 @@ export namespace Prisma {
     type?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     senderId?: SortOrder
     recipientId?: SortOrder
     postId?: SortOrder
+    sharedPostId?: SortOrder
+    data?: SortOrder
+    createdAt?: SortOrder
+    sender?: UserOrderByWithRelationInput
+    recipient?: UserOrderByWithRelationInput
+    post?: PostOrderByWithRelationInput
+    sharedPost?: SharedPostOrderByWithRelationInput
   }
 
   export type NotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -8719,14 +17666,19 @@ export namespace Prisma {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
     NOT?: NotificationWhereInput | NotificationWhereInput[]
-    type?: StringFilter<"Notification"> | string
+    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
-    createdAt?: DateTimeFilter<"Notification"> | Date | string
-    updatedAt?: DateTimeFilter<"Notification"> | Date | string
     senderId?: StringNullableFilter<"Notification"> | string | null
     recipientId?: StringFilter<"Notification"> | string
     postId?: StringNullableFilter<"Notification"> | string | null
+    sharedPostId?: StringNullableFilter<"Notification"> | string | null
+    data?: JsonNullableFilter<"Notification">
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    sender?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null
+    sharedPost?: XOR<SharedPostNullableScalarRelationFilter, SharedPostWhereInput> | null
   }, "id">
 
   export type NotificationOrderByWithAggregationInput = {
@@ -8734,11 +17686,12 @@ export namespace Prisma {
     type?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     senderId?: SortOrder
     recipientId?: SortOrder
     postId?: SortOrder
+    sharedPostId?: SortOrder
+    data?: SortOrder
+    createdAt?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
     _max?: NotificationMaxOrderByAggregateInput
     _min?: NotificationMinOrderByAggregateInput
@@ -8749,14 +17702,15 @@ export namespace Prisma {
     OR?: NotificationScalarWhereWithAggregatesInput[]
     NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Notification"> | string
-    type?: StringWithAggregatesFilter<"Notification"> | string
+    type?: EnumNotificationTypeWithAggregatesFilter<"Notification"> | $Enums.NotificationType
     message?: StringWithAggregatesFilter<"Notification"> | string
     isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
     senderId?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     recipientId?: StringWithAggregatesFilter<"Notification"> | string
     postId?: StringNullableWithAggregatesFilter<"Notification"> | string | null
+    sharedPostId?: StringNullableWithAggregatesFilter<"Notification"> | string | null
+    data?: JsonNullableWithAggregatesFilter<"Notification">
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
   export type TripWhereInput = {
@@ -8764,28 +17718,42 @@ export namespace Prisma {
     OR?: TripWhereInput[]
     NOT?: TripWhereInput | TripWhereInput[]
     id?: StringFilter<"Trip"> | string
-    title?: StringFilter<"Trip"> | string
     userId?: StringFilter<"Trip"> | string
+    title?: StringFilter<"Trip"> | string
     description?: StringNullableFilter<"Trip"> | string | null
     startDate?: DateTimeFilter<"Trip"> | Date | string
     endDate?: DateTimeFilter<"Trip"> | Date | string
     placesVisited?: StringNullableListFilter<"Trip">
+    tags?: StringNullableListFilter<"Trip">
+    participants?: StringNullableListFilter<"Trip">
     sharedWith?: StringNullableListFilter<"Trip">
+    isPublic?: BoolFilter<"Trip"> | boolean
+    rating?: FloatNullableFilter<"Trip"> | number | null
     photos?: JsonFilter<"Trip">
     createdAt?: DateTimeFilter<"Trip"> | Date | string
+    updatedAt?: DateTimeFilter<"Trip"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    sharedPosts?: SharedPostListRelationFilter
   }
 
   export type TripOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     placesVisited?: SortOrder
+    tags?: SortOrder
+    participants?: SortOrder
     sharedWith?: SortOrder
+    isPublic?: SortOrder
+    rating?: SortOrder
     photos?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    sharedPosts?: SharedPostOrderByRelationAggregateInput
   }
 
   export type TripWhereUniqueInput = Prisma.AtLeast<{
@@ -8793,31 +17761,45 @@ export namespace Prisma {
     AND?: TripWhereInput | TripWhereInput[]
     OR?: TripWhereInput[]
     NOT?: TripWhereInput | TripWhereInput[]
-    title?: StringFilter<"Trip"> | string
     userId?: StringFilter<"Trip"> | string
+    title?: StringFilter<"Trip"> | string
     description?: StringNullableFilter<"Trip"> | string | null
     startDate?: DateTimeFilter<"Trip"> | Date | string
     endDate?: DateTimeFilter<"Trip"> | Date | string
     placesVisited?: StringNullableListFilter<"Trip">
+    tags?: StringNullableListFilter<"Trip">
+    participants?: StringNullableListFilter<"Trip">
     sharedWith?: StringNullableListFilter<"Trip">
+    isPublic?: BoolFilter<"Trip"> | boolean
+    rating?: FloatNullableFilter<"Trip"> | number | null
     photos?: JsonFilter<"Trip">
     createdAt?: DateTimeFilter<"Trip"> | Date | string
+    updatedAt?: DateTimeFilter<"Trip"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    sharedPosts?: SharedPostListRelationFilter
   }, "id">
 
   export type TripOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     placesVisited?: SortOrder
+    tags?: SortOrder
+    participants?: SortOrder
     sharedWith?: SortOrder
+    isPublic?: SortOrder
+    rating?: SortOrder
     photos?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: TripCountOrderByAggregateInput
+    _avg?: TripAvgOrderByAggregateInput
     _max?: TripMaxOrderByAggregateInput
     _min?: TripMinOrderByAggregateInput
+    _sum?: TripSumOrderByAggregateInput
   }
 
   export type TripScalarWhereWithAggregatesInput = {
@@ -8825,15 +17807,153 @@ export namespace Prisma {
     OR?: TripScalarWhereWithAggregatesInput[]
     NOT?: TripScalarWhereWithAggregatesInput | TripScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Trip"> | string
-    title?: StringWithAggregatesFilter<"Trip"> | string
     userId?: StringWithAggregatesFilter<"Trip"> | string
+    title?: StringWithAggregatesFilter<"Trip"> | string
     description?: StringNullableWithAggregatesFilter<"Trip"> | string | null
     startDate?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
     placesVisited?: StringNullableListFilter<"Trip">
+    tags?: StringNullableListFilter<"Trip">
+    participants?: StringNullableListFilter<"Trip">
     sharedWith?: StringNullableListFilter<"Trip">
+    isPublic?: BoolWithAggregatesFilter<"Trip"> | boolean
+    rating?: FloatNullableWithAggregatesFilter<"Trip"> | number | null
     photos?: JsonWithAggregatesFilter<"Trip">
     createdAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
+  }
+
+  export type StoryWhereInput = {
+    AND?: StoryWhereInput | StoryWhereInput[]
+    OR?: StoryWhereInput[]
+    NOT?: StoryWhereInput | StoryWhereInput[]
+    id?: StringFilter<"Story"> | string
+    userId?: StringFilter<"Story"> | string
+    content?: StringNullableFilter<"Story"> | string | null
+    mediaUrls?: StringNullableListFilter<"Story">
+    mediaType?: EnumMediaTypeFilter<"Story"> | $Enums.MediaType
+    expiresAt?: DateTimeFilter<"Story"> | Date | string
+    createdAt?: DateTimeFilter<"Story"> | Date | string
+    updatedAt?: DateTimeFilter<"Story"> | Date | string
+    sharedPosts?: SharedPostListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type StoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    mediaUrls?: SortOrder
+    mediaType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sharedPosts?: SharedPostOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type StoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StoryWhereInput | StoryWhereInput[]
+    OR?: StoryWhereInput[]
+    NOT?: StoryWhereInput | StoryWhereInput[]
+    userId?: StringFilter<"Story"> | string
+    content?: StringNullableFilter<"Story"> | string | null
+    mediaUrls?: StringNullableListFilter<"Story">
+    mediaType?: EnumMediaTypeFilter<"Story"> | $Enums.MediaType
+    expiresAt?: DateTimeFilter<"Story"> | Date | string
+    createdAt?: DateTimeFilter<"Story"> | Date | string
+    updatedAt?: DateTimeFilter<"Story"> | Date | string
+    sharedPosts?: SharedPostListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type StoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    mediaUrls?: SortOrder
+    mediaType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StoryCountOrderByAggregateInput
+    _max?: StoryMaxOrderByAggregateInput
+    _min?: StoryMinOrderByAggregateInput
+  }
+
+  export type StoryScalarWhereWithAggregatesInput = {
+    AND?: StoryScalarWhereWithAggregatesInput | StoryScalarWhereWithAggregatesInput[]
+    OR?: StoryScalarWhereWithAggregatesInput[]
+    NOT?: StoryScalarWhereWithAggregatesInput | StoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Story"> | string
+    userId?: StringWithAggregatesFilter<"Story"> | string
+    content?: StringNullableWithAggregatesFilter<"Story"> | string | null
+    mediaUrls?: StringNullableListFilter<"Story">
+    mediaType?: EnumMediaTypeWithAggregatesFilter<"Story"> | $Enums.MediaType
+    expiresAt?: DateTimeWithAggregatesFilter<"Story"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Story"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Story"> | Date | string
+  }
+
+  export type ReportWhereInput = {
+    AND?: ReportWhereInput | ReportWhereInput[]
+    OR?: ReportWhereInput[]
+    NOT?: ReportWhereInput | ReportWhereInput[]
+    id?: StringFilter<"Report"> | string
+    reporterId?: StringFilter<"Report"> | string
+    targetType?: StringFilter<"Report"> | string
+    targetId?: StringFilter<"Report"> | string
+    reason?: StringFilter<"Report"> | string
+    createdAt?: DateTimeFilter<"Report"> | Date | string
+    reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ReportOrderByWithRelationInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    reporter?: UserOrderByWithRelationInput
+  }
+
+  export type ReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ReportWhereInput | ReportWhereInput[]
+    OR?: ReportWhereInput[]
+    NOT?: ReportWhereInput | ReportWhereInput[]
+    reporterId?: StringFilter<"Report"> | string
+    targetType?: StringFilter<"Report"> | string
+    targetId?: StringFilter<"Report"> | string
+    reason?: StringFilter<"Report"> | string
+    createdAt?: DateTimeFilter<"Report"> | Date | string
+    reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    _count?: ReportCountOrderByAggregateInput
+    _max?: ReportMaxOrderByAggregateInput
+    _min?: ReportMinOrderByAggregateInput
+  }
+
+  export type ReportScalarWhereWithAggregatesInput = {
+    AND?: ReportScalarWhereWithAggregatesInput | ReportScalarWhereWithAggregatesInput[]
+    OR?: ReportScalarWhereWithAggregatesInput[]
+    NOT?: ReportScalarWhereWithAggregatesInput | ReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Report"> | string
+    reporterId?: StringWithAggregatesFilter<"Report"> | string
+    targetType?: StringWithAggregatesFilter<"Report"> | string
+    targetId?: StringWithAggregatesFilter<"Report"> | string
+    reason?: StringWithAggregatesFilter<"Report"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Report"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -8842,17 +17962,37 @@ export namespace Prisma {
     username: string
     password: string
     name: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
-    accountStatus: boolean
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deleteAt?: Date | string | null
-    followers: InputJsonValue
-    following: InputJsonValue
-    role: number
-    refreshToken?: string | null
-    private: boolean
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -8861,17 +18001,37 @@ export namespace Prisma {
     username: string
     password: string
     name: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
-    accountStatus: boolean
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deleteAt?: Date | string | null
-    followers: InputJsonValue
-    following: InputJsonValue
-    role: number
-    refreshToken?: string | null
-    private: boolean
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -8879,17 +18039,37 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    followers?: InputJsonValue | InputJsonValue
-    following?: InputJsonValue | InputJsonValue
-    role?: IntFieldUpdateOperationsInput | number
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    private?: BoolFieldUpdateOperationsInput | boolean
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -8897,17 +18077,37 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    followers?: InputJsonValue | InputJsonValue
-    following?: InputJsonValue | InputJsonValue
-    role?: IntFieldUpdateOperationsInput | number
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    private?: BoolFieldUpdateOperationsInput | boolean
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -8916,17 +18116,21 @@ export namespace Prisma {
     username: string
     password: string
     name: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
-    accountStatus: boolean
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deleteAt?: Date | string | null
-    followers: InputJsonValue
-    following: InputJsonValue
-    role: number
-    refreshToken?: string | null
-    private: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -8934,17 +18138,21 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    followers?: InputJsonValue | InputJsonValue
-    following?: InputJsonValue | InputJsonValue
-    role?: IntFieldUpdateOperationsInput | number
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    private?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -8952,26 +18160,91 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    followers?: InputJsonValue | InputJsonValue
-    following?: InputJsonValue | InputJsonValue
-    role?: IntFieldUpdateOperationsInput | number
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    private?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FollowCreateInput = {
+    id?: string
+    followStatus: string
+    createdAt?: Date | string
+    follower: UserCreateNestedOneWithoutFollowersInput
+    following: UserCreateNestedOneWithoutFollowingInput
+  }
+
+  export type FollowUncheckedCreateInput = {
+    id?: string
+    followerId: string
+    followingId: string
+    followStatus: string
+    createdAt?: Date | string
+  }
+
+  export type FollowUpdateInput = {
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    follower?: UserUpdateOneRequiredWithoutFollowersNestedInput
+    following?: UserUpdateOneRequiredWithoutFollowingNestedInput
+  }
+
+  export type FollowUncheckedUpdateInput = {
+    followerId?: StringFieldUpdateOperationsInput | string
+    followingId?: StringFieldUpdateOperationsInput | string
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FollowCreateManyInput = {
+    id?: string
+    followerId: string
+    followingId: string
+    followStatus: string
+    createdAt?: Date | string
+  }
+
+  export type FollowUpdateManyMutationInput = {
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FollowUncheckedUpdateManyInput = {
+    followerId?: StringFieldUpdateOperationsInput | string
+    followingId?: StringFieldUpdateOperationsInput | string
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostCreateInput = {
     id?: string
-    authorId: string
     imageUrl?: PostCreateimageUrlInput | string[]
     caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateInput = {
@@ -8979,24 +18252,57 @@ export namespace Prisma {
     authorId: string
     imageUrl?: PostCreateimageUrlInput | string[]
     caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostUpdateInput = {
-    authorId?: StringFieldUpdateOperationsInput | string
     imageUrl?: PostUpdateimageUrlInput | string[]
     caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateInput = {
     authorId?: StringFieldUpdateOperationsInput | string
     imageUrl?: PostUpdateimageUrlInput | string[]
     caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostCreateManyInput = {
@@ -9004,14 +18310,25 @@ export namespace Prisma {
     authorId: string
     imageUrl?: PostCreateimageUrlInput | string[]
     caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type PostUpdateManyMutationInput = {
-    authorId?: StringFieldUpdateOperationsInput | string
     imageUrl?: PostUpdateimageUrlInput | string[]
     caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9020,17 +18337,149 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     imageUrl?: PostUpdateimageUrlInput | string[]
     caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CommentCreateInput = {
+  export type SharedPostCreateInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    story?: StoryCreateNestedOneWithoutSharedPostsInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUpdateInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSharedPostsSentNestedInput
+    recipient?: UserUpdateOneWithoutSharedPostsReceivedNestedInput
+    story?: StoryUpdateOneWithoutSharedPostsNestedInput
+    trip?: TripUpdateOneWithoutSharedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSharedPostsNestedInput
+    notifications?: NotificationUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationUncheckedUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostCreateManyInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type SharedPostUpdateManyMutationInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedPostUncheckedUpdateManyInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutTaggedUsersInput
+    user: UserCreateNestedOneWithoutTaggedInPostsInput
+  }
+
+  export type PostTagUncheckedCreateInput = {
     id?: string
     postId: string
-    authorId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type PostTagUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutTaggedUsersNestedInput
+    user?: UserUpdateOneRequiredWithoutTaggedInPostsNestedInput
+  }
+
+  export type PostTagUncheckedUpdateInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagCreateManyInput = {
+    id?: string
+    postId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type PostTagUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagUncheckedUpdateManyInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateInput = {
+    id?: string
     content: string
+    likeCount?: number
+    isEdited?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    post: PostCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutCommentsInput
+    parent?: CommentCreateNestedOneWithoutRepliesInput
+    replies?: CommentCreateNestedManyWithoutParentInput
   }
 
   export type CommentUncheckedCreateInput = {
@@ -9038,24 +18487,36 @@ export namespace Prisma {
     postId: string
     authorId: string
     content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type CommentUpdateInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    parent?: CommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommentUpdateManyWithoutParentNestedInput
   }
 
   export type CommentUncheckedUpdateInput = {
     postId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type CommentCreateManyInput = {
@@ -9063,14 +18524,17 @@ export namespace Prisma {
     postId: string
     authorId: string
     content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CommentUpdateManyMutationInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9079,69 +18543,114 @@ export namespace Prisma {
     postId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeCreateInput = {
     id?: string
-    postId: string
-    userId: string
+    targetId: string
+    type: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateInput = {
     id?: string
-    postId: string
     userId: string
+    targetId: string
+    type: string
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type LikeUpdateInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateInput = {
-    postId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeCreateManyInput = {
     id?: string
-    postId: string
     userId: string
+    targetId: string
+    type: string
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type LikeUpdateManyMutationInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeUncheckedUpdateManyInput = {
-    postId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostCreateInput = {
+    id?: string
+    savedAt?: Date | string
+    user: UserCreateNestedOneWithoutSavedPostsInput
+    post: PostCreateNestedOneWithoutSavedByInput
+  }
+
+  export type SavedPostUncheckedCreateInput = {
+    id?: string
+    userId: string
+    postId: string
+    savedAt?: Date | string
+  }
+
+  export type SavedPostUpdateInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSavedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSavedByNestedInput
+  }
+
+  export type SavedPostUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostCreateManyInput = {
+    id?: string
+    userId: string
+    postId: string
+    savedAt?: Date | string
+  }
+
+  export type SavedPostUpdateManyMutationInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateInput = {
     id?: string
-    senderId: string
-    receiverId: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    sender: UserCreateNestedOneWithoutMessagesSentInput
+    receiver: UserCreateNestedOneWithoutMessagesRecvInput
   }
 
   export type MessageUncheckedCreateInput = {
@@ -9154,11 +18663,11 @@ export namespace Prisma {
   }
 
   export type MessageUpdateInput = {
-    senderId?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+    receiver?: UserUpdateOneRequiredWithoutMessagesRecvNestedInput
   }
 
   export type MessageUncheckedUpdateInput = {
@@ -9179,8 +18688,6 @@ export namespace Prisma {
   }
 
   export type MessageUpdateManyMutationInput = {
-    senderId?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9196,168 +18703,343 @@ export namespace Prisma {
 
   export type NotificationCreateInput = {
     id?: string
-    type: string
+    type: $Enums.NotificationType
     message: string
     isRead?: boolean
+    data?: InputJsonValue | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    senderId?: string | null
-    recipientId: string
-    postId?: string | null
+    sender?: UserCreateNestedOneWithoutNotificationsSentInput
+    recipient: UserCreateNestedOneWithoutNotificationsRecvInput
+    post?: PostCreateNestedOneWithoutNotificationsInput
+    sharedPost?: SharedPostCreateNestedOneWithoutNotificationsInput
   }
 
   export type NotificationUncheckedCreateInput = {
     id?: string
-    type: string
+    type: $Enums.NotificationType
     message: string
     isRead?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
     senderId?: string | null
     recipientId: string
     postId?: string | null
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
   }
 
   export type NotificationUpdateInput = {
-    type?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    data?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    senderId?: NullableStringFieldUpdateOperationsInput | string | null
-    recipientId?: StringFieldUpdateOperationsInput | string
-    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: UserUpdateOneWithoutNotificationsSentNestedInput
+    recipient?: UserUpdateOneRequiredWithoutNotificationsRecvNestedInput
+    post?: PostUpdateOneWithoutNotificationsNestedInput
+    sharedPost?: SharedPostUpdateOneWithoutNotificationsNestedInput
   }
 
   export type NotificationUncheckedUpdateInput = {
-    type?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderId?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
     postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateManyInput = {
     id?: string
-    type: string
+    type: $Enums.NotificationType
     message: string
     isRead?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
     senderId?: string | null
     recipientId: string
     postId?: string | null
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
   }
 
   export type NotificationUpdateManyMutationInput = {
-    type?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    data?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    senderId?: NullableStringFieldUpdateOperationsInput | string | null
-    recipientId?: StringFieldUpdateOperationsInput | string
-    postId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotificationUncheckedUpdateManyInput = {
-    type?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderId?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
     postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TripCreateInput = {
     id?: string
     title: string
-    userId: string
     description?: string | null
     startDate: Date | string
     endDate: Date | string
     placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
     sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
     photos: InputJsonValue
     createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTripsInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutTripInput
   }
 
   export type TripUncheckedCreateInput = {
     id?: string
-    title: string
     userId: string
+    title: string
     description?: string | null
     startDate: Date | string
     endDate: Date | string
     placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
     sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
     photos: InputJsonValue
     createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutTripInput
   }
 
   export type TripUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
     sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     photos?: InputJsonValue | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutTripNestedInput
   }
 
   export type TripUncheckedUpdateInput = {
-    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
     sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     photos?: InputJsonValue | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutTripNestedInput
   }
 
   export type TripCreateManyInput = {
     id?: string
-    title: string
     userId: string
+    title: string
     description?: string | null
     startDate: Date | string
     endDate: Date | string
     placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
     sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
     photos: InputJsonValue
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TripUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
     sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     photos?: InputJsonValue | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TripUncheckedUpdateManyInput = {
-    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
     sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     photos?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryCreateInput = {
+    id?: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostCreateNestedManyWithoutStoryInput
+    user: UserCreateNestedOneWithoutStoriesInput
+  }
+
+  export type StoryUncheckedCreateInput = {
+    id?: string
+    userId: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUpdateInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUpdateManyWithoutStoryNestedInput
+    user?: UserUpdateOneRequiredWithoutStoriesNestedInput
+  }
+
+  export type StoryUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryCreateManyInput = {
+    id?: string
+    userId: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StoryUpdateManyMutationInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportCreateInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt?: Date | string
+    reporter: UserCreateNestedOneWithoutReportsInput
+  }
+
+  export type ReportUncheckedCreateInput = {
+    id?: string
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type ReportUpdateInput = {
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reporter?: UserUpdateOneRequiredWithoutReportsNestedInput
+  }
+
+  export type ReportUncheckedUpdateInput = {
+    reporterId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportCreateManyInput = {
+    id?: string
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type ReportUpdateManyMutationInput = {
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportUncheckedUpdateManyInput = {
+    reporterId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9392,22 +19074,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -9419,16 +19085,10 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
     isSet?: boolean
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -9442,23 +19102,158 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type PostListRelationFilter = {
+    every?: PostWhereInput
+    some?: PostWhereInput
+    none?: PostWhereInput
+  }
+
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
+  export type LikeListRelationFilter = {
+    every?: LikeWhereInput
+    some?: LikeWhereInput
+    none?: LikeWhereInput
+  }
+
+  export type SavedPostListRelationFilter = {
+    every?: SavedPostWhereInput
+    some?: SavedPostWhereInput
+    none?: SavedPostWhereInput
+  }
+
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
+  }
+
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
+  export type TripListRelationFilter = {
+    every?: TripWhereInput
+    some?: TripWhereInput
+    none?: TripWhereInput
+  }
+
+  export type ReportListRelationFilter = {
+    every?: ReportWhereInput
+    some?: ReportWhereInput
+    none?: ReportWhereInput
+  }
+
+  export type FollowListRelationFilter = {
+    every?: FollowWhereInput
+    some?: FollowWhereInput
+    none?: FollowWhereInput
+  }
+
+  export type PostTagListRelationFilter = {
+    every?: PostTagWhereInput
+    some?: PostTagWhereInput
+    none?: PostTagWhereInput
+  }
+
+  export type SharedPostListRelationFilter = {
+    every?: SharedPostWhereInput
+    some?: SharedPostWhereInput
+    none?: SharedPostWhereInput
+  }
+
+  export type StoryListRelationFilter = {
+    every?: StoryWhereInput
+    some?: StoryWhereInput
+    none?: StoryWhereInput
+  }
+
+  export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SavedPostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TripOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FollowOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PostTagOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SharedPostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     username?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    phoneNumber?: SortOrder
     profilePic?: SortOrder
     bio?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    verified?: SortOrder
+    lastLogin?: SortOrder
     accountStatus?: SortOrder
+    private?: SortOrder
+    role?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deleteAt?: SortOrder
-    followers?: SortOrder
-    following?: SortOrder
-    role?: SortOrder
-    refreshToken?: SortOrder
-    private?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -9471,15 +19266,21 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    phoneNumber?: SortOrder
     profilePic?: SortOrder
     bio?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    verified?: SortOrder
+    lastLogin?: SortOrder
     accountStatus?: SortOrder
+    private?: SortOrder
+    role?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deleteAt?: SortOrder
-    role?: SortOrder
-    refreshToken?: SortOrder
-    private?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -9488,15 +19289,21 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     name?: SortOrder
+    phoneNumber?: SortOrder
     profilePic?: SortOrder
     bio?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    verified?: SortOrder
+    lastLogin?: SortOrder
     accountStatus?: SortOrder
+    private?: SortOrder
+    role?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deleteAt?: SortOrder
-    role?: SortOrder
-    refreshToken?: SortOrder
-    private?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -9540,28 +19347,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -9576,19 +19361,13 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -9607,6 +19386,54 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type FollowFollowerIdFollowingIdCompoundUniqueInput = {
+    followerId: string
+    followingId: string
+  }
+
+  export type FollowCountOrderByAggregateInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followingId?: SortOrder
+    followStatus?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FollowMaxOrderByAggregateInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followingId?: SortOrder
+    followStatus?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FollowMinOrderByAggregateInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followingId?: SortOrder
+    followStatus?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -9620,14 +19447,31 @@ export namespace Prisma {
     authorId?: SortOrder
     imageUrl?: SortOrder
     caption?: SortOrder
+    location?: SortOrder
+    tags?: SortOrder
+    isPublic?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PostAvgOrderByAggregateInput = {
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
   }
 
   export type PostMaxOrderByAggregateInput = {
     id?: SortOrder
     authorId?: SortOrder
     caption?: SortOrder
+    location?: SortOrder
+    isPublic?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9636,8 +19480,106 @@ export namespace Prisma {
     id?: SortOrder
     authorId?: SortOrder
     caption?: SortOrder
+    location?: SortOrder
+    isPublic?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PostSumOrderByAggregateInput = {
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    sharedCount?: SortOrder
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type StoryNullableScalarRelationFilter = {
+    is?: StoryWhereInput | null
+    isNot?: StoryWhereInput | null
+  }
+
+  export type TripNullableScalarRelationFilter = {
+    is?: TripWhereInput | null
+    isNot?: TripWhereInput | null
+  }
+
+  export type PostScalarRelationFilter = {
+    is?: PostWhereInput
+    isNot?: PostWhereInput
+  }
+
+  export type SharedPostCountOrderByAggregateInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    storyId?: SortOrder
+    tripId?: SortOrder
+    postId?: SortOrder
+    message?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SharedPostMaxOrderByAggregateInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    storyId?: SortOrder
+    tripId?: SortOrder
+    postId?: SortOrder
+    message?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SharedPostMinOrderByAggregateInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    storyId?: SortOrder
+    tripId?: SortOrder
+    postId?: SortOrder
+    message?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostTagPostIdUserIdCompoundUniqueInput = {
+    postId: string
+    userId: string
+  }
+
+  export type PostTagCountOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostTagMaxOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostTagMinOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommentNullableScalarRelationFilter = {
+    is?: CommentWhereInput | null
+    isNot?: CommentWhereInput | null
   }
 
   export type CommentCountOrderByAggregateInput = {
@@ -9645,8 +19587,15 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type CommentAvgOrderByAggregateInput = {
+    likeCount?: SortOrder
   }
 
   export type CommentMaxOrderByAggregateInput = {
@@ -9654,6 +19603,9 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9663,37 +19615,71 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type LikeUserIdPostIdCompoundUniqueInput = {
+  export type CommentSumOrderByAggregateInput = {
+    likeCount?: SortOrder
+  }
+
+  export type LikeUserIdTargetIdTypeCompoundUniqueInput = {
     userId: string
-    postId: string
+    targetId: string
+    type: string
   }
 
   export type LikeCountOrderByAggregateInput = {
     id?: SortOrder
-    postId?: SortOrder
     userId?: SortOrder
+    targetId?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type LikeMaxOrderByAggregateInput = {
     id?: SortOrder
-    postId?: SortOrder
     userId?: SortOrder
+    targetId?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type LikeMinOrderByAggregateInput = {
     id?: SortOrder
-    postId?: SortOrder
     userId?: SortOrder
+    targetId?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+  }
+
+  export type SavedPostUserIdPostIdCompoundUniqueInput = {
+    userId: string
+    postId: string
+  }
+
+  export type SavedPostCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type SavedPostMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type SavedPostMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    savedAt?: SortOrder
   }
 
   export type MessageCountOrderByAggregateInput = {
@@ -9723,16 +19709,46 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumNotificationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    isSet?: boolean
+  }
+
+  export type PostNullableScalarRelationFilter = {
+    is?: PostWhereInput | null
+    isNot?: PostWhereInput | null
+  }
+
+  export type SharedPostNullableScalarRelationFilter = {
+    is?: SharedPostWhereInput | null
+    isNot?: SharedPostWhereInput | null
+  }
+
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     senderId?: SortOrder
     recipientId?: SortOrder
     postId?: SortOrder
+    sharedPostId?: SortOrder
+    data?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type NotificationMaxOrderByAggregateInput = {
@@ -9740,11 +19756,11 @@ export namespace Prisma {
     type?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     senderId?: SortOrder
     recipientId?: SortOrder
     postId?: SortOrder
+    sharedPostId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type NotificationMinOrderByAggregateInput = {
@@ -9752,44 +19768,441 @@ export namespace Prisma {
     type?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     senderId?: SortOrder
     recipientId?: SortOrder
     postId?: SortOrder
+    sharedPostId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.NotificationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationTypeFilter<$PrismaModel>
+    _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
   }
 
   export type TripCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     placesVisited?: SortOrder
+    tags?: SortOrder
+    participants?: SortOrder
     sharedWith?: SortOrder
+    isPublic?: SortOrder
+    rating?: SortOrder
     photos?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TripAvgOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type TripMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    isPublic?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TripMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
     userId?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    isPublic?: SortOrder
+    rating?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TripSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type EnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
+  }
+
+  export type StoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    mediaUrls?: SortOrder
+    mediaType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    mediaType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    mediaType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel> | $Enums.MediaType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>
+  }
+
+  export type ReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type LikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type SavedPostCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavedPostCreateWithoutUserInput, SavedPostUncheckedCreateWithoutUserInput> | SavedPostCreateWithoutUserInput[] | SavedPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutUserInput | SavedPostCreateOrConnectWithoutUserInput[]
+    createMany?: SavedPostCreateManyUserInputEnvelope
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutSenderInput = {
+    create?: XOR<NotificationCreateWithoutSenderInput, NotificationUncheckedCreateWithoutSenderInput> | NotificationCreateWithoutSenderInput[] | NotificationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSenderInput | NotificationCreateOrConnectWithoutSenderInput[]
+    createMany?: NotificationCreateManySenderInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
+    createMany?: NotificationCreateManyRecipientInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type TripCreateNestedManyWithoutUserInput = {
+    create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
+    createMany?: TripCreateManyUserInputEnvelope
+    connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+  }
+
+  export type ReportCreateNestedManyWithoutReporterInput = {
+    create?: XOR<ReportCreateWithoutReporterInput, ReportUncheckedCreateWithoutReporterInput> | ReportCreateWithoutReporterInput[] | ReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: ReportCreateOrConnectWithoutReporterInput | ReportCreateOrConnectWithoutReporterInput[]
+    createMany?: ReportCreateManyReporterInputEnvelope
+    connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+  }
+
+  export type FollowCreateNestedManyWithoutFollowerInput = {
+    create?: XOR<FollowCreateWithoutFollowerInput, FollowUncheckedCreateWithoutFollowerInput> | FollowCreateWithoutFollowerInput[] | FollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowerInput | FollowCreateOrConnectWithoutFollowerInput[]
+    createMany?: FollowCreateManyFollowerInputEnvelope
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+  }
+
+  export type FollowCreateNestedManyWithoutFollowingInput = {
+    create?: XOR<FollowCreateWithoutFollowingInput, FollowUncheckedCreateWithoutFollowingInput> | FollowCreateWithoutFollowingInput[] | FollowUncheckedCreateWithoutFollowingInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowingInput | FollowCreateOrConnectWithoutFollowingInput[]
+    createMany?: FollowCreateManyFollowingInputEnvelope
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+  }
+
+  export type PostTagCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostTagCreateWithoutUserInput, PostTagUncheckedCreateWithoutUserInput> | PostTagCreateWithoutUserInput[] | PostTagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutUserInput | PostTagCreateOrConnectWithoutUserInput[]
+    createMany?: PostTagCreateManyUserInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type SharedPostCreateNestedManyWithoutSenderInput = {
+    create?: XOR<SharedPostCreateWithoutSenderInput, SharedPostUncheckedCreateWithoutSenderInput> | SharedPostCreateWithoutSenderInput[] | SharedPostUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutSenderInput | SharedPostCreateOrConnectWithoutSenderInput[]
+    createMany?: SharedPostCreateManySenderInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type SharedPostCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<SharedPostCreateWithoutRecipientInput, SharedPostUncheckedCreateWithoutRecipientInput> | SharedPostCreateWithoutRecipientInput[] | SharedPostUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutRecipientInput | SharedPostCreateOrConnectWithoutRecipientInput[]
+    createMany?: SharedPostCreateManyRecipientInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type StoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<StoryCreateWithoutUserInput, StoryUncheckedCreateWithoutUserInput> | StoryCreateWithoutUserInput[] | StoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StoryCreateOrConnectWithoutUserInput | StoryCreateOrConnectWithoutUserInput[]
+    createMany?: StoryCreateManyUserInputEnvelope
+    connect?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+  }
+
+  export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type LikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type SavedPostUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavedPostCreateWithoutUserInput, SavedPostUncheckedCreateWithoutUserInput> | SavedPostCreateWithoutUserInput[] | SavedPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutUserInput | SavedPostCreateOrConnectWithoutUserInput[]
+    createMany?: SavedPostCreateManyUserInputEnvelope
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<NotificationCreateWithoutSenderInput, NotificationUncheckedCreateWithoutSenderInput> | NotificationCreateWithoutSenderInput[] | NotificationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSenderInput | NotificationCreateOrConnectWithoutSenderInput[]
+    createMany?: NotificationCreateManySenderInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
+    createMany?: NotificationCreateManyRecipientInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type TripUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
+    createMany?: TripCreateManyUserInputEnvelope
+    connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+  }
+
+  export type ReportUncheckedCreateNestedManyWithoutReporterInput = {
+    create?: XOR<ReportCreateWithoutReporterInput, ReportUncheckedCreateWithoutReporterInput> | ReportCreateWithoutReporterInput[] | ReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: ReportCreateOrConnectWithoutReporterInput | ReportCreateOrConnectWithoutReporterInput[]
+    createMany?: ReportCreateManyReporterInputEnvelope
+    connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+  }
+
+  export type FollowUncheckedCreateNestedManyWithoutFollowerInput = {
+    create?: XOR<FollowCreateWithoutFollowerInput, FollowUncheckedCreateWithoutFollowerInput> | FollowCreateWithoutFollowerInput[] | FollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowerInput | FollowCreateOrConnectWithoutFollowerInput[]
+    createMany?: FollowCreateManyFollowerInputEnvelope
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+  }
+
+  export type FollowUncheckedCreateNestedManyWithoutFollowingInput = {
+    create?: XOR<FollowCreateWithoutFollowingInput, FollowUncheckedCreateWithoutFollowingInput> | FollowCreateWithoutFollowingInput[] | FollowUncheckedCreateWithoutFollowingInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowingInput | FollowCreateOrConnectWithoutFollowingInput[]
+    createMany?: FollowCreateManyFollowingInputEnvelope
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+  }
+
+  export type PostTagUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostTagCreateWithoutUserInput, PostTagUncheckedCreateWithoutUserInput> | PostTagCreateWithoutUserInput[] | PostTagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutUserInput | PostTagCreateOrConnectWithoutUserInput[]
+    createMany?: PostTagCreateManyUserInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type SharedPostUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<SharedPostCreateWithoutSenderInput, SharedPostUncheckedCreateWithoutSenderInput> | SharedPostCreateWithoutSenderInput[] | SharedPostUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutSenderInput | SharedPostCreateOrConnectWithoutSenderInput[]
+    createMany?: SharedPostCreateManySenderInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type SharedPostUncheckedCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<SharedPostCreateWithoutRecipientInput, SharedPostUncheckedCreateWithoutRecipientInput> | SharedPostCreateWithoutRecipientInput[] | SharedPostUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutRecipientInput | SharedPostCreateOrConnectWithoutRecipientInput[]
+    createMany?: SharedPostCreateManyRecipientInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type StoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StoryCreateWithoutUserInput, StoryUncheckedCreateWithoutUserInput> | StoryCreateWithoutUserInput[] | StoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StoryCreateOrConnectWithoutUserInput | StoryCreateOrConnectWithoutUserInput[]
+    createMany?: StoryCreateManyUserInputEnvelope
+    connect?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9801,17 +20214,13 @@ export namespace Prisma {
     unset?: boolean
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
     unset?: boolean
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -9822,8 +20231,568 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type PostUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput | PostUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAuthorInput | PostUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAuthorInput | PostUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type CommentUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutAuthorInput | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutAuthorInput | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutAuthorInput | CommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type LikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutUserInput | LikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutUserInput | LikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutUserInput | LikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type SavedPostUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavedPostCreateWithoutUserInput, SavedPostUncheckedCreateWithoutUserInput> | SavedPostCreateWithoutUserInput[] | SavedPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutUserInput | SavedPostCreateOrConnectWithoutUserInput[]
+    upsert?: SavedPostUpsertWithWhereUniqueWithoutUserInput | SavedPostUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavedPostCreateManyUserInputEnvelope
+    set?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    disconnect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    delete?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    update?: SavedPostUpdateWithWhereUniqueWithoutUserInput | SavedPostUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavedPostUpdateManyWithWhereWithoutUserInput | SavedPostUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavedPostScalarWhereInput | SavedPostScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverInput | MessageUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReceiverInput | MessageUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReceiverInput | MessageUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<NotificationCreateWithoutSenderInput, NotificationUncheckedCreateWithoutSenderInput> | NotificationCreateWithoutSenderInput[] | NotificationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSenderInput | NotificationCreateOrConnectWithoutSenderInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutSenderInput | NotificationUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: NotificationCreateManySenderInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutSenderInput | NotificationUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutSenderInput | NotificationUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutRecipientInput | NotificationUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: NotificationCreateManyRecipientInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutRecipientInput | NotificationUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutRecipientInput | NotificationUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type TripUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
+    upsert?: TripUpsertWithWhereUniqueWithoutUserInput | TripUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TripCreateManyUserInputEnvelope
+    set?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    disconnect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    delete?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    update?: TripUpdateWithWhereUniqueWithoutUserInput | TripUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TripUpdateManyWithWhereWithoutUserInput | TripUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TripScalarWhereInput | TripScalarWhereInput[]
+  }
+
+  export type ReportUpdateManyWithoutReporterNestedInput = {
+    create?: XOR<ReportCreateWithoutReporterInput, ReportUncheckedCreateWithoutReporterInput> | ReportCreateWithoutReporterInput[] | ReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: ReportCreateOrConnectWithoutReporterInput | ReportCreateOrConnectWithoutReporterInput[]
+    upsert?: ReportUpsertWithWhereUniqueWithoutReporterInput | ReportUpsertWithWhereUniqueWithoutReporterInput[]
+    createMany?: ReportCreateManyReporterInputEnvelope
+    set?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    disconnect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    delete?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    update?: ReportUpdateWithWhereUniqueWithoutReporterInput | ReportUpdateWithWhereUniqueWithoutReporterInput[]
+    updateMany?: ReportUpdateManyWithWhereWithoutReporterInput | ReportUpdateManyWithWhereWithoutReporterInput[]
+    deleteMany?: ReportScalarWhereInput | ReportScalarWhereInput[]
+  }
+
+  export type FollowUpdateManyWithoutFollowerNestedInput = {
+    create?: XOR<FollowCreateWithoutFollowerInput, FollowUncheckedCreateWithoutFollowerInput> | FollowCreateWithoutFollowerInput[] | FollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowerInput | FollowCreateOrConnectWithoutFollowerInput[]
+    upsert?: FollowUpsertWithWhereUniqueWithoutFollowerInput | FollowUpsertWithWhereUniqueWithoutFollowerInput[]
+    createMany?: FollowCreateManyFollowerInputEnvelope
+    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    update?: FollowUpdateWithWhereUniqueWithoutFollowerInput | FollowUpdateWithWhereUniqueWithoutFollowerInput[]
+    updateMany?: FollowUpdateManyWithWhereWithoutFollowerInput | FollowUpdateManyWithWhereWithoutFollowerInput[]
+    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
+  }
+
+  export type FollowUpdateManyWithoutFollowingNestedInput = {
+    create?: XOR<FollowCreateWithoutFollowingInput, FollowUncheckedCreateWithoutFollowingInput> | FollowCreateWithoutFollowingInput[] | FollowUncheckedCreateWithoutFollowingInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowingInput | FollowCreateOrConnectWithoutFollowingInput[]
+    upsert?: FollowUpsertWithWhereUniqueWithoutFollowingInput | FollowUpsertWithWhereUniqueWithoutFollowingInput[]
+    createMany?: FollowCreateManyFollowingInputEnvelope
+    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    update?: FollowUpdateWithWhereUniqueWithoutFollowingInput | FollowUpdateWithWhereUniqueWithoutFollowingInput[]
+    updateMany?: FollowUpdateManyWithWhereWithoutFollowingInput | FollowUpdateManyWithWhereWithoutFollowingInput[]
+    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
+  }
+
+  export type PostTagUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostTagCreateWithoutUserInput, PostTagUncheckedCreateWithoutUserInput> | PostTagCreateWithoutUserInput[] | PostTagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutUserInput | PostTagCreateOrConnectWithoutUserInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutUserInput | PostTagUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostTagCreateManyUserInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutUserInput | PostTagUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutUserInput | PostTagUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type SharedPostUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<SharedPostCreateWithoutSenderInput, SharedPostUncheckedCreateWithoutSenderInput> | SharedPostCreateWithoutSenderInput[] | SharedPostUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutSenderInput | SharedPostCreateOrConnectWithoutSenderInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutSenderInput | SharedPostUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: SharedPostCreateManySenderInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutSenderInput | SharedPostUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutSenderInput | SharedPostUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type SharedPostUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<SharedPostCreateWithoutRecipientInput, SharedPostUncheckedCreateWithoutRecipientInput> | SharedPostCreateWithoutRecipientInput[] | SharedPostUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutRecipientInput | SharedPostCreateOrConnectWithoutRecipientInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutRecipientInput | SharedPostUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: SharedPostCreateManyRecipientInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutRecipientInput | SharedPostUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutRecipientInput | SharedPostUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type StoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StoryCreateWithoutUserInput, StoryUncheckedCreateWithoutUserInput> | StoryCreateWithoutUserInput[] | StoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StoryCreateOrConnectWithoutUserInput | StoryCreateOrConnectWithoutUserInput[]
+    upsert?: StoryUpsertWithWhereUniqueWithoutUserInput | StoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StoryCreateManyUserInputEnvelope
+    set?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    disconnect?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    delete?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    connect?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    update?: StoryUpdateWithWhereUniqueWithoutUserInput | StoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StoryUpdateManyWithWhereWithoutUserInput | StoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StoryScalarWhereInput | StoryScalarWhereInput[]
+  }
+
+  export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput | PostUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAuthorInput | PostUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAuthorInput | PostUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutAuthorInput | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutAuthorInput | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutAuthorInput | CommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type LikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutUserInput | LikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutUserInput | LikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutUserInput | LikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type SavedPostUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavedPostCreateWithoutUserInput, SavedPostUncheckedCreateWithoutUserInput> | SavedPostCreateWithoutUserInput[] | SavedPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutUserInput | SavedPostCreateOrConnectWithoutUserInput[]
+    upsert?: SavedPostUpsertWithWhereUniqueWithoutUserInput | SavedPostUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavedPostCreateManyUserInputEnvelope
+    set?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    disconnect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    delete?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    update?: SavedPostUpdateWithWhereUniqueWithoutUserInput | SavedPostUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavedPostUpdateManyWithWhereWithoutUserInput | SavedPostUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavedPostScalarWhereInput | SavedPostScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverInput | MessageUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReceiverInput | MessageUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReceiverInput | MessageUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<NotificationCreateWithoutSenderInput, NotificationUncheckedCreateWithoutSenderInput> | NotificationCreateWithoutSenderInput[] | NotificationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSenderInput | NotificationCreateOrConnectWithoutSenderInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutSenderInput | NotificationUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: NotificationCreateManySenderInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutSenderInput | NotificationUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutSenderInput | NotificationUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutRecipientInput | NotificationUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: NotificationCreateManyRecipientInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutRecipientInput | NotificationUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutRecipientInput | NotificationUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type TripUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
+    upsert?: TripUpsertWithWhereUniqueWithoutUserInput | TripUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TripCreateManyUserInputEnvelope
+    set?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    disconnect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    delete?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+    update?: TripUpdateWithWhereUniqueWithoutUserInput | TripUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TripUpdateManyWithWhereWithoutUserInput | TripUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TripScalarWhereInput | TripScalarWhereInput[]
+  }
+
+  export type ReportUncheckedUpdateManyWithoutReporterNestedInput = {
+    create?: XOR<ReportCreateWithoutReporterInput, ReportUncheckedCreateWithoutReporterInput> | ReportCreateWithoutReporterInput[] | ReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: ReportCreateOrConnectWithoutReporterInput | ReportCreateOrConnectWithoutReporterInput[]
+    upsert?: ReportUpsertWithWhereUniqueWithoutReporterInput | ReportUpsertWithWhereUniqueWithoutReporterInput[]
+    createMany?: ReportCreateManyReporterInputEnvelope
+    set?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    disconnect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    delete?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+    update?: ReportUpdateWithWhereUniqueWithoutReporterInput | ReportUpdateWithWhereUniqueWithoutReporterInput[]
+    updateMany?: ReportUpdateManyWithWhereWithoutReporterInput | ReportUpdateManyWithWhereWithoutReporterInput[]
+    deleteMany?: ReportScalarWhereInput | ReportScalarWhereInput[]
+  }
+
+  export type FollowUncheckedUpdateManyWithoutFollowerNestedInput = {
+    create?: XOR<FollowCreateWithoutFollowerInput, FollowUncheckedCreateWithoutFollowerInput> | FollowCreateWithoutFollowerInput[] | FollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowerInput | FollowCreateOrConnectWithoutFollowerInput[]
+    upsert?: FollowUpsertWithWhereUniqueWithoutFollowerInput | FollowUpsertWithWhereUniqueWithoutFollowerInput[]
+    createMany?: FollowCreateManyFollowerInputEnvelope
+    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    update?: FollowUpdateWithWhereUniqueWithoutFollowerInput | FollowUpdateWithWhereUniqueWithoutFollowerInput[]
+    updateMany?: FollowUpdateManyWithWhereWithoutFollowerInput | FollowUpdateManyWithWhereWithoutFollowerInput[]
+    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
+  }
+
+  export type FollowUncheckedUpdateManyWithoutFollowingNestedInput = {
+    create?: XOR<FollowCreateWithoutFollowingInput, FollowUncheckedCreateWithoutFollowingInput> | FollowCreateWithoutFollowingInput[] | FollowUncheckedCreateWithoutFollowingInput[]
+    connectOrCreate?: FollowCreateOrConnectWithoutFollowingInput | FollowCreateOrConnectWithoutFollowingInput[]
+    upsert?: FollowUpsertWithWhereUniqueWithoutFollowingInput | FollowUpsertWithWhereUniqueWithoutFollowingInput[]
+    createMany?: FollowCreateManyFollowingInputEnvelope
+    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+    update?: FollowUpdateWithWhereUniqueWithoutFollowingInput | FollowUpdateWithWhereUniqueWithoutFollowingInput[]
+    updateMany?: FollowUpdateManyWithWhereWithoutFollowingInput | FollowUpdateManyWithWhereWithoutFollowingInput[]
+    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostTagCreateWithoutUserInput, PostTagUncheckedCreateWithoutUserInput> | PostTagCreateWithoutUserInput[] | PostTagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutUserInput | PostTagCreateOrConnectWithoutUserInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutUserInput | PostTagUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostTagCreateManyUserInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutUserInput | PostTagUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutUserInput | PostTagUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<SharedPostCreateWithoutSenderInput, SharedPostUncheckedCreateWithoutSenderInput> | SharedPostCreateWithoutSenderInput[] | SharedPostUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutSenderInput | SharedPostCreateOrConnectWithoutSenderInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutSenderInput | SharedPostUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: SharedPostCreateManySenderInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutSenderInput | SharedPostUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutSenderInput | SharedPostUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<SharedPostCreateWithoutRecipientInput, SharedPostUncheckedCreateWithoutRecipientInput> | SharedPostCreateWithoutRecipientInput[] | SharedPostUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutRecipientInput | SharedPostCreateOrConnectWithoutRecipientInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutRecipientInput | SharedPostUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: SharedPostCreateManyRecipientInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutRecipientInput | SharedPostUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutRecipientInput | SharedPostUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type StoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StoryCreateWithoutUserInput, StoryUncheckedCreateWithoutUserInput> | StoryCreateWithoutUserInput[] | StoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StoryCreateOrConnectWithoutUserInput | StoryCreateOrConnectWithoutUserInput[]
+    upsert?: StoryUpsertWithWhereUniqueWithoutUserInput | StoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StoryCreateManyUserInputEnvelope
+    set?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    disconnect?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    delete?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    connect?: StoryWhereUniqueInput | StoryWhereUniqueInput[]
+    update?: StoryUpdateWithWhereUniqueWithoutUserInput | StoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StoryUpdateManyWithWhereWithoutUserInput | StoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StoryScalarWhereInput | StoryScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutFollowersInput = {
+    create?: XOR<UserCreateWithoutFollowersInput, UserUncheckedCreateWithoutFollowersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFollowersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutFollowingInput = {
+    create?: XOR<UserCreateWithoutFollowingInput, UserUncheckedCreateWithoutFollowingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFollowingInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutFollowersNestedInput = {
+    create?: XOR<UserCreateWithoutFollowersInput, UserUncheckedCreateWithoutFollowersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFollowersInput
+    upsert?: UserUpsertWithoutFollowersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFollowersInput, UserUpdateWithoutFollowersInput>, UserUncheckedUpdateWithoutFollowersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutFollowingNestedInput = {
+    create?: XOR<UserCreateWithoutFollowingInput, UserUncheckedCreateWithoutFollowingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFollowingInput
+    upsert?: UserUpsertWithoutFollowingInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFollowingInput, UserUpdateWithoutFollowingInput>, UserUncheckedUpdateWithoutFollowingInput>
+  }
+
   export type PostCreateimageUrlInput = {
     set: string[]
+  }
+
+  export type PostCreatetagsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutPostsInput = {
+    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PostTagCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type SharedPostCreateNestedManyWithoutPostInput = {
+    create?: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput> | SharedPostCreateWithoutPostInput[] | SharedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutPostInput | SharedPostCreateOrConnectWithoutPostInput[]
+    createMany?: SharedPostCreateManyPostInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutPostInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type SavedPostCreateNestedManyWithoutPostInput = {
+    create?: XOR<SavedPostCreateWithoutPostInput, SavedPostUncheckedCreateWithoutPostInput> | SavedPostCreateWithoutPostInput[] | SavedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutPostInput | SavedPostCreateOrConnectWithoutPostInput[]
+    createMany?: SavedPostCreateManyPostInputEnvelope
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutPostInput = {
+    create?: XOR<NotificationCreateWithoutPostInput, NotificationUncheckedCreateWithoutPostInput> | NotificationCreateWithoutPostInput[] | NotificationUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutPostInput | NotificationCreateOrConnectWithoutPostInput[]
+    createMany?: NotificationCreateManyPostInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type PostTagUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type SharedPostUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput> | SharedPostCreateWithoutPostInput[] | SharedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutPostInput | SharedPostCreateOrConnectWithoutPostInput[]
+    createMany?: SharedPostCreateManyPostInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type SavedPostUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<SavedPostCreateWithoutPostInput, SavedPostUncheckedCreateWithoutPostInput> | SavedPostCreateWithoutPostInput[] | SavedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutPostInput | SavedPostCreateOrConnectWithoutPostInput[]
+    createMany?: SavedPostCreateManyPostInputEnvelope
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<NotificationCreateWithoutPostInput, NotificationUncheckedCreateWithoutPostInput> | NotificationCreateWithoutPostInput[] | NotificationUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutPostInput | NotificationCreateOrConnectWithoutPostInput[]
+    createMany?: NotificationCreateManyPostInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type PostUpdateimageUrlInput = {
@@ -9831,7 +20800,536 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type PostUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutPostsNestedInput = {
+    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+    upsert?: UserUpsertWithoutPostsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type PostTagUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutPostInput | PostTagUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutPostInput | PostTagUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutPostInput | PostTagUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type SharedPostUpdateManyWithoutPostNestedInput = {
+    create?: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput> | SharedPostCreateWithoutPostInput[] | SharedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutPostInput | SharedPostCreateOrConnectWithoutPostInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutPostInput | SharedPostUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: SharedPostCreateManyPostInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutPostInput | SharedPostUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutPostInput | SharedPostUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type CommentUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutPostInput | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutPostInput | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutPostInput | CommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type SavedPostUpdateManyWithoutPostNestedInput = {
+    create?: XOR<SavedPostCreateWithoutPostInput, SavedPostUncheckedCreateWithoutPostInput> | SavedPostCreateWithoutPostInput[] | SavedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutPostInput | SavedPostCreateOrConnectWithoutPostInput[]
+    upsert?: SavedPostUpsertWithWhereUniqueWithoutPostInput | SavedPostUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: SavedPostCreateManyPostInputEnvelope
+    set?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    disconnect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    delete?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    update?: SavedPostUpdateWithWhereUniqueWithoutPostInput | SavedPostUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: SavedPostUpdateManyWithWhereWithoutPostInput | SavedPostUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: SavedPostScalarWhereInput | SavedPostScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutPostNestedInput = {
+    create?: XOR<NotificationCreateWithoutPostInput, NotificationUncheckedCreateWithoutPostInput> | NotificationCreateWithoutPostInput[] | NotificationUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutPostInput | NotificationCreateOrConnectWithoutPostInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutPostInput | NotificationUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: NotificationCreateManyPostInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutPostInput | NotificationUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutPostInput | NotificationUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutPostInput | PostTagUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutPostInput | PostTagUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutPostInput | PostTagUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput> | SharedPostCreateWithoutPostInput[] | SharedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutPostInput | SharedPostCreateOrConnectWithoutPostInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutPostInput | SharedPostUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: SharedPostCreateManyPostInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutPostInput | SharedPostUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutPostInput | SharedPostUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutPostInput | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutPostInput | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutPostInput | CommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type SavedPostUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<SavedPostCreateWithoutPostInput, SavedPostUncheckedCreateWithoutPostInput> | SavedPostCreateWithoutPostInput[] | SavedPostUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: SavedPostCreateOrConnectWithoutPostInput | SavedPostCreateOrConnectWithoutPostInput[]
+    upsert?: SavedPostUpsertWithWhereUniqueWithoutPostInput | SavedPostUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: SavedPostCreateManyPostInputEnvelope
+    set?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    disconnect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    delete?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    connect?: SavedPostWhereUniqueInput | SavedPostWhereUniqueInput[]
+    update?: SavedPostUpdateWithWhereUniqueWithoutPostInput | SavedPostUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: SavedPostUpdateManyWithWhereWithoutPostInput | SavedPostUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: SavedPostScalarWhereInput | SavedPostScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<NotificationCreateWithoutPostInput, NotificationUncheckedCreateWithoutPostInput> | NotificationCreateWithoutPostInput[] | NotificationUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutPostInput | NotificationCreateOrConnectWithoutPostInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutPostInput | NotificationUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: NotificationCreateManyPostInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutPostInput | NotificationUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutPostInput | NotificationUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSharedPostsSentInput = {
+    create?: XOR<UserCreateWithoutSharedPostsSentInput, UserUncheckedCreateWithoutSharedPostsSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSharedPostsSentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSharedPostsReceivedInput = {
+    create?: XOR<UserCreateWithoutSharedPostsReceivedInput, UserUncheckedCreateWithoutSharedPostsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSharedPostsReceivedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StoryCreateNestedOneWithoutSharedPostsInput = {
+    create?: XOR<StoryCreateWithoutSharedPostsInput, StoryUncheckedCreateWithoutSharedPostsInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutSharedPostsInput
+    connect?: StoryWhereUniqueInput
+  }
+
+  export type TripCreateNestedOneWithoutSharedPostsInput = {
+    create?: XOR<TripCreateWithoutSharedPostsInput, TripUncheckedCreateWithoutSharedPostsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutSharedPostsInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type PostCreateNestedOneWithoutSharedPostsInput = {
+    create?: XOR<PostCreateWithoutSharedPostsInput, PostUncheckedCreateWithoutSharedPostsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutSharedPostsInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type NotificationCreateNestedManyWithoutSharedPostInput = {
+    create?: XOR<NotificationCreateWithoutSharedPostInput, NotificationUncheckedCreateWithoutSharedPostInput> | NotificationCreateWithoutSharedPostInput[] | NotificationUncheckedCreateWithoutSharedPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSharedPostInput | NotificationCreateOrConnectWithoutSharedPostInput[]
+    createMany?: NotificationCreateManySharedPostInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutSharedPostInput = {
+    create?: XOR<NotificationCreateWithoutSharedPostInput, NotificationUncheckedCreateWithoutSharedPostInput> | NotificationCreateWithoutSharedPostInput[] | NotificationUncheckedCreateWithoutSharedPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSharedPostInput | NotificationCreateOrConnectWithoutSharedPostInput[]
+    createMany?: NotificationCreateManySharedPostInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutSharedPostsSentNestedInput = {
+    create?: XOR<UserCreateWithoutSharedPostsSentInput, UserUncheckedCreateWithoutSharedPostsSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSharedPostsSentInput
+    upsert?: UserUpsertWithoutSharedPostsSentInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSharedPostsSentInput, UserUpdateWithoutSharedPostsSentInput>, UserUncheckedUpdateWithoutSharedPostsSentInput>
+  }
+
+  export type UserUpdateOneWithoutSharedPostsReceivedNestedInput = {
+    create?: XOR<UserCreateWithoutSharedPostsReceivedInput, UserUncheckedCreateWithoutSharedPostsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSharedPostsReceivedInput
+    upsert?: UserUpsertWithoutSharedPostsReceivedInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSharedPostsReceivedInput, UserUpdateWithoutSharedPostsReceivedInput>, UserUncheckedUpdateWithoutSharedPostsReceivedInput>
+  }
+
+  export type StoryUpdateOneWithoutSharedPostsNestedInput = {
+    create?: XOR<StoryCreateWithoutSharedPostsInput, StoryUncheckedCreateWithoutSharedPostsInput>
+    connectOrCreate?: StoryCreateOrConnectWithoutSharedPostsInput
+    upsert?: StoryUpsertWithoutSharedPostsInput
+    disconnect?: boolean
+    delete?: StoryWhereInput | boolean
+    connect?: StoryWhereUniqueInput
+    update?: XOR<XOR<StoryUpdateToOneWithWhereWithoutSharedPostsInput, StoryUpdateWithoutSharedPostsInput>, StoryUncheckedUpdateWithoutSharedPostsInput>
+  }
+
+  export type TripUpdateOneWithoutSharedPostsNestedInput = {
+    create?: XOR<TripCreateWithoutSharedPostsInput, TripUncheckedCreateWithoutSharedPostsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutSharedPostsInput
+    upsert?: TripUpsertWithoutSharedPostsInput
+    disconnect?: boolean
+    delete?: TripWhereInput | boolean
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutSharedPostsInput, TripUpdateWithoutSharedPostsInput>, TripUncheckedUpdateWithoutSharedPostsInput>
+  }
+
+  export type PostUpdateOneRequiredWithoutSharedPostsNestedInput = {
+    create?: XOR<PostCreateWithoutSharedPostsInput, PostUncheckedCreateWithoutSharedPostsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutSharedPostsInput
+    upsert?: PostUpsertWithoutSharedPostsInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutSharedPostsInput, PostUpdateWithoutSharedPostsInput>, PostUncheckedUpdateWithoutSharedPostsInput>
+  }
+
+  export type NotificationUpdateManyWithoutSharedPostNestedInput = {
+    create?: XOR<NotificationCreateWithoutSharedPostInput, NotificationUncheckedCreateWithoutSharedPostInput> | NotificationCreateWithoutSharedPostInput[] | NotificationUncheckedCreateWithoutSharedPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSharedPostInput | NotificationCreateOrConnectWithoutSharedPostInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutSharedPostInput | NotificationUpsertWithWhereUniqueWithoutSharedPostInput[]
+    createMany?: NotificationCreateManySharedPostInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutSharedPostInput | NotificationUpdateWithWhereUniqueWithoutSharedPostInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutSharedPostInput | NotificationUpdateManyWithWhereWithoutSharedPostInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutSharedPostNestedInput = {
+    create?: XOR<NotificationCreateWithoutSharedPostInput, NotificationUncheckedCreateWithoutSharedPostInput> | NotificationCreateWithoutSharedPostInput[] | NotificationUncheckedCreateWithoutSharedPostInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutSharedPostInput | NotificationCreateOrConnectWithoutSharedPostInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutSharedPostInput | NotificationUpsertWithWhereUniqueWithoutSharedPostInput[]
+    createMany?: NotificationCreateManySharedPostInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutSharedPostInput | NotificationUpdateWithWhereUniqueWithoutSharedPostInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutSharedPostInput | NotificationUpdateManyWithWhereWithoutSharedPostInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type PostCreateNestedOneWithoutTaggedUsersInput = {
+    create?: XOR<PostCreateWithoutTaggedUsersInput, PostUncheckedCreateWithoutTaggedUsersInput>
+    connectOrCreate?: PostCreateOrConnectWithoutTaggedUsersInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTaggedInPostsInput = {
+    create?: XOR<UserCreateWithoutTaggedInPostsInput, UserUncheckedCreateWithoutTaggedInPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTaggedInPostsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PostUpdateOneRequiredWithoutTaggedUsersNestedInput = {
+    create?: XOR<PostCreateWithoutTaggedUsersInput, PostUncheckedCreateWithoutTaggedUsersInput>
+    connectOrCreate?: PostCreateOrConnectWithoutTaggedUsersInput
+    upsert?: PostUpsertWithoutTaggedUsersInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutTaggedUsersInput, PostUpdateWithoutTaggedUsersInput>, PostUncheckedUpdateWithoutTaggedUsersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTaggedInPostsNestedInput = {
+    create?: XOR<UserCreateWithoutTaggedInPostsInput, UserUncheckedCreateWithoutTaggedInPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTaggedInPostsInput
+    upsert?: UserUpsertWithoutTaggedInPostsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTaggedInPostsInput, UserUpdateWithoutTaggedInPostsInput>, UserUncheckedUpdateWithoutTaggedInPostsInput>
+  }
+
+  export type PostCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutCommentsInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommentCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutRepliesInput
+    connect?: CommentWhereUniqueInput
+  }
+
+  export type CommentCreateNestedManyWithoutParentInput = {
+    create?: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput> | CommentCreateWithoutParentInput[] | CommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutParentInput | CommentCreateOrConnectWithoutParentInput[]
+    createMany?: CommentCreateManyParentInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput> | CommentCreateWithoutParentInput[] | CommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutParentInput | CommentCreateOrConnectWithoutParentInput[]
+    createMany?: CommentCreateManyParentInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type PostUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutCommentsInput
+    upsert?: PostUpsertWithoutCommentsInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutCommentsInput, PostUpdateWithoutCommentsInput>, PostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    upsert?: UserUpsertWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type CommentUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutRepliesInput
+    upsert?: CommentUpsertWithoutRepliesInput
+    disconnect?: boolean
+    delete?: CommentWhereInput | boolean
+    connect?: CommentWhereUniqueInput
+    update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutRepliesInput, CommentUpdateWithoutRepliesInput>, CommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type CommentUpdateManyWithoutParentNestedInput = {
+    create?: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput> | CommentCreateWithoutParentInput[] | CommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutParentInput | CommentCreateOrConnectWithoutParentInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutParentInput | CommentUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: CommentCreateManyParentInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutParentInput | CommentUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutParentInput | CommentUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput> | CommentCreateWithoutParentInput[] | CommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutParentInput | CommentCreateOrConnectWithoutParentInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutParentInput | CommentUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: CommentCreateManyParentInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutParentInput | CommentUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutParentInput | CommentUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutLikesInput = {
+    create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikesInput
+    upsert?: UserUpsertWithoutLikesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLikesInput, UserUpdateWithoutLikesInput>, UserUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserCreateNestedOneWithoutSavedPostsInput = {
+    create?: XOR<UserCreateWithoutSavedPostsInput, UserUncheckedCreateWithoutSavedPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSavedPostsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PostCreateNestedOneWithoutSavedByInput = {
+    create?: XOR<PostCreateWithoutSavedByInput, PostUncheckedCreateWithoutSavedByInput>
+    connectOrCreate?: PostCreateOrConnectWithoutSavedByInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSavedPostsNestedInput = {
+    create?: XOR<UserCreateWithoutSavedPostsInput, UserUncheckedCreateWithoutSavedPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSavedPostsInput
+    upsert?: UserUpsertWithoutSavedPostsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSavedPostsInput, UserUpdateWithoutSavedPostsInput>, UserUncheckedUpdateWithoutSavedPostsInput>
+  }
+
+  export type PostUpdateOneRequiredWithoutSavedByNestedInput = {
+    create?: XOR<PostCreateWithoutSavedByInput, PostUncheckedCreateWithoutSavedByInput>
+    connectOrCreate?: PostCreateOrConnectWithoutSavedByInput
+    upsert?: PostUpsertWithoutSavedByInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutSavedByInput, PostUpdateWithoutSavedByInput>, PostUncheckedUpdateWithoutSavedByInput>
+  }
+
+  export type UserCreateNestedOneWithoutMessagesSentInput = {
+    create?: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesSentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMessagesRecvInput = {
+    create?: XOR<UserCreateWithoutMessagesRecvInput, UserUncheckedCreateWithoutMessagesRecvInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesRecvInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+    create?: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesSentInput
+    upsert?: UserUpsertWithoutMessagesSentInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesSentInput, UserUpdateWithoutMessagesSentInput>, UserUncheckedUpdateWithoutMessagesSentInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMessagesRecvNestedInput = {
+    create?: XOR<UserCreateWithoutMessagesRecvInput, UserUncheckedCreateWithoutMessagesRecvInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesRecvInput
+    upsert?: UserUpsertWithoutMessagesRecvInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesRecvInput, UserUpdateWithoutMessagesRecvInput>, UserUncheckedUpdateWithoutMessagesRecvInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsSentInput = {
+    create?: XOR<UserCreateWithoutNotificationsSentInput, UserUncheckedCreateWithoutNotificationsSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsSentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsRecvInput = {
+    create?: XOR<UserCreateWithoutNotificationsRecvInput, UserUncheckedCreateWithoutNotificationsRecvInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsRecvInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PostCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<PostCreateWithoutNotificationsInput, PostUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutNotificationsInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type SharedPostCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<SharedPostCreateWithoutNotificationsInput, SharedPostUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: SharedPostCreateOrConnectWithoutNotificationsInput
+    connect?: SharedPostWhereUniqueInput
+  }
+
+  export type EnumNotificationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.NotificationType
+  }
+
+  export type UserUpdateOneWithoutNotificationsSentNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsSentInput, UserUncheckedCreateWithoutNotificationsSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsSentInput
+    upsert?: UserUpsertWithoutNotificationsSentInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsSentInput, UserUpdateWithoutNotificationsSentInput>, UserUncheckedUpdateWithoutNotificationsSentInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationsRecvNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsRecvInput, UserUncheckedCreateWithoutNotificationsRecvInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsRecvInput
+    upsert?: UserUpsertWithoutNotificationsRecvInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsRecvInput, UserUpdateWithoutNotificationsRecvInput>, UserUncheckedUpdateWithoutNotificationsRecvInput>
+  }
+
+  export type PostUpdateOneWithoutNotificationsNestedInput = {
+    create?: XOR<PostCreateWithoutNotificationsInput, PostUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutNotificationsInput
+    upsert?: PostUpsertWithoutNotificationsInput
+    disconnect?: boolean
+    delete?: PostWhereInput | boolean
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutNotificationsInput, PostUpdateWithoutNotificationsInput>, PostUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type SharedPostUpdateOneWithoutNotificationsNestedInput = {
+    create?: XOR<SharedPostCreateWithoutNotificationsInput, SharedPostUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: SharedPostCreateOrConnectWithoutNotificationsInput
+    upsert?: SharedPostUpsertWithoutNotificationsInput
+    disconnect?: boolean
+    delete?: SharedPostWhereInput | boolean
+    connect?: SharedPostWhereUniqueInput
+    update?: XOR<XOR<SharedPostUpdateToOneWithWhereWithoutNotificationsInput, SharedPostUpdateWithoutNotificationsInput>, SharedPostUncheckedUpdateWithoutNotificationsInput>
+  }
+
   export type TripCreateplacesVisitedInput = {
+    set: string[]
+  }
+
+  export type TripCreatetagsInput = {
+    set: string[]
+  }
+
+  export type TripCreateparticipantsInput = {
     set: string[]
   }
 
@@ -9839,7 +21337,37 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type UserCreateNestedOneWithoutTripsInput = {
+    create?: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTripsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SharedPostCreateNestedManyWithoutTripInput = {
+    create?: XOR<SharedPostCreateWithoutTripInput, SharedPostUncheckedCreateWithoutTripInput> | SharedPostCreateWithoutTripInput[] | SharedPostUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutTripInput | SharedPostCreateOrConnectWithoutTripInput[]
+    createMany?: SharedPostCreateManyTripInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type SharedPostUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<SharedPostCreateWithoutTripInput, SharedPostUncheckedCreateWithoutTripInput> | SharedPostCreateWithoutTripInput[] | SharedPostUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutTripInput | SharedPostCreateOrConnectWithoutTripInput[]
+    createMany?: SharedPostCreateManyTripInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
   export type TripUpdateplacesVisitedInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TripUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TripUpdateparticipantsInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -9847,6 +21375,134 @@ export namespace Prisma {
   export type TripUpdatesharedWithInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutTripsNestedInput = {
+    create?: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTripsInput
+    upsert?: UserUpsertWithoutTripsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTripsInput, UserUpdateWithoutTripsInput>, UserUncheckedUpdateWithoutTripsInput>
+  }
+
+  export type SharedPostUpdateManyWithoutTripNestedInput = {
+    create?: XOR<SharedPostCreateWithoutTripInput, SharedPostUncheckedCreateWithoutTripInput> | SharedPostCreateWithoutTripInput[] | SharedPostUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutTripInput | SharedPostCreateOrConnectWithoutTripInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutTripInput | SharedPostUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: SharedPostCreateManyTripInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutTripInput | SharedPostUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutTripInput | SharedPostUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<SharedPostCreateWithoutTripInput, SharedPostUncheckedCreateWithoutTripInput> | SharedPostCreateWithoutTripInput[] | SharedPostUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutTripInput | SharedPostCreateOrConnectWithoutTripInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutTripInput | SharedPostUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: SharedPostCreateManyTripInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutTripInput | SharedPostUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutTripInput | SharedPostUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type StoryCreatemediaUrlsInput = {
+    set: string[]
+  }
+
+  export type SharedPostCreateNestedManyWithoutStoryInput = {
+    create?: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput> | SharedPostCreateWithoutStoryInput[] | SharedPostUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutStoryInput | SharedPostCreateOrConnectWithoutStoryInput[]
+    createMany?: SharedPostCreateManyStoryInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutStoriesInput = {
+    create?: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStoriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SharedPostUncheckedCreateNestedManyWithoutStoryInput = {
+    create?: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput> | SharedPostCreateWithoutStoryInput[] | SharedPostUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutStoryInput | SharedPostCreateOrConnectWithoutStoryInput[]
+    createMany?: SharedPostCreateManyStoryInputEnvelope
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+  }
+
+  export type StoryUpdatemediaUrlsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumMediaTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MediaType
+  }
+
+  export type SharedPostUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput> | SharedPostCreateWithoutStoryInput[] | SharedPostUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutStoryInput | SharedPostCreateOrConnectWithoutStoryInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutStoryInput | SharedPostUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: SharedPostCreateManyStoryInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutStoryInput | SharedPostUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutStoryInput | SharedPostUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutStoriesNestedInput = {
+    create?: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStoriesInput
+    upsert?: UserUpsertWithoutStoriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStoriesInput, UserUpdateWithoutStoriesInput>, UserUncheckedUpdateWithoutStoriesInput>
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutStoryNestedInput = {
+    create?: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput> | SharedPostCreateWithoutStoryInput[] | SharedPostUncheckedCreateWithoutStoryInput[]
+    connectOrCreate?: SharedPostCreateOrConnectWithoutStoryInput | SharedPostCreateOrConnectWithoutStoryInput[]
+    upsert?: SharedPostUpsertWithWhereUniqueWithoutStoryInput | SharedPostUpsertWithWhereUniqueWithoutStoryInput[]
+    createMany?: SharedPostCreateManyStoryInputEnvelope
+    set?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    disconnect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    delete?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
+    update?: SharedPostUpdateWithWhereUniqueWithoutStoryInput | SharedPostUpdateWithWhereUniqueWithoutStoryInput[]
+    updateMany?: SharedPostUpdateManyWithWhereWithoutStoryInput | SharedPostUpdateManyWithWhereWithoutStoryInput[]
+    deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutReportsInput = {
+    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReportsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutReportsNestedInput = {
+    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReportsInput
+    upsert?: UserUpsertWithoutReportsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportsInput, UserUpdateWithoutReportsInput>, UserUncheckedUpdateWithoutReportsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -9878,22 +21534,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -9906,6 +21546,11 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -9915,6 +21560,17 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -9964,28 +21620,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -10000,16 +21634,13 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10037,6 +21668,5731 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
+  }
+
+  export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.NotificationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationTypeFilter<$PrismaModel>
+    _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
+
+  export type NestedEnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
+  }
+
+  export type NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel> | $Enums.MediaType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>
+  }
+
+  export type PostCreateWithoutAuthorInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutAuthorInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type PostCreateManyAuthorInputEnvelope = {
+    data: PostCreateManyAuthorInput | PostCreateManyAuthorInput[]
+  }
+
+  export type CommentCreateWithoutAuthorInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: PostCreateNestedOneWithoutCommentsInput
+    parent?: CommentCreateNestedOneWithoutRepliesInput
+    replies?: CommentCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    postId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentCreateOrConnectWithoutAuthorInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type CommentCreateManyAuthorInputEnvelope = {
+    data: CommentCreateManyAuthorInput | CommentCreateManyAuthorInput[]
+  }
+
+  export type LikeCreateWithoutUserInput = {
+    id?: string
+    targetId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type LikeUncheckedCreateWithoutUserInput = {
+    id?: string
+    targetId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type LikeCreateOrConnectWithoutUserInput = {
+    where: LikeWhereUniqueInput
+    create: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type LikeCreateManyUserInputEnvelope = {
+    data: LikeCreateManyUserInput | LikeCreateManyUserInput[]
+  }
+
+  export type SavedPostCreateWithoutUserInput = {
+    id?: string
+    savedAt?: Date | string
+    post: PostCreateNestedOneWithoutSavedByInput
+  }
+
+  export type SavedPostUncheckedCreateWithoutUserInput = {
+    id?: string
+    postId: string
+    savedAt?: Date | string
+  }
+
+  export type SavedPostCreateOrConnectWithoutUserInput = {
+    where: SavedPostWhereUniqueInput
+    create: XOR<SavedPostCreateWithoutUserInput, SavedPostUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavedPostCreateManyUserInputEnvelope = {
+    data: SavedPostCreateManyUserInput | SavedPostCreateManyUserInput[]
+  }
+
+  export type MessageCreateWithoutSenderInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    receiver: UserCreateNestedOneWithoutMessagesRecvInput
+  }
+
+  export type MessageUncheckedCreateWithoutSenderInput = {
+    id?: string
+    receiverId: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessageCreateManySenderInputEnvelope = {
+    data: MessageCreateManySenderInput | MessageCreateManySenderInput[]
+  }
+
+  export type MessageCreateWithoutReceiverInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sender: UserCreateNestedOneWithoutMessagesSentInput
+  }
+
+  export type MessageUncheckedCreateWithoutReceiverInput = {
+    id?: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutReceiverInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type MessageCreateManyReceiverInputEnvelope = {
+    data: MessageCreateManyReceiverInput | MessageCreateManyReceiverInput[]
+  }
+
+  export type NotificationCreateWithoutSenderInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+    recipient: UserCreateNestedOneWithoutNotificationsRecvInput
+    post?: PostCreateNestedOneWithoutNotificationsInput
+    sharedPost?: SharedPostCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutSenderInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    recipientId: string
+    postId?: string | null
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutSenderInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutSenderInput, NotificationUncheckedCreateWithoutSenderInput>
+  }
+
+  export type NotificationCreateManySenderInputEnvelope = {
+    data: NotificationCreateManySenderInput | NotificationCreateManySenderInput[]
+  }
+
+  export type NotificationCreateWithoutRecipientInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+    sender?: UserCreateNestedOneWithoutNotificationsSentInput
+    post?: PostCreateNestedOneWithoutNotificationsInput
+    sharedPost?: SharedPostCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutRecipientInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    senderId?: string | null
+    postId?: string | null
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutRecipientInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type NotificationCreateManyRecipientInputEnvelope = {
+    data: NotificationCreateManyRecipientInput | NotificationCreateManyRecipientInput[]
+  }
+
+  export type TripCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
+    sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
+    photos: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostCreateNestedManyWithoutTripInput
+  }
+
+  export type TripUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
+    sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
+    photos: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutUserInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput>
+  }
+
+  export type TripCreateManyUserInputEnvelope = {
+    data: TripCreateManyUserInput | TripCreateManyUserInput[]
+  }
+
+  export type ReportCreateWithoutReporterInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type ReportUncheckedCreateWithoutReporterInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type ReportCreateOrConnectWithoutReporterInput = {
+    where: ReportWhereUniqueInput
+    create: XOR<ReportCreateWithoutReporterInput, ReportUncheckedCreateWithoutReporterInput>
+  }
+
+  export type ReportCreateManyReporterInputEnvelope = {
+    data: ReportCreateManyReporterInput | ReportCreateManyReporterInput[]
+  }
+
+  export type FollowCreateWithoutFollowerInput = {
+    id?: string
+    followStatus: string
+    createdAt?: Date | string
+    following: UserCreateNestedOneWithoutFollowingInput
+  }
+
+  export type FollowUncheckedCreateWithoutFollowerInput = {
+    id?: string
+    followingId: string
+    followStatus: string
+    createdAt?: Date | string
+  }
+
+  export type FollowCreateOrConnectWithoutFollowerInput = {
+    where: FollowWhereUniqueInput
+    create: XOR<FollowCreateWithoutFollowerInput, FollowUncheckedCreateWithoutFollowerInput>
+  }
+
+  export type FollowCreateManyFollowerInputEnvelope = {
+    data: FollowCreateManyFollowerInput | FollowCreateManyFollowerInput[]
+  }
+
+  export type FollowCreateWithoutFollowingInput = {
+    id?: string
+    followStatus: string
+    createdAt?: Date | string
+    follower: UserCreateNestedOneWithoutFollowersInput
+  }
+
+  export type FollowUncheckedCreateWithoutFollowingInput = {
+    id?: string
+    followerId: string
+    followStatus: string
+    createdAt?: Date | string
+  }
+
+  export type FollowCreateOrConnectWithoutFollowingInput = {
+    where: FollowWhereUniqueInput
+    create: XOR<FollowCreateWithoutFollowingInput, FollowUncheckedCreateWithoutFollowingInput>
+  }
+
+  export type FollowCreateManyFollowingInputEnvelope = {
+    data: FollowCreateManyFollowingInput | FollowCreateManyFollowingInput[]
+  }
+
+  export type PostTagCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutTaggedUsersInput
+  }
+
+  export type PostTagUncheckedCreateWithoutUserInput = {
+    id?: string
+    postId: string
+    createdAt?: Date | string
+  }
+
+  export type PostTagCreateOrConnectWithoutUserInput = {
+    where: PostTagWhereUniqueInput
+    create: XOR<PostTagCreateWithoutUserInput, PostTagUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostTagCreateManyUserInputEnvelope = {
+    data: PostTagCreateManyUserInput | PostTagCreateManyUserInput[]
+  }
+
+  export type SharedPostCreateWithoutSenderInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    story?: StoryCreateNestedOneWithoutSharedPostsInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutSenderInput = {
+    id?: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostCreateOrConnectWithoutSenderInput = {
+    where: SharedPostWhereUniqueInput
+    create: XOR<SharedPostCreateWithoutSenderInput, SharedPostUncheckedCreateWithoutSenderInput>
+  }
+
+  export type SharedPostCreateManySenderInputEnvelope = {
+    data: SharedPostCreateManySenderInput | SharedPostCreateManySenderInput[]
+  }
+
+  export type SharedPostCreateWithoutRecipientInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    story?: StoryCreateNestedOneWithoutSharedPostsInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutRecipientInput = {
+    id?: string
+    senderId: string
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostCreateOrConnectWithoutRecipientInput = {
+    where: SharedPostWhereUniqueInput
+    create: XOR<SharedPostCreateWithoutRecipientInput, SharedPostUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type SharedPostCreateManyRecipientInputEnvelope = {
+    data: SharedPostCreateManyRecipientInput | SharedPostCreateManyRecipientInput[]
+  }
+
+  export type StoryCreateWithoutUserInput = {
+    id?: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutStoryInput
+  }
+
+  export type StoryCreateOrConnectWithoutUserInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutUserInput, StoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type StoryCreateManyUserInputEnvelope = {
+    data: StoryCreateManyUserInput | StoryCreateManyUserInput[]
+  }
+
+  export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: PostWhereUniqueInput
+    update: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
+    create: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: PostWhereUniqueInput
+    data: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type PostUpdateManyWithWhereWithoutAuthorInput = {
+    where: PostScalarWhereInput
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type PostScalarWhereInput = {
+    AND?: PostScalarWhereInput | PostScalarWhereInput[]
+    OR?: PostScalarWhereInput[]
+    NOT?: PostScalarWhereInput | PostScalarWhereInput[]
+    id?: StringFilter<"Post"> | string
+    authorId?: StringFilter<"Post"> | string
+    imageUrl?: StringNullableListFilter<"Post">
+    caption?: StringNullableFilter<"Post"> | string | null
+    location?: StringNullableFilter<"Post"> | string | null
+    tags?: StringNullableListFilter<"Post">
+    isPublic?: BoolFilter<"Post"> | boolean
+    likeCount?: IntFilter<"Post"> | number
+    commentCount?: IntFilter<"Post"> | number
+    sharedCount?: IntFilter<"Post"> | number
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutAuthorInput, CommentUncheckedUpdateWithoutAuthorInput>
+    create: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutAuthorInput, CommentUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutAuthorInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    postId?: StringFilter<"Comment"> | string
+    authorId?: StringFilter<"Comment"> | string
+    content?: StringFilter<"Comment"> | string
+    parentId?: StringNullableFilter<"Comment"> | string | null
+    likeCount?: IntFilter<"Comment"> | number
+    isEdited?: BoolFilter<"Comment"> | boolean
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+  }
+
+  export type LikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: LikeWhereUniqueInput
+    update: XOR<LikeUpdateWithoutUserInput, LikeUncheckedUpdateWithoutUserInput>
+    create: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type LikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: LikeWhereUniqueInput
+    data: XOR<LikeUpdateWithoutUserInput, LikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LikeUpdateManyWithWhereWithoutUserInput = {
+    where: LikeScalarWhereInput
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LikeScalarWhereInput = {
+    AND?: LikeScalarWhereInput | LikeScalarWhereInput[]
+    OR?: LikeScalarWhereInput[]
+    NOT?: LikeScalarWhereInput | LikeScalarWhereInput[]
+    id?: StringFilter<"Like"> | string
+    userId?: StringFilter<"Like"> | string
+    targetId?: StringFilter<"Like"> | string
+    type?: StringFilter<"Like"> | string
+    createdAt?: DateTimeFilter<"Like"> | Date | string
+  }
+
+  export type SavedPostUpsertWithWhereUniqueWithoutUserInput = {
+    where: SavedPostWhereUniqueInput
+    update: XOR<SavedPostUpdateWithoutUserInput, SavedPostUncheckedUpdateWithoutUserInput>
+    create: XOR<SavedPostCreateWithoutUserInput, SavedPostUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavedPostUpdateWithWhereUniqueWithoutUserInput = {
+    where: SavedPostWhereUniqueInput
+    data: XOR<SavedPostUpdateWithoutUserInput, SavedPostUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SavedPostUpdateManyWithWhereWithoutUserInput = {
+    where: SavedPostScalarWhereInput
+    data: XOR<SavedPostUpdateManyMutationInput, SavedPostUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SavedPostScalarWhereInput = {
+    AND?: SavedPostScalarWhereInput | SavedPostScalarWhereInput[]
+    OR?: SavedPostScalarWhereInput[]
+    NOT?: SavedPostScalarWhereInput | SavedPostScalarWhereInput[]
+    id?: StringFilter<"SavedPost"> | string
+    userId?: StringFilter<"SavedPost"> | string
+    postId?: StringFilter<"SavedPost"> | string
+    savedAt?: DateTimeFilter<"SavedPost"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
+    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutSenderInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: StringFilter<"Message"> | string
+    senderId?: StringFilter<"Message"> | string
+    receiverId?: StringFilter<"Message"> | string
+    content?: StringFilter<"Message"> | string
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    updatedAt?: DateTimeFilter<"Message"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutReceiverInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutReceiverInput, MessageUncheckedUpdateWithoutReceiverInput>
+    create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutReceiverInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutReceiverInput, MessageUncheckedUpdateWithoutReceiverInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutReceiverInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReceiverInput>
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutSenderInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutSenderInput, NotificationUncheckedUpdateWithoutSenderInput>
+    create: XOR<NotificationCreateWithoutSenderInput, NotificationUncheckedCreateWithoutSenderInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutSenderInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutSenderInput, NotificationUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutSenderInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
+    message?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    senderId?: StringNullableFilter<"Notification"> | string | null
+    recipientId?: StringFilter<"Notification"> | string
+    postId?: StringNullableFilter<"Notification"> | string | null
+    sharedPostId?: StringNullableFilter<"Notification"> | string | null
+    data?: JsonNullableFilter<"Notification">
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutRecipientInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
+    create: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutRecipientInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutRecipientInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutRecipientInput>
+  }
+
+  export type TripUpsertWithWhereUniqueWithoutUserInput = {
+    where: TripWhereUniqueInput
+    update: XOR<TripUpdateWithoutUserInput, TripUncheckedUpdateWithoutUserInput>
+    create: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput>
+  }
+
+  export type TripUpdateWithWhereUniqueWithoutUserInput = {
+    where: TripWhereUniqueInput
+    data: XOR<TripUpdateWithoutUserInput, TripUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TripUpdateManyWithWhereWithoutUserInput = {
+    where: TripScalarWhereInput
+    data: XOR<TripUpdateManyMutationInput, TripUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TripScalarWhereInput = {
+    AND?: TripScalarWhereInput | TripScalarWhereInput[]
+    OR?: TripScalarWhereInput[]
+    NOT?: TripScalarWhereInput | TripScalarWhereInput[]
+    id?: StringFilter<"Trip"> | string
+    userId?: StringFilter<"Trip"> | string
+    title?: StringFilter<"Trip"> | string
+    description?: StringNullableFilter<"Trip"> | string | null
+    startDate?: DateTimeFilter<"Trip"> | Date | string
+    endDate?: DateTimeFilter<"Trip"> | Date | string
+    placesVisited?: StringNullableListFilter<"Trip">
+    tags?: StringNullableListFilter<"Trip">
+    participants?: StringNullableListFilter<"Trip">
+    sharedWith?: StringNullableListFilter<"Trip">
+    isPublic?: BoolFilter<"Trip"> | boolean
+    rating?: FloatNullableFilter<"Trip"> | number | null
+    photos?: JsonFilter<"Trip">
+    createdAt?: DateTimeFilter<"Trip"> | Date | string
+    updatedAt?: DateTimeFilter<"Trip"> | Date | string
+  }
+
+  export type ReportUpsertWithWhereUniqueWithoutReporterInput = {
+    where: ReportWhereUniqueInput
+    update: XOR<ReportUpdateWithoutReporterInput, ReportUncheckedUpdateWithoutReporterInput>
+    create: XOR<ReportCreateWithoutReporterInput, ReportUncheckedCreateWithoutReporterInput>
+  }
+
+  export type ReportUpdateWithWhereUniqueWithoutReporterInput = {
+    where: ReportWhereUniqueInput
+    data: XOR<ReportUpdateWithoutReporterInput, ReportUncheckedUpdateWithoutReporterInput>
+  }
+
+  export type ReportUpdateManyWithWhereWithoutReporterInput = {
+    where: ReportScalarWhereInput
+    data: XOR<ReportUpdateManyMutationInput, ReportUncheckedUpdateManyWithoutReporterInput>
+  }
+
+  export type ReportScalarWhereInput = {
+    AND?: ReportScalarWhereInput | ReportScalarWhereInput[]
+    OR?: ReportScalarWhereInput[]
+    NOT?: ReportScalarWhereInput | ReportScalarWhereInput[]
+    id?: StringFilter<"Report"> | string
+    reporterId?: StringFilter<"Report"> | string
+    targetType?: StringFilter<"Report"> | string
+    targetId?: StringFilter<"Report"> | string
+    reason?: StringFilter<"Report"> | string
+    createdAt?: DateTimeFilter<"Report"> | Date | string
+  }
+
+  export type FollowUpsertWithWhereUniqueWithoutFollowerInput = {
+    where: FollowWhereUniqueInput
+    update: XOR<FollowUpdateWithoutFollowerInput, FollowUncheckedUpdateWithoutFollowerInput>
+    create: XOR<FollowCreateWithoutFollowerInput, FollowUncheckedCreateWithoutFollowerInput>
+  }
+
+  export type FollowUpdateWithWhereUniqueWithoutFollowerInput = {
+    where: FollowWhereUniqueInput
+    data: XOR<FollowUpdateWithoutFollowerInput, FollowUncheckedUpdateWithoutFollowerInput>
+  }
+
+  export type FollowUpdateManyWithWhereWithoutFollowerInput = {
+    where: FollowScalarWhereInput
+    data: XOR<FollowUpdateManyMutationInput, FollowUncheckedUpdateManyWithoutFollowerInput>
+  }
+
+  export type FollowScalarWhereInput = {
+    AND?: FollowScalarWhereInput | FollowScalarWhereInput[]
+    OR?: FollowScalarWhereInput[]
+    NOT?: FollowScalarWhereInput | FollowScalarWhereInput[]
+    id?: StringFilter<"Follow"> | string
+    followerId?: StringFilter<"Follow"> | string
+    followingId?: StringFilter<"Follow"> | string
+    followStatus?: StringFilter<"Follow"> | string
+    createdAt?: DateTimeFilter<"Follow"> | Date | string
+  }
+
+  export type FollowUpsertWithWhereUniqueWithoutFollowingInput = {
+    where: FollowWhereUniqueInput
+    update: XOR<FollowUpdateWithoutFollowingInput, FollowUncheckedUpdateWithoutFollowingInput>
+    create: XOR<FollowCreateWithoutFollowingInput, FollowUncheckedCreateWithoutFollowingInput>
+  }
+
+  export type FollowUpdateWithWhereUniqueWithoutFollowingInput = {
+    where: FollowWhereUniqueInput
+    data: XOR<FollowUpdateWithoutFollowingInput, FollowUncheckedUpdateWithoutFollowingInput>
+  }
+
+  export type FollowUpdateManyWithWhereWithoutFollowingInput = {
+    where: FollowScalarWhereInput
+    data: XOR<FollowUpdateManyMutationInput, FollowUncheckedUpdateManyWithoutFollowingInput>
+  }
+
+  export type PostTagUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostTagWhereUniqueInput
+    update: XOR<PostTagUpdateWithoutUserInput, PostTagUncheckedUpdateWithoutUserInput>
+    create: XOR<PostTagCreateWithoutUserInput, PostTagUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostTagUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostTagWhereUniqueInput
+    data: XOR<PostTagUpdateWithoutUserInput, PostTagUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PostTagUpdateManyWithWhereWithoutUserInput = {
+    where: PostTagScalarWhereInput
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PostTagScalarWhereInput = {
+    AND?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+    OR?: PostTagScalarWhereInput[]
+    NOT?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+    id?: StringFilter<"PostTag"> | string
+    postId?: StringFilter<"PostTag"> | string
+    userId?: StringFilter<"PostTag"> | string
+    createdAt?: DateTimeFilter<"PostTag"> | Date | string
+  }
+
+  export type SharedPostUpsertWithWhereUniqueWithoutSenderInput = {
+    where: SharedPostWhereUniqueInput
+    update: XOR<SharedPostUpdateWithoutSenderInput, SharedPostUncheckedUpdateWithoutSenderInput>
+    create: XOR<SharedPostCreateWithoutSenderInput, SharedPostUncheckedCreateWithoutSenderInput>
+  }
+
+  export type SharedPostUpdateWithWhereUniqueWithoutSenderInput = {
+    where: SharedPostWhereUniqueInput
+    data: XOR<SharedPostUpdateWithoutSenderInput, SharedPostUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type SharedPostUpdateManyWithWhereWithoutSenderInput = {
+    where: SharedPostScalarWhereInput
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type SharedPostScalarWhereInput = {
+    AND?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+    OR?: SharedPostScalarWhereInput[]
+    NOT?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
+    id?: StringFilter<"SharedPost"> | string
+    senderId?: StringFilter<"SharedPost"> | string
+    recipientId?: StringNullableFilter<"SharedPost"> | string | null
+    storyId?: StringNullableFilter<"SharedPost"> | string | null
+    tripId?: StringNullableFilter<"SharedPost"> | string | null
+    postId?: StringFilter<"SharedPost"> | string
+    message?: StringNullableFilter<"SharedPost"> | string | null
+    isPublic?: BoolFilter<"SharedPost"> | boolean
+    createdAt?: DateTimeFilter<"SharedPost"> | Date | string
+  }
+
+  export type SharedPostUpsertWithWhereUniqueWithoutRecipientInput = {
+    where: SharedPostWhereUniqueInput
+    update: XOR<SharedPostUpdateWithoutRecipientInput, SharedPostUncheckedUpdateWithoutRecipientInput>
+    create: XOR<SharedPostCreateWithoutRecipientInput, SharedPostUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type SharedPostUpdateWithWhereUniqueWithoutRecipientInput = {
+    where: SharedPostWhereUniqueInput
+    data: XOR<SharedPostUpdateWithoutRecipientInput, SharedPostUncheckedUpdateWithoutRecipientInput>
+  }
+
+  export type SharedPostUpdateManyWithWhereWithoutRecipientInput = {
+    where: SharedPostScalarWhereInput
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutRecipientInput>
+  }
+
+  export type StoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: StoryWhereUniqueInput
+    update: XOR<StoryUpdateWithoutUserInput, StoryUncheckedUpdateWithoutUserInput>
+    create: XOR<StoryCreateWithoutUserInput, StoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type StoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: StoryWhereUniqueInput
+    data: XOR<StoryUpdateWithoutUserInput, StoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type StoryUpdateManyWithWhereWithoutUserInput = {
+    where: StoryScalarWhereInput
+    data: XOR<StoryUpdateManyMutationInput, StoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type StoryScalarWhereInput = {
+    AND?: StoryScalarWhereInput | StoryScalarWhereInput[]
+    OR?: StoryScalarWhereInput[]
+    NOT?: StoryScalarWhereInput | StoryScalarWhereInput[]
+    id?: StringFilter<"Story"> | string
+    userId?: StringFilter<"Story"> | string
+    content?: StringNullableFilter<"Story"> | string | null
+    mediaUrls?: StringNullableListFilter<"Story">
+    mediaType?: EnumMediaTypeFilter<"Story"> | $Enums.MediaType
+    expiresAt?: DateTimeFilter<"Story"> | Date | string
+    createdAt?: DateTimeFilter<"Story"> | Date | string
+    updatedAt?: DateTimeFilter<"Story"> | Date | string
+  }
+
+  export type UserCreateWithoutFollowersInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFollowersInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFollowersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFollowersInput, UserUncheckedCreateWithoutFollowersInput>
+  }
+
+  export type UserCreateWithoutFollowingInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFollowingInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFollowingInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFollowingInput, UserUncheckedCreateWithoutFollowingInput>
+  }
+
+  export type UserUpsertWithoutFollowersInput = {
+    update: XOR<UserUpdateWithoutFollowersInput, UserUncheckedUpdateWithoutFollowersInput>
+    create: XOR<UserCreateWithoutFollowersInput, UserUncheckedCreateWithoutFollowersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFollowersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFollowersInput, UserUncheckedUpdateWithoutFollowersInput>
+  }
+
+  export type UserUpdateWithoutFollowersInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFollowersInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutFollowingInput = {
+    update: XOR<UserUpdateWithoutFollowingInput, UserUncheckedUpdateWithoutFollowingInput>
+    create: XOR<UserCreateWithoutFollowingInput, UserUncheckedCreateWithoutFollowingInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFollowingInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFollowingInput, UserUncheckedUpdateWithoutFollowingInput>
+  }
+
+  export type UserUpdateWithoutFollowingInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFollowingInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutPostsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPostsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPostsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+  }
+
+  export type PostTagCreateWithoutPostInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTaggedInPostsInput
+  }
+
+  export type PostTagUncheckedCreateWithoutPostInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type PostTagCreateOrConnectWithoutPostInput = {
+    where: PostTagWhereUniqueInput
+    create: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostTagCreateManyPostInputEnvelope = {
+    data: PostTagCreateManyPostInput | PostTagCreateManyPostInput[]
+  }
+
+  export type SharedPostCreateWithoutPostInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    story?: StoryCreateNestedOneWithoutSharedPostsInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutPostInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostCreateOrConnectWithoutPostInput = {
+    where: SharedPostWhereUniqueInput
+    create: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput>
+  }
+
+  export type SharedPostCreateManyPostInputEnvelope = {
+    data: SharedPostCreateManyPostInput | SharedPostCreateManyPostInput[]
+  }
+
+  export type CommentCreateWithoutPostInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutCommentsInput
+    parent?: CommentCreateNestedOneWithoutRepliesInput
+    replies?: CommentCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentUncheckedCreateWithoutPostInput = {
+    id?: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentCreateOrConnectWithoutPostInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type CommentCreateManyPostInputEnvelope = {
+    data: CommentCreateManyPostInput | CommentCreateManyPostInput[]
+  }
+
+  export type SavedPostCreateWithoutPostInput = {
+    id?: string
+    savedAt?: Date | string
+    user: UserCreateNestedOneWithoutSavedPostsInput
+  }
+
+  export type SavedPostUncheckedCreateWithoutPostInput = {
+    id?: string
+    userId: string
+    savedAt?: Date | string
+  }
+
+  export type SavedPostCreateOrConnectWithoutPostInput = {
+    where: SavedPostWhereUniqueInput
+    create: XOR<SavedPostCreateWithoutPostInput, SavedPostUncheckedCreateWithoutPostInput>
+  }
+
+  export type SavedPostCreateManyPostInputEnvelope = {
+    data: SavedPostCreateManyPostInput | SavedPostCreateManyPostInput[]
+  }
+
+  export type NotificationCreateWithoutPostInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+    sender?: UserCreateNestedOneWithoutNotificationsSentInput
+    recipient: UserCreateNestedOneWithoutNotificationsRecvInput
+    sharedPost?: SharedPostCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutPostInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    senderId?: string | null
+    recipientId: string
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutPostInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutPostInput, NotificationUncheckedCreateWithoutPostInput>
+  }
+
+  export type NotificationCreateManyPostInputEnvelope = {
+    data: NotificationCreateManyPostInput | NotificationCreateManyPostInput[]
+  }
+
+  export type UserUpsertWithoutPostsInput = {
+    update: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
+    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPostsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type UserUpdateWithoutPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostTagUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostTagWhereUniqueInput
+    update: XOR<PostTagUpdateWithoutPostInput, PostTagUncheckedUpdateWithoutPostInput>
+    create: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostTagUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostTagWhereUniqueInput
+    data: XOR<PostTagUpdateWithoutPostInput, PostTagUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostTagUpdateManyWithWhereWithoutPostInput = {
+    where: PostTagScalarWhereInput
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type SharedPostUpsertWithWhereUniqueWithoutPostInput = {
+    where: SharedPostWhereUniqueInput
+    update: XOR<SharedPostUpdateWithoutPostInput, SharedPostUncheckedUpdateWithoutPostInput>
+    create: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput>
+  }
+
+  export type SharedPostUpdateWithWhereUniqueWithoutPostInput = {
+    where: SharedPostWhereUniqueInput
+    data: XOR<SharedPostUpdateWithoutPostInput, SharedPostUncheckedUpdateWithoutPostInput>
+  }
+
+  export type SharedPostUpdateManyWithWhereWithoutPostInput = {
+    where: SharedPostScalarWhereInput
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutPostInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutPostInput, CommentUncheckedUpdateWithoutPostInput>
+    create: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutPostInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutPostInput, CommentUncheckedUpdateWithoutPostInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutPostInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type SavedPostUpsertWithWhereUniqueWithoutPostInput = {
+    where: SavedPostWhereUniqueInput
+    update: XOR<SavedPostUpdateWithoutPostInput, SavedPostUncheckedUpdateWithoutPostInput>
+    create: XOR<SavedPostCreateWithoutPostInput, SavedPostUncheckedCreateWithoutPostInput>
+  }
+
+  export type SavedPostUpdateWithWhereUniqueWithoutPostInput = {
+    where: SavedPostWhereUniqueInput
+    data: XOR<SavedPostUpdateWithoutPostInput, SavedPostUncheckedUpdateWithoutPostInput>
+  }
+
+  export type SavedPostUpdateManyWithWhereWithoutPostInput = {
+    where: SavedPostScalarWhereInput
+    data: XOR<SavedPostUpdateManyMutationInput, SavedPostUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutPostInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutPostInput, NotificationUncheckedUpdateWithoutPostInput>
+    create: XOR<NotificationCreateWithoutPostInput, NotificationUncheckedCreateWithoutPostInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutPostInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutPostInput, NotificationUncheckedUpdateWithoutPostInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutPostInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type UserCreateWithoutSharedPostsSentInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSharedPostsSentInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSharedPostsSentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSharedPostsSentInput, UserUncheckedCreateWithoutSharedPostsSentInput>
+  }
+
+  export type UserCreateWithoutSharedPostsReceivedInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSharedPostsReceivedInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSharedPostsReceivedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSharedPostsReceivedInput, UserUncheckedCreateWithoutSharedPostsReceivedInput>
+  }
+
+  export type StoryCreateWithoutSharedPostsInput = {
+    id?: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStoriesInput
+  }
+
+  export type StoryUncheckedCreateWithoutSharedPostsInput = {
+    id?: string
+    userId: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StoryCreateOrConnectWithoutSharedPostsInput = {
+    where: StoryWhereUniqueInput
+    create: XOR<StoryCreateWithoutSharedPostsInput, StoryUncheckedCreateWithoutSharedPostsInput>
+  }
+
+  export type TripCreateWithoutSharedPostsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
+    sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
+    photos: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutSharedPostsInput = {
+    id?: string
+    userId: string
+    title: string
+    description?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
+    sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
+    photos: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TripCreateOrConnectWithoutSharedPostsInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutSharedPostsInput, TripUncheckedCreateWithoutSharedPostsInput>
+  }
+
+  export type PostCreateWithoutSharedPostsInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutSharedPostsInput = {
+    id?: string
+    authorId: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutSharedPostsInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutSharedPostsInput, PostUncheckedCreateWithoutSharedPostsInput>
+  }
+
+  export type NotificationCreateWithoutSharedPostInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+    sender?: UserCreateNestedOneWithoutNotificationsSentInput
+    recipient: UserCreateNestedOneWithoutNotificationsRecvInput
+    post?: PostCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutSharedPostInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    senderId?: string | null
+    recipientId: string
+    postId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutSharedPostInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutSharedPostInput, NotificationUncheckedCreateWithoutSharedPostInput>
+  }
+
+  export type NotificationCreateManySharedPostInputEnvelope = {
+    data: NotificationCreateManySharedPostInput | NotificationCreateManySharedPostInput[]
+  }
+
+  export type UserUpsertWithoutSharedPostsSentInput = {
+    update: XOR<UserUpdateWithoutSharedPostsSentInput, UserUncheckedUpdateWithoutSharedPostsSentInput>
+    create: XOR<UserCreateWithoutSharedPostsSentInput, UserUncheckedCreateWithoutSharedPostsSentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSharedPostsSentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSharedPostsSentInput, UserUncheckedUpdateWithoutSharedPostsSentInput>
+  }
+
+  export type UserUpdateWithoutSharedPostsSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSharedPostsSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutSharedPostsReceivedInput = {
+    update: XOR<UserUpdateWithoutSharedPostsReceivedInput, UserUncheckedUpdateWithoutSharedPostsReceivedInput>
+    create: XOR<UserCreateWithoutSharedPostsReceivedInput, UserUncheckedCreateWithoutSharedPostsReceivedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSharedPostsReceivedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSharedPostsReceivedInput, UserUncheckedUpdateWithoutSharedPostsReceivedInput>
+  }
+
+  export type UserUpdateWithoutSharedPostsReceivedInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSharedPostsReceivedInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type StoryUpsertWithoutSharedPostsInput = {
+    update: XOR<StoryUpdateWithoutSharedPostsInput, StoryUncheckedUpdateWithoutSharedPostsInput>
+    create: XOR<StoryCreateWithoutSharedPostsInput, StoryUncheckedCreateWithoutSharedPostsInput>
+    where?: StoryWhereInput
+  }
+
+  export type StoryUpdateToOneWithWhereWithoutSharedPostsInput = {
+    where?: StoryWhereInput
+    data: XOR<StoryUpdateWithoutSharedPostsInput, StoryUncheckedUpdateWithoutSharedPostsInput>
+  }
+
+  export type StoryUpdateWithoutSharedPostsInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStoriesNestedInput
+  }
+
+  export type StoryUncheckedUpdateWithoutSharedPostsInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripUpsertWithoutSharedPostsInput = {
+    update: XOR<TripUpdateWithoutSharedPostsInput, TripUncheckedUpdateWithoutSharedPostsInput>
+    create: XOR<TripCreateWithoutSharedPostsInput, TripUncheckedCreateWithoutSharedPostsInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutSharedPostsInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutSharedPostsInput, TripUncheckedUpdateWithoutSharedPostsInput>
+  }
+
+  export type TripUpdateWithoutSharedPostsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
+    sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    photos?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutSharedPostsInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
+    sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    photos?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUpsertWithoutSharedPostsInput = {
+    update: XOR<PostUpdateWithoutSharedPostsInput, PostUncheckedUpdateWithoutSharedPostsInput>
+    create: XOR<PostCreateWithoutSharedPostsInput, PostUncheckedCreateWithoutSharedPostsInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutSharedPostsInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutSharedPostsInput, PostUncheckedUpdateWithoutSharedPostsInput>
+  }
+
+  export type PostUpdateWithoutSharedPostsInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutSharedPostsInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutSharedPostInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutSharedPostInput, NotificationUncheckedUpdateWithoutSharedPostInput>
+    create: XOR<NotificationCreateWithoutSharedPostInput, NotificationUncheckedCreateWithoutSharedPostInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutSharedPostInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutSharedPostInput, NotificationUncheckedUpdateWithoutSharedPostInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutSharedPostInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutSharedPostInput>
+  }
+
+  export type PostCreateWithoutTaggedUsersInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutTaggedUsersInput = {
+    id?: string
+    authorId: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutTaggedUsersInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutTaggedUsersInput, PostUncheckedCreateWithoutTaggedUsersInput>
+  }
+
+  export type UserCreateWithoutTaggedInPostsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTaggedInPostsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTaggedInPostsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTaggedInPostsInput, UserUncheckedCreateWithoutTaggedInPostsInput>
+  }
+
+  export type PostUpsertWithoutTaggedUsersInput = {
+    update: XOR<PostUpdateWithoutTaggedUsersInput, PostUncheckedUpdateWithoutTaggedUsersInput>
+    create: XOR<PostCreateWithoutTaggedUsersInput, PostUncheckedCreateWithoutTaggedUsersInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutTaggedUsersInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutTaggedUsersInput, PostUncheckedUpdateWithoutTaggedUsersInput>
+  }
+
+  export type PostUpdateWithoutTaggedUsersInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutTaggedUsersInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserUpsertWithoutTaggedInPostsInput = {
+    update: XOR<UserUpdateWithoutTaggedInPostsInput, UserUncheckedUpdateWithoutTaggedInPostsInput>
+    create: XOR<UserCreateWithoutTaggedInPostsInput, UserUncheckedCreateWithoutTaggedInPostsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTaggedInPostsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTaggedInPostsInput, UserUncheckedUpdateWithoutTaggedInPostsInput>
+  }
+
+  export type UserUpdateWithoutTaggedInPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTaggedInPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostCreateWithoutCommentsInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    authorId: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutCommentsInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserCreateWithoutCommentsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type CommentCreateWithoutRepliesInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: PostCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutCommentsInput
+    parent?: CommentCreateNestedOneWithoutRepliesInput
+  }
+
+  export type CommentUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    postId: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentCreateOrConnectWithoutRepliesInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type CommentCreateWithoutParentInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: PostCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutCommentsInput
+    replies?: CommentCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentUncheckedCreateWithoutParentInput = {
+    id?: string
+    postId: string
+    authorId: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentCreateOrConnectWithoutParentInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type CommentCreateManyParentInputEnvelope = {
+    data: CommentCreateManyParentInput | CommentCreateManyParentInput[]
+  }
+
+  export type PostUpsertWithoutCommentsInput = {
+    update: XOR<PostUpdateWithoutCommentsInput, PostUncheckedUpdateWithoutCommentsInput>
+    create: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutCommentsInput, PostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type PostUpdateWithoutCommentsInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutCommentsInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateWithoutCommentsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CommentUpsertWithoutRepliesInput = {
+    update: XOR<CommentUpdateWithoutRepliesInput, CommentUncheckedUpdateWithoutRepliesInput>
+    create: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
+    where?: CommentWhereInput
+  }
+
+  export type CommentUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: CommentWhereInput
+    data: XOR<CommentUpdateWithoutRepliesInput, CommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type CommentUpdateWithoutRepliesInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    parent?: CommentUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutRepliesInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutParentInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutParentInput, CommentUncheckedUpdateWithoutParentInput>
+    create: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutParentInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutParentInput, CommentUncheckedUpdateWithoutParentInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutParentInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type UserCreateWithoutLikesInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLikesInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLikesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+  }
+
+  export type UserUpsertWithoutLikesInput = {
+    update: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
+    create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLikesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserUpdateWithoutLikesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLikesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSavedPostsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSavedPostsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSavedPostsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSavedPostsInput, UserUncheckedCreateWithoutSavedPostsInput>
+  }
+
+  export type PostCreateWithoutSavedByInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutSavedByInput = {
+    id?: string
+    authorId: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutSavedByInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutSavedByInput, PostUncheckedCreateWithoutSavedByInput>
+  }
+
+  export type UserUpsertWithoutSavedPostsInput = {
+    update: XOR<UserUpdateWithoutSavedPostsInput, UserUncheckedUpdateWithoutSavedPostsInput>
+    create: XOR<UserCreateWithoutSavedPostsInput, UserUncheckedCreateWithoutSavedPostsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSavedPostsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSavedPostsInput, UserUncheckedUpdateWithoutSavedPostsInput>
+  }
+
+  export type UserUpdateWithoutSavedPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSavedPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostUpsertWithoutSavedByInput = {
+    update: XOR<PostUpdateWithoutSavedByInput, PostUncheckedUpdateWithoutSavedByInput>
+    create: XOR<PostCreateWithoutSavedByInput, PostUncheckedCreateWithoutSavedByInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutSavedByInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutSavedByInput, PostUncheckedUpdateWithoutSavedByInput>
+  }
+
+  export type PostUpdateWithoutSavedByInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutSavedByInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutMessagesSentInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessagesSentInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessagesSentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+  }
+
+  export type UserCreateWithoutMessagesRecvInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessagesRecvInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessagesRecvInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessagesRecvInput, UserUncheckedCreateWithoutMessagesRecvInput>
+  }
+
+  export type UserUpsertWithoutMessagesSentInput = {
+    update: XOR<UserUpdateWithoutMessagesSentInput, UserUncheckedUpdateWithoutMessagesSentInput>
+    create: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessagesSentInput, UserUncheckedUpdateWithoutMessagesSentInput>
+  }
+
+  export type UserUpdateWithoutMessagesSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessagesSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutMessagesRecvInput = {
+    update: XOR<UserUpdateWithoutMessagesRecvInput, UserUncheckedUpdateWithoutMessagesRecvInput>
+    create: XOR<UserCreateWithoutMessagesRecvInput, UserUncheckedCreateWithoutMessagesRecvInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessagesRecvInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessagesRecvInput, UserUncheckedUpdateWithoutMessagesRecvInput>
+  }
+
+  export type UserUpdateWithoutMessagesRecvInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessagesRecvInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationsSentInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsSentInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsSentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsSentInput, UserUncheckedCreateWithoutNotificationsSentInput>
+  }
+
+  export type UserCreateWithoutNotificationsRecvInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsRecvInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsRecvInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsRecvInput, UserUncheckedCreateWithoutNotificationsRecvInput>
+  }
+
+  export type PostCreateWithoutNotificationsInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    authorId: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutNotificationsInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutNotificationsInput, PostUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type SharedPostCreateWithoutNotificationsInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    story?: StoryCreateNestedOneWithoutSharedPostsInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type SharedPostCreateOrConnectWithoutNotificationsInput = {
+    where: SharedPostWhereUniqueInput
+    create: XOR<SharedPostCreateWithoutNotificationsInput, SharedPostUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserUpsertWithoutNotificationsSentInput = {
+    update: XOR<UserUpdateWithoutNotificationsSentInput, UserUncheckedUpdateWithoutNotificationsSentInput>
+    create: XOR<UserCreateWithoutNotificationsSentInput, UserUncheckedCreateWithoutNotificationsSentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsSentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsSentInput, UserUncheckedUpdateWithoutNotificationsSentInput>
+  }
+
+  export type UserUpdateWithoutNotificationsSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutNotificationsRecvInput = {
+    update: XOR<UserUpdateWithoutNotificationsRecvInput, UserUncheckedUpdateWithoutNotificationsRecvInput>
+    create: XOR<UserCreateWithoutNotificationsRecvInput, UserUncheckedCreateWithoutNotificationsRecvInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsRecvInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsRecvInput, UserUncheckedUpdateWithoutNotificationsRecvInput>
+  }
+
+  export type UserUpdateWithoutNotificationsRecvInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsRecvInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostUpsertWithoutNotificationsInput = {
+    update: XOR<PostUpdateWithoutNotificationsInput, PostUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<PostCreateWithoutNotificationsInput, PostUncheckedCreateWithoutNotificationsInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutNotificationsInput, PostUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type PostUpdateWithoutNotificationsInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutNotificationsInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type SharedPostUpsertWithoutNotificationsInput = {
+    update: XOR<SharedPostUpdateWithoutNotificationsInput, SharedPostUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<SharedPostCreateWithoutNotificationsInput, SharedPostUncheckedCreateWithoutNotificationsInput>
+    where?: SharedPostWhereInput
+  }
+
+  export type SharedPostUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: SharedPostWhereInput
+    data: XOR<SharedPostUpdateWithoutNotificationsInput, SharedPostUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type SharedPostUpdateWithoutNotificationsInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSharedPostsSentNestedInput
+    recipient?: UserUpdateOneWithoutSharedPostsReceivedNestedInput
+    story?: StoryUpdateOneWithoutSharedPostsNestedInput
+    trip?: TripUpdateOneWithoutSharedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSharedPostsNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateWithoutNotificationsInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutTripsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTripsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTripsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
+  }
+
+  export type SharedPostCreateWithoutTripInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    story?: StoryCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutTripInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostCreateOrConnectWithoutTripInput = {
+    where: SharedPostWhereUniqueInput
+    create: XOR<SharedPostCreateWithoutTripInput, SharedPostUncheckedCreateWithoutTripInput>
+  }
+
+  export type SharedPostCreateManyTripInputEnvelope = {
+    data: SharedPostCreateManyTripInput | SharedPostCreateManyTripInput[]
+  }
+
+  export type UserUpsertWithoutTripsInput = {
+    update: XOR<UserUpdateWithoutTripsInput, UserUncheckedUpdateWithoutTripsInput>
+    create: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTripsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTripsInput, UserUncheckedUpdateWithoutTripsInput>
+  }
+
+  export type UserUpdateWithoutTripsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTripsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SharedPostUpsertWithWhereUniqueWithoutTripInput = {
+    where: SharedPostWhereUniqueInput
+    update: XOR<SharedPostUpdateWithoutTripInput, SharedPostUncheckedUpdateWithoutTripInput>
+    create: XOR<SharedPostCreateWithoutTripInput, SharedPostUncheckedCreateWithoutTripInput>
+  }
+
+  export type SharedPostUpdateWithWhereUniqueWithoutTripInput = {
+    where: SharedPostWhereUniqueInput
+    data: XOR<SharedPostUpdateWithoutTripInput, SharedPostUncheckedUpdateWithoutTripInput>
+  }
+
+  export type SharedPostUpdateManyWithWhereWithoutTripInput = {
+    where: SharedPostScalarWhereInput
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutTripInput>
+  }
+
+  export type SharedPostCreateWithoutStoryInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutStoryInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostCreateOrConnectWithoutStoryInput = {
+    where: SharedPostWhereUniqueInput
+    create: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput>
+  }
+
+  export type SharedPostCreateManyStoryInputEnvelope = {
+    data: SharedPostCreateManyStoryInput | SharedPostCreateManyStoryInput[]
+  }
+
+  export type UserCreateWithoutStoriesInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutStoriesInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutStoriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
+  }
+
+  export type SharedPostUpsertWithWhereUniqueWithoutStoryInput = {
+    where: SharedPostWhereUniqueInput
+    update: XOR<SharedPostUpdateWithoutStoryInput, SharedPostUncheckedUpdateWithoutStoryInput>
+    create: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput>
+  }
+
+  export type SharedPostUpdateWithWhereUniqueWithoutStoryInput = {
+    where: SharedPostWhereUniqueInput
+    data: XOR<SharedPostUpdateWithoutStoryInput, SharedPostUncheckedUpdateWithoutStoryInput>
+  }
+
+  export type SharedPostUpdateManyWithWhereWithoutStoryInput = {
+    where: SharedPostScalarWhereInput
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutStoryInput>
+  }
+
+  export type UserUpsertWithoutStoriesInput = {
+    update: XOR<UserUpdateWithoutStoriesInput, UserUncheckedUpdateWithoutStoriesInput>
+    create: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStoriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStoriesInput, UserUncheckedUpdateWithoutStoriesInput>
+  }
+
+  export type UserUpdateWithoutStoriesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStoriesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserCreateWithoutReportsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReportsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesRecv?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReportsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
+  }
+
+  export type UserUpsertWithoutReportsInput = {
+    update: XOR<UserUpdateWithoutReportsInput, UserUncheckedUpdateWithoutReportsInput>
+    create: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReportsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReportsInput, UserUncheckedUpdateWithoutReportsInput>
+  }
+
+  export type UserUpdateWithoutReportsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReportsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesRecv?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostCreateManyAuthorInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentCreateManyAuthorInput = {
+    id?: string
+    postId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LikeCreateManyUserInput = {
+    id?: string
+    targetId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type SavedPostCreateManyUserInput = {
+    id?: string
+    postId: string
+    savedAt?: Date | string
+  }
+
+  export type MessageCreateManySenderInput = {
+    id?: string
+    receiverId: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageCreateManyReceiverInput = {
+    id?: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationCreateManySenderInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    recipientId: string
+    postId?: string | null
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateManyRecipientInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    senderId?: string | null
+    postId?: string | null
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type TripCreateManyUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    placesVisited?: TripCreateplacesVisitedInput | string[]
+    tags?: TripCreatetagsInput | string[]
+    participants?: TripCreateparticipantsInput | string[]
+    sharedWith?: TripCreatesharedWithInput | string[]
+    isPublic?: boolean
+    rating?: number | null
+    photos: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReportCreateManyReporterInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type FollowCreateManyFollowerInput = {
+    id?: string
+    followingId: string
+    followStatus: string
+    createdAt?: Date | string
+  }
+
+  export type FollowCreateManyFollowingInput = {
+    id?: string
+    followerId: string
+    followStatus: string
+    createdAt?: Date | string
+  }
+
+  export type PostTagCreateManyUserInput = {
+    id?: string
+    postId: string
+    createdAt?: Date | string
+  }
+
+  export type SharedPostCreateManySenderInput = {
+    id?: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type SharedPostCreateManyRecipientInput = {
+    id?: string
+    senderId: string
+    storyId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type StoryCreateManyUserInput = {
+    id?: string
+    content?: string | null
+    mediaUrls?: StoryCreatemediaUrlsInput | string[]
+    mediaType: $Enums.MediaType
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostUpdateWithoutAuthorInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutAuthorInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateManyWithoutAuthorInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUpdateWithoutAuthorInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput
+    parent?: CommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutAuthorInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutAuthorInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUpdateWithoutUserInput = {
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUncheckedUpdateWithoutUserInput = {
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUncheckedUpdateManyWithoutUserInput = {
+    targetId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostUpdateWithoutUserInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutSavedByNestedInput
+  }
+
+  export type SavedPostUncheckedUpdateWithoutUserInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostUncheckedUpdateManyWithoutUserInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutSenderInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiver?: UserUpdateOneRequiredWithoutMessagesRecvNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutSenderInput = {
+    receiverId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderInput = {
+    receiverId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutReceiverInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutReceiverInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReceiverInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutSenderInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipient?: UserUpdateOneRequiredWithoutNotificationsRecvNestedInput
+    post?: PostUpdateOneWithoutNotificationsNestedInput
+    sharedPost?: SharedPostUpdateOneWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutSenderInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    recipientId?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutSenderInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    recipientId?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutRecipientInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneWithoutNotificationsSentNestedInput
+    post?: PostUpdateOneWithoutNotificationsNestedInput
+    sharedPost?: SharedPostUpdateOneWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutRecipientInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutRecipientInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
+    sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    photos?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUpdateManyWithoutTripNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
+    sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    photos?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutTripNestedInput
+  }
+
+  export type TripUncheckedUpdateManyWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    placesVisited?: TripUpdateplacesVisitedInput | string[]
+    tags?: TripUpdatetagsInput | string[]
+    participants?: TripUpdateparticipantsInput | string[]
+    sharedWith?: TripUpdatesharedWithInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    photos?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportUpdateWithoutReporterInput = {
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportUncheckedUpdateWithoutReporterInput = {
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportUncheckedUpdateManyWithoutReporterInput = {
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FollowUpdateWithoutFollowerInput = {
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    following?: UserUpdateOneRequiredWithoutFollowingNestedInput
+  }
+
+  export type FollowUncheckedUpdateWithoutFollowerInput = {
+    followingId?: StringFieldUpdateOperationsInput | string
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FollowUncheckedUpdateManyWithoutFollowerInput = {
+    followingId?: StringFieldUpdateOperationsInput | string
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FollowUpdateWithoutFollowingInput = {
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    follower?: UserUpdateOneRequiredWithoutFollowersNestedInput
+  }
+
+  export type FollowUncheckedUpdateWithoutFollowingInput = {
+    followerId?: StringFieldUpdateOperationsInput | string
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FollowUncheckedUpdateManyWithoutFollowingInput = {
+    followerId?: StringFieldUpdateOperationsInput | string
+    followStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutTaggedUsersNestedInput
+  }
+
+  export type PostTagUncheckedUpdateWithoutUserInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutUserInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedPostUpdateWithoutSenderInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipient?: UserUpdateOneWithoutSharedPostsReceivedNestedInput
+    story?: StoryUpdateOneWithoutSharedPostsNestedInput
+    trip?: TripUpdateOneWithoutSharedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSharedPostsNestedInput
+    notifications?: NotificationUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateWithoutSenderInput = {
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationUncheckedUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutSenderInput = {
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedPostUpdateWithoutRecipientInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSharedPostsSentNestedInput
+    story?: StoryUpdateOneWithoutSharedPostsNestedInput
+    trip?: TripUpdateOneWithoutSharedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSharedPostsNestedInput
+    notifications?: NotificationUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateWithoutRecipientInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationUncheckedUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutRecipientInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoryUpdateWithoutUserInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateWithoutUserInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutStoryNestedInput
+  }
+
+  export type StoryUncheckedUpdateManyWithoutUserInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrls?: StoryUpdatemediaUrlsInput | string[]
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagCreateManyPostInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type SharedPostCreateManyPostInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    tripId?: string | null
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type CommentCreateManyPostInput = {
+    id?: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SavedPostCreateManyPostInput = {
+    id?: string
+    userId: string
+    savedAt?: Date | string
+  }
+
+  export type NotificationCreateManyPostInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    senderId?: string | null
+    recipientId: string
+    sharedPostId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type PostTagUpdateWithoutPostInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTaggedInPostsNestedInput
+  }
+
+  export type PostTagUncheckedUpdateWithoutPostInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutPostInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedPostUpdateWithoutPostInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSharedPostsSentNestedInput
+    recipient?: UserUpdateOneWithoutSharedPostsReceivedNestedInput
+    story?: StoryUpdateOneWithoutSharedPostsNestedInput
+    trip?: TripUpdateOneWithoutSharedPostsNestedInput
+    notifications?: NotificationUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateWithoutPostInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationUncheckedUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutPostInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUpdateWithoutPostInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    parent?: CommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutPostInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutPostInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostUpdateWithoutPostInput = {
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSavedPostsNestedInput
+  }
+
+  export type SavedPostUncheckedUpdateWithoutPostInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedPostUncheckedUpdateManyWithoutPostInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutPostInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneWithoutNotificationsSentNestedInput
+    recipient?: UserUpdateOneRequiredWithoutNotificationsRecvNestedInput
+    sharedPost?: SharedPostUpdateOneWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutPostInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientId?: StringFieldUpdateOperationsInput | string
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutPostInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientId?: StringFieldUpdateOperationsInput | string
+    sharedPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateManySharedPostInput = {
+    id?: string
+    type: $Enums.NotificationType
+    message: string
+    isRead?: boolean
+    senderId?: string | null
+    recipientId: string
+    postId?: string | null
+    data?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateWithoutSharedPostInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneWithoutNotificationsSentNestedInput
+    recipient?: UserUpdateOneRequiredWithoutNotificationsRecvNestedInput
+    post?: PostUpdateOneWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutSharedPostInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientId?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutSharedPostInput = {
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientId?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateManyParentInput = {
+    id?: string
+    postId: string
+    authorId: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentUpdateWithoutParentInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    replies?: CommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutParentInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutParentInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedPostCreateManyTripInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    storyId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type SharedPostUpdateWithoutTripInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSharedPostsSentNestedInput
+    recipient?: UserUpdateOneWithoutSharedPostsReceivedNestedInput
+    story?: StoryUpdateOneWithoutSharedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSharedPostsNestedInput
+    notifications?: NotificationUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateWithoutTripInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationUncheckedUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutTripInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    storyId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedPostCreateManyStoryInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+  }
+
+  export type SharedPostUpdateWithoutStoryInput = {
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSharedPostsSentNestedInput
+    recipient?: UserUpdateOneWithoutSharedPostsReceivedNestedInput
+    trip?: TripUpdateOneWithoutSharedPostsNestedInput
+    post?: PostUpdateOneRequiredWithoutSharedPostsNestedInput
+    notifications?: NotificationUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateWithoutStoryInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationUncheckedUpdateManyWithoutSharedPostNestedInput
+  }
+
+  export type SharedPostUncheckedUpdateManyWithoutStoryInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    tripId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

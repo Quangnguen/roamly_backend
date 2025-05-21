@@ -14,13 +14,15 @@ import {
   HttpStatus,
   UseGuards,
   UsePipes,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/common/guard/jwt-auth.guard';
 import { CustomValidationPipe } from 'src/common/pipe/validation.pipe';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-
+import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('users')
 @UseGuards(JwtAuthGuard)
 @UsePipes(new CustomValidationPipe())
@@ -41,8 +43,8 @@ export class UserController {
 
   @Get('get-users')
   @HttpCode(HttpStatus.OK)
-  async getUsers() {
-    return this.userService.getUsers();
+  async getUsers(@Req() req: any) {
+    return this.userService.getUsers(req.user.id);
   }
 
 
@@ -61,6 +63,15 @@ export class UserController {
   }
 
 
+  
+  @Patch(':id/profile-pic')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateProfilePic(
+    @Req() req: any,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.userService.updateProfilePic(req.user.id, file);
+  }
   // cái này luôn để cuối cùng vì :id
   @Get(':id')
   @HttpCode(HttpStatus.OK)

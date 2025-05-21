@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/require-await */
 import {
   Controller,
   Get,
@@ -10,7 +16,6 @@ import {
   UsePipes,
   UploadedFile,
   UseInterceptors,
-  Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/common/guard/jwt-auth.guard';
@@ -36,6 +41,15 @@ export class UserController {
     return this.userService.updateUser(req.user.id, dto);
   }
 
+  @Get('get-users')
+  @HttpCode(HttpStatus.OK)
+  async getUsers(@Req() req: any) {
+    return this.userService.getUsers(req.user.id);
+  }
+
+
+  
+
   @Patch('soft-delete')
   @HttpCode(HttpStatus.OK)
   async softDeleteMe(@Req() req: any) {
@@ -47,6 +61,9 @@ export class UserController {
   async changePassword(@Req() req: any, @Body() dto: ChangePasswordDto) {
     return this.userService.changePassword(req.user.id, dto);
   }
+
+
+  
   @Patch(':id/profile-pic')
   @UseInterceptors(FileInterceptor('file'))
   async updateProfilePic(
@@ -55,4 +72,11 @@ export class UserController {
   ) {
     return this.userService.updateProfilePic(req.user.id, file);
   }
+  // cái này luôn để cuối cùng vì :id
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async getUserById(@Req() req: any) {
+    return this.userService.getUserById(req.params.id);
+  }
+  
 }

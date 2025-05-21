@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 import {
   Injectable,
   NotFoundException,
@@ -34,6 +38,8 @@ export class UserService {
         private: true,
         verified: true,
         role: true,
+        followers: true,
+        following: true,
         accountStatus: true,
         lastLogin: true,
         createdAt: true,
@@ -58,10 +64,10 @@ export class UserService {
       }),
     ]);
 
-    return response('Lấy thông tin người dùng thành công', 200, 'success', {
+    return response('', 200, 'success', {
       ...user,
-      followers: followersCount,
-      following: followingCount,
+      followersCount: followersCount,
+      followingCount: followingCount,
     });
   }
 
@@ -119,7 +125,7 @@ export class UserService {
       throw new BadRequestException('Mật khẩu cũ không đúng');
     }
 
-    const hashedNewPassword = await bcrypt.hash(dto.newPassword, 10);
+    const hashedNewPassword: string = await bcrypt.hash(dto.newPassword, 10);
 
     await this.prisma.user.update({
       where: { id: userId },
@@ -137,7 +143,6 @@ export class UserService {
 
     return response('Cập nhật đăng nhập lần cuối thành công', 200, 'success');
   }
-
   async updateProfilePic(userId: string, file: Express.Multer.File) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
@@ -159,5 +164,32 @@ export class UserService {
       'success',
       updatedUser,
     );
+  }
+
+  async getUsers(id: string) {
+    try {
+      const users = await this.prisma.user.findMany({
+        where: {
+          NOT: { id }, // Lấy user có id khác id truyền vào
+        },
+        select: {
+          id: true,
+          email: true,
+          username: true,
+          name: true,
+          bio: true,
+          profilePic: true,
+          followers: true,
+          following: true,
+          private: true,
+          role: true,
+          createdAt: true,
+        },
+      });
+      return response('', 200, 'success', users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      return response('Lấy danh sách người dùng thất bại', 400, 'error');
+    }
   }
 }

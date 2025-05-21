@@ -86,6 +86,21 @@ export class AuthService {
     // Find user
     const user = await this.prisma.user.findUnique({
       where: { email },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+        name: true,
+        password: true,
+        phoneNumber: true,
+        profilePic: true,
+        bio: true,
+        address: true,
+        private: true,
+        verified: true,
+        role: true,
+        createdAt: true,
+      },
     });
 
     if (!user) {
@@ -110,6 +125,9 @@ export class AuthService {
     const payload = { sub: user.id, username: user.username, role: user.role };
     const accessToken = this.jwtService.sign(payload);
 
+    // Đảm bảo phoneNumber luôn là string
+    user.phoneNumber = user.phoneNumber ?? '';
+
     return {
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -118,6 +136,7 @@ export class AuthService {
         email: user.email,
         username: user.username,
         name: user.name,
+        phoneNumber: user.phoneNumber ?? '',
       },
     };
   }
@@ -159,6 +178,7 @@ export class AuthService {
 
   async logout(userId: string) {
     // Xóa refresh token khi logout
+    console.log('Xóa refresh token cho userId:', userId);
     await this.prisma.user.update({
       where: { id: userId },
       data: { refreshToken: null },

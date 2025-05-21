@@ -2566,7 +2566,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber: string | null
     profilePic: string | null
     bio: string | null
     gender: string | null
@@ -2714,7 +2714,7 @@ export namespace Prisma {
       username: string
       password: string
       name: string
-      phoneNumber: string
+      phoneNumber: string | null
       profilePic: string | null
       bio: string | null
       gender: string | null
@@ -16887,7 +16887,7 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    phoneNumber?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     profilePic?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     gender?: StringNullableFilter<"User"> | string | null
@@ -16968,7 +16968,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    phoneNumber?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     profilePic?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     gender?: StringNullableFilter<"User"> | string | null
@@ -17038,7 +17038,7 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
-    phoneNumber?: StringWithAggregatesFilter<"User"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     profilePic?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     gender?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -17962,7 +17962,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -18001,7 +18001,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -18039,7 +18039,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18077,7 +18077,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18116,7 +18116,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -18138,7 +18138,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18160,7 +18160,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22671,7 +22671,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -22709,7 +22709,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -22752,7 +22752,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -22790,7 +22790,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -22843,7 +22843,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22880,7 +22880,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22928,7 +22928,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22965,7 +22965,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23003,7 +23003,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -23041,7 +23041,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -23235,7 +23235,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23272,7 +23272,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23390,7 +23390,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -23428,7 +23428,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -23471,7 +23471,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -23509,7 +23509,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -23706,7 +23706,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23743,7 +23743,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23791,7 +23791,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23828,7 +23828,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24048,7 +24048,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24086,7 +24086,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24186,7 +24186,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24223,7 +24223,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24304,7 +24304,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24342,7 +24342,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24504,7 +24504,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24541,7 +24541,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24628,7 +24628,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24666,7 +24666,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24719,7 +24719,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24756,7 +24756,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24794,7 +24794,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24832,7 +24832,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -24928,7 +24928,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24965,7 +24965,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25050,7 +25050,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25088,7 +25088,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25131,7 +25131,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25169,7 +25169,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25222,7 +25222,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25259,7 +25259,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25307,7 +25307,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25344,7 +25344,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25382,7 +25382,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25420,7 +25420,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25463,7 +25463,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25501,7 +25501,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25626,7 +25626,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25663,7 +25663,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25711,7 +25711,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25748,7 +25748,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25866,7 +25866,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25904,7 +25904,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -25990,7 +25990,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26027,7 +26027,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26114,7 +26114,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -26152,7 +26152,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -26221,7 +26221,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26258,7 +26258,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26296,7 +26296,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -26334,7 +26334,7 @@ export namespace Prisma {
     username: string
     password: string
     name: string
-    phoneNumber: string
+    phoneNumber?: string | null
     profilePic?: string | null
     bio?: string | null
     gender?: string | null
@@ -26387,7 +26387,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26424,7 +26424,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null

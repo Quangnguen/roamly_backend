@@ -20,7 +20,7 @@ export class PostService {
 
     const post = await this.prisma.post.create({
       data: {
-        authorId,
+        authorId: authorId,
         caption: dto.caption,
         imageUrl: imageUrls,
       },

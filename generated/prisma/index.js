@@ -288,7 +288,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\My_Project\\TravelApp\\BE\\roamly_backend\\generated\\prisma",
+      "value": "D:\\Documents\\Workspace\\react_native\\roamly_backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -302,11 +302,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\My_Project\\TravelApp\\BE\\roamly_backend\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\Documents\\Workspace\\react_native\\roamly_backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -316,11 +316,12 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mongodb+srv://trongdeck:0xzCDFUa2f7zLH7r@cluster0.khgsktx.mongodb.net/roamly_db?retryWrites=true&w=majority&appName=Cluster0"
+        "value": null
       }
     }
   },

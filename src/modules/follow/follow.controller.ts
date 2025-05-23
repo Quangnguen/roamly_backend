@@ -25,6 +25,21 @@ export class FollowController {
     return this.followService.createFollow(req.user.id, dto);
   }
 
+   @Get('following')
+  async getFollowing(@Req() req: any) {
+    return this.followService.getFollowing(req.user.id);
+  }
+
+  @Get('followers')
+  async getFollowers(@Req() req: any) {
+    return this.followService.getFollowers(req.user.id);
+  }
+
+  @Get('status/:userId')
+  async checkStatus(@Req() req: any, @Param('userId') userId: string) {
+    return this.followService.checkFollowStatus(req.user.id, userId);
+  }
+
   @Patch(':followerId')
   async updateStatus(
     @Req() req: any,
@@ -39,18 +54,5 @@ export class FollowController {
     return this.followService.deleteFollow(req.user.id, followingId);
   }
 
-  @Get('following')
-  async getFollowing(@Req() req: any) {
-    return this.followService.getFollowing(req.user.id);
-  }
-
-  @Get('followers')
-  async getFollowers(@Req() req: any) {
-    return this.followService.getFollowers(req.user.id);
-  }
-
-  @Get('status/:userId')
-  async checkStatus(@Req() req: any, @Param('userId') userId: string) {
-    return this.followService.checkFollowStatus(req.user.id, userId);
-  }
+ 
 }

@@ -67,7 +67,7 @@ export class UserService {
     return response('', 200, 'success', {
       ...user,
       followersCount: followersCount,
-      followingCount: followingCount,
+      followingsCount: followingCount,
     });
   }
 
@@ -78,6 +78,21 @@ export class UserService {
 
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
 
+    const [followersCount, followingsCount] = await Promise.all([
+      this.prisma.follow.count({
+        where: {
+          followingId: userId,
+          followStatus: 'accepted',
+        },
+      }),
+      this.prisma.follow.count({
+        where: {
+          followerId: userId,
+          followStatus: 'accepted',
+        },
+      }),
+    ]);
+    
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: {
@@ -90,7 +105,11 @@ export class UserService {
       'Cập nhật người dùng thành công',
       200,
       'success',
-      updatedUser,
+      {
+        ...updatedUser,
+        followersCount: followersCount,
+        followingsCount: followingsCount,
+      },
     );
   }
 

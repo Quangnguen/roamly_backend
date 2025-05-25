@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsArray, ArrayNotEmpty } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreatePostDto {
   @IsOptional()

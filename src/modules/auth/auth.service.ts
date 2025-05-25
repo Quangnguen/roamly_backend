@@ -25,7 +25,7 @@ export class AuthService {
     // Check if email or username exists
     const existingUser = await this.prisma.user.findFirst({
       where: {
-        OR: [{ email }, { username }],
+        OR: [{ email }, { username }, {phoneNumber}],
       },
     });
 

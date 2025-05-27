@@ -92,7 +92,7 @@ export class UserService {
         },
       }),
     ]);
-    
+
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: {
@@ -101,16 +101,11 @@ export class UserService {
       },
     });
 
-    return response(
-      'Cập nhật người dùng thành công',
-      200,
-      'success',
-      {
-        ...updatedUser,
-        followersCount: followersCount,
-        followingsCount: followingsCount,
-      },
-    );
+    return response('Cập nhật người dùng thành công', 200, 'success', {
+      ...updatedUser,
+      followersCount: followersCount,
+      followingsCount: followingsCount,
+    });
   }
 
   async softDeleteUser(userId: string) {
@@ -185,27 +180,78 @@ export class UserService {
     );
   }
 
-  async getUsers(id: string) {
+  async getUsers(currentUserId: string, page = 1, limit = 10) {
     try {
-      const users = await this.prisma.user.findMany({
-        where: {
-          NOT: { id }, // Lấy user có id khác id truyền vào
-        },
-        select: {
-          id: true,
-          email: true,
-          username: true,
-          name: true,
-          bio: true,
-          profilePic: true,
-          followers: true,
-          following: true,
-          private: true,
-          role: true,
-          createdAt: true,
-        },
+      const skip = (page - 1) * limit;
+
+      const [totalUsers, users] = await Promise.all([
+        this.prisma.user.count({
+          where: {
+            NOT: { id: currentUserId },
+          },
+        }),
+        this.prisma.user.findMany({
+          where: {
+            NOT: { id: currentUserId },
+          },
+          skip,
+          take: limit,
+          select: {
+            id: true,
+            email: true,
+            username: true,
+            name: true,
+            bio: true,
+            gender: true,
+            dob: true,
+            phoneNumber: true,
+            address: true,
+            profilePic: true,
+            private: true,
+            verified: true,
+            role: true,
+            followers: true,
+            following: true,
+            accountStatus: true,
+            lastLogin: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        }),
+      ]);
+
+      const usersWithCounts = await Promise.all(
+        users.map(async (user) => {
+          const [followersCount, followingsCount] = await Promise.all([
+            this.prisma.follow.count({
+              where: {
+                followingId: user.id,
+                followStatus: 'accepted',
+              },
+            }),
+            this.prisma.follow.count({
+              where: {
+                followerId: user.id,
+                followStatus: 'accepted',
+              },
+            }),
+          ]);
+
+          return {
+            ...user,
+            followersCount,
+            followingsCount,
+          };
+        }),
+      );
+
+      return response('', 200, 'success', {
+        total: totalUsers,
+        page,
+        limit,
+        totalPages: Math.ceil(totalUsers / limit),
+        users: usersWithCounts,
       });
-      return response('', 200, 'success', users);
     } catch (error) {
       console.error('Error fetching users:', error);
       return response('Lấy danh sách người dùng thất bại', 400, 'error');

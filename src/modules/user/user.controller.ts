@@ -47,9 +47,6 @@ export class UserController {
     return this.userService.getUsers(req.user.id);
   }
 
-
-  
-
   @Patch('soft-delete')
   @HttpCode(HttpStatus.OK)
   async softDeleteMe(@Req() req: any) {
@@ -62,9 +59,7 @@ export class UserController {
     return this.userService.changePassword(req.user.id, dto);
   }
 
-
-  
-  @Patch(':id/profile-pic')
+  @Patch('profile-pic')
   @UseInterceptors(FileInterceptor('file'))
   async updateProfilePic(
     @Req() req: any,
@@ -78,5 +73,4 @@ export class UserController {
   async getUserById(@Req() req: any) {
     return this.userService.getUserById(req.params.id);
   }
-  
 }

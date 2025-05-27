@@ -25,7 +25,7 @@ export class FollowController {
     return this.followService.createFollow(req.user.id, dto);
   }
 
-   @Get('following')
+  @Get('following')
   async getFollowing(@Req() req: any) {
     return this.followService.getFollowing(req.user.id);
   }
@@ -53,6 +53,4 @@ export class FollowController {
   async unfollow(@Req() req: any, @Param('followingId') followingId: string) {
     return this.followService.deleteFollow(req.user.id, followingId);
   }
-
- 
 }

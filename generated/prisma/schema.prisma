@@ -212,8 +212,9 @@ model Notification {
 }
 
 model Trip {
-  id            String   @id @default(uuid()) @map("_id")
+  id            String       @id @default(uuid()) @map("_id")
   userId        String
+  imageUrl      String[]
   title         String
   description   String?
   startDate     DateTime
@@ -222,14 +223,12 @@ model Trip {
   tags          String[]
   participants  String[] // danh sách userId
   sharedWith    String[] // userId hoặc group
-  isPublic      Boolean  @default(true)
+  isPublic      Boolean      @default(true)
   rating        Float?
-  photos        Json
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sharedPosts SharedPost[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sharedPosts   SharedPost[]
 
   @@map("trips")
 }

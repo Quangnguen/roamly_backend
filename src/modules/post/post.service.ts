@@ -30,11 +30,46 @@ export class PostService {
   }
 
   async findAll() {
-    return this.prisma.post.findMany();
+    return this.prisma.post.findMany({
+      include: {
+        author: {
+          select: {
+            username: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
   }
+
   async findById(id: string) {
-    return this.prisma.post.findUnique({ where: { id } });
+    return this.prisma.post.findUnique({
+      where: { id },
+      include: {
+        author: {
+          select: {
+            name: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
   }
+  async getPostsByUserId(userId: string) {
+    return this.prisma.post.findMany({
+      where: { authorId: userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        author: {
+          select: {
+            name: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
+  }
+
   async update(
     postId: string,
     files: Express.Multer.File[],

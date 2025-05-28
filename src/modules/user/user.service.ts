@@ -178,8 +178,17 @@ export class UserService {
     );
   }
 
-  async getUsers(currentUserId: string, page = 1, limit = 10) {
+  async getUsers(currentUserId: string, pageInput?: any, limitInput?: any) {
     try {
+      // Chuyển page và limit từ string (nếu có) sang số và gán giá trị mặc định
+      const pageNum = parseInt(pageInput);
+      const limitNum = parseInt(limitInput);
+      console.log(parseInt(pageInput)); // NaN
+      console.log(parseInt(limitInput));
+
+      const page = !isNaN(pageNum) && pageNum > 0 ? pageNum : 1;
+      const limit = !isNaN(limitNum) && limitNum > 0 ? limitNum : 10;
+
       const skip = (page - 1) * limit;
 
       const [totalUsers, users] = await Promise.all([

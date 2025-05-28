@@ -46,13 +46,11 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   async getUsers(
     @Req() req: any,
-    @Query('page') page: string,
-    @Query('limit') limit: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
   ) {
-    const pageNumber = parseInt(page, 10) || 1;
-    const limitNumber = parseInt(limit, 10) || 10;
-
-    return this.userService.getUsers(req.user.id, pageNumber, limitNumber);
+    console.log('page:', page, 'limit:', limit, 'user:', req.user);
+    return this.userService.getUsers(req.user.id, page, limit);
   }
 
   @Patch('soft-delete')

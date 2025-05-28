@@ -10,6 +10,7 @@ import {
   Patch,
   Body,
   Req,
+  Query,
   HttpCode,
   HttpStatus,
   UseGuards,
@@ -43,12 +44,16 @@ export class UserController {
 
   @Get('get-users')
   @HttpCode(HttpStatus.OK)
-  async getUsers(@Req() req: any) {
-    return this.userService.getUsers(req.user.id);
+  async getUsers(
+    @Req() req: any,
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    const pageNumber = parseInt(page, 10) || 1;
+    const limitNumber = parseInt(limit, 10) || 10;
+
+    return this.userService.getUsers(req.user.id, pageNumber, limitNumber);
   }
-
-
-  
 
   @Patch('soft-delete')
   @HttpCode(HttpStatus.OK)
@@ -62,9 +67,7 @@ export class UserController {
     return this.userService.changePassword(req.user.id, dto);
   }
 
-
-  
-  @Patch(':id/profile-pic')
+  @Patch('profile-pic')
   @UseInterceptors(FileInterceptor('file'))
   async updateProfilePic(
     @Req() req: any,
@@ -78,5 +81,4 @@ export class UserController {
   async getUserById(@Req() req: any) {
     return this.userService.getUserById(req.params.id);
   }
-  
 }

@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { response } from '../../common/utils/response.utils';
 
 @Injectable()
 export class PostService {
@@ -26,11 +27,11 @@ export class PostService {
       },
     });
 
-    return post;
+    return response('Tạo bài viết thành công', 201, 'success', post);
   }
 
   async findAll() {
-    return this.prisma.post.findMany({
+    const posts = await this.prisma.post.findMany({
       include: {
         author: {
           select: {
@@ -40,10 +41,12 @@ export class PostService {
         },
       },
     });
+
+    return response('Lấy danh sách bài viết thành công', 200, 'success', posts);
   }
 
   async findById(id: string) {
-    return this.prisma.post.findUnique({
+    const post = await this.prisma.post.findUnique({
       where: { id },
       include: {
         author: {
@@ -54,9 +57,14 @@ export class PostService {
         },
       },
     });
+
+    if (!post) throw new NotFoundException('Không tìm thấy bài viết');
+
+    return response('Lấy bài viết thành công', 200, 'success', post);
   }
+
   async getPostsByUserId(userId: string) {
-    return this.prisma.post.findMany({
+    const posts = await this.prisma.post.findMany({
       where: { authorId: userId },
       orderBy: { createdAt: 'desc' },
       include: {
@@ -68,6 +76,13 @@ export class PostService {
         },
       },
     });
+
+    return response(
+      'Lấy bài viết theo người dùng thành công',
+      200,
+      'success',
+      posts,
+    );
   }
 
   async update(
@@ -76,9 +91,8 @@ export class PostService {
     dto: UpdatePostDto,
   ) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
-    if (!post) throw new NotFoundException('Post not found');
+    if (!post) throw new NotFoundException('Không tìm thấy bài viết');
 
-    // Xoá ảnh cũ nếu có ảnh mới
     if (files.length > 0 && post.imageUrl.length > 0) {
       for (const url of post.imageUrl) {
         const publicId = this.cloudinary.extractPublicId(url);
@@ -91,24 +105,33 @@ export class PostService {
         ? await this.cloudinary.uploadMultiple(files)
         : post.imageUrl;
 
-    return this.prisma.post.update({
+    const updatedPost = await this.prisma.post.update({
       where: { id: postId },
       data: {
         caption: dto.caption,
         imageUrl: imageUrls,
       },
     });
+
+    return response(
+      'Cập nhật bài viết thành công',
+      200,
+      'success',
+      updatedPost,
+    );
   }
 
   async delete(postId: string) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
-    if (!post) throw new NotFoundException('Post not found');
+    if (!post) throw new NotFoundException('Không tìm thấy bài viết');
 
     for (const url of post.imageUrl) {
       const publicId = this.cloudinary.extractPublicId(url);
       await this.cloudinary.deleteImage(`nestjs_uploads/${publicId}`);
     }
 
-    return this.prisma.post.delete({ where: { id: postId } });
+    await this.prisma.post.delete({ where: { id: postId } });
+
+    return response('Xoá bài viết thành công', 200, 'success');
   }
 }

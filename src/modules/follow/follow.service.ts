@@ -1,4 +1,3 @@
-// follow.service.ts
 import {
   Injectable,
   NotFoundException,
@@ -7,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFollowDto } from './dto/create-follow.dto';
 import { UpdateFollowStatusDto } from './dto/update-follow-status.dto';
+import { response } from '../../common/utils/response.utils';
 
 @Injectable()
 export class FollowService {
@@ -14,25 +14,34 @@ export class FollowService {
 
   async createFollow(followerId: string, dto: CreateFollowDto) {
     const { followingId } = dto;
+
     if (followerId === followingId) {
-      throw new ForbiddenException('Cannot follow yourself');
+      throw new ForbiddenException('Không thể theo dõi chính mình');
     }
 
     const existing = await this.prisma.follow.findUnique({
       where: { followerId_followingId: { followerId, followingId } },
     });
-    if (existing) return existing;
+
+    if (existing) {
+      return response('Đã theo dõi trước đó', 200, 'success', existing);
+    }
 
     const targetUser = await this.prisma.user.findUnique({
       where: { id: followingId },
     });
-    if (!targetUser) throw new NotFoundException('User not found');
+
+    if (!targetUser) {
+      throw new NotFoundException('Không tìm thấy người dùng');
+    }
 
     const followStatus = targetUser.private ? 'pending' : 'accepted';
 
-    return this.prisma.follow.create({
+    const follow = await this.prisma.follow.create({
       data: { followerId, followingId, followStatus },
     });
+
+    return response('Theo dõi thành công', 201, 'success', follow);
   }
 
   async updateFollowStatus(
@@ -43,18 +52,30 @@ export class FollowService {
     const follow = await this.prisma.follow.findUnique({
       where: { followerId_followingId: { followerId, followingId } },
     });
-    if (!follow) throw new NotFoundException('Follow not found');
 
-    return this.prisma.follow.update({
+    if (!follow) {
+      throw new NotFoundException('Không tìm thấy lượt theo dõi');
+    }
+
+    const updated = await this.prisma.follow.update({
       where: { followerId_followingId: { followerId, followingId } },
       data: { followStatus: dto.followStatus },
     });
+
+    return response(
+      'Cập nhật trạng thái theo dõi thành công',
+      200,
+      'success',
+      updated,
+    );
   }
 
   async deleteFollow(followerId: string, followingId: string) {
-    return this.prisma.follow.delete({
+    const deleted = await this.prisma.follow.delete({
       where: { followerId_followingId: { followerId, followingId } },
     });
+
+    return response('Huỷ theo dõi thành công', 200, 'success', deleted);
   }
 
   async getFollowing(userId: string) {
@@ -75,7 +96,8 @@ export class FollowService {
       },
     });
 
-    return following.map((f) => f.following);
+    const data = following.map((f) => f.following);
+    return response('Danh sách đang theo dõi', 200, 'success', data);
   }
 
   async getFollowers(userId: string) {
@@ -96,12 +118,19 @@ export class FollowService {
       },
     });
 
-    return followers.map((f) => f.follower);
+    const data = followers.map((f) => f.follower);
+    return response('Danh sách người theo dõi', 200, 'success', data);
   }
 
   async checkFollowStatus(followerId: string, followingId: string) {
-    return this.prisma.follow.findUnique({
+    const follow = await this.prisma.follow.findUnique({
       where: { followerId_followingId: { followerId, followingId } },
     });
+
+    const message = follow
+      ? 'Đã theo dõi hoặc đang chờ phê duyệt'
+      : 'Chưa theo dõi';
+
+    return response(message, 200, 'success', follow);
   }
 }

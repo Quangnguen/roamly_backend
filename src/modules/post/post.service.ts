@@ -12,6 +12,21 @@ export class PostService {
     private cloudinary: CloudinaryService,
   ) {}
 
+  async getPostById(id: string) {
+    const post = await this.prisma.post.findUnique({
+      where: { id },
+      include: {
+        author: {
+          select: {
+            name: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
+    return post;
+  }
+
   async create(
     authorId: string,
     files: Express.Multer.File[],

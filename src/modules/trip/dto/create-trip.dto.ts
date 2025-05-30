@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsArray, IsBoolean, IsDateString, IsNumber, IsNotEmpty } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsBoolean, IsDateString, IsNumber, IsNotEmpty, IsObject } from 'class-validator';
 
 export class CreateTripDto {
     @IsString()
@@ -15,6 +15,11 @@ export class CreateTripDto {
     @IsDateString()
     endDate: string;
 
+    @IsObject()
+    @IsOptional()
+    @IsNotEmpty()
+    cost: object; // ví dụ: { meals: 100, transport: 200, total: 300 }
+
     @IsArray()
     @IsOptional()
     @IsString({ each: true })
@@ -24,6 +29,10 @@ export class CreateTripDto {
     @IsOptional()
     @IsString({ each: true })
     tags?: string[];
+
+    @IsOptional()
+    @IsString()
+    homestay?: string;
 
     @IsArray()
     @IsOptional()
@@ -38,10 +47,6 @@ export class CreateTripDto {
     @IsOptional()
     @IsBoolean()
     isPublic?: boolean;
-
-    @IsOptional()
-    @IsNumber()
-    rating?: number;
 
     // Photos sẽ được xử lý qua @UploadedFiles, không cần validate ở đây
 }

@@ -219,12 +219,12 @@ model Trip {
   description   String?
   startDate     DateTime
   endDate       DateTime
+  cost          Json
   placesVisited String[]
   tags          String[]
-  participants  String[] // danh sách userId
-  sharedWith    String[] // userId hoặc group
+  homestay      String
+  participants  String[] // danh sách username
   isPublic      Boolean      @default(true)
-  rating        Float?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)

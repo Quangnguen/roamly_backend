@@ -52,16 +52,18 @@ export class PostController {
   findAll() {
     return this.postsService.findAll();
   }
-  @Get(':id')
-  @Roles(Role.User, Role.Admin)
-  async findById(@Param('id') id: string) {
-    return this.postsService.findById(id);
-  }
+ 
   @Get('my-posts')
   @Roles(Role.User, Role.Admin)
   async getMyPosts(@Req() req: any) {
     const userId = req.user.id;
     return this.postsService.getPostsByUserId(userId);
+  }
+
+  @Get(':id')
+  @Roles(Role.User, Role.Admin)
+  async findById(@Param('id') id: string) {
+    return this.postsService.findById(id);
   }
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('images'))

@@ -13406,18 +13406,8 @@ export namespace Prisma {
 
   export type AggregateTrip = {
     _count: TripCountAggregateOutputType | null
-    _avg: TripAvgAggregateOutputType | null
-    _sum: TripSumAggregateOutputType | null
     _min: TripMinAggregateOutputType | null
     _max: TripMaxAggregateOutputType | null
-  }
-
-  export type TripAvgAggregateOutputType = {
-    rating: number | null
-  }
-
-  export type TripSumAggregateOutputType = {
-    rating: number | null
   }
 
   export type TripMinAggregateOutputType = {
@@ -13427,8 +13417,8 @@ export namespace Prisma {
     description: string | null
     startDate: Date | null
     endDate: Date | null
+    homestay: string | null
     isPublic: boolean | null
-    rating: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13440,8 +13430,8 @@ export namespace Prisma {
     description: string | null
     startDate: Date | null
     endDate: Date | null
+    homestay: string | null
     isPublic: boolean | null
-    rating: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13454,25 +13444,17 @@ export namespace Prisma {
     description: number
     startDate: number
     endDate: number
+    cost: number
     placesVisited: number
     tags: number
+    homestay: number
     participants: number
-    sharedWith: number
     isPublic: number
-    rating: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
-
-  export type TripAvgAggregateInputType = {
-    rating?: true
-  }
-
-  export type TripSumAggregateInputType = {
-    rating?: true
-  }
 
   export type TripMinAggregateInputType = {
     id?: true
@@ -13481,8 +13463,8 @@ export namespace Prisma {
     description?: true
     startDate?: true
     endDate?: true
+    homestay?: true
     isPublic?: true
-    rating?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13494,8 +13476,8 @@ export namespace Prisma {
     description?: true
     startDate?: true
     endDate?: true
+    homestay?: true
     isPublic?: true
-    rating?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13508,12 +13490,12 @@ export namespace Prisma {
     description?: true
     startDate?: true
     endDate?: true
+    cost?: true
     placesVisited?: true
     tags?: true
+    homestay?: true
     participants?: true
-    sharedWith?: true
     isPublic?: true
-    rating?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -13557,18 +13539,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: TripAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TripSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: TripMinAggregateInputType
@@ -13599,8 +13569,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TripCountAggregateInputType | true
-    _avg?: TripAvgAggregateInputType
-    _sum?: TripSumAggregateInputType
     _min?: TripMinAggregateInputType
     _max?: TripMaxAggregateInputType
   }
@@ -13613,17 +13581,15 @@ export namespace Prisma {
     description: string | null
     startDate: Date
     endDate: Date
+    cost: JsonValue
     placesVisited: string[]
     tags: string[]
+    homestay: string
     participants: string[]
-    sharedWith: string[]
     isPublic: boolean
-    rating: number | null
     createdAt: Date
     updatedAt: Date
     _count: TripCountAggregateOutputType | null
-    _avg: TripAvgAggregateOutputType | null
-    _sum: TripSumAggregateOutputType | null
     _min: TripMinAggregateOutputType | null
     _max: TripMaxAggregateOutputType | null
   }
@@ -13650,12 +13616,12 @@ export namespace Prisma {
     description?: boolean
     startDate?: boolean
     endDate?: boolean
+    cost?: boolean
     placesVisited?: boolean
     tags?: boolean
+    homestay?: boolean
     participants?: boolean
-    sharedWith?: boolean
     isPublic?: boolean
-    rating?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13673,17 +13639,17 @@ export namespace Prisma {
     description?: boolean
     startDate?: boolean
     endDate?: boolean
+    cost?: boolean
     placesVisited?: boolean
     tags?: boolean
+    homestay?: boolean
     participants?: boolean
-    sharedWith?: boolean
     isPublic?: boolean
-    rating?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "imageUrl" | "title" | "description" | "startDate" | "endDate" | "placesVisited" | "tags" | "participants" | "sharedWith" | "isPublic" | "rating" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
+  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "imageUrl" | "title" | "description" | "startDate" | "endDate" | "cost" | "placesVisited" | "tags" | "homestay" | "participants" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
   export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     sharedPosts?: boolean | Trip$sharedPostsArgs<ExtArgs>
@@ -13704,12 +13670,12 @@ export namespace Prisma {
       description: string | null
       startDate: Date
       endDate: Date
+      cost: Prisma.JsonValue
       placesVisited: string[]
       tags: string[]
+      homestay: string
       participants: string[]
-      sharedWith: string[]
       isPublic: boolean
-      rating: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["trip"]>
@@ -14113,12 +14079,12 @@ export namespace Prisma {
     readonly description: FieldRef<"Trip", 'String'>
     readonly startDate: FieldRef<"Trip", 'DateTime'>
     readonly endDate: FieldRef<"Trip", 'DateTime'>
+    readonly cost: FieldRef<"Trip", 'Json'>
     readonly placesVisited: FieldRef<"Trip", 'String[]'>
     readonly tags: FieldRef<"Trip", 'String[]'>
+    readonly homestay: FieldRef<"Trip", 'String'>
     readonly participants: FieldRef<"Trip", 'String[]'>
-    readonly sharedWith: FieldRef<"Trip", 'String[]'>
     readonly isPublic: FieldRef<"Trip", 'Boolean'>
-    readonly rating: FieldRef<"Trip", 'Float'>
     readonly createdAt: FieldRef<"Trip", 'DateTime'>
     readonly updatedAt: FieldRef<"Trip", 'DateTime'>
   }
@@ -16717,12 +16683,12 @@ export namespace Prisma {
     description: 'description',
     startDate: 'startDate',
     endDate: 'endDate',
+    cost: 'cost',
     placesVisited: 'placesVisited',
     tags: 'tags',
+    homestay: 'homestay',
     participants: 'participants',
-    sharedWith: 'sharedWith',
     isPublic: 'isPublic',
-    rating: 'rating',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16848,20 +16814,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'MediaType'
    */
   export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
@@ -16872,6 +16824,20 @@ export namespace Prisma {
    * Reference to a field of type 'MediaType[]'
    */
   export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -17724,12 +17690,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Trip"> | string | null
     startDate?: DateTimeFilter<"Trip"> | Date | string
     endDate?: DateTimeFilter<"Trip"> | Date | string
+    cost?: JsonFilter<"Trip">
     placesVisited?: StringNullableListFilter<"Trip">
     tags?: StringNullableListFilter<"Trip">
+    homestay?: StringFilter<"Trip"> | string
     participants?: StringNullableListFilter<"Trip">
-    sharedWith?: StringNullableListFilter<"Trip">
     isPublic?: BoolFilter<"Trip"> | boolean
-    rating?: FloatNullableFilter<"Trip"> | number | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -17744,12 +17710,12 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    cost?: SortOrder
     placesVisited?: SortOrder
     tags?: SortOrder
+    homestay?: SortOrder
     participants?: SortOrder
-    sharedWith?: SortOrder
     isPublic?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -17767,12 +17733,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Trip"> | string | null
     startDate?: DateTimeFilter<"Trip"> | Date | string
     endDate?: DateTimeFilter<"Trip"> | Date | string
+    cost?: JsonFilter<"Trip">
     placesVisited?: StringNullableListFilter<"Trip">
     tags?: StringNullableListFilter<"Trip">
+    homestay?: StringFilter<"Trip"> | string
     participants?: StringNullableListFilter<"Trip">
-    sharedWith?: StringNullableListFilter<"Trip">
     isPublic?: BoolFilter<"Trip"> | boolean
-    rating?: FloatNullableFilter<"Trip"> | number | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -17787,19 +17753,17 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    cost?: SortOrder
     placesVisited?: SortOrder
     tags?: SortOrder
+    homestay?: SortOrder
     participants?: SortOrder
-    sharedWith?: SortOrder
     isPublic?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TripCountOrderByAggregateInput
-    _avg?: TripAvgOrderByAggregateInput
     _max?: TripMaxOrderByAggregateInput
     _min?: TripMinOrderByAggregateInput
-    _sum?: TripSumOrderByAggregateInput
   }
 
   export type TripScalarWhereWithAggregatesInput = {
@@ -17813,12 +17777,12 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Trip"> | string | null
     startDate?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
+    cost?: JsonWithAggregatesFilter<"Trip">
     placesVisited?: StringNullableListFilter<"Trip">
     tags?: StringNullableListFilter<"Trip">
+    homestay?: StringWithAggregatesFilter<"Trip"> | string
     participants?: StringNullableListFilter<"Trip">
-    sharedWith?: StringNullableListFilter<"Trip">
     isPublic?: BoolWithAggregatesFilter<"Trip"> | boolean
-    rating?: FloatNullableWithAggregatesFilter<"Trip"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
   }
@@ -18791,12 +18755,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTripsInput
@@ -18811,12 +18775,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutTripInput
@@ -18828,12 +18792,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
@@ -18847,12 +18811,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutTripNestedInput
@@ -18866,12 +18830,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18882,12 +18846,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18899,12 +18863,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19799,17 +19763,16 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
     isSet?: boolean
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
   }
 
   export type TripCountOrderByAggregateInput = {
@@ -19820,18 +19783,14 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    cost?: SortOrder
     placesVisited?: SortOrder
     tags?: SortOrder
+    homestay?: SortOrder
     participants?: SortOrder
-    sharedWith?: SortOrder
     isPublic?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type TripAvgOrderByAggregateInput = {
-    rating?: SortOrder
   }
 
   export type TripMaxOrderByAggregateInput = {
@@ -19841,8 +19800,8 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    homestay?: SortOrder
     isPublic?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19854,31 +19813,24 @@ export namespace Prisma {
     description?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    homestay?: SortOrder
     isPublic?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type TripSumOrderByAggregateInput = {
-    rating?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-    isSet?: boolean
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type EnumMediaTypeFilter<$PrismaModel = never> = {
@@ -21312,10 +21264,6 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type TripCreatesharedWithInput = {
-    set: string[]
-  }
-
   export type UserCreateNestedOneWithoutTripsInput = {
     create?: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTripsInput
@@ -21354,20 +21302,6 @@ export namespace Prisma {
   export type TripUpdateparticipantsInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type TripUpdatesharedWithInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-    unset?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutTripsNestedInput = {
@@ -21696,34 +21630,16 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     isSet?: boolean
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-    isSet?: boolean
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
   }
 
   export type NestedEnumMediaTypeFilter<$PrismaModel = never> = {
@@ -21990,12 +21906,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sharedPosts?: SharedPostCreateNestedManyWithoutTripInput
@@ -22008,12 +21924,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutTripInput
@@ -22454,12 +22370,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Trip"> | string | null
     startDate?: DateTimeFilter<"Trip"> | Date | string
     endDate?: DateTimeFilter<"Trip"> | Date | string
+    cost?: JsonFilter<"Trip">
     placesVisited?: StringNullableListFilter<"Trip">
     tags?: StringNullableListFilter<"Trip">
+    homestay?: StringFilter<"Trip"> | string
     participants?: StringNullableListFilter<"Trip">
-    sharedWith?: StringNullableListFilter<"Trip">
     isPublic?: BoolFilter<"Trip"> | boolean
-    rating?: FloatNullableFilter<"Trip"> | number | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
   }
@@ -23553,12 +23469,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTripsInput
@@ -23572,12 +23488,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23881,12 +23797,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
@@ -23899,12 +23815,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26514,12 +26430,12 @@ export namespace Prisma {
     description?: string | null
     startDate: Date | string
     endDate: Date | string
+    cost: InputJsonValue
     placesVisited?: TripCreateplacesVisitedInput | string[]
     tags?: TripCreatetagsInput | string[]
+    homestay: string
     participants?: TripCreateparticipantsInput | string[]
-    sharedWith?: TripCreatesharedWithInput | string[]
     isPublic?: boolean
-    rating?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26812,12 +26728,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedPosts?: SharedPostUpdateManyWithoutTripNestedInput
@@ -26829,12 +26745,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutTripNestedInput
@@ -26846,12 +26762,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    cost?: InputJsonValue | InputJsonValue
     placesVisited?: TripUpdateplacesVisitedInput | string[]
     tags?: TripUpdatetagsInput | string[]
+    homestay?: StringFieldUpdateOperationsInput | string
     participants?: TripUpdateparticipantsInput | string[]
-    sharedWith?: TripUpdatesharedWithInput | string[]
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

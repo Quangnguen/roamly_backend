@@ -235,12 +235,12 @@ exports.Prisma.TripScalarFieldEnum = {
   description: 'description',
   startDate: 'startDate',
   endDate: 'endDate',
+  cost: 'cost',
   placesVisited: 'placesVisited',
   tags: 'tags',
+  homestay: 'homestay',
   participants: 'participants',
-  sharedWith: 'sharedWith',
   isPublic: 'isPublic',
-  rating: 'rating',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

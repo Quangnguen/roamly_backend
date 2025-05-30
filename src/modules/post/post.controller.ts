@@ -71,14 +71,6 @@ export class PostController {
     const post = await this.postsService.getPostById(id);
     if (!post) throw new ForbiddenException('Post not found');
 
-    const isOwner = post.authorId === req.user.id;
-    const isAdmin = req.user.role === Role.Admin;
-    if (!isOwner && !isAdmin) {
-      throw new ForbiddenException(
-        'You do not have permission to edit this post',
-      );
-    }
-
     return this.postsService.update(id, files, dto);
   }
 
@@ -86,15 +78,6 @@ export class PostController {
   async delete(@Param('id') id: string, @Req() req: any) {
     const post = await this.postsService.getPostById(id);
     if (!post) throw new ForbiddenException('Post not found');
-
-    const isOwner = post.authorId === req.user.id;
-    const isAdmin = req.user.role === Role.Admin;
-    if (!isOwner && !isAdmin) {
-      throw new ForbiddenException(
-        'You do not have permission to delete this post',
-      );
-    }
-
     return this.postsService.delete(id);
   }
     @Get(':id')

@@ -128,6 +128,25 @@ export class AuthService {
     // Đảm bảo phoneNumber luôn là string
     user.phoneNumber = user.phoneNumber ?? '';
 
+    const [followersCount, followingCount] = await Promise.all([
+      this.prisma.follow.count({
+        where: {
+          followingId: user.id,
+          followStatus: 'accepted',
+        },
+      }),
+      this.prisma.follow.count({
+        where: {
+          followerId: user.id,
+          followStatus: 'accepted',
+        },
+      }),
+    ]);
+
+    const postCount = await this.prisma.post.count({
+      where: { authorId: user.id, isPublic: true },
+    });
+
     return {
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -137,6 +156,14 @@ export class AuthService {
         username: user.username,
         name: user.name,
         phoneNumber: user.phoneNumber ?? '',
+        profilePic: user.profilePic ?? null,
+        bio: user.bio ?? null,
+        private: user.private,
+        verified: user.verified,
+        role: user.role,
+        followersCount: followersCount,
+        followingCount: followingCount,
+        postCount: postCount,
       },
     };
   }

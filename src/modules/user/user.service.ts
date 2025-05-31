@@ -63,10 +63,15 @@ export class UserService {
       }),
     ]);
 
+    const postCount = await this.prisma.post.count({
+      where: { authorId: userId, isPublic: true },
+    });
+
     return response('', 200, 'success', {
       ...user,
       followersCount: followersCount,
       followingsCount: followingCount,
+      postCount: postCount,
     });
   }
 
@@ -185,8 +190,6 @@ export class UserService {
       // Chuyển page và limit từ string (nếu có) sang số và gán giá trị mặc định
       const pageNum = parseInt(pageInput);
       const limitNum = parseInt(limitInput);
-      console.log(parseInt(pageInput)); // NaN
-      console.log(parseInt(limitInput));
 
       const page = !isNaN(pageNum) && pageNum > 0 ? pageNum : 1;
       const limit = !isNaN(limitNum) && limitNum > 0 ? limitNum : 10;

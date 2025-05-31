@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsArray, IsBoolean, IsDateString, IsNumber, IsNotEmpty, IsObject } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsBoolean, IsDateString, IsNotEmpty, IsObject } from 'class-validator';
 
 export class CreateTripDto {
     @IsString()

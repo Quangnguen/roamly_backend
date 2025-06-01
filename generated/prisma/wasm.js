@@ -229,8 +229,6 @@ exports.Prisma.NotificationScalarFieldEnum = {
 
 exports.Prisma.TripScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  imageUrl: 'imageUrl',
   title: 'title',
   description: 'description',
   startDate: 'startDate',
@@ -240,7 +238,9 @@ exports.Prisma.TripScalarFieldEnum = {
   tags: 'tags',
   homestay: 'homestay',
   participants: 'participants',
-  isPublic: 'isPublic',
+  privacy: 'privacy',
+  userId: 'userId',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

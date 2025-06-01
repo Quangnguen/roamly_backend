@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
@@ -16,6 +17,8 @@ export class TripService {
     
     async createTrip(authorId: string, files: Express.Multer.File[], dto: CreateTripDto) {
         try {
+            console.log('Creating trip with data:', dto);
+            console.log('Files:', files);
             // Upload images to Cloudinary
             const imageUrls = await this.cloudinary.uploadMultiple(files);
 
@@ -25,7 +28,7 @@ export class TripService {
                     ...dto,
                     userId: authorId,
                     imageUrl: imageUrls,
-                    homestay: dto.homestay || '',
+                    privacy: dto.privacy as string, // Cast to the correct enum type if necessary
                 },
             });
 
@@ -96,6 +99,7 @@ export class TripService {
             data: {
                 ...dto,
                 imageUrl: imageUrls,
+
             },           
         });
         return response(

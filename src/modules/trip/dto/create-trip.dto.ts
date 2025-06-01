@@ -1,4 +1,5 @@
-import { IsString, IsOptional, IsArray, IsBoolean, IsDateString, IsNotEmpty, IsObject } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsDateString, IsNotEmpty, IsObject } from 'class-validator';
+
 
 export class CreateTripDto {
     @IsString()
@@ -39,14 +40,8 @@ export class CreateTripDto {
     @IsString({ each: true })
     participants?: string[];
 
-    @IsArray()
-    @IsOptional()
-    @IsString({ each: true })
-    sharedWith?: string[];
+    // Thay đổi thành enum privacy
 
     @IsOptional()
-    @IsBoolean()
-    isPublic?: boolean;
-
-    // Photos sẽ được xử lý qua @UploadedFiles, không cần validate ở đây
+    privacy?: string;
 }

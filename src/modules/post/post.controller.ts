@@ -60,6 +60,12 @@ export class PostController {
     return this.postsService.getPostsByUserId(userId);
   }
 
+  @Get('get-posts/:userId')
+  @Roles(Role.User, Role.Admin)
+  async getPostsByUserId(@Param('userId') userId: string) {
+    return this.postsService.getPostsByUserId(userId);
+  }
+
   @Get(':id')
   @Roles(Role.User, Role.Admin)
   async findById(@Param('id') id: string) {

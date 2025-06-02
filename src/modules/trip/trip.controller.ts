@@ -27,7 +27,7 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/common/enums/role.enum';
 import { UpdateTripDto } from './dto/update-trip.dto'; // Tạo file này nếu chưa có
 
-@Controller('trip')
+@Controller('memory')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @UsePipes(new CustomValidationPipe())
 export class TripController {
@@ -76,6 +76,7 @@ export class TripController {
         @Body() dto: any,
         @Req() req: any,
     ) {
+        console.log('Memory');
         const authorId = req.user.id;
         // Gom các trường trùng tên thành mảng
         const groupedData = this.groupFormData(dto, CreateTripDto);
@@ -89,7 +90,7 @@ export class TripController {
         return this.tripService.getTripsByUserId(userId);
     }
 
-    @Get('my-trips')
+    @Get('my-memories')
     @Roles(Role.User, Role.Admin)
     getMyTrips(@Req() req: any) {
         const userId = req.user.id;

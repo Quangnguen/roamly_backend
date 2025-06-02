@@ -17,9 +17,6 @@ export class TripService {
     
     async createTrip(authorId: string, files: Express.Multer.File[], dto: CreateTripDto) {
         try {
-            console.log('Creating trip with data:', dto);
-            console.log('Files:', files);
-            // Upload images to Cloudinary
             const imageUrls = await this.cloudinary.uploadMultiple(files);
 
             // Create trip in the database

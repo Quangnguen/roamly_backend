@@ -90,7 +90,7 @@ export class TripController {
         return this.tripService.getTripsByUserId(userId);
     }
 
-    @Get('my-trips')
+    @Get('my-memories')
     @Roles(Role.User, Role.Admin)
     getMyTrips(@Req() req: any) {
         const userId = req.user.id;

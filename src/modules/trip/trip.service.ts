@@ -88,17 +88,48 @@ export class TripService {
         if (trip.userId !== userId) {
             throw new ForbiddenException('You are not allowed to update this trip');
         }
-        // Xử lý files nếu cần (ví dụ: upload ảnh mới)
-        const imageUrls = await this.cloudinary.uploadMultiple(files);
 
+        console.log('Updating trip with ID:', dto);
+        
+        // Tạo object update data với giá trị mặc định
+        const updateData: any = {};
+        
+        // Xử lý từng trường riêng biệt
+        // String fields: chuỗi rỗng nếu undefined
+        updateData.title = dto.title !== undefined ? dto.title : '';
+        updateData.description = dto.description !== undefined ? dto.description : '';
+        updateData.homestay = dto.homestay !== undefined ? dto.homestay : '';
+        updateData.privacy = dto.privacy !== undefined ? dto.privacy : trip.privacy;
+        
+        // Date fields: giữ nguyên nếu undefined
+        if (dto.startDate !== undefined) updateData.startDate = dto.startDate;
+        if (dto.endDate !== undefined) updateData.endDate = dto.endDate;
+        
+        // Array fields: mảng rỗng nếu undefined
+        updateData.placesVisited = dto.placesVisited !== undefined ? dto.placesVisited : [];
+        updateData.tags = dto.tags !== undefined ? dto.tags : [];
+        updateData.participants = dto.participants !== undefined ? dto.participants : [];
+        
+        // Object fields: object rỗng nếu undefined
+        updateData.cost = dto.cost !== undefined ? dto.cost : {};
+        
+        // Chỉ upload và cập nhật imageUrl nếu có files mới
+        if (files && files.length > 0) {
+            const imageUrls = await this.cloudinary.uploadMultiple(files);
+            updateData.imageUrl = imageUrls;
+        } else if (dto.imageUrl !== undefined) {
+            // Nếu không có files mới nhưng có imageUrl trong DTO
+            updateData.imageUrl = dto.imageUrl;
+        }
+        
+        // Log để debug
+        console.log('Update data:', updateData);
+        
         const updated = await this.prisma.trip.update({
             where: { id: tripId },
-            data: {
-                ...dto,
-                imageUrl: imageUrls,
-
-            },           
+            data: updateData,
         });
+        
         return response(
             'Trip updated successfully',
             200,

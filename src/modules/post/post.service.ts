@@ -31,6 +31,7 @@ export class PostService {
   }
 
   async findAll() {
+    // Lấy danh sách bài viết
     const posts = await this.prisma.post.findMany({
       include: {
         author: {
@@ -42,7 +43,34 @@ export class PostService {
       },
     });
 
-    return response('Lấy danh sách bài viết thành công', 200, 'success', posts);
+    const postIds = posts.map((post) => post.id);
+
+    const likeCounts = await this.prisma.like.groupBy({
+      by: ['targetId'],
+      where: {
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      _count: {
+        targetId: true,
+      },
+    });
+
+    const likeCountMap = new Map(
+      likeCounts.map((item) => [item.targetId, item._count.targetId]),
+    );
+
+    const postsWithLikes = posts.map((post) => ({
+      ...post,
+      likeCount: likeCountMap.get(post.id) || 0,
+    }));
+
+    return response(
+      'Lấy danh sách bài viết thành công',
+      200,
+      'success',
+      postsWithLikes,
+    );
   }
 
   async findById(id: string) {
@@ -60,7 +88,18 @@ export class PostService {
 
     if (!post) throw new NotFoundException('Không tìm thấy bài viết');
 
-    return response('Lấy bài viết thành công', 200, 'success', post);
+    // Đếm like cho post này
+    const likeCount = await this.prisma.like.count({
+      where: {
+        targetId: id,
+        type: 'post',
+      },
+    });
+
+    return response('Lấy bài viết thành công', 200, 'success', {
+      ...post,
+      likeCount,
+    });
   }
 
   async getPostsByUserId(userId: string) {
@@ -77,11 +116,33 @@ export class PostService {
       },
     });
 
+    const postIds = posts.map((post) => post.id);
+
+    const likeCounts = await this.prisma.like.groupBy({
+      by: ['targetId'],
+      where: {
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      _count: {
+        targetId: true,
+      },
+    });
+
+    const likeCountMap = new Map(
+      likeCounts.map((item) => [item.targetId, item._count.targetId]),
+    );
+
+    const postsWithLikes = posts.map((post) => ({
+      ...post,
+      likeCount: likeCountMap.get(post.id) || 0,
+    }));
+
     return response(
       'Lấy bài viết theo người dùng thành công',
       200,
       'success',
-      posts,
+      postsWithLikes,
     );
   }
 

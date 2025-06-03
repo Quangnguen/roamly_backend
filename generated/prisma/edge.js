@@ -287,7 +287,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\f_code\\roamly\\backend\\generated\\prisma",
+      "value": "E:\\My_Project\\TravelApp\\BE\\roamly_backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -301,7 +301,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\f_code\\roamly\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "E:\\My_Project\\TravelApp\\BE\\roamly_backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

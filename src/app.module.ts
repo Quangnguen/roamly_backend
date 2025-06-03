@@ -6,13 +6,22 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PostModule } from './modules/post/post.module';
 import { FollowModule } from './modules/follow/follow.module';
-import { TripController } from './modules/trip/trip.controller';
-import { TripService } from './modules/trip/trip.service';
+import { LikeModule } from './modules/like/like.module';
+import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 @Module({
-  imports: [UserModule, AuthModule, PostModule, FollowModule, TripModule, CloudinaryModule],
-  controllers: [AppController, TripController],
-  providers: [AppService, PrismaService, TripService],
+  imports: [
+    UserModule,
+    AuthModule,
+    PostModule,
+    FollowModule,
+    TripModule,
+    CloudinaryModule,
+    LikeModule,
+    NotificationModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

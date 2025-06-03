@@ -66,11 +66,7 @@ export class PostController {
     return this.postsService.getPostsByUserId(userId);
   }
 
-  @Get(':id')
-  @Roles(Role.User, Role.Admin)
-  async findById(@Param('id') id: string) {
-    return this.postsService.findById(id);
-  }
+
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('images'))
   async update(

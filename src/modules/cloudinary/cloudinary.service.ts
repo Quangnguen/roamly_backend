@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, Inject } from '@nestjs/common';
-import { UploadApiResponse} from 'cloudinary';
+import { UploadApiResponse } from 'cloudinary';
 import { Readable } from 'stream';
 
 @Injectable()
@@ -60,9 +60,35 @@ export class CloudinaryService {
    * https://res.cloudinary.com/demo/image/upload/v123456/nestjs_uploads/abc123.jpg
    * -> abc123
    */
+  // extractPublicId(url: string): string {
+  //   const parts = url.split('/');
+  //   const filename = parts[parts.length - 1];
+  //   return filename.split('.')[0]; // loại bỏ phần đuôi .jpg, .png
+  // }
   extractPublicId(url: string): string {
-    const parts = url.split('/');
-    const filename = parts[parts.length - 1];
-    return filename.split('.')[0]; // loại bỏ phần đuôi .jpg, .png
+    try {
+      const uploadSegment = '/upload/';
+      const uploadIndex = url.indexOf(uploadSegment);
+      if (uploadIndex === -1) return '';
+
+      // Lấy phần sau "/upload/"
+      let path = url.substring(uploadIndex + uploadSegment.length);
+
+      // path hiện tại: "v1747200487/nestjs_uploads/rpbwrew3uso3j1poge7y.jpg"
+
+      // Bỏ phần version "v1747200487/"
+      const firstSlash = path.indexOf('/');
+      if (firstSlash === -1) return '';
+
+      path = path.substring(firstSlash + 1); // "nestjs_uploads/rpbwrew3uso3j1poge7y.jpg"
+
+      // Bỏ đuôi mở rộng file
+      const publicId = path.replace(/\.[^/.]+$/, '');
+
+      return publicId;
+    } catch (error) {
+      console.error('Error extracting publicId:', error);
+      return '';
+    }
   }
 }

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -178,27 +182,35 @@ export class PostService {
 
   async update(
     postId: string,
+    userId: string,
     files: Express.Multer.File[],
     dto: UpdatePostDto,
   ) {
+    if (dto.removedImages && typeof dto.removedImages === 'string') {
+      try {
+        dto.removedImages = JSON.parse(dto.removedImages);
+      } catch (e) {
+        console.error('Failed to parse removedImages:', e);
+        dto.removedImages = [];
+      }
+    }
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
     if (!post) throw new NotFoundException('Không tìm thấy bài viết');
-    let currentImages = [...post.imageUrl];
-
+    if (post.authorId !== userId)
+      throw new ForbiddenException('Bạn không có quyền cập nhật bài viết này');
     if (dto.removedImages && dto.removedImages.length > 0) {
       for (const url of dto.removedImages) {
         const publicId = this.cloudinary.extractPublicId(url);
-        await this.cloudinary.deleteImage(`nestjs_uploads/${publicId}`);
-
-        currentImages = currentImages.filter((img) => img !== url);
+        await this.cloudinary.deleteImage(publicId);
       }
     }
-
+    let currentImages = post.imageUrl.filter(
+      (img) => !dto.removedImages?.includes(img),
+    );
     if (files.length > 0) {
       const newImageUrls = await this.cloudinary.uploadMultiple(files);
       currentImages = [...currentImages, ...newImageUrls];
     }
-
     const updatedPost = await this.prisma.post.update({
       where: { id: postId },
       data: {

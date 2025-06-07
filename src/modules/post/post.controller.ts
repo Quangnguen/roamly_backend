@@ -82,10 +82,7 @@ export class PostController {
     @Req() req: any,
   ) {
     const userId = req.user.id;
-    const post = await this.postsService.findById(id, userId);
-    if (!post) throw new ForbiddenException('Post not found');
-
-    return this.postsService.update(id, files, dto);
+    return this.postsService.update(id, userId, files, dto);
   }
 
   @Delete(':id')

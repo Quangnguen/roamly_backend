@@ -198,24 +198,27 @@ export class PostService {
   ) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
     if (!post) throw new NotFoundException('Không tìm thấy bài viết');
+    let currentImages = [...post.imageUrl];
 
-    if (files.length > 0 && post.imageUrl.length > 0) {
-      for (const url of post.imageUrl) {
+    if (dto.removedImages && dto.removedImages.length > 0) {
+      for (const url of dto.removedImages) {
         const publicId = this.cloudinary.extractPublicId(url);
         await this.cloudinary.deleteImage(`nestjs_uploads/${publicId}`);
+
+        currentImages = currentImages.filter((img) => img !== url);
       }
     }
 
-    const imageUrls =
-      files.length > 0
-        ? await this.cloudinary.uploadMultiple(files)
-        : post.imageUrl;
+    if (files.length > 0) {
+      const newImageUrls = await this.cloudinary.uploadMultiple(files);
+      currentImages = [...currentImages, ...newImageUrls];
+    }
 
     const updatedPost = await this.prisma.post.update({
       where: { id: postId },
       data: {
         caption: dto.caption,
-        imageUrl: imageUrls,
+        imageUrl: currentImages,
       },
     });
 

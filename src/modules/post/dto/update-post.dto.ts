@@ -9,4 +9,9 @@ export class UpdatePostDto {
   @IsArray()
   @IsString({ each: true })
   imageUrl?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  removedImages?: string[];
 }

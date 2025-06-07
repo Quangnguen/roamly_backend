@@ -10,7 +10,10 @@ async function bootstrap(): Promise<void> {
   );
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  await app.listen(process.env.PORT ?? 3000);
+  // Lắng nghe trên 0.0.0.0 để cho phép truy cập từ mạng cục bộ
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port, '0.0.0.0');
+  console.log(`Server running on http://0.0.0.0:${port}`);
 }
 bootstrap().catch((error) => {
   console.error('Error during bootstrap:', error);

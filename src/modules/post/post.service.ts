@@ -45,7 +45,7 @@ export class PostService {
     return response('Tạo bài viết thành công', 201, 'success', post);
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     // Lấy danh sách bài viết
     const posts = await this.prisma.post.findMany({
       include: {
@@ -74,10 +74,21 @@ export class PostService {
     const likeCountMap = new Map(
       likeCounts.map((item) => [item.targetId, item._count.targetId]),
     );
+    const userLikes = await this.prisma.like.findMany({
+      where: {
+        userId: userId,
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      select: { targetId: true },
+    });
+
+    const likedPostIds = new Set(userLikes.map((like) => like.targetId));
 
     const postsWithLikes = posts.map((post) => ({
       ...post,
       likeCount: likeCountMap.get(post.id) || 0,
+      isLike: likedPostIds.has(post.id),
     }));
 
     return response(
@@ -88,7 +99,7 @@ export class PostService {
     );
   }
 
-  async findById(id: string) {
+  async findById(userId: string, id: string) {
     const post = await this.prisma.post.findUnique({
       where: { id },
       include: {
@@ -103,9 +114,16 @@ export class PostService {
 
     if (!post) throw new NotFoundException('Không tìm thấy bài viết');
 
-    // Đếm like cho post này
     const likeCount = await this.prisma.like.count({
       where: {
+        targetId: id,
+        type: 'post',
+      },
+    });
+
+    const userLike = await this.prisma.like.findFirst({
+      where: {
+        userId: userId,
         targetId: id,
         type: 'post',
       },
@@ -114,6 +132,7 @@ export class PostService {
     return response('Lấy bài viết thành công', 200, 'success', {
       ...post,
       likeCount,
+      isLike: !!userLike,
     });
   }
 
@@ -147,10 +166,21 @@ export class PostService {
     const likeCountMap = new Map(
       likeCounts.map((item) => [item.targetId, item._count.targetId]),
     );
+    const userLikes = await this.prisma.like.findMany({
+      where: {
+        userId: userId,
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      select: { targetId: true },
+    });
+
+    const likedPostIds = new Set(userLikes.map((like) => like.targetId));
 
     const postsWithLikes = posts.map((post) => ({
       ...post,
       likeCount: likeCountMap.get(post.id) || 0,
+      isLike: likedPostIds.has(post.id),
     }));
 
     return response(

@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   UseInterceptors,
   Req,
+  Query,
   UseGuards,
   UsePipes,
   ForbiddenException,
@@ -53,6 +54,16 @@ export class PostController {
     const userId = req.user.id;
     return this.postsService.findAll(userId);
   }
+  @Get('feed')
+  @Roles(Role.User, Role.Admin)
+  async getFeed(
+    @Req() req: any,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    const userId = req.user.id;
+    return this.postsService.getFeed(userId, page, limit);
+  }
 
   @Get('my-posts')
   @Roles(Role.User, Role.Admin)
@@ -83,10 +94,7 @@ export class PostController {
     @Req() req: any,
   ) {
     const userId = req.user.id;
-    const post = await this.postsService.findById(id, userId);
-    if (!post) throw new ForbiddenException('Post not found');
-
-    return this.postsService.update(id, files, dto);
+    return this.postsService.update(id, userId, files, dto);
   }
 
   @Delete(':id')

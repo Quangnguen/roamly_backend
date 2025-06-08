@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -165,6 +166,8 @@ export class UserService {
     if (!user) throw new NotFoundException('Không tìm thấy người dùng');
 
     const imageUrl = await this.cloudinary.uploadImage(file);
+    console.log('Image URL:', file);
+
 
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },

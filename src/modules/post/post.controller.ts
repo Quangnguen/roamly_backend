@@ -49,10 +49,11 @@ export class PostController {
 
   @Get()
   @Roles(Role.User, Role.Admin)
-  findAll() {
-    return this.postsService.findAll();
+  async findAll(@Req() req: any) {
+    const userId = req.user.id;
+    return this.postsService.findAll(userId);
   }
- 
+
   @Get('my-posts')
   @Roles(Role.User, Role.Admin)
   async getMyPosts(@Req() req: any) {
@@ -66,10 +67,12 @@ export class PostController {
     return this.postsService.getPostsByUserId(userId);
   }
 
+
   @Get(':id')
   @Roles(Role.User, Role.Admin)
-  async findById(@Param('id') id: string) {
-    return this.postsService.findById(id);
+  async findById(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.postsService.findById(userId, id);
   }
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('images'))
@@ -79,7 +82,8 @@ export class PostController {
     @Body() dto: UpdatePostDto,
     @Req() req: any,
   ) {
-    const post = await this.postsService.findById(id);
+    const userId = req.user.id;
+    const post = await this.postsService.findById(id, userId);
     if (!post) throw new ForbiddenException('Post not found');
 
     return this.postsService.update(id, files, dto);
@@ -87,7 +91,8 @@ export class PostController {
 
   @Delete(':id')
   async delete(@Param('id') id: string, @Req() req: any) {
-    const post = await this.postsService.findById(id);
+    const userId = req.user.id;
+    const post = await this.postsService.findById(id, userId);
     if (!post) throw new ForbiddenException('Post not found');
     return this.postsService.delete(id);
   }

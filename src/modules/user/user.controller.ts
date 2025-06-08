@@ -71,6 +71,7 @@ export class UserController {
     @Req() req: any,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    console.log('Updating profile pic for user:', req.user.id);
     return this.userService.updateProfilePic(req.user.id, file);
   }
   // cái này luôn để cuối cùng vì :id

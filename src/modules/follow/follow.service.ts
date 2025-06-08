@@ -133,4 +133,17 @@ export class FollowService {
 
     return response(message, 200, 'success', follow);
   }
+  async getFollowingRawIds(userId: string): Promise<string[]> {
+    const following = await this.prisma.follow.findMany({
+      where: {
+        followerId: userId,
+        followStatus: 'accepted',
+      },
+      select: {
+        followingId: true,
+      },
+    });
+
+    return following.map((f) => f.followingId);
+  }
 }

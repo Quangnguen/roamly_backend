@@ -5,10 +5,12 @@ import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { FollowModule } from '../follow/follow.module';
 
 @Module({
   imports: [
     CloudinaryModule,
+    FollowModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'Roamly',
       signOptions: { expiresIn: '1h' },

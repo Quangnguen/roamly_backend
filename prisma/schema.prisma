@@ -95,8 +95,11 @@ model Post {
   savedBy      SavedPost[]
   notifications Notification[]
 
+  likes        Like[]     @relation("PostLikes")
+
   @@map("posts")
 }
+
 
 model SharedPost {
   id           String   @id @default(uuid()) @map("_id")
@@ -152,17 +155,20 @@ model Comment {
 }
 
 model Like {
-  id       String   @id @default(uuid()) @map("_id")
-  userId   String
-  targetId String
-  type     String
+  id        String   @id @default(uuid()) @map("_id")
+  userId    String
+  targetId  String
+  type      String
   createdAt DateTime @default(now())
 
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  post      Post?    @relation("PostLikes", fields: [targetId], references: [id])
 
   @@unique([userId, targetId, type])
   @@map("likes")
 }
+
 
 model SavedPost {
   id      String   @id @default(uuid()) @map("_id")

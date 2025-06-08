@@ -99,3 +99,26 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 npx prisma validate
 npx prisma generate
 npm run start:dev
+
+post feed:
+tách 3 nhóm bài:
+
+Bài đăng hôm nay từ người đang follow (ưu tiên nhất).
+
+Các bài nổi bật gần đây (dựa vào score, có thể không phải từ người đang theo dõi).
+
+Bài cũ hơn nhưng hot (dùng để bổ sung nếu không đủ bài mới).
+
+Tính điểm (score):
+
+Like: x2 điểm.
+
+Comment: x3 điểm.
+
+Follow: +5.
+
+Bài đăng hôm nay: +30 điểm bonus.
+
+Thời gian càng lâu thì điểm càng bị chia nhỏ.
+
+Paginate sau khi tính điểm + sort.

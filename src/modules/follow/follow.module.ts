@@ -16,5 +16,6 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
   ],
   controllers: [FollowController],
   providers: [FollowService, PrismaService, JwtStrategy],
+  exports: [FollowService],
 })
 export class FollowModule {}

@@ -95,6 +95,8 @@ model Post {
   savedBy       SavedPost[]
   notifications Notification[]
 
+  likes Like[] @relation("PostLikes")
+
   @@map("posts")
 }
 
@@ -159,6 +161,8 @@ model Like {
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  post Post? @relation("PostLikes", fields: [targetId], references: [id])
 
   @@unique([userId, targetId, type])
   @@map("likes")

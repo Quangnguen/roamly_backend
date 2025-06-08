@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   UseInterceptors,
   Req,
+  Query,
   UseGuards,
   UsePipes,
   ForbiddenException,
@@ -52,6 +53,16 @@ export class PostController {
   async findAll(@Req() req: any) {
     const userId = req.user.id;
     return this.postsService.findAll(userId);
+  }
+  @Get('feed')
+  @Roles(Role.User, Role.Admin)
+  async getFeed(
+    @Req() req: any,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    const userId = req.user.id;
+    return this.postsService.getFeed(userId, page, limit);
   }
 
   @Get('my-posts')

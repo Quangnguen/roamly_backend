@@ -10,6 +10,7 @@ import { LikeModule } from './modules/like/like.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { SocketGateway } from './modules/socket/post.gateway';
 @Module({
   imports: [
     UserModule,
@@ -22,6 +23,6 @@ import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
     NotificationModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, SocketGateway],
 })
 export class AppModule {}

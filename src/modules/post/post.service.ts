@@ -10,12 +10,14 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { response } from '../../common/utils/response.utils';
 import { FollowService } from '../follow/follow.service';
 import { isToday } from 'date-fns';
+import { SocketGateway } from '../socket/post.gateway';
 @Injectable()
 export class PostService {
   constructor(
     private prisma: PrismaService,
     private cloudinary: CloudinaryService,
     private followService: FollowService,
+    private socketGateway: SocketGateway,
   ) {}
 
   async create(
@@ -24,14 +26,18 @@ export class PostService {
     dto: CreatePostDto,
   ) {
     const imageUrls = await this.cloudinary.uploadMultiple(files);
-
     const post = await this.prisma.post.create({
       data: {
-        authorId: authorId,
+        authorId,
         caption: dto.caption,
         imageUrl: imageUrls,
       },
     });
+
+    const followers = await this.followService.getFollowers(authorId);
+    for (const follower of followers.data ?? []) {
+      this.socketGateway.emitToUser(follower.id, 'new_post', post);
+    }
 
     return response('Tạo bài viết thành công', 201, 'success', post);
   }

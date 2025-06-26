@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { NotificationModule } from '../notification/notification.module';
+import { SocketGateway } from '../socket/post.gateway';
 @Module({
   imports: [
     NotificationModule,
@@ -14,6 +15,6 @@ import { NotificationModule } from '../notification/notification.module';
     }),
   ],
   controllers: [LikeController],
-  providers: [LikeService, PrismaService, JwtStrategy],
+  providers: [LikeService, PrismaService, JwtStrategy, SocketGateway],
 })
 export class LikeModule {}

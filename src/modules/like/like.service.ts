@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotificationService } from '../notification/notification.service';
-import { SocketGateway } from '../socket/post.gateway';
+import { SocketGateway } from '../socket/socket.gateway';
 import { response } from '../../common/utils/response.utils';
 import { NotificationType } from '../../../generated/prisma';
 

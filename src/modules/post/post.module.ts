@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { FollowModule } from '../follow/follow.module';
-import { SocketGateway } from '../socket/post.gateway';
+import { SocketGateway } from '../socket/socket.gateway';
 
 @Module({
   imports: [

@@ -10,7 +10,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { response } from '../../common/utils/response.utils';
 import { FollowService } from '../follow/follow.service';
 import { isToday } from 'date-fns';
-import { SocketGateway } from '../socket/post.gateway';
+import { SocketGateway } from '../socket/socket.gateway';
 @Injectable()
 export class PostService {
   constructor(

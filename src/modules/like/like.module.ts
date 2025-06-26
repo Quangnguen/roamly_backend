@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { NotificationModule } from '../notification/notification.module';
-import { SocketGateway } from '../socket/post.gateway';
+import { SocketGateway } from '../socket/socket.gateway';
 @Module({
   imports: [
     NotificationModule,

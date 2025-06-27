@@ -40,6 +40,10 @@ export class LikeService {
       });
 
       if (post && post.authorId !== userId) {
+        await this.prisma.post.update({
+          where: { id: targetId },
+          data: { likeCount: { increment: 1 } },
+        });
         // 🔔 Gửi thông báo và realtime tới chủ post
         await this.notificationService.createNotification({
           type: NotificationType.LIKE,
@@ -57,6 +61,41 @@ export class LikeService {
         this.socketGateway.emitToUser(post.authorId, 'new_notification', {
           type: NotificationType.LIKE,
           postId: post.id,
+        });
+      }
+    } else if (type === 'comment') {
+      const comment = await this.prisma.comment.findUnique({
+        where: { id: targetId },
+      });
+
+      if (!comment) {
+        throw new NotFoundException('Không tìm thấy bình luận');
+      }
+
+      // Tăng likeCount
+      await this.prisma.comment.update({
+        where: { id: targetId },
+        data: { likeCount: { increment: 1 } },
+      });
+
+      // Nếu người like khác tác giả comment, gửi thông báo
+      if (comment.authorId !== userId) {
+        await this.notificationService.createNotification({
+          type: NotificationType.LIKE,
+          message: 'Ai đó đã thích bình luận của bạn',
+          senderId: userId,
+          recipientId: comment.authorId,
+          data: { commentId: comment.id }, // Gửi thêm dữ liệu tùy chỉnh nếu muốn
+        });
+
+        this.socketGateway.emitToUser(comment.authorId, 'comment_liked', {
+          commentId: comment.id,
+          userId,
+        });
+
+        this.socketGateway.emitToUser(comment.authorId, 'new_notification', {
+          type: NotificationType.LIKE,
+          commentId: comment.id,
         });
       }
     }
@@ -84,6 +123,10 @@ export class LikeService {
 
       if (post) {
         // 🔄 Cập nhật realtime khi unlike
+        await this.prisma.post.update({
+          where: { id: targetId },
+          data: { likeCount: { decrement: 1 } },
+        });
         this.socketGateway.emitToUser(post.authorId, 'post_unliked', {
           postId: targetId,
           userId,
@@ -94,6 +137,31 @@ export class LikeService {
           userId,
         });
       }
+    } else if (type === 'comment') {
+      const comment = await this.prisma.comment.findUnique({
+        where: { id: targetId },
+      });
+
+      if (!comment) {
+        throw new NotFoundException('Không tìm thấy bình luận');
+      }
+
+      // Giảm likeCount
+      await this.prisma.comment.update({
+        where: { id: targetId },
+        data: { likeCount: { decrement: 1 } },
+      });
+
+      // Gửi realtime nếu cần
+      this.socketGateway.emitToUser(comment.authorId, 'comment_unliked', {
+        commentId: targetId,
+        userId,
+      });
+
+      this.socketGateway.emitToUser(userId, 'comment_unliked', {
+        commentId: targetId,
+        userId,
+      });
     }
 
     return response('Đã bỏ thích', 200, 'success', null);

@@ -39,7 +39,9 @@ export class LikeService {
         where: { id: targetId },
       });
 
-      if (post && post.authorId !== userId) {
+      // if (post && post.authorId !== userId) {
+      if (post) {
+
         // 🔔 Gửi thông báo và realtime tới chủ post
         await this.notificationService.createNotification({
           type: NotificationType.LIKE,
@@ -49,9 +51,19 @@ export class LikeService {
           postId: post.id,
         });
 
+        console.log(`🚀 Emitting post_liked to user ${post.authorId}`, {
+          postId: post.id,
+          userId,
+        });
+
         this.socketGateway.emitToUser(post.authorId, 'post_liked', {
           postId: post.id,
           userId,
+        });
+
+        console.log(`🔔 Emitting new_notification to user ${post.authorId}`, {
+          type: NotificationType.LIKE,
+          postId: post.id,
         });
 
         this.socketGateway.emitToUser(post.authorId, 'new_notification', {

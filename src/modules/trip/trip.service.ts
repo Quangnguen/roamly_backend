@@ -88,17 +88,54 @@ export class TripService {
         if (trip.userId !== userId) {
             throw new ForbiddenException('You are not allowed to update this trip');
         }
-        // Xử lý files nếu cần (ví dụ: upload ảnh mới)
-        const imageUrls = await this.cloudinary.uploadMultiple(files);
 
+        console.log('Updating trip with ID:', dto);
+        
+        // Tạo object update data với giá trị mặc định
+        const updateData: any = {};
+        
+        // Xử lý từng trường riêng biệt
+        // String fields: chuỗi rỗng nếu undefined
+        updateData.title = dto.title !== undefined ? dto.title : '';
+        updateData.description = dto.description !== undefined ? dto.description : '';
+        updateData.homestay = dto.homestay !== undefined ? dto.homestay : '';
+        updateData.privacy = dto.privacy !== undefined ? dto.privacy : trip.privacy;
+        
+        // Date fields: giữ nguyên nếu undefined
+        if (dto.startDate !== undefined) updateData.startDate = dto.startDate;
+        if (dto.endDate !== undefined) updateData.endDate = dto.endDate;
+        
+        // Array fields: mảng rỗng nếu undefined
+        updateData.placesVisited = dto.placesVisited !== undefined ? dto.placesVisited : [];
+        updateData.tags = dto.tags !== undefined ? dto.tags : [];
+        updateData.participants = dto.participants !== undefined ? dto.participants : [];
+        
+        // Object fields: object rỗng nếu undefined
+        updateData.cost = dto.cost !== undefined ? dto.cost : {};
+        
+       // Xử lý ảnh: kết hợp ảnh mới và ảnh đã có
+        if (files && files.length > 0) {
+            const newImageUrls = await this.cloudinary.uploadMultiple(files);
+            
+            // Nếu có existingImages, kết hợp với ảnh mới
+            if (dto.existingImages && Array.isArray(dto.existingImages)) {
+            updateData.imageUrl = [...dto.existingImages, ...newImageUrls];
+            } else {
+            updateData.imageUrl = newImageUrls;
+            }
+        } else if (dto.existingImages && Array.isArray(dto.existingImages)) {
+            // Nếu không có ảnh mới, nhưng có existingImages
+            updateData.imageUrl = dto.existingImages;
+        }
+        
+        // Log để debug
+        console.log('Update data:', updateData);
+        
         const updated = await this.prisma.trip.update({
             where: { id: tripId },
-            data: {
-                ...dto,
-                imageUrl: imageUrls,
-
-            },           
+            data: updateData,
         });
+        
         return response(
             'Trip updated successfully',
             200,

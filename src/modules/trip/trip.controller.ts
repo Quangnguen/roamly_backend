@@ -16,6 +16,7 @@ import {
     Get,
     Delete,
     Patch,
+    Put,
 } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
@@ -104,7 +105,7 @@ export class TripController {
         return this.tripService.deleteTrip(id, userId);
     }
 
-    @Patch('update/:id')
+    @Put('update/:id')
     @UseInterceptors(FilesInterceptor('images'))
     @Roles(Role.User, Role.Admin)
     async updateTrip(
@@ -113,9 +114,11 @@ export class TripController {
         @Body() dto: any,
         @Req() req: any,
     ) {
+        console.log('Update Memory', dto);
         const userId = req.user.id;
         const groupedData = this.groupFormData(dto, UpdateTripDto);
         const updateTripDto = Object.assign(new UpdateTripDto(), groupedData);
+        console.log('Update Memory DTO:', updateTripDto);
         return this.tripService.updateTrip(id, userId, files, updateTripDto);
     }
 }

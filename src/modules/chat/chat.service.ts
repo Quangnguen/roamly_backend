@@ -74,18 +74,14 @@ export class ChatService {
           data: { conversationId: conversation.id },
         });
         const creater = await this.prisma.user.findUnique({
-          where: { id: userId },
+          where: { id: creatorId },
           select: { id: true, username: true },
         });
-        const conversation = await this.prisma.conversation.findUnique({
-          where: { id: conversationId },
-          select: { id: true, name: true },
-        });
+
         this.socketGateway.emitToUser(participant.userId, 'new_notification', {
           type: 'MESSAGE',
           conversationId: conversation.id,
           username: creater?.username,
-          conversationName: conversation?.name,
         });
       }
     }
@@ -202,12 +198,8 @@ export class ChatService {
           data: { conversationId, messageId: message.id },
         });
         const sender = await this.prisma.user.findUnique({
-          where: { id: userId },
+          where: { id: senderId },
           select: { id: true, username: true },
-        });
-        const conversation = await this.prisma.conversation.findUnique({
-          where: { id: conversationId },
-          select: { id: true, name: true },
         });
         this.socketGateway.emitToUser(participant.userId, 'new_notification', {
           type: 'MESSAGE',

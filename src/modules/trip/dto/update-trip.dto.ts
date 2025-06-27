@@ -48,4 +48,9 @@ export class UpdateTripDto {
 
     @IsOptional()
     privacy?: string;
+
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    existingImages?: string[]; // Thêm trường này
 }

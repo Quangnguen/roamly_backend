@@ -113,13 +113,19 @@ export class TripService {
         // Object fields: object rỗng nếu undefined
         updateData.cost = dto.cost !== undefined ? dto.cost : {};
         
-        // Chỉ upload và cập nhật imageUrl nếu có files mới
+       // Xử lý ảnh: kết hợp ảnh mới và ảnh đã có
         if (files && files.length > 0) {
-            const imageUrls = await this.cloudinary.uploadMultiple(files);
-            updateData.imageUrl = imageUrls;
-        } else if (dto.imageUrl !== undefined) {
-            // Nếu không có files mới nhưng có imageUrl trong DTO
-            updateData.imageUrl = dto.imageUrl;
+            const newImageUrls = await this.cloudinary.uploadMultiple(files);
+            
+            // Nếu có existingImages, kết hợp với ảnh mới
+            if (dto.existingImages && Array.isArray(dto.existingImages)) {
+            updateData.imageUrl = [...dto.existingImages, ...newImageUrls];
+            } else {
+            updateData.imageUrl = newImageUrls;
+            }
+        } else if (dto.existingImages && Array.isArray(dto.existingImages)) {
+            // Nếu không có ảnh mới, nhưng có existingImages
+            updateData.imageUrl = dto.existingImages;
         }
         
         // Log để debug

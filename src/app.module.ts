@@ -12,6 +12,8 @@ import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 import { SocketGateway } from './modules/socket/socket.gateway';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     UserModule,
@@ -23,6 +25,20 @@ import { SocketGateway } from './modules/socket/socket.gateway';
     LikeModule,
     NotificationModule,
     CommentModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    JwtModule.registerAsync({
+      global: true,
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET') || 'your-default-secret',
+        signOptions: {
+          expiresIn: configService.get<string>('JWT_EXPIRES_IN') || '24h',
+        },
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, SocketGateway],

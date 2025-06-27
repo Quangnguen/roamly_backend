@@ -52,7 +52,10 @@ export class LikeService {
           recipientId: post.authorId,
           postId: post.id,
         });
-
+        const sender = await this.prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, username: true },
+        });
         this.socketGateway.emitToUser(post.authorId, 'post_liked', {
           postId: post.id,
           userId,
@@ -61,6 +64,7 @@ export class LikeService {
         this.socketGateway.emitToUser(post.authorId, 'new_notification', {
           type: NotificationType.LIKE,
           postId: post.id,
+          username: sender?.username,
         });
       }
     } else if (type === 'comment') {
@@ -87,7 +91,10 @@ export class LikeService {
           recipientId: comment.authorId,
           data: { commentId: comment.id }, // Gửi thêm dữ liệu tùy chỉnh nếu muốn
         });
-
+        const sender = await this.prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, username: true },
+        });
         this.socketGateway.emitToUser(comment.authorId, 'comment_liked', {
           commentId: comment.id,
           userId,
@@ -96,6 +103,7 @@ export class LikeService {
         this.socketGateway.emitToUser(comment.authorId, 'new_notification', {
           type: NotificationType.LIKE,
           commentId: comment.id,
+          username: sender?.username,
         });
       }
     }

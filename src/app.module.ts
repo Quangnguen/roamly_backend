@@ -7,9 +7,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PostModule } from './modules/post/post.module';
 import { FollowModule } from './modules/follow/follow.module';
 import { LikeModule } from './modules/like/like.module';
+import { CommentModule } from './modules/comment/comment.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { SocketGateway } from './modules/socket/socket.gateway';
 @Module({
   imports: [
     UserModule,
@@ -20,8 +22,9 @@ import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
     CloudinaryModule,
     LikeModule,
     NotificationModule,
+    CommentModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, SocketGateway],
 })
 export class AppModule {}

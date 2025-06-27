@@ -36,28 +36,101 @@ export class SocketGateway
   }
 
   handleConnection(client: ExtendedSocket) {
+    console.log('🚨 HANDLE CONNECTION CALLED - START'); // ✅ Thêm dòng này
+    console.log('🔗 NEW CONNECTION ATTEMPT:', client.id);
+    console.log('🔑 Full handshake:', JSON.stringify(client.handshake, null, 2));
+    console.log('🔑 Auth data:', client.handshake.auth);
+    console.log('🔑 Query params:', client.handshake.query);
+    console.log('🔑 Headers:', client.handshake.headers);
+    
     try {
-      const token = client.handshake.auth.token;
+      // ✅ Thử lấy token từ nhiều nguồn
+      let token = client.handshake.auth.token || 
+                  client.handshake.auth.authorization ||
+                  client.handshake.query.token ||
+                  client.handshake.headers.authorization;
+
+      // ✅ Xử lý Bearer token format
+      if (token && token.startsWith('Bearer ')) {
+        token = token.substring(7);
+      }
+
+      console.log('🔑 Extracted token:', token ? `Found (${token.substring(0, 20)}...)` : 'Not found');
+
       if (!token) {
-        console.log('❌ No token provided');
+        console.log('❌ No token provided for socket:', client.id);
+        console.log('❌ Available auth sources:', {
+          'auth.token': !!client.handshake.auth.token,
+          'auth.authorization': !!client.handshake.auth.authorization,
+          'query.token': !!client.handshake.query.token,
+          'headers.authorization': !!client.handshake.headers.authorization
+        });
+        
+        client.emit('error', { message: 'Authentication required' });
         client.disconnect();
         return;
       }
 
+      console.log('🔑 Attempting JWT verification...');
       const payload = this.jwtService.verify(token);
       const userId = payload.sub;
 
-      console.log(`🔌 User ${userId} connected with socket ${client.id}`);
+      if (!userId) {
+        console.log('❌ No userId found in JWT payload:', payload);
+        client.emit('error', { message: 'Invalid token payload' });
+        client.disconnect();
+        return;
+      }
+
+      console.log('✅ JWT verified successfully!');
+      console.log('👤 User ID:', userId);
+      console.log('🔌 Socket ID:', client.id);
+
+      // ✅ Kiểm tra user đã connect chưa (prevent duplicate)
+      const existingSocketId = this.userSockets.get(userId);
+      if (existingSocketId && existingSocketId !== client.id) {
+        console.log(`⚠️ User ${userId} already connected with socket ${existingSocketId}`);
+        console.log(`🔄 Disconnecting old socket and using new one`);
+        
+        // ✅ SỬA: Sử dụng sockets.get() để lấy socket instance
+        const existingSocket = this.server.sockets.sockets.get(existingSocketId);
+        if (existingSocket) {
+          existingSocket.disconnect();
+          console.log(`🔄 Disconnected old socket ${existingSocketId}`);
+        }
+      }
 
       this.userSockets.set(userId, client.id);
-      client.userId = userId; // ✅ No more TypeScript error
 
-      console.log(`📊 Current connected users:`, Array.from(this.userSockets.keys()));
+      client.userId = userId;
 
-      // Test emit ngay khi connect
-      client.emit('connection_success', { userId, socketId: client.id });
+      // ✅ Emit success event
+      client.emit('connection_success', { 
+        userId, 
+        socketId: client.id,
+        message: 'Socket connected successfully'
+      });
+
+      console.log('🎉 Connection setup completed for user:', userId);
+      
     } catch (error) {
-      console.error('❌ Socket connection error:', error);
+      console.error('❌ Socket connection error:');
+      console.error('❌ Error type:', error.constructor.name);
+      console.error('❌ Error message:', error.message);
+      console.error('❌ Full error:', error);
+      
+      if (error.name === 'JsonWebTokenError') {
+        console.error('❌ JWT Error - Invalid token format');
+      } else if (error.name === 'TokenExpiredError') {
+        console.error('❌ JWT Error - Token expired');
+      } else if (error.name === 'NotBeforeError') {
+        console.error('❌ JWT Error - Token not active');
+      }
+      
+      client.emit('error', { 
+        message: 'Authentication failed',
+        error: error.message 
+      });
       client.disconnect();
     }
   }

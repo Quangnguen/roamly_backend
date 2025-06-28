@@ -99,8 +99,10 @@ export class PostController {
   @Delete(':id')
   async delete(@Param('id') id: string, @Req() req: any) {
     const userId = req.user.id;
-    const post = await this.postsService.findById(id, userId);
-    if (!post) throw new ForbiddenException('Post not found');
+    const post = await this.postsService.findById(userId, id);
+    if (!post)
+      throw new ForbiddenException('Bạn không có quyền xoá bài viết này');
+
     return this.postsService.delete(id);
   }
 }

@@ -418,7 +418,10 @@ export class PostService {
 
   async delete(postId: string) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
-    if (!post) throw new NotFoundException('Không tìm thấy bài viết');
+
+    if (!post) {
+      throw new NotFoundException('Không tìm thấy bài viết');
+    }
 
     for (const url of post.imageUrl) {
       const publicId = this.cloudinary.extractPublicId(url);

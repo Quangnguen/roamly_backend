@@ -26,9 +26,9 @@ export class ChatService {
     userIds: string[],
     name?: string,
   ) {
-    const isGroup = userIds.length > 2;
+    const isGroup = userIds.length > 1;
 
-    if (!isGroup && userIds.length !== 2) {
+    if (!isGroup && userIds.length !== 1) {
       throw new BadRequestException('Chat cá nhân phải có đúng 2 người');
     }
 
@@ -43,7 +43,7 @@ export class ChatService {
         include: { participants: true },
       });
 
-      if (existing && existing.participants.length === 2) {
+      if (existing && existing.participants.length === 1) {
         return response('Đã có cuộc trò chuyện', 200, 'exists', existing);
       }
     }
@@ -54,7 +54,7 @@ export class ChatService {
         name: isGroup ? name : null,
         createdById: creatorId,
         participants: {
-          create: userIds.map((id) => ({ userId: id })),
+          create: [...userIds, creatorId].map((id) => ({ userId: id })),
         },
       },
       include: {
@@ -280,6 +280,25 @@ export class ChatService {
   }
 
   async markAsSeen(userId: string, conversationId: string) {
+    const conversation = await this.prisma.conversation.findUnique({
+      where: { id: conversationId },
+      include: { participants: true },
+    });
+
+    if (!conversation) {
+      throw new NotFoundException('Không tìm thấy cuộc trò chuyện');
+    }
+
+    const isParticipant = conversation.participants.some(
+      (p) => p.userId === userId,
+    );
+
+    if (!isParticipant) {
+      throw new ForbiddenException(
+        'Bạn không có quyền đánh dấu đã xem trong cuộc trò chuyện này',
+      );
+    }
+
     await this.prisma.message.updateMany({
       where: {
         conversationId,
@@ -290,11 +309,17 @@ export class ChatService {
       },
     });
 
-    this.socketGateway.emitToUser(conversationId, 'message_seen', { userId });
+    for (const participant of conversation.participants) {
+      if (participant.userId !== userId) {
+        this.socketGateway.emitToUser(participant.userId, 'message_seen', {
+          userId,
+          conversationId,
+        });
+      }
+    }
 
     return response('Đánh dấu đã xem', 200, 'success', null);
   }
-
   async getUserConversations(userId: string) {
     const conversations = await this.prisma.conversation.findMany({
       where: { participants: { some: { userId } } },

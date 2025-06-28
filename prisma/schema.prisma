@@ -44,8 +44,6 @@ model User {
   comments      Comment[]
   likes         Like[]
   savedPosts    SavedPost[]
-  messagesSent  Message[]  @relation("SentMessages")
-  messagesRecv  Message[]  @relation("ReceivedMessages")
   notificationsSent Notification[] @relation("SenderNoti")
   notificationsRecv Notification[] @relation("ReceiverNoti")
   trips         Trip[]
@@ -56,6 +54,11 @@ model User {
   sharedPostsSent     SharedPost[] @relation("SharedPostsSender")
   sharedPostsReceived SharedPost[] @relation("SharedPostsRecipient")
   stories        Story[]
+  conversationsCreated     Conversation[]            @relation("ConversationCreatedBy")
+  conversationParticipants ConversationParticipant[]
+  messageReactions MessageReaction[]
+  sentMessages             Message[]
+
 
   @@map("users")
 }
@@ -150,7 +153,7 @@ model Comment {
   author     User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   parent     Comment?  @relation("CommentReply", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies    Comment[] @relation("CommentReply")
-
+  likes Like[] @relation("CommentLikes")
   @@map("comments")
 }
 
@@ -164,7 +167,7 @@ model Like {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   post      Post?    @relation("PostLikes", fields: [targetId], references: [id])
-
+  comment   Comment? @relation("CommentLikes", fields: [targetId], references: [id])
   @@unique([userId, targetId, type])
   @@map("likes")
 }
@@ -184,18 +187,64 @@ model SavedPost {
 }
 
 model Message {
-  id         String   @id @default(uuid()) @map("_id")
-  senderId   String
-  receiverId String
-  content    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
-  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
-
+  id              String        @id @default(uuid()) @map("_id")
+  conversationId  String
+  senderId        String
+  content         String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedForAll   Boolean       @default(false)
+  seenBy          String[]      @default([]) // userIds đã đọc
+mediaUrls   String[]  @default([])
+mediaType   String?
+pinned         Boolean       @default(false)
+  conversation    Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender          User          @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  reactions       MessageReaction[]
   @@map("messages")
 }
+
+model MessageReaction {
+  id        String   @id @default(uuid()) @map("_id")
+  userId    String
+  messageId String
+  reaction  String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, messageId], name: "message_user_unique")
+  @@map("message_reactions")
+}
+
+
+model Conversation {
+  id           String                    @id @default(uuid()) @map("_id")
+  isGroup      Boolean                   @default(false)
+  name         String?                   // Tên nhóm (nếu là chat nhóm)
+  createdById  String
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+
+  createdBy    User                      @relation("ConversationCreatedBy", fields: [createdById], references: [id])
+  participants ConversationParticipant[]
+  messages     Message[]
+
+  @@map("conversations")
+}
+model ConversationParticipant {
+  id             String       @id @default(uuid()) @map("_id")
+  conversationId String
+  userId         String
+  joinedAt       DateTime     @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@map("conversation_participants")
+}
+
 
 model Notification {
   id           String           @id @default(uuid()) @map("_id")

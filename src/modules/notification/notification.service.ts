@@ -29,6 +29,18 @@ export class NotificationService {
     }
   }
   async getNotifications(userId: string, limit: number, offset: number) {
+    // Đánh dấu tất cả thông báo chưa đọc là đã đọc
+    await this.prisma.notification.updateMany({
+      where: {
+        recipientId: userId,
+        isRead: false,
+      },
+      data: {
+        isRead: true,
+      },
+    });
+
+    // Truy vấn danh sách thông báo (đã được đánh dấu là đã đọc)
     const notifications = await this.prisma.notification.findMany({
       where: { recipientId: userId },
       orderBy: { createdAt: 'desc' },

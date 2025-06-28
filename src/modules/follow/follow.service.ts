@@ -7,10 +7,16 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateFollowDto } from './dto/create-follow.dto';
 import { UpdateFollowStatusDto } from './dto/update-follow-status.dto';
 import { response } from '../../common/utils/response.utils';
-
+import { SocketGateway } from '../socket/socket.gateway';
+import { NotificationType } from '../../../generated/prisma';
+import { NotificationService } from '../notification/notification.service';
 @Injectable()
 export class FollowService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly socketGateway: SocketGateway,
+    private readonly notificationService: NotificationService,
+  ) {}
 
   async createFollow(followerId: string, dto: CreateFollowDto) {
     const { followingId } = dto;
@@ -41,6 +47,49 @@ export class FollowService {
       data: { followerId, followingId, followStatus },
     });
 
+    const sender = await this.prisma.user.findUnique({
+      where: { id: followerId },
+      select: { username: true },
+    });
+
+    if (followStatus === 'accepted') {
+      await this.notificationService.createNotification({
+        type: NotificationType.FOLLOW,
+        message: 'Ai đó đã theo dõi bạn',
+        senderId: followerId,
+        recipientId: followingId,
+      });
+
+      this.socketGateway.emitToUser(followingId, 'new_follower', {
+        followerId,
+        username: sender?.username,
+      });
+
+      this.socketGateway.emitToUser(followingId, 'new_notification', {
+        type: NotificationType.FOLLOW,
+        username: sender?.username,
+        status: 'accept',
+      });
+    } else {
+      await this.notificationService.createNotification({
+        type: NotificationType.FOLLOW,
+        message: 'Ai đó đã yêu cầu theo dõi bạn',
+        senderId: followerId,
+        recipientId: followingId,
+      });
+
+      this.socketGateway.emitToUser(followingId, 'follow_request', {
+        followerId,
+        username: sender?.username,
+      });
+
+      this.socketGateway.emitToUser(followingId, 'new_notification', {
+        type: NotificationType.FOLLOW,
+        username: sender?.username,
+        status: 'pending',
+      });
+    }
+
     return response('Theo dõi thành công', 201, 'success', follow);
   }
 
@@ -61,6 +110,31 @@ export class FollowService {
       where: { followerId_followingId: { followerId, followingId } },
       data: { followStatus: dto.followStatus },
     });
+
+    if (follow.followStatus === 'pending' && dto.followStatus === 'accepted') {
+      await this.notificationService.createNotification({
+        type: NotificationType.FOLLOW,
+        message: 'Yêu cầu theo dõi của bạn đã được chấp nhận',
+        senderId: followingId,
+        recipientId: followerId,
+      });
+
+      const sender = await this.prisma.user.findUnique({
+        where: { id: followingId },
+        select: { username: true },
+      });
+
+      this.socketGateway.emitToUser(followerId, 'follow_request_accepted', {
+        userId: followingId,
+        username: sender?.username,
+      });
+
+      this.socketGateway.emitToUser(followerId, 'new_notification', {
+        type: NotificationType.FOLLOW,
+        username: sender?.username,
+        status: 'accept',
+      });
+    }
 
     return response(
       'Cập nhật trạng thái theo dõi thành công',

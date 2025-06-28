@@ -207,11 +207,39 @@ exports.Prisma.SavedPostScalarFieldEnum = {
 
 exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
+  conversationId: 'conversationId',
   senderId: 'senderId',
-  receiverId: 'receiverId',
   content: 'content',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedForAll: 'deletedForAll',
+  seenBy: 'seenBy',
+  mediaUrls: 'mediaUrls',
+  mediaType: 'mediaType',
+  pinned: 'pinned'
+};
+
+exports.Prisma.MessageReactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  messageId: 'messageId',
+  reaction: 'reaction'
+};
+
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  isGroup: 'isGroup',
+  name: 'name',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConversationParticipantScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId',
+  joinedAt: 'joinedAt'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -299,6 +327,9 @@ exports.Prisma.ModelName = {
   Like: 'Like',
   SavedPost: 'SavedPost',
   Message: 'Message',
+  MessageReaction: 'MessageReaction',
+  Conversation: 'Conversation',
+  ConversationParticipant: 'ConversationParticipant',
   Notification: 'Notification',
   Trip: 'Trip',
   Story: 'Story',

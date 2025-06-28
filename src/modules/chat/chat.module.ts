@@ -1,24 +1,22 @@
 import { Module } from '@nestjs/common';
-import { FollowService } from './follow.service';
-import { FollowController } from './follow.controller';
+import { ChatService } from './chat.service';
+import { ChatController } from './chat.controller';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
-import { CloudinaryModule } from '../cloudinary/cloudinary.module';
-import { SocketGateway } from '../socket/socket.gateway';
 import { NotificationModule } from '../notification/notification.module';
-
+import { SocketGateway } from '../socket/socket.gateway';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 @Module({
   imports: [
-    CloudinaryModule,
     NotificationModule,
+    CloudinaryModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'Roamly',
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [FollowController],
-  providers: [FollowService, PrismaService, JwtStrategy, SocketGateway],
-  exports: [FollowService],
+  controllers: [ChatController],
+  providers: [ChatService, PrismaService, JwtStrategy, SocketGateway],
 })
-export class FollowModule {}
+export class ChatModule {}

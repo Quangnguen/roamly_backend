@@ -59,6 +59,7 @@ export class LikeService {
         this.socketGateway.emitToUser(post.authorId, 'post_liked', {
           postId: post.id,
           userId,
+          username: sender?.username,
         });
 
         console.log(`🔔 Emitting new_notification to user ${post.authorId}`, {

@@ -32,9 +32,9 @@ export class ChatController {
       body.name,
     );
   }
-  @Get('message')
+  @Get('message/:conversationId')
   async getMessages(
-    @Query('conversationId') conversationId: string,
+    @Param('conversationId') conversationId: string,
     @Query('limit') limit: string,
     @Query('before') before?: string,
   ) {

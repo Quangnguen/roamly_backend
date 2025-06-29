@@ -367,22 +367,59 @@ export class ChatService {
   }
   async getUserConversations(userId: string) {
     const conversations = await this.prisma.conversation.findMany({
-      where: { participants: { some: { userId } } },
+      where: {
+        participants: {
+          some: { userId },
+        },
+      },
       include: {
         participants: {
           include: {
-            user: { select: { id: true, username: true, profilePic: true } },
+            user: {
+              select: {
+                id: true,
+                username: true,
+                profilePic: true,
+              },
+            },
           },
         },
         messages: {
           take: 1,
           orderBy: { createdAt: 'desc' },
+          include: {
+            sender: {
+              select: {
+                id: true,
+                username: true,
+                profilePic: true,
+              },
+            },
+          },
         },
       },
       orderBy: { updatedAt: 'desc' },
     });
 
-    return response('Danh sách cuộc trò chuyện', 200, 'success', conversations);
+    const formatted = conversations.map(({ messages, ...rest }) => {
+      const msg = messages[0];
+
+      const preview =
+        msg?.mediaUrls?.length > 0
+          ? msg.mediaType === 'image'
+            ? 'Hình ảnh'
+            : msg.mediaType === 'video'
+              ? 'Video'
+              : 'Tệp đa phương tiện'
+          : msg?.content || null;
+
+      return {
+        ...rest,
+        lastMessage: msg ? { ...msg, preview } : null,
+      };
+    });
+
+    return response('Danh sách cuộc trò chuyện', 200, 'success', formatted);
   }
 
   async reactToMessage(userId: string, messageId: string, reaction: string) {

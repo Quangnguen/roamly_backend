@@ -9,6 +9,7 @@ import {
   Param,
   Req,
   UseGuards,
+  Patch,
   Query,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
@@ -40,5 +41,13 @@ export class CommentController {
   @Delete(':id')
   async deleteComment(@Param('id') id: string, @Req() req) {
     return this.commentService.deleteComment(req.user.id, id);
+  }
+  @Patch(':id')
+  updateComment(
+    @Req() req,
+    @Param('id') commentId: string,
+    @Body('content') content: string,
+  ) {
+    return this.commentService.updateComment(req.user.id, commentId, content);
   }
 }

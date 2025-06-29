@@ -70,6 +70,40 @@ export class CommentService {
 
     return response('Bình luận thành công', 201, 'success', comment);
   }
+  async updateComment(userId: string, commentId: string, content: string) {
+    const comment = await this.prisma.comment.findUnique({
+      where: { id: commentId },
+      include: {
+        author: {
+          select: { id: true, username: true, profilePic: true },
+        },
+      },
+    });
+
+    if (!comment) {
+      throw new NotFoundException('Không tìm thấy bình luận');
+    }
+
+    if (comment.authorId !== userId) {
+      throw new ForbiddenException('Không có quyền chỉnh sửa bình luận');
+    }
+
+    const updated = await this.prisma.comment.update({
+      where: { id: commentId },
+      data: { content },
+      include: {
+        author: {
+          select: { id: true, username: true, profilePic: true },
+        },
+      },
+    });
+    this.socketGateway.emitToUser(comment.postId, 'comment_updated', {
+      commentId,
+      content,
+    });
+
+    return response('Cập nhật bình luận thành công', 200, 'success', updated);
+  }
 
   async getComments(postId: string) {
     const comments = await this.prisma.comment.findMany({

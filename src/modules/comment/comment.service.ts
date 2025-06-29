@@ -55,7 +55,10 @@ export class CommentService {
         recipientId: post.authorId,
         postId,
       });
-
+      const sender = await this.prisma.user.findUnique({
+        where: { id: authorId },
+        select: { id: true, username: true },
+      });
       this.socketGateway.emitToUser(post.authorId, 'new_comment', {
         postId,
         comment,
@@ -65,6 +68,7 @@ export class CommentService {
         type: 'COMMENT',
         postId,
         commentId: comment.id,
+        username: sender?.username,
       });
     }
 

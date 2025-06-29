@@ -9,7 +9,6 @@ import {
   Param,
   Req,
   UseGuards,
-  Query,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
@@ -21,7 +20,7 @@ export class CommentController {
 
   @Post()
   async createComment(
-    @Req() req,
+    @Req() req: { user: { id: string } },
     @Body() body: { postId: string; content: string; parentId?: string },
   ) {
     return this.commentService.createComment(
@@ -38,7 +37,8 @@ export class CommentController {
   }
 
   @Delete(':id')
-  async deleteComment(@Param('id') id: string, @Req() req) {
+  async deleteComment(@Param('id') id: string, @Req() req: { user: { id: string } }) {
     return this.commentService.deleteComment(req.user.id, id);
   }
+  
 }

@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import { NotificationService } from '../notification/notification.service';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
@@ -17,6 +18,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private notificationService: NotificationService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -128,7 +130,7 @@ export class AuthService {
     // Đảm bảo phoneNumber luôn là string
     user.phoneNumber = user.phoneNumber ?? '';
 
-    const [followersCount, followingCount] = await Promise.all([
+    const [followersCount, followingCount, unreadNotifications] = await Promise.all([
       this.prisma.follow.count({
         where: {
           followingId: user.id,
@@ -141,6 +143,7 @@ export class AuthService {
           followStatus: 'accepted',
         },
       }),
+      this.notificationService.countUnread(user.id),
     ]);
 
     const postCount = await this.prisma.post.count({
@@ -164,6 +167,7 @@ export class AuthService {
         followersCount: followersCount,
         followingCount: followingCount,
         postCount: postCount,
+        unreadNotifications: unreadNotifications.data?.count ?? 0,
       },
     };
   }

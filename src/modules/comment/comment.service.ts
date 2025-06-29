@@ -33,7 +33,7 @@ export class CommentService {
         postId,
         authorId,
         content,
-        parentId: parentId || undefined,
+        parentId: parentId || null,
       },
       include: {
         author: {
@@ -47,6 +47,13 @@ export class CommentService {
       data: { commentCount: { increment: 1 } },
     });
 
+    // ✅ Emit socket event để real-time update comments
+    this.socketGateway.server.emit('new_comment', {
+      postId,
+      comment,
+      commentCount: post.commentCount + 1,
+    });
+
     if (post.authorId !== authorId) {
       await this.notificationService.createNotification({
         type: 'COMMENT',
@@ -54,11 +61,6 @@ export class CommentService {
         senderId: authorId,
         recipientId: post.authorId,
         postId,
-      });
-
-      this.socketGateway.emitToUser(post.authorId, 'new_comment', {
-        postId,
-        comment,
       });
 
       this.socketGateway.emitToUser(post.authorId, 'new_notification', {

@@ -10,7 +10,6 @@ import {
   Req,
   UseGuards,
   Patch,
-  Query,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
@@ -44,7 +43,7 @@ export class CommentController {
   }
   @Patch(':id')
   updateComment(
-    @Req() req,
+    @Req() req: { user: { id: string } },
     @Param('id') commentId: string,
     @Body('content') content: string,
   ) {

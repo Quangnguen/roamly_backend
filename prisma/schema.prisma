@@ -19,9 +19,9 @@ enum NotificationType {
 }
 
 model User {
-  id            String     @id @default(uuid()) @map("_id")
-  email         String     @unique
-  username      String     @unique
+  id            String    @id @default(uuid()) @map("_id")
+  email         String    @unique
+  username      String    @unique
   password      String
   name          String
   phoneNumber   String?
@@ -30,96 +30,94 @@ model User {
   gender        String?
   dob           DateTime?
   address       String?
-  verified      Boolean    @default(false)
+  verified      Boolean   @default(false)
   lastLogin     DateTime?
-  accountStatus Boolean    @default(true)
-  private       Boolean    @default(false)
+  accountStatus Boolean   @default(true)
+  private       Boolean   @default(false)
   role          Int
   refreshToken  String?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   deleteAt      DateTime?
 
-  posts         Post[]     @relation("UserPosts")
-  comments      Comment[]
-  likes         Like[]
-  savedPosts    SavedPost[]
-  notificationsSent Notification[] @relation("SenderNoti")
-  notificationsRecv Notification[] @relation("ReceiverNoti")
-  trips         Trip[]
-  reports       Report[]   @relation("Reporter")
-  followers     Follow[]   @relation("FollowerRelation")
-  following     Follow[]   @relation("FollowingRelation")
-  taggedInPosts PostTag[]
-  sharedPostsSent     SharedPost[] @relation("SharedPostsSender")
-  sharedPostsReceived SharedPost[] @relation("SharedPostsRecipient")
-  stories        Story[]
+  posts                    Post[]                    @relation("UserPosts")
+  comments                 Comment[]
+  likes                    Like[]
+  savedPosts               SavedPost[]
+  notificationsSent        Notification[]            @relation("SenderNoti")
+  notificationsRecv        Notification[]            @relation("ReceiverNoti")
+  trips                    Trip[]
+  reports                  Report[]                  @relation("Reporter")
+  followers                Follow[]                  @relation("FollowerRelation")
+  following                Follow[]                  @relation("FollowingRelation")
+  taggedInPosts            PostTag[]
+  sharedPostsSent          SharedPost[]              @relation("SharedPostsSender")
+  sharedPostsReceived      SharedPost[]              @relation("SharedPostsRecipient")
+  stories                  Story[]
   conversationsCreated     Conversation[]            @relation("ConversationCreatedBy")
   conversationParticipants ConversationParticipant[]
-  messageReactions MessageReaction[]
+  messageReactions         MessageReaction[]
   sentMessages             Message[]
-
 
   @@map("users")
 }
 
 model Follow {
-  id          String   @id @default(uuid()) @map("_id")
-  followerId  String
-  followingId String
+  id           String   @id @default(uuid()) @map("_id")
+  followerId   String
+  followingId  String
   followStatus String
-  createdAt   DateTime  @default(now())
+  createdAt    DateTime @default(now())
 
-  follower    User     @relation("FollowerRelation", fields: [followerId], references: [id])
-  following   User     @relation("FollowingRelation", fields: [followingId], references: [id])
+  follower  User @relation("FollowerRelation", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("FollowingRelation", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
   @@map("follows")
 }
 
 model Post {
-  id           String     @id @default(uuid()) @map("_id")
+  id           String   @id @default(uuid()) @map("_id")
   authorId     String
   imageUrl     String[]
   caption      String?
   location     String?
   tags         String[]
-  isPublic     Boolean    @default(true)
-  likeCount    Int        @default(0)
-  commentCount Int        @default(0)
-  sharedCount  Int        @default(0)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  isPublic     Boolean  @default(true)
+  likeCount    Int      @default(0)
+  commentCount Int      @default(0)
+  sharedCount  Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  author       User       @relation("UserPosts", fields: [authorId], references: [id])
-  taggedUsers  PostTag[]
-  sharedPosts  SharedPost[]
-  comments     Comment[]
-  savedBy      SavedPost[]
+  author        User           @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+  taggedUsers   PostTag[]
+  sharedPosts   SharedPost[]
+  comments      Comment[]
+  savedBy       SavedPost[]
   notifications Notification[]
 
-  likes        Like[]     @relation("PostLikes")
+  likes Like[] @relation("PostLikes")
 
   @@map("posts")
 }
 
-
 model SharedPost {
-  id           String   @id @default(uuid()) @map("_id")
-  senderId     String
-  recipientId  String?
-  storyId      String?
-  tripId       String?
-  postId       String
-  message      String?
-  isPublic     Boolean  @default(false)
-  createdAt    DateTime @default(now())
+  id          String   @id @default(uuid()) @map("_id")
+  senderId    String
+  recipientId String?
+  storyId     String?
+  tripId      String?
+  postId      String
+  message     String?
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
 
-  sender       User     @relation("SharedPostsSender", fields: [senderId], references: [id])
-  recipient    User?    @relation("SharedPostsRecipient", fields: [recipientId], references: [id])
-  story        Story?   @relation(fields: [storyId], references: [id])
-  trip         Trip?    @relation(fields: [tripId], references: [id])
-  post         Post     @relation(fields: [postId], references: [id])
+  sender        User           @relation("SharedPostsSender", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient     User?          @relation("SharedPostsRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  story         Story?         @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  trip          Trip?          @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  post          Post           @relation(fields: [postId], references: [id], onDelete: Cascade)
   notifications Notification[]
 
   @@map("shared_posts")
@@ -131,29 +129,30 @@ model PostTag {
   userId    String
   createdAt DateTime @default(now())
 
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([postId, userId])
   @@map("post_tags")
 }
 
 model Comment {
-  id         String    @id @default(uuid()) @map("_id")
-  postId     String
-  authorId   String
-  content    String
-  parentId   String?
-  likeCount  Int        @default(0)
-  isEdited   Boolean    @default(false)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id        String   @id @default(uuid()) @map("_id")
+  postId    String
+  authorId  String
+  content   String
+  parentId  String?
+  likeCount Int      @default(0)
+  isEdited  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  post       Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author     User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  parent     Comment?  @relation("CommentReply", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies    Comment[] @relation("CommentReply")
-  likes Like[] @relation("CommentLikes")
+  post    Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author  User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent  Comment?  @relation("CommentReply", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies Comment[] @relation("CommentReply")
+  likes   Like[]    @relation("CommentLikes")
+
   @@map("comments")
 }
 
@@ -164,14 +163,13 @@ model Like {
   type      String
   createdAt DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    Post?    @relation("PostLikes", fields: [targetId], references: [id], onDelete: Cascade)
+  comment Comment? @relation("CommentLikes", fields: [targetId], references: [id], onDelete: Cascade)
 
-  post      Post?    @relation("PostLikes", fields: [targetId], references: [id])
-  comment   Comment? @relation("CommentLikes", fields: [targetId], references: [id])
   @@unique([userId, targetId, type])
   @@map("likes")
 }
-
 
 model SavedPost {
   id      String   @id @default(uuid()) @map("_id")
@@ -179,72 +177,73 @@ model SavedPost {
   postId  String
   savedAt DateTime @default(now())
 
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
   @@map("saved_posts")
 }
 
 model Message {
-  id              String        @id @default(uuid()) @map("_id")
-  conversationId  String
-  senderId        String
-  content         String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  deletedForAll   Boolean       @default(false)
-  seenBy          String[]      @default([]) // userIds đã đọc
-mediaUrls   String[]  @default([])
-mediaType   String?
-pinned         Boolean       @default(false)
-  conversation    Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender          User          @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  reactions       MessageReaction[]
+  id             String   @id @default(uuid()) @map("_id")
+  conversationId String
+  senderId       String
+  content        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedForAll  Boolean  @default(false)
+  seenBy         String[] @default([])
+  mediaUrls      String[] @default([])
+  mediaType      String?
+  pinned         Boolean  @default(false)
+
+  conversation Conversation      @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User              @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  reactions    MessageReaction[]
+
   @@map("messages")
 }
 
 model MessageReaction {
-  id        String   @id @default(uuid()) @map("_id")
+  id        String @id @default(uuid()) @map("_id")
   userId    String
   messageId String
   reaction  String
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
 
   @@unique([userId, messageId], name: "message_user_unique")
   @@map("message_reactions")
 }
 
-
 model Conversation {
-  id           String                    @id @default(uuid()) @map("_id")
-  isGroup      Boolean                   @default(false)
-  name         String?                   // Tên nhóm (nếu là chat nhóm)
-  createdById  String
-  createdAt    DateTime                  @default(now())
-  updatedAt    DateTime                  @updatedAt
+  id          String   @id @default(uuid()) @map("_id")
+  isGroup     Boolean  @default(false)
+  name        String?
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  createdBy    User                      @relation("ConversationCreatedBy", fields: [createdById], references: [id])
+  createdBy    User                      @relation("ConversationCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
   participants ConversationParticipant[]
   messages     Message[]
 
   @@map("conversations")
 }
+
 model ConversationParticipant {
-  id             String       @id @default(uuid()) @map("_id")
+  id             String   @id @default(uuid()) @map("_id")
   conversationId String
   userId         String
-  joinedAt       DateTime     @default(now())
+  joinedAt       DateTime @default(now())
 
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([conversationId, userId])
   @@map("conversation_participants")
 }
-
 
 model Notification {
   id           String           @id @default(uuid()) @map("_id")
@@ -258,16 +257,16 @@ model Notification {
   data         Json?
   createdAt    DateTime         @default(now())
 
-  sender       User?            @relation("SenderNoti", fields: [senderId], references: [id])
-  recipient    User             @relation("ReceiverNoti", fields: [recipientId], references: [id])
-  post         Post?            @relation(fields: [postId], references: [id])
-  sharedPost   SharedPost?      @relation(fields: [sharedPostId], references: [id])
+  sender     User?       @relation("SenderNoti", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient  User        @relation("ReceiverNoti", fields: [recipientId], references: [id], onDelete: Cascade)
+  post       Post?       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  sharedPost SharedPost? @relation(fields: [sharedPostId], references: [id], onDelete: Cascade)
 
   @@map("notifications")
 }
 
 model Trip {
-  id       String   @id @default(uuid()) @map("_id")
+  id            String   @id @default(uuid()) @map("_id")
   title         String
   description   String?
   startDate     DateTime
@@ -282,24 +281,23 @@ model Trip {
   imageUrl      String[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  
-  // Relations
-  user         User @relation(fields: [userId], references: [id])
-  sharedPosts  SharedPost[]
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sharedPosts SharedPost[]
 }
 
-
 model Story {
-  id          String     @id @default(uuid()) @map("_id")
-  userId      String
-  content     String?    // caption hoặc text kèm theo
-  mediaUrls   String[]   // chứa 1 hoặc nhiều url ảnh/video
-  mediaType   MediaType  // ảnh hoặc video
-  expiresAt   DateTime   // thời điểm story hết hạn (ví dụ 24h sau tạo)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id        String    @id @default(uuid()) @map("_id")
+  userId    String
+  content   String?
+  mediaUrls String[]
+  mediaType MediaType
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   sharedPosts SharedPost[]
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum MediaType {
@@ -307,17 +305,15 @@ enum MediaType {
   VIDEO
 }
 
-
 model Report {
   id         String   @id @default(uuid()) @map("_id")
   reporterId String
-  targetType String   // USER, POST, COMMENT, TRIP
+  targetType String
   targetId   String
   reason     String
   createdAt  DateTime @default(now())
 
-  reporter   User     @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reporter User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
 
   @@map("reports")
 }
-

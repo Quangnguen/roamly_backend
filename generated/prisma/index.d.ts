@@ -18290,8 +18290,8 @@ export namespace Prisma {
     expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sharedPosts?: boolean | Story$sharedPostsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    sharedPosts?: boolean | Story$sharedPostsArgs<ExtArgs>
     _count?: boolean | StoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["story"]>
 
@@ -18310,16 +18310,16 @@ export namespace Prisma {
 
   export type StoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "content" | "mediaUrls" | "mediaType" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["story"]>
   export type StoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sharedPosts?: boolean | Story$sharedPostsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    sharedPosts?: boolean | Story$sharedPostsArgs<ExtArgs>
     _count?: boolean | StoryCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $StoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Story"
     objects: {
-      sharedPosts: Prisma.$SharedPostPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
+      sharedPosts: Prisma.$SharedPostPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18693,8 +18693,8 @@ export namespace Prisma {
    */
   export interface Prisma__StoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sharedPosts<T extends Story$sharedPostsArgs<ExtArgs> = {}>(args?: Subset<T, Story$sharedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sharedPosts<T extends Story$sharedPostsArgs<ExtArgs> = {}>(args?: Subset<T, Story$sharedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21663,8 +21663,8 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"Story"> | Date | string
     createdAt?: DateTimeFilter<"Story"> | Date | string
     updatedAt?: DateTimeFilter<"Story"> | Date | string
-    sharedPosts?: SharedPostListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    sharedPosts?: SharedPostListRelationFilter
   }
 
   export type StoryOrderByWithRelationInput = {
@@ -21676,8 +21676,8 @@ export namespace Prisma {
     expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sharedPosts?: SharedPostOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
+    sharedPosts?: SharedPostOrderByRelationAggregateInput
   }
 
   export type StoryWhereUniqueInput = Prisma.AtLeast<{
@@ -21692,8 +21692,8 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"Story"> | Date | string
     createdAt?: DateTimeFilter<"Story"> | Date | string
     updatedAt?: DateTimeFilter<"Story"> | Date | string
-    sharedPosts?: SharedPostListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    sharedPosts?: SharedPostListRelationFilter
   }, "id">
 
   export type StoryOrderByWithAggregationInput = {
@@ -22953,8 +22953,8 @@ export namespace Prisma {
     expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sharedPosts?: SharedPostCreateNestedManyWithoutStoryInput
     user: UserCreateNestedOneWithoutStoriesInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutStoryInput
   }
 
   export type StoryUncheckedCreateInput = {
@@ -22976,8 +22976,8 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sharedPosts?: SharedPostUpdateManyWithoutStoryNestedInput
     user?: UserUpdateOneRequiredWithoutStoriesNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutStoryNestedInput
   }
 
   export type StoryUncheckedUpdateInput = {
@@ -25935,17 +25935,17 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type UserCreateNestedOneWithoutStoriesInput = {
+    create?: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStoriesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type SharedPostCreateNestedManyWithoutStoryInput = {
     create?: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput> | SharedPostCreateWithoutStoryInput[] | SharedPostUncheckedCreateWithoutStoryInput[]
     connectOrCreate?: SharedPostCreateOrConnectWithoutStoryInput | SharedPostCreateOrConnectWithoutStoryInput[]
     createMany?: SharedPostCreateManyStoryInputEnvelope
     connect?: SharedPostWhereUniqueInput | SharedPostWhereUniqueInput[]
-  }
-
-  export type UserCreateNestedOneWithoutStoriesInput = {
-    create?: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutStoriesInput
-    connect?: UserWhereUniqueInput
   }
 
   export type SharedPostUncheckedCreateNestedManyWithoutStoryInput = {
@@ -25964,6 +25964,14 @@ export namespace Prisma {
     set?: $Enums.MediaType
   }
 
+  export type UserUpdateOneRequiredWithoutStoriesNestedInput = {
+    create?: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStoriesInput
+    upsert?: UserUpsertWithoutStoriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStoriesInput, UserUpdateWithoutStoriesInput>, UserUncheckedUpdateWithoutStoriesInput>
+  }
+
   export type SharedPostUpdateManyWithoutStoryNestedInput = {
     create?: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput> | SharedPostCreateWithoutStoryInput[] | SharedPostUncheckedCreateWithoutStoryInput[]
     connectOrCreate?: SharedPostCreateOrConnectWithoutStoryInput | SharedPostCreateOrConnectWithoutStoryInput[]
@@ -25976,14 +25984,6 @@ export namespace Prisma {
     update?: SharedPostUpdateWithWhereUniqueWithoutStoryInput | SharedPostUpdateWithWhereUniqueWithoutStoryInput[]
     updateMany?: SharedPostUpdateManyWithWhereWithoutStoryInput | SharedPostUpdateManyWithWhereWithoutStoryInput[]
     deleteMany?: SharedPostScalarWhereInput | SharedPostScalarWhereInput[]
-  }
-
-  export type UserUpdateOneRequiredWithoutStoriesNestedInput = {
-    create?: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutStoriesInput
-    upsert?: UserUpsertWithoutStoriesInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStoriesInput, UserUpdateWithoutStoriesInput>, UserUncheckedUpdateWithoutStoriesInput>
   }
 
   export type SharedPostUncheckedUpdateManyWithoutStoryNestedInput = {
@@ -31709,39 +31709,6 @@ export namespace Prisma {
     data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutTripInput>
   }
 
-  export type SharedPostCreateWithoutStoryInput = {
-    id?: string
-    message?: string | null
-    isPublic?: boolean
-    createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutSharedPostsSentInput
-    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
-    trip?: TripCreateNestedOneWithoutSharedPostsInput
-    post: PostCreateNestedOneWithoutSharedPostsInput
-    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
-  }
-
-  export type SharedPostUncheckedCreateWithoutStoryInput = {
-    id?: string
-    senderId: string
-    recipientId?: string | null
-    tripId?: string | null
-    postId: string
-    message?: string | null
-    isPublic?: boolean
-    createdAt?: Date | string
-    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
-  }
-
-  export type SharedPostCreateOrConnectWithoutStoryInput = {
-    where: SharedPostWhereUniqueInput
-    create: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput>
-  }
-
-  export type SharedPostCreateManyStoryInputEnvelope = {
-    data: SharedPostCreateManyStoryInput | SharedPostCreateManyStoryInput[]
-  }
-
   export type UserCreateWithoutStoriesInput = {
     id?: string
     email: string
@@ -31827,20 +31794,37 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutStoriesInput, UserUncheckedCreateWithoutStoriesInput>
   }
 
-  export type SharedPostUpsertWithWhereUniqueWithoutStoryInput = {
+  export type SharedPostCreateWithoutStoryInput = {
+    id?: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutSharedPostsSentInput
+    recipient?: UserCreateNestedOneWithoutSharedPostsReceivedInput
+    trip?: TripCreateNestedOneWithoutSharedPostsInput
+    post: PostCreateNestedOneWithoutSharedPostsInput
+    notifications?: NotificationCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostUncheckedCreateWithoutStoryInput = {
+    id?: string
+    senderId: string
+    recipientId?: string | null
+    tripId?: string | null
+    postId: string
+    message?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    notifications?: NotificationUncheckedCreateNestedManyWithoutSharedPostInput
+  }
+
+  export type SharedPostCreateOrConnectWithoutStoryInput = {
     where: SharedPostWhereUniqueInput
-    update: XOR<SharedPostUpdateWithoutStoryInput, SharedPostUncheckedUpdateWithoutStoryInput>
     create: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput>
   }
 
-  export type SharedPostUpdateWithWhereUniqueWithoutStoryInput = {
-    where: SharedPostWhereUniqueInput
-    data: XOR<SharedPostUpdateWithoutStoryInput, SharedPostUncheckedUpdateWithoutStoryInput>
-  }
-
-  export type SharedPostUpdateManyWithWhereWithoutStoryInput = {
-    where: SharedPostScalarWhereInput
-    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutStoryInput>
+  export type SharedPostCreateManyStoryInputEnvelope = {
+    data: SharedPostCreateManyStoryInput | SharedPostCreateManyStoryInput[]
   }
 
   export type UserUpsertWithoutStoriesInput = {
@@ -31930,6 +31914,22 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+  }
+
+  export type SharedPostUpsertWithWhereUniqueWithoutStoryInput = {
+    where: SharedPostWhereUniqueInput
+    update: XOR<SharedPostUpdateWithoutStoryInput, SharedPostUncheckedUpdateWithoutStoryInput>
+    create: XOR<SharedPostCreateWithoutStoryInput, SharedPostUncheckedCreateWithoutStoryInput>
+  }
+
+  export type SharedPostUpdateWithWhereUniqueWithoutStoryInput = {
+    where: SharedPostWhereUniqueInput
+    data: XOR<SharedPostUpdateWithoutStoryInput, SharedPostUncheckedUpdateWithoutStoryInput>
+  }
+
+  export type SharedPostUpdateManyWithWhereWithoutStoryInput = {
+    where: SharedPostScalarWhereInput
+    data: XOR<SharedPostUpdateManyMutationInput, SharedPostUncheckedUpdateManyWithoutStoryInput>
   }
 
   export type UserCreateWithoutReportsInput = {

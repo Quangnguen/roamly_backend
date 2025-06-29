@@ -3,6 +3,7 @@
 import {
   Injectable,
   NotFoundException,
+  HttpException,
   ForbiddenException,
   BadRequestException,
 } from '@nestjs/common';
@@ -26,25 +27,67 @@ export class ChatService {
     userIds: string[],
     name?: string,
   ) {
-    const isGroup = userIds.length > 1;
+    const allUserIds = [...new Set([...userIds, creatorId])];
 
-    if (!isGroup && userIds.length !== 1) {
+    if (userIds.length === 0) {
+      throw new BadRequestException(
+        'Phải có ít nhất một người để tạo trò chuyện',
+      );
+    }
+
+    const isGroup = allUserIds.length > 2;
+
+    if (!isGroup && allUserIds.length !== 2) {
       throw new BadRequestException('Chat cá nhân phải có đúng 2 người');
     }
 
     if (!isGroup) {
-      const existing = await this.prisma.conversation.findFirst({
-        where: {
-          isGroup: false,
-          participants: {
-            every: { userId: { in: userIds } },
-          },
-        },
+      const existing = await this.prisma.conversation.findMany({
+        where: { isGroup: false },
         include: { participants: true },
       });
 
-      if (existing && existing.participants.length === 1) {
-        return response('Đã có cuộc trò chuyện', 200, 'exists', existing);
+      for (const convo of existing) {
+        const existingUserIds = convo.participants.map((p) => p.userId).sort();
+        const currentUserIds = allUserIds.slice().sort();
+
+        const isSame =
+          existingUserIds.length === currentUserIds.length &&
+          existingUserIds.every((id, i) => id === currentUserIds[i]);
+
+        if (isSame) {
+          throw new HttpException(
+            response('Cuộc trò chuyện đã tồn tại', 409, 'conflict', convo),
+            409,
+          );
+        }
+      }
+    }
+
+    if (isGroup) {
+      const existingGroups = await this.prisma.conversation.findMany({
+        where: { isGroup: true },
+        include: { participants: true },
+      });
+
+      for (const group of existingGroups) {
+        const groupUserIds = group.participants.map((p) => p.userId).sort();
+
+        const isSameGroup =
+          groupUserIds.length === allUserIds.length &&
+          groupUserIds.every((id, i) => id === allUserIds[i]);
+
+        if (isSameGroup) {
+          throw new HttpException(
+            response(
+              'Nhóm với các thành viên này đã tồn tại',
+              409,
+              'conflict',
+              group,
+            ),
+            409,
+          );
+        }
       }
     }
 
@@ -54,7 +97,7 @@ export class ChatService {
         name: isGroup ? name : null,
         createdById: creatorId,
         participants: {
-          create: [...userIds, creatorId].map((id) => ({ userId: id })),
+          create: allUserIds.map((id) => ({ userId: id })),
         },
       },
       include: {
@@ -73,7 +116,8 @@ export class ChatService {
           recipientId: participant.userId,
           data: { conversationId: conversation.id },
         });
-        const creater = await this.prisma.user.findUnique({
+
+        const creator = await this.prisma.user.findUnique({
           where: { id: creatorId },
           select: { id: true, username: true },
         });
@@ -81,7 +125,7 @@ export class ChatService {
         this.socketGateway.emitToUser(participant.userId, 'new_notification', {
           type: 'MESSAGE',
           conversationId: conversation.id,
-          username: creater?.username,
+          username: creator?.username,
         });
       }
     }
@@ -93,6 +137,7 @@ export class ChatService {
       conversation,
     );
   }
+
   async editMessage(userId: string, messageId: string, content: string) {
     const message = await this.prisma.message.findUnique({
       where: { id: messageId },

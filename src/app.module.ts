@@ -24,6 +24,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TripModule,
     CloudinaryModule,
     LikeModule,
+    ChatModule,
     NotificationModule,
     CommentModule,
     ChatModule,

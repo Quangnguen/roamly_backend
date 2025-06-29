@@ -47,7 +47,13 @@ export class CommentService {
       data: { commentCount: { increment: 1 } },
     });
 
-    if (post.authorId !== authorId) {
+    this.socketGateway.server.emit('new_comment_auth', {
+      postId,
+      comment,
+      commentCount: post.commentCount + 1
+    });
+
+    if (post.authorId != authorId) {
       await this.notificationService.createNotification({
         type: 'COMMENT',
         message: 'Ai đó đã bình luận bài viết của bạn',
@@ -111,7 +117,7 @@ export class CommentService {
 
   async getComments(postId: string) {
     const comments = await this.prisma.comment.findMany({
-      where: { postId, parentId: null },
+      where: { postId },
       include: {
         author: { select: { id: true, username: true, profilePic: true } },
         replies: {

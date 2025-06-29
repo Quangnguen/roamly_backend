@@ -27,6 +27,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ChatModule,
     NotificationModule,
     CommentModule,
+    ChatModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -45,4 +46,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   controllers: [AppController],
   providers: [AppService, PrismaService, SocketGateway],
 })
-export class AppModule {}
+export class AppModule { }

@@ -17,7 +17,7 @@ import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
 @Controller('comments')
 @UseGuards(JwtAuthGuard)
 export class CommentController {
-  constructor(private readonly commentService: CommentService) {}
+  constructor(private readonly commentService: CommentService) { }
 
   @Post()
   async createComment(

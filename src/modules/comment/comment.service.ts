@@ -33,7 +33,7 @@ export class CommentService {
         postId,
         authorId,
         content,
-        parentId: parentId || undefined,
+        parentId: parentId || null,
       },
       include: {
         author: {

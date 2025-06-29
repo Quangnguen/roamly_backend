@@ -16,7 +16,7 @@ import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
 @Controller('comments')
 @UseGuards(JwtAuthGuard)
 export class CommentController {
-  constructor(private readonly commentService: CommentService) {}
+  constructor(private readonly commentService: CommentService) { }
 
   @Post()
   async createComment(
@@ -40,5 +40,5 @@ export class CommentController {
   async deleteComment(@Param('id') id: string, @Req() req: { user: { id: string } }) {
     return this.commentService.deleteComment(req.user.id, id);
   }
-  
+
 }

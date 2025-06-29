@@ -34,12 +34,18 @@ export class ChatController {
   }
   @Get('message/:conversationId')
   async getMessages(
+    @Req() req,
     @Param('conversationId') conversationId: string,
     @Query('limit') limit: string,
     @Query('before') before?: string,
   ) {
     const parsedLimit = parseInt(limit) || 20;
-    return this.chatService.getMessages(conversationId, parsedLimit, before);
+    return this.chatService.getMessages(
+      req.user.id,
+      conversationId,
+      parsedLimit,
+      before,
+    );
   }
 
   @Get('conversation')

@@ -259,7 +259,27 @@ export class ChatService {
     return response('Gửi tin nhắn thành công', 201, 'success', message);
   }
 
-  async getMessages(conversationId: string, limit = 20, before?: string) {
+  async getMessages(
+    userId: string,
+    conversationId: string,
+    limit = 20,
+    before?: string,
+  ) {
+    // Bước 1: Kiểm tra người dùng có quyền truy cập không
+    const isParticipant = await this.prisma.conversation.findFirst({
+      where: {
+        id: conversationId,
+        participants: { some: { userId } },
+      },
+    });
+
+    if (!isParticipant) {
+      throw new ForbiddenException(
+        'Bạn không có quyền xem cuộc trò chuyện này',
+      );
+    }
+
+    // Bước 2: Tạo điều kiện where
     const where: any = { conversationId };
 
     if (before) {
@@ -267,10 +287,19 @@ export class ChatService {
         where: { id: before },
         select: { createdAt: true },
       });
-      if (!beforeMessage) throw new NotFoundException('Tin nhắn không tồn tại');
-      where.createdAt = { lt: beforeMessage.createdAt };
+
+      if (!beforeMessage || !beforeMessage.createdAt) {
+        throw new NotFoundException(
+          'Tin nhắn không tồn tại hoặc thiếu thời gian tạo',
+        );
+      }
+
+      where.createdAt = {
+        lt: new Date(beforeMessage.createdAt), // ✅ ép về Date chính xác
+      };
     }
 
+    // Bước 3: Truy vấn tin nhắn
     const messages = await this.prisma.message.findMany({
       where,
       include: {

@@ -8,7 +8,7 @@ import { PostModule } from './modules/post/post.module';
 import { FollowModule } from './modules/follow/follow.module';
 import { LikeModule } from './modules/like/like.module';
 import { CommentModule } from './modules/comment/comment.module';
-// import { ChatModule } from './modules/chat/chat.module';
+import { ChatModule } from './modules/chat/chat.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
@@ -24,6 +24,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TripModule,
     CloudinaryModule,
     LikeModule,
+    ChatModule,
     NotificationModule,
     CommentModule,
     ConfigModule.forRoot({

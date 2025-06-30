@@ -86,10 +86,6 @@ export class PostController {
     @Query('page') page: string,
     @Query('limit') limit: string,
   ) {
-    if (!q || !q.trim()) {
-      throw new BadRequestException('Thiếu từ khóa tìm kiếm (q)');
-    }
-
     const parsedLimit = parseInt(limit) || 20;
     const take = parseInt(page) || 1;
     return this.postsService.searchPosts(q, req.user.id, take, parsedLimit);

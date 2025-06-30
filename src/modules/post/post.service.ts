@@ -392,39 +392,52 @@ export class PostService {
         },
       },
     });
-    const filteredPosts = rawPosts.filter((post) => {
-      const caption = this.removeVietnameseTones(post.caption || '')
-        .toLowerCase()
-        .replace(/\s+/g, '');
-      const location = this.removeVietnameseTones(post.location || '')
-        .toLowerCase()
-        .replace(/\s+/g, '');
-      const authorName = this.removeVietnameseTones(post.author?.name || '')
-        .toLowerCase()
-        .replace(/\s+/g, '');
-      const tags = (post.tags || []).map((t) =>
-        this.removeVietnameseTones(t.toLowerCase()).replace(/\s+/g, ''),
-      );
-      const taggedUserNames = (post.taggedUsers || []).map((t) =>
-        this.removeVietnameseTones(t.user?.name || '')
-          .toLowerCase()
-          .replace(/\s+/g, ''),
-      );
 
-      return (
-        caption.includes(keyword) ||
-        location.includes(keyword) ||
-        authorName.includes(keyword) ||
-        tags.includes(keyword) ||
-        taggedUserNames.some((name) => name.includes(keyword))
-      );
-    });
+    let filteredPosts = rawPosts;
+    if (keyword.length > 0) {
+      filteredPosts = rawPosts.filter((post) => {
+        const caption = this.removeVietnameseTones(post.caption || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const location = this.removeVietnameseTones(post.location || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const authorName = this.removeVietnameseTones(post.author?.name || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const tags = (post.tags || []).map((t) =>
+          this.removeVietnameseTones(t.toLowerCase()).replace(/\s+/g, ''),
+        );
+        const taggedUserNames = (post.taggedUsers || []).map((t) =>
+          this.removeVietnameseTones(t.user?.name || '')
+            .toLowerCase()
+            .replace(/\s+/g, ''),
+        );
+
+        return (
+          caption.includes(keyword) ||
+          location.includes(keyword) ||
+          authorName.includes(keyword) ||
+          tags.includes(keyword) ||
+          taggedUserNames.some((name) => name.includes(keyword))
+        );
+      });
+    }
+    if (filteredPosts.length === 0) {
+      filteredPosts = rawPosts
+        .map((post) => ({
+          ...post,
+          score: post.likeCount + post.commentCount * 1.5,
+        }))
+        .sort((a, b) => b.score - a.score);
+    }
 
     const total = filteredPosts.length;
     const totalPages = Math.ceil(total / limit);
     const skip = (page - 1) * limit;
     const pagedPosts = filteredPosts.slice(skip, skip + limit);
     const postIds = pagedPosts.map((post) => post.id);
+
     const userLikes = await this.prisma.like.findMany({
       where: {
         userId,
@@ -444,21 +457,13 @@ export class PostService {
       }))
       .sort((a, b) => b.score - a.score);
 
-    if (results.length === 0) {
-      return {
-        message: 'Không tìm thấy bài viết phù hợp',
-        statusCode: 404,
-        data: {
-          currentPage: page,
-          total: 0,
-          totalPages: 0,
-          results: [],
-        },
-      };
-    }
-
     return {
-      message: 'Tìm kiếm thành công',
+      message:
+        keyword.length === 0
+          ? 'Hiển thị bài viết nổi bật'
+          : filteredPosts.length === 0
+            ? 'Không tìm thấy kết quả phù hợp, hiển thị bài viết nổi bật'
+            : 'Tìm kiếm thành công',
       statusCode: 200,
       data: {
         currentPage: page,

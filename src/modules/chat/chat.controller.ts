@@ -12,9 +12,12 @@ import {
   Req,
   Query,
   UseGuards,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('chat')
 @UseGuards(JwtAuthGuard)
@@ -34,12 +37,18 @@ export class ChatController {
   }
   @Get('message/:conversationId')
   async getMessages(
+    @Req() req,
     @Param('conversationId') conversationId: string,
     @Query('limit') limit: string,
     @Query('before') before?: string,
   ) {
     const parsedLimit = parseInt(limit) || 20;
-    return this.chatService.getMessages(conversationId, parsedLimit, before);
+    return this.chatService.getMessages(
+      req.user.id,
+      conversationId,
+      parsedLimit,
+      before,
+    );
   }
 
   @Get('conversation')
@@ -53,14 +62,17 @@ export class ChatController {
   }
 
   @Post('message')
+  @UseInterceptors(FilesInterceptor('files'))
   async sendMessage(
     @Req() req,
-    @Body() body: { conversationId: string; content: string },
+    @Body() body: { conversationId: string; content?: string },
+    @UploadedFiles() files: Express.Multer.File[],
   ) {
     return this.chatService.sendMessage(
       req.user.id,
       body.conversationId,
-      body.content,
+      body.content || '',
+      files || [],
     );
   }
 

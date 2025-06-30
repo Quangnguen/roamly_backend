@@ -47,13 +47,17 @@ export class CommentService {
       data: { commentCount: { increment: 1 } },
     });
 
+    // ✅ Emit to all authenticated users (broadcast)
     this.socketGateway.server.emit('new_comment_auth', {
       postId,
       comment,
       commentCount: post.commentCount + 1
     });
 
-    if (post.authorId != authorId) {
+    // ✅ Only emit to post author if they're different and online
+    if (post.authorId !== authorId) {
+      
+      // ✅ Create notification first (always works)
       await this.notificationService.createNotification({
         type: 'COMMENT',
         message: 'Ai đó đã bình luận bài viết của bạn',
@@ -61,20 +65,29 @@ export class CommentService {
         recipientId: post.authorId,
         postId,
       });
+
       const sender = await this.prisma.user.findUnique({
         where: { id: authorId },
         select: { id: true, username: true },
       });
-      this.socketGateway.emitToUser(post.authorId, 'new_comment', {
+
+      // ✅ Try to emit real-time, but don't fail if user offline
+      const commentEmitted = this.socketGateway.emitToUser(post.authorId, 'new_comment', {
         postId,
         comment,
       });
 
-      this.socketGateway.emitToUser(post.authorId, 'new_notification', {
+      const notificationEmitted = this.socketGateway.emitToUser(post.authorId, 'new_notification', {
         type: 'COMMENT',
         postId,
         commentId: comment.id,
         username: sender?.username,
+      });
+
+      console.log(`📡 Real-time emission results:`, {
+        postAuthorId: post.authorId,
+        commentEmitted,
+        notificationEmitted,
       });
     }
 

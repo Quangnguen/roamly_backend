@@ -230,22 +230,23 @@ export class ChatService {
 
     for (const participant of conversation.participants) {
       if (participant.userId !== senderId) {
-        this.socketGateway.emitToUser(participant.userId, 'new_message', {
-          conversationId,
-          message,
-        });
-
-        await this.notificationService.createNotification({
-          type: 'MESSAGE',
-          message: 'Bạn có tin nhắn mới',
-          senderId,
-          recipientId: participant.userId,
-          data: { conversationId, messageId: message.id },
-        });
+        
         const sender = await this.prisma.user.findUnique({
           where: { id: senderId },
           select: { id: true, username: true },
         });
+        this.socketGateway.emitToUser(participant.userId, 'new_message', {
+          conversationId,
+          message,
+          username: sender?.username,
+        });
+        // await this.notificationService.createNotification({
+        //   type: 'MESSAGE',
+        //   message: 'Bạn có tin nhắn mới',
+        //   senderId,
+        //   recipientId: participant.userId,
+        //   data: { conversationId, messageId: message.id },
+        // });
         this.socketGateway.emitToUser(participant.userId, 'new_notification', {
           type: 'MESSAGE',
           conversationId,

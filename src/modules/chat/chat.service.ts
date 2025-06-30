@@ -20,7 +20,7 @@ export class ChatService {
     private readonly socketGateway: SocketGateway,
     private readonly notificationService: NotificationService,
     private readonly cloudinary: CloudinaryService,
-  ) {}
+  ) { }
 
   async createConversation(
     creatorId: string,
@@ -252,6 +252,7 @@ export class ChatService {
           messageId: message.id,
           username: sender?.username,
           conversationName: conversation?.name,
+          message: content
         });
       }
     }

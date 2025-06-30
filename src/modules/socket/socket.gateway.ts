@@ -8,6 +8,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { JwtService } from '@nestjs/jwt';
+import { Cron } from '@nestjs/schedule';
 
 // ✨ Extend Socket interface
 interface ExtendedSocket extends Socket {
@@ -27,7 +28,8 @@ export class SocketGateway
   @WebSocketServer()
   server: Server;
 
-  private userSockets = new Map<string, string>();
+  private connectedUsers = new Map<string, string>(); // userId -> socketId
+  private userSockets = new Map<string, any>(); // socketId -> socket
 
   constructor(private readonly jwtService: JwtService) {}
 
@@ -87,7 +89,7 @@ export class SocketGateway
       console.log('🔌 Socket ID:', client.id);
 
       // ✅ Kiểm tra user đã connect chưa (prevent duplicate)
-      const existingSocketId = this.userSockets.get(userId);
+      const existingSocketId = this.connectedUsers.get(userId);
       if (existingSocketId && existingSocketId !== client.id) {
         console.log(`⚠️ User ${userId} already connected with socket ${existingSocketId}`);
         console.log(`🔄 Disconnecting old socket and using new one`);
@@ -100,7 +102,8 @@ export class SocketGateway
         }
       }
 
-      this.userSockets.set(userId, client.id);
+      this.connectedUsers.set(userId, client.id);
+      this.userSockets.set(client.id, client);
 
       client.userId = userId;
 
@@ -136,34 +139,74 @@ export class SocketGateway
   }
 
   handleDisconnect(client: ExtendedSocket) {
-    if (client.userId) {
-      console.log(`🔌 User ${client.userId} disconnected`);
-      this.userSockets.delete(client.userId);
-      console.log(`📊 Remaining users:`, Array.from(this.userSockets.keys()));
+    console.log(`🔌 Client disconnected: ${client.id}`);
+    
+    // ✅ Find and remove user by socket ID
+    let disconnectedUserId: string | null = null;
+    
+    for (const [userId, socketId] of this.connectedUsers.entries()) {
+      if (socketId === client.id) {
+        disconnectedUserId = userId;
+        break;
+      }
     }
+    
+    if (disconnectedUserId) {
+      console.log(`👋 User ${disconnectedUserId} disconnected`);
+      this.connectedUsers.delete(disconnectedUserId);
+    }
+    
+    this.userSockets.delete(client.id);
+    
+    console.log('🔍 Remaining connected users:', Array.from(this.connectedUsers.keys()));
   }
 
   // Emit tới một user cụ thể
   emitToUser(userId: string, event: string, data: any) {
-    console.log(`🎯 Attempting to emit "${event}" to user ${userId}:`, data);
-
-    const socketId = this.userSockets.get(userId);
-
-    if (socketId) {
-      console.log(`✅ Found socket ${socketId} for user ${userId}`);
-      this.server.to(socketId).emit(event, data);
-      console.log(`📤 Successfully emitted "${event}" to socket ${socketId}`);
-    } else {
+    console.log(`🔍 Attempting to emit "${event}" to user: ${userId}`);
+    console.log('🔍 Available users:', Array.from(this.connectedUsers.keys()));
+    
+    const socketId = this.connectedUsers.get(userId);
+    
+    if (!socketId) {
       console.log(`❌ No socket found for user ${userId}`);
-      console.log(`🔍 Available users:`, Array.from(this.userSockets.keys()));
-      console.log(`🔍 Looking for user: "${userId}" (type: ${typeof userId})`);
+      console.log('🔍 Available users:', Array.from(this.connectedUsers.keys()));
+      
+      // ✅ Không throw error, chỉ log và return
+      return false;
+    }
+
+    const socket = this.userSockets.get(socketId);
+    
+    if (!socket || !socket.connected) {
+      console.log(`❌ Socket disconnected for user ${userId}, cleaning up`);
+      
+      // ✅ Cleanup stale connections
+      this.connectedUsers.delete(userId);
+      this.userSockets.delete(socketId);
+      
+      return false;
+    }
+
+    try {
+      socket.emit(event, data);
+      console.log(`✅ Emitted "${event}" to user ${userId}`);
+      return true;
+    } catch (error) {
+      console.error(`❌ Error emitting to user ${userId}:`, error);
+      
+      // ✅ Cleanup on error
+      this.connectedUsers.delete(userId);
+      this.userSockets.delete(socketId);
+      
+      return false;
     }
   }
 
   // ✨ Broadcast tới tất cả users
   broadcastToAll(event: string, data: any) {
     console.log(`📡 Broadcasting "${event}" to all connected clients:`, data);
-    console.log(`📊 Connected users count: ${this.userSockets.size}`);
+    console.log(`📊 Connected users count: ${this.connectedUsers.size}`);
     
     this.server.emit(event, data);
     
@@ -174,7 +217,7 @@ export class SocketGateway
   broadcastToAllExcept(excludeUserId: string, event: string, data: any) {
     console.log(`📡 Broadcasting "${event}" to all except user ${excludeUserId}:`, data);
     
-    const excludeSocketId = this.userSockets.get(excludeUserId);
+    const excludeSocketId = this.connectedUsers.get(excludeUserId);
     
     if (excludeSocketId) {
       this.server.except(excludeSocketId).emit(event, data);
@@ -188,15 +231,15 @@ export class SocketGateway
 
   // ✨ Utility methods
   isUserOnline(userId: string): boolean {
-    return this.userSockets.has(userId);
+    return this.connectedUsers.has(userId);
   }
 
   getOnlineUsers(): string[] {
-    return Array.from(this.userSockets.keys());
+    return Array.from(this.connectedUsers.keys());
   }
 
   getOnlineUsersCount(): number {
-    return this.userSockets.size;
+    return this.connectedUsers.size;
   }
 
   // Test methods
@@ -220,5 +263,44 @@ export class SocketGateway
       timestamp: new Date().toISOString(),
       ...data
     });
+  }
+
+  // ✅ Cleanup stale connections periodically
+  @Cron('0 */5 * * * *') // Every 5 minutes
+  async cleanupStaleConnections() {
+    console.log('🧹 Cleaning up stale socket connections...');
+    
+    const staleUsers: string[] = [];
+    
+    for (const [userId, socketId] of this.connectedUsers.entries()) {
+      const socket = this.userSockets.get(socketId);
+      
+      if (!socket || !socket.connected) {
+        staleUsers.push(userId);
+      }
+    }
+    
+    staleUsers.forEach(userId => {
+      const socketId = this.connectedUsers.get(userId);
+      this.connectedUsers.delete(userId);
+      if (socketId) {
+        this.userSockets.delete(socketId);
+      }
+    });
+    
+    if (staleUsers.length > 0) {
+      console.log(`🧹 Cleaned up ${staleUsers.length} stale connections`);
+    }
+    
+    console.log('🔍 Active connections:', this.connectedUsers.size);
+  }
+
+  // ✅ Get connection status
+  getConnectionStatus() {
+    return {
+      totalConnections: this.connectedUsers.size,
+      connectedUsers: Array.from(this.connectedUsers.keys()),
+      sockets: Array.from(this.userSockets.keys()),
+    };
   }
 }

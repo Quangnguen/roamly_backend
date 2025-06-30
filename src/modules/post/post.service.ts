@@ -383,6 +383,111 @@ export class PostService {
       postsWithLikes,
     );
   }
+  private removeVietnameseTones(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D');
+  }
+
+  async searchPosts(q: string, userId: string, page = 1, limit = 10) {
+    const rawKeyword = q.trim().toLowerCase();
+    const keyword = this.removeVietnameseTones(rawKeyword).replace(/\s+/g, '');
+    const rawPosts = await this.prisma.post.findMany({
+      where: { isPublic: true },
+      include: {
+        author: {
+          select: { name: true, profilePic: true },
+        },
+        taggedUsers: {
+          include: {
+            user: { select: { name: true } },
+          },
+        },
+      },
+    });
+
+    let filteredPosts = rawPosts;
+    if (keyword.length > 0) {
+      filteredPosts = rawPosts.filter((post) => {
+        const caption = this.removeVietnameseTones(post.caption || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const location = this.removeVietnameseTones(post.location || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const authorName = this.removeVietnameseTones(post.author?.name || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const tags = (post.tags || []).map((t) =>
+          this.removeVietnameseTones(t.toLowerCase()).replace(/\s+/g, ''),
+        );
+        const taggedUserNames = (post.taggedUsers || []).map((t) =>
+          this.removeVietnameseTones(t.user?.name || '')
+            .toLowerCase()
+            .replace(/\s+/g, ''),
+        );
+
+        return (
+          caption.includes(keyword) ||
+          location.includes(keyword) ||
+          authorName.includes(keyword) ||
+          tags.includes(keyword) ||
+          taggedUserNames.some((name) => name.includes(keyword))
+        );
+      });
+    }
+    if (filteredPosts.length === 0) {
+      filteredPosts = rawPosts
+        .map((post) => ({
+          ...post,
+          score: post.likeCount + post.commentCount * 1.5,
+        }))
+        .sort((a, b) => b.score - a.score);
+    }
+
+    const total = filteredPosts.length;
+    const totalPages = Math.ceil(total / limit);
+    const skip = (page - 1) * limit;
+    const pagedPosts = filteredPosts.slice(skip, skip + limit);
+    const postIds = pagedPosts.map((post) => post.id);
+
+    const userLikes = await this.prisma.like.findMany({
+      where: {
+        userId,
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      select: { targetId: true },
+    });
+
+    const likedPostIds = new Set(userLikes.map((like) => like.targetId));
+
+    const results = pagedPosts
+      .map((post) => ({
+        ...post,
+        isLike: likedPostIds.has(post.id),
+        score: post.likeCount + post.commentCount * 1.5,
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return {
+      message:
+        keyword.length === 0
+          ? 'Hiển thị bài viết nổi bật'
+          : filteredPosts.length === 0
+            ? 'Không tìm thấy kết quả phù hợp, hiển thị bài viết nổi bật'
+            : 'Tìm kiếm thành công',
+      statusCode: 200,
+      data: {
+        currentPage: page,
+        total,
+        totalPages,
+        results,
+      },
+    };
+  }
 
   async update(
     postId: string,

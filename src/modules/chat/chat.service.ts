@@ -12,6 +12,7 @@ import { SocketGateway } from '../socket/socket.gateway';
 import { NotificationService } from '../notification/notification.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { response } from '../../common/utils/response.utils';
+import { connect } from 'http2';
 
 @Injectable()
 export class ChatService {
@@ -252,6 +253,7 @@ export class ChatService {
           messageId: message.id,
           username: sender?.username,
           conversationName: conversation?.name,
+          message: content
         });
       }
     }

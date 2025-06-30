@@ -17,6 +17,7 @@ import {
   UseGuards,
   UsePipes,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { PostService } from './post.service';
@@ -76,6 +77,22 @@ export class PostController {
   @Roles(Role.User, Role.Admin)
   async getPostsByUserId(@Param('userId') userId: string) {
     return this.postsService.getPostsByUserId(userId);
+  }
+  // src/modules/post/post.controller.ts
+  @Get('search')
+  async search(
+    @Req() req,
+    @Query('q') q: string,
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    if (!q || !q.trim()) {
+      throw new BadRequestException('Thiếu từ khóa tìm kiếm (q)');
+    }
+
+    const parsedLimit = parseInt(limit) || 20;
+    const take = parseInt(page) || 1;
+    return this.postsService.searchPosts(q, req.user.id, take, parsedLimit);
   }
 
   @Get(':id')

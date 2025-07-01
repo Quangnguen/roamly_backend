@@ -265,4 +265,109 @@ export class UserService {
       return response('Lấy danh sách người dùng thất bại', 400, 'error');
     }
   }
+
+  private removeVietnameseTones(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D');
+  }
+
+  async searchUsers(q: string, userId: string, page = 1, limit = 10) {
+    const rawKeyword = q.trim().toLowerCase();
+    const keyword = this.removeVietnameseTones(rawKeyword).replace(/\s+/g, '');
+
+    // Lấy danh sách user đủ điều kiện
+    const rawUsers = await this.prisma.user.findMany({
+      where: {
+        accountStatus: true,
+        private: false,
+      },
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        profilePic: true,
+      },
+    });
+
+    let filteredUsers = rawUsers;
+    let isFallback = false;
+
+    if (keyword.length > 0) {
+      filteredUsers = rawUsers.filter((user) => {
+        const username = this.removeVietnameseTones(user.username)
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        const name = this.removeVietnameseTones(user.name)
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        return username.includes(keyword) || name.includes(keyword);
+      });
+
+      if (filteredUsers.length === 0) {
+        isFallback = true;
+        filteredUsers = rawUsers;
+      }
+    } else {
+      isFallback = true;
+    }
+
+    const total = filteredUsers.length;
+    const totalPages = Math.ceil(total / limit);
+    const skip = (page - 1) * limit;
+    const pagedUsers = filteredUsers.slice(skip, skip + limit);
+    const userIds = pagedUsers.map((user) => user.id);
+
+    // Lấy số lượng follower theo từng user
+    const followersGroup = await this.prisma.follow.groupBy({
+      by: ['followingId'],
+      where: {
+        followingId: { in: userIds },
+      },
+      _count: { followingId: true },
+    });
+
+    const followerCountMap = new Map(
+      followersGroup.map((item) => [item.followingId, item._count.followingId]),
+    );
+
+    // Kiểm tra user hiện tại đã follow ai
+    const followed = await this.prisma.follow.findMany({
+      where: {
+        followerId: userId,
+        followingId: { in: userIds },
+      },
+      select: { followingId: true },
+    });
+
+    const followingIds = new Set(followed.map((f) => f.followingId));
+
+    const results = pagedUsers
+      .map((user) => ({
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        profilePic: user.profilePic,
+        followerCount: followerCountMap.get(user.id) || 0,
+        isFollowing: followingIds.has(user.id),
+      }))
+      .sort((a, b) => (isFallback ? b.followerCount - a.followerCount : 0)); // Nếu fallback thì sort theo follower
+
+    return {
+      message: isFallback
+        ? keyword.length === 0
+          ? 'Hiển thị người dùng nổi bật'
+          : 'Không tìm thấy người dùng phù hợp, hiển thị người dùng nổi bật'
+        : 'Tìm kiếm người dùng thành công',
+      statusCode: 200,
+      data: {
+        currentPage: page,
+        total,
+        totalPages,
+        results,
+      },
+    };
+  }
 }

@@ -34,8 +34,9 @@ export class CommentController {
   }
 
   @Get(':postId')
-  async getComments(@Param('postId') postId: string) {
-    return this.commentService.getComments(postId);
+  async getComments(@Param('postId') postId: string, @Req() req) {
+    const userId = req.user?.id;
+    return this.commentService.getComments(postId, userId);
   }
 
   @Delete(':id')

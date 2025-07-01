@@ -74,7 +74,19 @@ export class UserController {
     console.log('Updating profile pic for user:', req.user.id);
     return this.userService.updateProfilePic(req.user.id, file);
   }
-  // cái này luôn để cuối cùng vì :id
+  @Get('search')
+  @HttpCode(HttpStatus.OK)
+  async search(
+    @Req() req: any,
+    @Query('q') q: string,
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    const parsedLimit = parseInt(limit) || 20;
+    const take = parseInt(page) || 1;
+    return this.userService.searchUsers(q, req.user.id, take, parsedLimit);
+  }
+
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   async getUserById(@Req() req: any) {

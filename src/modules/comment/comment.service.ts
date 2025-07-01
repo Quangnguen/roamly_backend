@@ -154,12 +154,10 @@ export class CommentService {
     const mapped = comments.map((comment) => ({
       ...comment,
       isLike: comment.likes.length > 0,
-      likedBy: comment.likes.map((like) => like.user),
       replies: comment.replies.map((reply: any) => ({
         replies: comment.replies.map((reply: any) => ({
           ...reply,
           isLike: reply.likes?.length > 0 || false,
-          likedBy: reply.likes.map((like: any) => like.user),
         })),
       })),
     }));

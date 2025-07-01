@@ -265,7 +265,6 @@ export class UserService {
       return response('Lấy danh sách người dùng thất bại', 400, 'error');
     }
   }
-
   private removeVietnameseTones(str: string): string {
     return str
       .normalize('NFD')
@@ -273,21 +272,24 @@ export class UserService {
       .replace(/đ/g, 'd')
       .replace(/Đ/g, 'D');
   }
-
   async searchUsers(q: string, userId: string, page = 1, limit = 10) {
     const rawKeyword = q.trim().toLowerCase();
     const keyword = this.removeVietnameseTones(rawKeyword).replace(/\s+/g, '');
 
-    // Lấy danh sách user đủ điều kiện
+    // Lấy danh sách user đủ điều kiện (loại bỏ user hiện tại)
     const rawUsers = await this.prisma.user.findMany({
       where: {
         accountStatus: true,
         private: false,
+        NOT: {
+          id: userId,
+        },
       },
       select: {
         id: true,
         username: true,
         name: true,
+        email: true,
         profilePic: true,
       },
     });
@@ -297,13 +299,20 @@ export class UserService {
 
     if (keyword.length > 0) {
       filteredUsers = rawUsers.filter((user) => {
-        const username = this.removeVietnameseTones(user.username)
+        const username = this.removeVietnameseTones(user.username || '')
           .toLowerCase()
           .replace(/\s+/g, '');
-        const name = this.removeVietnameseTones(user.name)
+        const name = this.removeVietnameseTones(user.name || '')
           .toLowerCase()
           .replace(/\s+/g, '');
-        return username.includes(keyword) || name.includes(keyword);
+        const email = this.removeVietnameseTones(user.email || '')
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        return (
+          username.includes(keyword) ||
+          name.includes(keyword) ||
+          email.includes(keyword)
+        );
       });
 
       if (filteredUsers.length === 0) {
@@ -320,7 +329,6 @@ export class UserService {
     const pagedUsers = filteredUsers.slice(skip, skip + limit);
     const userIds = pagedUsers.map((user) => user.id);
 
-    // Lấy số lượng follower theo từng user
     const followersGroup = await this.prisma.follow.groupBy({
       by: ['followingId'],
       where: {
@@ -333,7 +341,6 @@ export class UserService {
       followersGroup.map((item) => [item.followingId, item._count.followingId]),
     );
 
-    // Kiểm tra user hiện tại đã follow ai
     const followed = await this.prisma.follow.findMany({
       where: {
         followerId: userId,
@@ -353,7 +360,20 @@ export class UserService {
         followerCount: followerCountMap.get(user.id) || 0,
         isFollowing: followingIds.has(user.id),
       }))
-      .sort((a, b) => (isFallback ? b.followerCount - a.followerCount : 0)); // Nếu fallback thì sort theo follower
+      .sort((a, b) => (isFallback ? b.followerCount - a.followerCount : 0));
+
+    if (results.length === 0 && !isFallback) {
+      return {
+        message: 'Không tìm thấy người dùng phù hợp',
+        statusCode: 200,
+        data: {
+          currentPage: page,
+          total: 0,
+          totalPages: 0,
+          results: [],
+        },
+      };
+    }
 
     return {
       message: isFallback

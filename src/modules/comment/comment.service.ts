@@ -128,20 +128,60 @@ export class CommentService {
     return response('Cập nhật bình luận thành công', 200, 'success', updated);
   }
 
-  async getComments(postId: string) {
+  async getComments(postId: string, userId: string) {
     const comments = await this.prisma.comment.findMany({
       where: { postId },
       include: {
-        author: { select: { id: true, username: true, profilePic: true } },
+        author: {
+          select: { id: true, username: true, profilePic: true },
+        },
+        likes: {
+          where: { userId },
+          select: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+                profilePic: true,
+              },
+            },
+          },
+        },
         replies: {
           include: {
-            author: { select: { id: true, username: true, profilePic: true } },
+            author: {
+              select: { id: true, username: true, profilePic: true },
+            },
+            likes: {
+              where: { userId },
+              select: {
+                user: {
+                  select: {
+                    id: true,
+                    username: true,
+                    profilePic: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
       orderBy: { createdAt: 'desc' },
     });
-    return response('Danh sách bình luận', 200, 'success', comments);
+
+    const mapped = comments.map((comment) => ({
+      ...comment,
+      isLike: comment.likes.length > 0,
+      replies: comment.replies.map((reply: any) => ({
+        replies: comment.replies.map((reply: any) => ({
+          ...reply,
+          isLike: reply.likes?.length > 0 || false,
+        })),
+      })),
+    }));
+
+    return response('Danh sách bình luận', 200, 'success', mapped);
   }
 
   async deleteComment(userId: string, commentId: string) {

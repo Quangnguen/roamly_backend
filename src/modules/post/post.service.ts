@@ -547,7 +547,22 @@ export class PostService {
       const publicId = this.cloudinary.extractPublicId(url);
       await this.cloudinary.deleteImage(`nestjs_uploads/${publicId}`);
     }
+    const comments = await this.prisma.comment.findMany({
+      where: { postId },
+      select: { id: true },
+    });
 
+    const commentIds = comments.map((c) => c.id);
+    await this.prisma.like.deleteMany({
+      where: {
+        targetId: { in: commentIds },
+        type: 'COMMENT',
+      },
+    });
+
+    await this.prisma.comment.deleteMany({
+      where: { postId },
+    });
     await this.prisma.post.delete({ where: { id: postId } });
 
     return response('Xoá bài viết thành công', 200, 'success');

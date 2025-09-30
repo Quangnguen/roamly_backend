@@ -150,6 +150,7 @@ exports.Prisma.PostScalarFieldEnum = {
   imageUrl: 'imageUrl',
   caption: 'caption',
   location: 'location',
+  destinationId: 'destinationId',
   tags: 'tags',
   isPublic: 'isPublic',
   likeCount: 'likeCount',
@@ -219,6 +220,107 @@ exports.Prisma.MessageScalarFieldEnum = {
   pinned: 'pinned'
 };
 
+exports.Prisma.DestinationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  shortDesc: 'shortDesc',
+  address: 'address',
+  city: 'city',
+  country: 'country',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  category: 'category',
+  subCategory: 'subCategory',
+  coverImage: 'coverImage',
+  website: 'website',
+  phone: 'phone',
+  email: 'email',
+  openingHours: 'openingHours',
+  bestTimeToVisit: 'bestTimeToVisit',
+  priceRange: 'priceRange',
+  avgCost: 'avgCost',
+  currency: 'currency',
+  rating: 'rating',
+  reviewCount: 'reviewCount',
+  visitCount: 'visitCount',
+  shareCount: 'shareCount',
+  status: 'status',
+  isVerified: 'isVerified',
+  isPublic: 'isPublic',
+  tags: 'tags',
+  amenities: 'amenities',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DestinationImageScalarFieldEnum = {
+  id: 'id',
+  destinationId: 'destinationId',
+  url: 'url',
+  caption: 'caption',
+  uploadedById: 'uploadedById',
+  isMain: 'isMain',
+  order: 'order',
+  width: 'width',
+  height: 'height',
+  fileSize: 'fileSize',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DestinationFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  destinationId: 'destinationId',
+  note: 'note',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DestinationReviewScalarFieldEnum = {
+  id: 'id',
+  destinationId: 'destinationId',
+  userId: 'userId',
+  rating: 'rating',
+  title: 'title',
+  content: 'content',
+  images: 'images',
+  helpful: 'helpful',
+  isVerified: 'isVerified',
+  visitDate: 'visitDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReviewHelpfulScalarFieldEnum = {
+  id: 'id',
+  reviewId: 'reviewId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DestinationCheckinScalarFieldEnum = {
+  id: 'id',
+  destinationId: 'destinationId',
+  userId: 'userId',
+  message: 'message',
+  images: 'images',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TripDestinationScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  destinationId: 'destinationId',
+  visitDate: 'visitDate',
+  duration: 'duration',
+  cost: 'cost',
+  notes: 'notes',
+  order: 'order',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.MessageReactionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -284,6 +386,117 @@ exports.Prisma.StoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HomestayScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  shortDesc: 'shortDesc',
+  address: 'address',
+  city: 'city',
+  country: 'country',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  type: 'type',
+  maxGuests: 'maxGuests',
+  bedrooms: 'bedrooms',
+  bathrooms: 'bathrooms',
+  beds: 'beds',
+  pricePerNight: 'pricePerNight',
+  currency: 'currency',
+  cleaningFee: 'cleaningFee',
+  serviceFee: 'serviceFee',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  amenities: 'amenities',
+  houseRules: 'houseRules',
+  checkInTime: 'checkInTime',
+  checkOutTime: 'checkOutTime',
+  minStay: 'minStay',
+  maxStay: 'maxStay',
+  instantBook: 'instantBook',
+  cancellationPolicy: 'cancellationPolicy',
+  coverImage: 'coverImage',
+  rating: 'rating',
+  reviewCount: 'reviewCount',
+  bookingCount: 'bookingCount',
+  viewCount: 'viewCount',
+  status: 'status',
+  isVerified: 'isVerified',
+  isActive: 'isActive',
+  hostId: 'hostId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HomestayImageScalarFieldEnum = {
+  id: 'id',
+  homestayId: 'homestayId',
+  url: 'url',
+  caption: 'caption',
+  isMain: 'isMain',
+  order: 'order',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.HomestayBookingScalarFieldEnum = {
+  id: 'id',
+  homestayId: 'homestayId',
+  guestId: 'guestId',
+  checkInDate: 'checkInDate',
+  checkOutDate: 'checkOutDate',
+  guests: 'guests',
+  totalNights: 'totalNights',
+  pricePerNight: 'pricePerNight',
+  totalPrice: 'totalPrice',
+  cleaningFee: 'cleaningFee',
+  serviceFee: 'serviceFee',
+  finalPrice: 'finalPrice',
+  currency: 'currency',
+  guestName: 'guestName',
+  guestPhone: 'guestPhone',
+  guestEmail: 'guestEmail',
+  specialRequests: 'specialRequests',
+  paymentMethod: 'paymentMethod',
+  status: 'status',
+  paymentStatus: 'paymentStatus',
+  bookedAt: 'bookedAt',
+  confirmedAt: 'confirmedAt',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HomestayReviewScalarFieldEnum = {
+  id: 'id',
+  homestayId: 'homestayId',
+  userId: 'userId',
+  bookingId: 'bookingId',
+  overallRating: 'overallRating',
+  cleanRating: 'cleanRating',
+  locationRating: 'locationRating',
+  serviceRating: 'serviceRating',
+  valueRating: 'valueRating',
+  amenityRating: 'amenityRating',
+  title: 'title',
+  comment: 'comment',
+  images: 'images',
+  tripType: 'tripType',
+  stayPeriod: 'stayPeriod',
+  helpful: 'helpful',
+  stayDate: 'stayDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HomestayFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  homestayId: 'homestayId',
+  note: 'note',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ReportScalarFieldEnum = {
   id: 'id',
   reporterId: 'reporterId',
@@ -302,19 +515,77 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.DestinationCategory = exports.$Enums.DestinationCategory = {
+  BEACH: 'BEACH',
+  MOUNTAIN: 'MOUNTAIN',
+  CITY: 'CITY',
+  HISTORICAL: 'HISTORICAL',
+  NATURE: 'NATURE',
+  ADVENTURE: 'ADVENTURE',
+  CULTURAL: 'CULTURAL',
+  RELIGIOUS: 'RELIGIOUS',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  FOOD: 'FOOD',
+  HOTEL: 'HOTEL',
+  RESTAURANT: 'RESTAURANT',
+  SHOPPING: 'SHOPPING',
+  MUSEUM: 'MUSEUM',
+  PARK: 'PARK',
+  TEMPLE: 'TEMPLE',
+  LAKE: 'LAKE',
+  WATERFALL: 'WATERFALL',
+  RESORT: 'RESORT',
+  STREET_FOOD: 'STREET_FOOD'
+};
+
+exports.PriceRange = exports.$Enums.PriceRange = {
+  FREE: 'FREE',
+  BUDGET: 'BUDGET',
+  MODERATE: 'MODERATE',
+  EXPENSIVE: 'EXPENSIVE',
+  LUXURY: 'LUXURY'
+};
+
+exports.DestinationStatus = exports.$Enums.DestinationStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  REPORTED: 'REPORTED'
+};
+
 exports.NotificationType = exports.$Enums.NotificationType = {
   LIKE: 'LIKE',
   COMMENT: 'COMMENT',
   FOLLOW: 'FOLLOW',
-  MESSAGE: 'MESSAGE',
-  TAG: 'TAG',
-  TRIP_SHARED: 'TRIP_SHARED',
-  SYSTEM: 'SYSTEM'
+  TRIP_INVITE: 'TRIP_INVITE',
+  MESSAGE: 'MESSAGE'
 };
 
 exports.MediaType = exports.$Enums.MediaType = {
   IMAGE: 'IMAGE',
   VIDEO: 'VIDEO'
+};
+
+exports.HomestayType = exports.$Enums.HomestayType = {
+  ENTIRE_PLACE: 'ENTIRE_PLACE',
+  PRIVATE_ROOM: 'PRIVATE_ROOM',
+  SHARED_ROOM: 'SHARED_ROOM'
+};
+
+exports.HomestayStatus = exports.$Enums.HomestayStatus = {
+  ACTIVE: 'ACTIVE',
+  AVAILABLE: 'AVAILABLE',
+  BOOKED: 'BOOKED',
+  MAINTENANCE: 'MAINTENANCE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED',
+  REFUNDED: 'REFUNDED'
 };
 
 exports.Prisma.ModelName = {
@@ -327,12 +598,24 @@ exports.Prisma.ModelName = {
   Like: 'Like',
   SavedPost: 'SavedPost',
   Message: 'Message',
+  Destination: 'Destination',
+  DestinationImage: 'DestinationImage',
+  DestinationFavorite: 'DestinationFavorite',
+  DestinationReview: 'DestinationReview',
+  ReviewHelpful: 'ReviewHelpful',
+  DestinationCheckin: 'DestinationCheckin',
+  TripDestination: 'TripDestination',
   MessageReaction: 'MessageReaction',
   Conversation: 'Conversation',
   ConversationParticipant: 'ConversationParticipant',
   Notification: 'Notification',
   Trip: 'Trip',
   Story: 'Story',
+  Homestay: 'Homestay',
+  HomestayImage: 'HomestayImage',
+  HomestayBooking: 'HomestayBooking',
+  HomestayReview: 'HomestayReview',
+  HomestayFavorite: 'HomestayFavorite',
   Report: 'Report'
 };
 

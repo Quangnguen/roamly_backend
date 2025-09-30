@@ -12,6 +12,8 @@ import { ChatModule } from './modules/chat/chat.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { DestinationModule } from './modules/destination/destination.module';
+import { HomestayModule } from './modules/homestay/homestay.module';
 import { SocketGateway } from './modules/socket/socket.gateway';
 
 @Module({
@@ -22,6 +24,8 @@ import { SocketGateway } from './modules/socket/socket.gateway';
     FollowModule,
     TripModule,
     CloudinaryModule,
+    DestinationModule,
+    HomestayModule,
     LikeModule,
     NotificationModule,
     CommentModule,

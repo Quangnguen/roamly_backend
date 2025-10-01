@@ -17,17 +17,27 @@ import {
   HttpStatus,
   UseGuards,
   UsePipes,
-  // UploadedFiles,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiParam,
+} from '@nestjs/swagger';
 import { DestinationService } from './destination.service';
 import { JwtAuthGuard } from 'src/common/guard/jwt-auth.guard';
 import { CustomValidationPipe } from 'src/common/pipe/validation.pipe';
 import { CreateDestinationDto } from './dto/create-destination.dto';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
+
 import { SearchDestinationDto } from './dto/search-destination.dto';
 
+@ApiTags('destinations')
 @Controller('destinations')
 @UsePipes(new CustomValidationPipe())
 export class DestinationController {
@@ -35,23 +45,37 @@ export class DestinationController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @UseInterceptors(FilesInterceptor('images', 10))
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Create destination with image upload',
+    description:
+      'Create a new travel destination with multiple image uploads from gallery or camera',
+  })
+  @ApiResponse({ status: 201, description: 'Destination created successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid input data' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @HttpCode(HttpStatus.CREATED)
   async createDestination(
     @Req() req: any,
     @Body() dto: CreateDestinationDto,
-    // @UploadedFiles() images?: Express.Multer.File[],
+    @UploadedFiles() images?: Express.Multer.File[],
   ) {
-    return this.destinationService.createDestination(req.user.id, dto);
+    return this.destinationService.createDestination(req.user.id, dto, images);
   }
 
   @Get()
+  @ApiOperation({ summary: 'Lấy danh sách địa điểm du lịch' })
+  @ApiResponse({ status: 200, description: 'Lấy danh sách thành công' })
   @HttpCode(HttpStatus.OK)
   async getDestinations(@Query() query: SearchDestinationDto) {
     return this.destinationService.getDestinations(query);
   }
 
   @Get('popular')
+  @ApiOperation({ summary: 'Lấy địa điểm du lịch phổ biến' })
+  @ApiResponse({ status: 200, description: 'Lấy danh sách thành công' })
   @HttpCode(HttpStatus.OK)
   async getPopularDestinations(@Query('limit') limit?: string) {
     const limitNum = limit ? parseInt(limit, 10) : 10;
@@ -59,6 +83,8 @@ export class DestinationController {
   }
 
   @Get('nearby')
+  @ApiOperation({ summary: 'Lấy địa điểm du lịch gần đây' })
+  @ApiResponse({ status: 200, description: 'Lấy danh sách thành công' })
   @HttpCode(HttpStatus.OK)
   async getNearbyDestinations(
     @Query('latitude') latitude: string,
@@ -116,5 +142,66 @@ export class DestinationController {
   @HttpCode(HttpStatus.OK)
   async checkinDestination(@Param('id') id: string, @Req() req: any) {
     return this.destinationService.checkinDestination(id, req.user.id);
+  }
+
+  @Post(':id/upload-images')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @UseInterceptors(FilesInterceptor('images', 10))
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Upload destination images',
+    description:
+      'Upload multiple images for a destination from gallery or camera (max 10 files)',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Destination ID',
+    example: '6765adc7a2f5e8ef87ef0eaa',
+  })
+  @ApiResponse({ status: 200, description: 'Images uploaded successfully' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid files or destination not found',
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @HttpCode(HttpStatus.OK)
+  async uploadImages(
+    @Param('id') id: string,
+    @UploadedFiles() images: Express.Multer.File[],
+    @Req() req: any,
+  ) {
+    return this.destinationService.uploadImages(id, images, req.user.id);
+  }
+
+  @Patch(':id/images')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async updateImages(
+    @Param('id') id: string,
+    @Body() body: { images: string[]; coverImage?: string },
+    @Req() req: any,
+  ) {
+    return this.destinationService.updateImages(
+      id,
+      body.images,
+      body.coverImage,
+      req.user.id,
+    );
+  }
+
+  @Delete(':id/images/:imageUrl')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async deleteImage(
+    @Param('id') id: string,
+    @Param('imageUrl') imageUrl: string,
+    @Req() req: any,
+  ) {
+    return this.destinationService.deleteImage(
+      id,
+      decodeURIComponent(imageUrl),
+      req.user.id,
+    );
   }
 }

@@ -10,17 +10,27 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { FollowService } from './follow.service';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
 import { CreateFollowDto } from './dto/create-follow.dto';
 import { UpdateFollowStatusDto } from './dto/update-follow-status.dto';
 
+@ApiTags('follows')
 @Controller('follows')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
 export class FollowController {
   constructor(private readonly followService: FollowService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Theo dõi người dùng' })
+  @ApiResponse({ status: 201, description: 'Theo dõi thành công' })
   async follow(@Req() req: any, @Body() dto: CreateFollowDto) {
     return this.followService.createFollow(req.user.id, dto);
   }

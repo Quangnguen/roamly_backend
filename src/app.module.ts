@@ -14,6 +14,7 @@ import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 import { DestinationModule } from './modules/destination/destination.module';
 import { HomestayModule } from './modules/homestay/homestay.module';
+import { AddressModule } from './modules/address/address.module';
 import { SocketGateway } from './modules/socket/socket.gateway';
 
 @Module({
@@ -26,6 +27,7 @@ import { SocketGateway } from './modules/socket/socket.gateway';
     CloudinaryModule,
     DestinationModule,
     HomestayModule,
+    AddressModule,
     LikeModule,
     NotificationModule,
     CommentModule,

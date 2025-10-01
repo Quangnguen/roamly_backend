@@ -24,13 +24,36 @@ export class DestinationService {
     private cloudinary: CloudinaryService,
   ) {}
 
-  async createDestination(userId: string, dto: CreateDestinationDto) {
+  async createDestination(
+    userId: string,
+    dto: CreateDestinationDto,
+    images?: Express.Multer.File[],
+  ) {
     try {
       // Upload images if provided
       let uploadedImages: any[] = [];
-      if (dto.images && dto.images.length > 0) {
+
+      // Handle file uploads
+      if (images && images.length > 0) {
+        const uploadPromises = images.map(async (image, index) => {
+          const result = await this.cloudinary.uploadImage(image);
+          return {
+            url: result.secure_url,
+            isMain: index === 0,
+            order: index,
+          };
+        });
+        uploadedImages = await Promise.all(uploadPromises);
+      }
+
+      // Handle URL strings from DTO (fallback)
+      if (
+        (!images || images.length === 0) &&
+        dto.images &&
+        dto.images.length > 0
+      ) {
         uploadedImages = dto.images.map((imageUrl, index) => ({
-          url: imageUrl, // Assuming these are already uploaded URLs
+          url: imageUrl,
           isMain: index === 0,
           order: index,
         }));
@@ -510,5 +533,216 @@ export class DestinationService {
 
   private toRadians(degrees: number): number {
     return degrees * (Math.PI / 180);
+  }
+
+  async uploadImages(
+    id: string,
+    images: Express.Multer.File[],
+    userId: string,
+  ) {
+    const destination = await this.prisma.destination.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+
+    if (!destination) {
+      throw new NotFoundException('Không tìm thấy địa điểm');
+    }
+
+    // Kiểm tra quyền (chỉ người tạo mới được upload)
+    if (destination.createdById !== userId) {
+      throw new BadRequestException(
+        'Bạn không có quyền upload ảnh cho địa điểm này',
+      );
+    }
+
+    if (!images || images.length === 0) {
+      throw new BadRequestException('Vui lòng chọn ít nhất một ảnh');
+    }
+
+    // Upload ảnh lên Cloudinary
+    const uploadPromises = images.map(async (image, index) => {
+      const result = await this.cloudinary.uploadImage(image);
+      return {
+        destinationId: id,
+        url: result.secure_url,
+        uploadedById: userId,
+        isMain: destination.images.length === 0 && index === 0, // Ảnh đầu tiên làm main nếu chưa có ảnh
+        order: destination.images.length + index,
+      };
+    });
+
+    const uploadedImageData = await Promise.all(uploadPromises);
+
+    // Tạo records trong database
+    const createdImages = await Promise.all(
+      uploadedImageData.map((data) =>
+        this.prisma.destinationImage.create({ data }),
+      ),
+    );
+
+    // Cập nhật coverImage nếu chưa có
+    if (!destination.coverImage && createdImages.length > 0) {
+      await this.prisma.destination.update({
+        where: { id },
+        data: { coverImage: createdImages[0].url },
+      });
+    }
+
+    return response('Upload ảnh thành công', 200, 'success', {
+      uploadedImages: createdImages,
+      totalImages: destination.images.length + createdImages.length,
+    });
+  }
+
+  async updateImages(
+    id: string,
+    imageUrls: string[],
+    coverImage?: string,
+    userId?: string,
+  ) {
+    const destination = await this.prisma.destination.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+
+    if (!destination) {
+      throw new NotFoundException('Không tìm thấy địa điểm');
+    }
+
+    // Kiểm tra quyền
+    if (userId && destination.createdById !== userId) {
+      throw new BadRequestException(
+        'Bạn không có quyền cập nhật ảnh cho địa điểm này',
+      );
+    }
+
+    // Validate coverImage phải nằm trong danh sách images
+    if (coverImage && !imageUrls.includes(coverImage)) {
+      throw new BadRequestException('Ảnh cover phải nằm trong danh sách ảnh');
+    }
+
+    // Xóa các ảnh không còn trong danh sách
+    const currentImageUrls = destination.images.map((img) => img.url);
+    const imagesToDelete = currentImageUrls.filter(
+      (url) => !imageUrls.includes(url),
+    );
+
+    if (imagesToDelete.length > 0) {
+      await this.prisma.destinationImage.deleteMany({
+        where: {
+          destinationId: id,
+          url: { in: imagesToDelete },
+        },
+      });
+
+      // Xóa từ Cloudinary
+      for (const imageUrl of imagesToDelete) {
+        try {
+          await this.cloudinary.deleteImage(imageUrl);
+        } catch (error) {
+          console.error('Không thể xóa ảnh từ Cloudinary:', error);
+        }
+      }
+    }
+
+    // Thêm các ảnh mới
+    const imagesToAdd = imageUrls.filter(
+      (url) => !currentImageUrls.includes(url),
+    );
+    if (imagesToAdd.length > 0) {
+      const newImageData = imagesToAdd.map((url, index) => ({
+        destinationId: id,
+        url,
+        uploadedById: userId || destination.createdById,
+        isMain: false,
+        order: destination.images.length + index,
+      }));
+
+      await Promise.all(
+        newImageData.map((data) =>
+          this.prisma.destinationImage.create({ data }),
+        ),
+      );
+    }
+
+    // Cập nhật coverImage
+    const updatedDestination = await this.prisma.destination.update({
+      where: { id },
+      data: {
+        coverImage: coverImage || destination.coverImage,
+      },
+      include: {
+        images: {
+          orderBy: { order: 'asc' },
+        },
+      },
+    });
+
+    return response(
+      'Cập nhật ảnh thành công',
+      200,
+      'success',
+      updatedDestination,
+    );
+  }
+
+  async deleteImage(id: string, imageUrl: string, userId: string) {
+    const destination = await this.prisma.destination.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+
+    if (!destination) {
+      throw new NotFoundException('Không tìm thấy địa điểm');
+    }
+
+    // Kiểm tra quyền
+    if (destination.createdById !== userId) {
+      throw new BadRequestException(
+        'Bạn không có quyền xóa ảnh cho địa điểm này',
+      );
+    }
+
+    const imageToDelete = destination.images.find(
+      (img) => img.url === imageUrl,
+    );
+    if (!imageToDelete) {
+      throw new NotFoundException('Không tìm thấy ảnh trong danh sách');
+    }
+
+    // Xóa ảnh từ database
+    await this.prisma.destinationImage.delete({
+      where: { id: imageToDelete.id },
+    });
+
+    // Nếu ảnh bị xóa là cover image, set cover image mới
+    let newCoverImage = destination.coverImage;
+    if (destination.coverImage === imageUrl) {
+      const remainingImages = destination.images.filter(
+        (img) => img.url !== imageUrl,
+      );
+      newCoverImage =
+        remainingImages.length > 0 ? remainingImages[0].url : null;
+
+      await this.prisma.destination.update({
+        where: { id },
+        data: { coverImage: newCoverImage },
+      });
+    }
+
+    // Xóa ảnh từ Cloudinary
+    try {
+      await this.cloudinary.deleteImage(imageUrl);
+    } catch (error) {
+      console.error('Không thể xóa ảnh từ Cloudinary:', error);
+    }
+
+    return response('Xóa ảnh thành công', 200, 'success', {
+      deletedImage: imageUrl,
+      newCoverImage: newCoverImage,
+      remainingImages: destination.images.filter((img) => img.url !== imageUrl)
+        .length,
+    });
   }
 }

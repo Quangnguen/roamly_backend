@@ -28,15 +28,33 @@ export class HomestayService {
     private cloudinary: CloudinaryService,
   ) {}
 
-  async createHomestay(userId: string, dto: CreateHomestayDto) {
+  async createHomestay(
+    userId: string,
+    dto: CreateHomestayDto,
+    images?: Express.Multer.File[],
+  ) {
     try {
       // Upload images if provided
       let uploadedImages: { url: string; isMain: boolean; order: number }[] =
         [];
-      if (dto.images && dto.images.length > 0) {
+
+      // Handle file uploads
+      if (images && images.length > 0) {
+        const uploadPromises = images.map(async (image, index) => {
+          const result = await this.cloudinary.uploadImage(image);
+          return {
+            url: result.secure_url,
+            isMain: index === 0,
+            order: index,
+          };
+        });
+        uploadedImages = await Promise.all(uploadPromises);
+      }
+      // Handle URL strings from DTO (fallback)
+      else if (dto.images && dto.images.length > 0) {
         uploadedImages = await Promise.all(
           dto.images.map((imageUrl, index) => ({
-            url: imageUrl, // Assuming these are already uploaded URLs
+            url: imageUrl, // URL strings
             isMain: index === 0,
             order: index,
           })),
@@ -872,5 +890,178 @@ export class HomestayService {
 
   private toRadians(degrees: number): number {
     return degrees * (Math.PI / 180);
+  }
+
+  async uploadImages(
+    id: string,
+    images: Express.Multer.File[],
+    userId: string,
+  ) {
+    const homestay = await this.prisma.homestay.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+
+    if (!homestay) {
+      throw new NotFoundException('Không tìm thấy homestay');
+    }
+
+    // Kiểm tra quyền (chỉ host mới được upload)
+    if (homestay.hostId !== userId) {
+      throw new BadRequestException(
+        'Bạn không có quyền upload ảnh cho homestay này',
+      );
+    }
+
+    if (!images || images.length === 0) {
+      throw new BadRequestException('Vui lòng chọn ít nhất một ảnh');
+    }
+
+    // Upload ảnh lên Cloudinary
+    const uploadPromises = images.map(async (image, index) => {
+      const result = await this.cloudinary.uploadImage(image);
+      return {
+        homestayId: id,
+        url: result.secure_url,
+        isMain: homestay.images.length === 0 && index === 0,
+        order: homestay.images.length + index,
+      };
+    });
+
+    const uploadedImageData = await Promise.all(uploadPromises);
+
+    // Tạo records trong database
+    const createdImages = await Promise.all(
+      uploadedImageData.map((data) =>
+        this.prisma.homestayImage.create({ data }),
+      ),
+    );
+
+    return response('Upload ảnh thành công', 200, 'success', {
+      uploadedImages: createdImages,
+      totalImages: homestay.images.length + createdImages.length,
+    });
+  }
+
+  async updateImages(
+    id: string,
+    imageUrls: string[],
+    coverImage?: string,
+    userId?: string,
+  ) {
+    const homestay = await this.prisma.homestay.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+
+    if (!homestay) {
+      throw new NotFoundException('Không tìm thấy homestay');
+    }
+
+    // Kiểm tra quyền
+    if (userId && homestay.hostId !== userId) {
+      throw new BadRequestException(
+        'Bạn không có quyền cập nhật ảnh cho homestay này',
+      );
+    }
+
+    // Validate coverImage phải nằm trong danh sách images
+    if (coverImage && !imageUrls.includes(coverImage)) {
+      throw new BadRequestException('Ảnh cover phải nằm trong danh sách ảnh');
+    }
+
+    // Xóa các ảnh không còn trong danh sách
+    const currentImageUrls = homestay.images.map((img) => img.url);
+    const imagesToDelete = currentImageUrls.filter(
+      (url) => !imageUrls.includes(url),
+    );
+
+    if (imagesToDelete.length > 0) {
+      await this.prisma.homestayImage.deleteMany({
+        where: {
+          homestayId: id,
+          url: { in: imagesToDelete },
+        },
+      });
+
+      // Xóa từ Cloudinary
+      for (const imageUrl of imagesToDelete) {
+        try {
+          await this.cloudinary.deleteImage(imageUrl);
+        } catch (error) {
+          console.error('Không thể xóa ảnh từ Cloudinary:', error);
+        }
+      }
+    }
+
+    // Thêm các ảnh mới
+    const imagesToAdd = imageUrls.filter(
+      (url) => !currentImageUrls.includes(url),
+    );
+    if (imagesToAdd.length > 0) {
+      const newImageData = imagesToAdd.map((url, index) => ({
+        homestayId: id,
+        url,
+        isMain: false,
+        order: homestay.images.length + index,
+      }));
+
+      await Promise.all(
+        newImageData.map((data) => this.prisma.homestayImage.create({ data })),
+      );
+    }
+
+    // Cập nhật homestay (nếu cần)
+    const updatedHomestay = await this.prisma.homestay.findUnique({
+      where: { id },
+      include: {
+        images: {
+          orderBy: { order: 'asc' },
+        },
+      },
+    });
+
+    return response('Cập nhật ảnh thành công', 200, 'success', updatedHomestay);
+  }
+
+  async deleteImage(id: string, imageUrl: string, userId: string) {
+    const homestay = await this.prisma.homestay.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+
+    if (!homestay) {
+      throw new NotFoundException('Không tìm thấy homestay');
+    }
+
+    // Kiểm tra quyền
+    if (homestay.hostId !== userId) {
+      throw new BadRequestException(
+        'Bạn không có quyền xóa ảnh cho homestay này',
+      );
+    }
+
+    const imageToDelete = homestay.images.find((img) => img.url === imageUrl);
+    if (!imageToDelete) {
+      throw new NotFoundException('Không tìm thấy ảnh trong danh sách');
+    }
+
+    // Xóa ảnh từ database
+    await this.prisma.homestayImage.delete({
+      where: { id: imageToDelete.id },
+    });
+
+    // Xóa ảnh từ Cloudinary
+    try {
+      await this.cloudinary.deleteImage(imageUrl);
+    } catch (error) {
+      console.error('Không thể xóa ảnh từ Cloudinary:', error);
+    }
+
+    return response('Xóa ảnh thành công', 200, 'success', {
+      deletedImage: imageUrl,
+      remainingImages: homestay.images.filter((img) => img.url !== imageUrl)
+        .length,
+    });
   }
 }

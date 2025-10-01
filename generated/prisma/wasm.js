@@ -228,6 +228,7 @@ exports.Prisma.DestinationScalarFieldEnum = {
   address: 'address',
   city: 'city',
   country: 'country',
+  addressId: 'addressId',
   latitude: 'latitude',
   longitude: 'longitude',
   category: 'category',
@@ -394,6 +395,7 @@ exports.Prisma.HomestayScalarFieldEnum = {
   address: 'address',
   city: 'city',
   country: 'country',
+  addressId: 'addressId',
   latitude: 'latitude',
   longitude: 'longitude',
   type: 'type',
@@ -497,6 +499,40 @@ exports.Prisma.HomestayFavoriteScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  fullName: 'fullName',
+  nameEn: 'nameEn',
+  slug: 'slug',
+  type: 'type',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  area: 'area',
+  population: 'population',
+  description: 'description',
+  shortDesc: 'shortDesc',
+  highlights: 'highlights',
+  coverImage: 'coverImage',
+  images: 'images',
+  bestTimeToVisit: 'bestTimeToVisit',
+  climate: 'climate',
+  famousFor: 'famousFor',
+  parentId: 'parentId',
+  level: 'level',
+  path: 'path',
+  destinationCount: 'destinationCount',
+  homestayCount: 'homestayCount',
+  viewCount: 'viewCount',
+  searchCount: 'searchCount',
+  isActive: 'isActive',
+  isVerified: 'isVerified',
+  isPriority: 'isPriority',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ReportScalarFieldEnum = {
   id: 'id',
   reporterId: 'reporterId',
@@ -588,6 +624,14 @@ exports.BookingStatus = exports.$Enums.BookingStatus = {
   REFUNDED: 'REFUNDED'
 };
 
+exports.AddressType = exports.$Enums.AddressType = {
+  COUNTRY: 'COUNTRY',
+  PROVINCE: 'PROVINCE',
+  DISTRICT: 'DISTRICT',
+  WARD: 'WARD',
+  AREA: 'AREA'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Follow: 'Follow',
@@ -616,6 +660,7 @@ exports.Prisma.ModelName = {
   HomestayBooking: 'HomestayBooking',
   HomestayReview: 'HomestayReview',
   HomestayFavorite: 'HomestayFavorite',
+  Address: 'Address',
   Report: 'Report'
 };
 

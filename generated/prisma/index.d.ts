@@ -149,6 +149,11 @@ export type HomestayReview = $Result.DefaultSelection<Prisma.$HomestayReviewPayl
  */
 export type HomestayFavorite = $Result.DefaultSelection<Prisma.$HomestayFavoritePayload>
 /**
+ * Model Address
+ * 
+ */
+export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
+/**
  * Model Report
  * 
  */
@@ -201,6 +206,17 @@ export const DestinationCategory: {
 };
 
 export type DestinationCategory = (typeof DestinationCategory)[keyof typeof DestinationCategory]
+
+
+export const AddressType: {
+  COUNTRY: 'COUNTRY',
+  PROVINCE: 'PROVINCE',
+  DISTRICT: 'DISTRICT',
+  WARD: 'WARD',
+  AREA: 'AREA'
+};
+
+export type AddressType = (typeof AddressType)[keyof typeof AddressType]
 
 
 export const PriceRange: {
@@ -275,6 +291,10 @@ export const NotificationType: typeof $Enums.NotificationType
 export type DestinationCategory = $Enums.DestinationCategory
 
 export const DestinationCategory: typeof $Enums.DestinationCategory
+
+export type AddressType = $Enums.AddressType
+
+export const AddressType: typeof $Enums.AddressType
 
 export type PriceRange = $Enums.PriceRange
 
@@ -661,6 +681,16 @@ export class PrismaClient<
     * ```
     */
   get homestayFavorite(): Prisma.HomestayFavoriteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.address`: Exposes CRUD operations for the **Address** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Addresses
+    * const addresses = await prisma.address.findMany()
+    * ```
+    */
+  get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.report`: Exposes CRUD operations for the **Report** model.
@@ -1138,6 +1168,7 @@ export namespace Prisma {
     HomestayBooking: 'HomestayBooking',
     HomestayReview: 'HomestayReview',
     HomestayFavorite: 'HomestayFavorite',
+    Address: 'Address',
     Report: 'Report'
   };
 
@@ -1157,7 +1188,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "comment" | "like" | "savedPost" | "message" | "destination" | "destinationImage" | "destinationFavorite" | "destinationReview" | "reviewHelpful" | "destinationCheckin" | "tripDestination" | "messageReaction" | "conversation" | "conversationParticipant" | "notification" | "trip" | "story" | "homestay" | "homestayImage" | "homestayBooking" | "homestayReview" | "homestayFavorite" | "report"
+      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "comment" | "like" | "savedPost" | "message" | "destination" | "destinationImage" | "destinationFavorite" | "destinationReview" | "reviewHelpful" | "destinationCheckin" | "tripDestination" | "messageReaction" | "conversation" | "conversationParticipant" | "notification" | "trip" | "story" | "homestay" | "homestayImage" | "homestayBooking" | "homestayReview" | "homestayFavorite" | "address" | "report"
       txIsolationLevel: never
     }
     model: {
@@ -3159,6 +3190,80 @@ export namespace Prisma {
           }
         }
       }
+      Address: {
+        payload: Prisma.$AddressPayload<ExtArgs>
+        fields: Prisma.AddressFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AddressFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AddressFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findFirst: {
+            args: Prisma.AddressFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AddressFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findMany: {
+            args: Prisma.AddressFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>[]
+          }
+          create: {
+            args: Prisma.AddressCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          createMany: {
+            args: Prisma.AddressCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AddressDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          update: {
+            args: Prisma.AddressUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          deleteMany: {
+            args: Prisma.AddressDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AddressUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AddressUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          aggregate: {
+            args: Prisma.AddressAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAddress>
+          }
+          groupBy: {
+            args: Prisma.AddressGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AddressGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AddressFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AddressAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AddressCountArgs<ExtArgs>
+            result: $Utils.Optional<AddressCountAggregateOutputType> | number
+          }
+        }
+      }
       Report: {
         payload: Prisma.$ReportPayload<ExtArgs>
         fields: Prisma.ReportFieldRefs
@@ -3331,6 +3436,7 @@ export namespace Prisma {
     homestayBooking?: HomestayBookingOmit
     homestayReview?: HomestayReviewOmit
     homestayFavorite?: HomestayFavoriteOmit
+    address?: AddressOmit
     report?: ReportOmit
   }
 
@@ -3454,6 +3560,7 @@ export namespace Prisma {
     homestayBookings: number
     homestayReviews: number
     homestayFavorites: number
+    createdAddresses: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3485,6 +3592,7 @@ export namespace Prisma {
     homestayBookings?: boolean | UserCountOutputTypeCountHomestayBookingsArgs
     homestayReviews?: boolean | UserCountOutputTypeCountHomestayReviewsArgs
     homestayFavorites?: boolean | UserCountOutputTypeCountHomestayFavoritesArgs
+    createdAddresses?: boolean | UserCountOutputTypeCountCreatedAddressesArgs
   }
 
   // Custom InputTypes
@@ -3692,6 +3800,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountHomestayFavoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HomestayFavoriteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
   }
 
 
@@ -4150,6 +4265,55 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AddressCountOutputType
+   */
+
+  export type AddressCountOutputType = {
+    children: number
+    destinations: number
+    homestays: number
+  }
+
+  export type AddressCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    children?: boolean | AddressCountOutputTypeCountChildrenArgs
+    destinations?: boolean | AddressCountOutputTypeCountDestinationsArgs
+    homestays?: boolean | AddressCountOutputTypeCountHomestaysArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AddressCountOutputType without action
+   */
+  export type AddressCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddressCountOutputType
+     */
+    select?: AddressCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AddressCountOutputType without action
+   */
+  export type AddressCountOutputTypeCountChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+  }
+
+  /**
+   * AddressCountOutputType without action
+   */
+  export type AddressCountOutputTypeCountDestinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationWhereInput
+  }
+
+  /**
+   * AddressCountOutputType without action
+   */
+  export type AddressCountOutputTypeCountHomestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -4499,6 +4663,7 @@ export namespace Prisma {
     homestayBookings?: boolean | User$homestayBookingsArgs<ExtArgs>
     homestayReviews?: boolean | User$homestayReviewsArgs<ExtArgs>
     homestayFavorites?: boolean | User$homestayFavoritesArgs<ExtArgs>
+    createdAddresses?: boolean | User$createdAddressesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4557,6 +4722,7 @@ export namespace Prisma {
     homestayBookings?: boolean | User$homestayBookingsArgs<ExtArgs>
     homestayReviews?: boolean | User$homestayReviewsArgs<ExtArgs>
     homestayFavorites?: boolean | User$homestayFavoritesArgs<ExtArgs>
+    createdAddresses?: boolean | User$createdAddressesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4591,6 +4757,7 @@ export namespace Prisma {
       homestayBookings: Prisma.$HomestayBookingPayload<ExtArgs>[]
       homestayReviews: Prisma.$HomestayReviewPayload<ExtArgs>[]
       homestayFavorites: Prisma.$HomestayFavoritePayload<ExtArgs>[]
+      createdAddresses: Prisma.$AddressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5004,6 +5171,7 @@ export namespace Prisma {
     homestayBookings<T extends User$homestayBookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$homestayBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     homestayReviews<T extends User$homestayReviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$homestayReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     homestayFavorites<T extends User$homestayFavoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$homestayFavoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdAddresses<T extends User$createdAddressesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdAddressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6092,6 +6260,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HomestayFavoriteScalarFieldEnum | HomestayFavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdAddresses
+   */
+  export type User$createdAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
   }
 
   /**
@@ -14738,6 +14930,7 @@ export namespace Prisma {
     address: string | null
     city: string | null
     country: string | null
+    addressId: string | null
     latitude: number | null
     longitude: number | null
     category: $Enums.DestinationCategory | null
@@ -14770,6 +14963,7 @@ export namespace Prisma {
     address: string | null
     city: string | null
     country: string | null
+    addressId: string | null
     latitude: number | null
     longitude: number | null
     category: $Enums.DestinationCategory | null
@@ -14802,6 +14996,7 @@ export namespace Prisma {
     address: number
     city: number
     country: number
+    addressId: number
     latitude: number
     longitude: number
     category: number
@@ -14859,6 +15054,7 @@ export namespace Prisma {
     address?: true
     city?: true
     country?: true
+    addressId?: true
     latitude?: true
     longitude?: true
     category?: true
@@ -14891,6 +15087,7 @@ export namespace Prisma {
     address?: true
     city?: true
     country?: true
+    addressId?: true
     latitude?: true
     longitude?: true
     category?: true
@@ -14923,6 +15120,7 @@ export namespace Prisma {
     address?: true
     city?: true
     country?: true
+    addressId?: true
     latitude?: true
     longitude?: true
     category?: true
@@ -15045,6 +15243,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId: string | null
     latitude: number | null
     longitude: number | null
     category: $Enums.DestinationCategory
@@ -15099,6 +15298,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     country?: boolean
+    addressId?: boolean
     latitude?: boolean
     longitude?: boolean
     category?: boolean
@@ -15126,6 +15326,7 @@ export namespace Prisma {
     updatedAt?: boolean
     images?: boolean | Destination$imagesArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    addressInfo?: boolean | Destination$addressInfoArgs<ExtArgs>
     favorites?: boolean | Destination$favoritesArgs<ExtArgs>
     reviews?: boolean | Destination$reviewsArgs<ExtArgs>
     checkins?: boolean | Destination$checkinsArgs<ExtArgs>
@@ -15144,6 +15345,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     country?: boolean
+    addressId?: boolean
     latitude?: boolean
     longitude?: boolean
     category?: boolean
@@ -15171,10 +15373,11 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type DestinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "shortDesc" | "address" | "city" | "country" | "latitude" | "longitude" | "category" | "subCategory" | "coverImage" | "website" | "phone" | "email" | "openingHours" | "bestTimeToVisit" | "priceRange" | "avgCost" | "currency" | "rating" | "reviewCount" | "visitCount" | "shareCount" | "status" | "isVerified" | "isPublic" | "tags" | "amenities" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["destination"]>
+  export type DestinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "shortDesc" | "address" | "city" | "country" | "addressId" | "latitude" | "longitude" | "category" | "subCategory" | "coverImage" | "website" | "phone" | "email" | "openingHours" | "bestTimeToVisit" | "priceRange" | "avgCost" | "currency" | "rating" | "reviewCount" | "visitCount" | "shareCount" | "status" | "isVerified" | "isPublic" | "tags" | "amenities" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["destination"]>
   export type DestinationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Destination$imagesArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    addressInfo?: boolean | Destination$addressInfoArgs<ExtArgs>
     favorites?: boolean | Destination$favoritesArgs<ExtArgs>
     reviews?: boolean | Destination$reviewsArgs<ExtArgs>
     checkins?: boolean | Destination$checkinsArgs<ExtArgs>
@@ -15188,6 +15391,7 @@ export namespace Prisma {
     objects: {
       images: Prisma.$DestinationImagePayload<ExtArgs>[]
       createdBy: Prisma.$UserPayload<ExtArgs>
+      addressInfo: Prisma.$AddressPayload<ExtArgs> | null
       favorites: Prisma.$DestinationFavoritePayload<ExtArgs>[]
       reviews: Prisma.$DestinationReviewPayload<ExtArgs>[]
       checkins: Prisma.$DestinationCheckinPayload<ExtArgs>[]
@@ -15202,6 +15406,7 @@ export namespace Prisma {
       address: string
       city: string
       country: string
+      addressId: string | null
       latitude: number | null
       longitude: number | null
       category: $Enums.DestinationCategory
@@ -15592,6 +15797,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     images<T extends Destination$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Destination$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    addressInfo<T extends Destination$addressInfoArgs<ExtArgs> = {}>(args?: Subset<T, Destination$addressInfoArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     favorites<T extends Destination$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, Destination$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends Destination$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     checkins<T extends Destination$checkinsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$checkinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationCheckinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -15633,6 +15839,7 @@ export namespace Prisma {
     readonly address: FieldRef<"Destination", 'String'>
     readonly city: FieldRef<"Destination", 'String'>
     readonly country: FieldRef<"Destination", 'String'>
+    readonly addressId: FieldRef<"Destination", 'String'>
     readonly latitude: FieldRef<"Destination", 'Float'>
     readonly longitude: FieldRef<"Destination", 'Float'>
     readonly category: FieldRef<"Destination", 'DestinationCategory'>
@@ -16049,6 +16256,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DestinationImageScalarFieldEnum | DestinationImageScalarFieldEnum[]
+  }
+
+  /**
+   * Destination.addressInfo
+   */
+  export type Destination$addressInfoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
   }
 
   /**
@@ -28746,6 +28972,7 @@ export namespace Prisma {
     address: string | null
     city: string | null
     country: string | null
+    addressId: string | null
     latitude: number | null
     longitude: number | null
     type: $Enums.HomestayType | null
@@ -28787,6 +29014,7 @@ export namespace Prisma {
     address: string | null
     city: string | null
     country: string | null
+    addressId: string | null
     latitude: number | null
     longitude: number | null
     type: $Enums.HomestayType | null
@@ -28828,6 +29056,7 @@ export namespace Prisma {
     address: number
     city: number
     country: number
+    addressId: number
     latitude: number
     longitude: number
     type: number
@@ -28909,6 +29138,7 @@ export namespace Prisma {
     address?: true
     city?: true
     country?: true
+    addressId?: true
     latitude?: true
     longitude?: true
     type?: true
@@ -28950,6 +29180,7 @@ export namespace Prisma {
     address?: true
     city?: true
     country?: true
+    addressId?: true
     latitude?: true
     longitude?: true
     type?: true
@@ -28991,6 +29222,7 @@ export namespace Prisma {
     address?: true
     city?: true
     country?: true
+    addressId?: true
     latitude?: true
     longitude?: true
     type?: true
@@ -29121,6 +29353,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId: string | null
     latitude: number | null
     longitude: number | null
     type: $Enums.HomestayType
@@ -29183,6 +29416,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     country?: boolean
+    addressId?: boolean
     latitude?: boolean
     longitude?: boolean
     type?: boolean
@@ -29218,6 +29452,7 @@ export namespace Prisma {
     updatedAt?: boolean
     images?: boolean | Homestay$imagesArgs<ExtArgs>
     host?: boolean | UserDefaultArgs<ExtArgs>
+    addressInfo?: boolean | Homestay$addressInfoArgs<ExtArgs>
     bookings?: boolean | Homestay$bookingsArgs<ExtArgs>
     reviews?: boolean | Homestay$reviewsArgs<ExtArgs>
     favorites?: boolean | Homestay$favoritesArgs<ExtArgs>
@@ -29234,6 +29469,7 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     country?: boolean
+    addressId?: boolean
     latitude?: boolean
     longitude?: boolean
     type?: boolean
@@ -29269,10 +29505,11 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type HomestayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "shortDesc" | "address" | "city" | "country" | "latitude" | "longitude" | "type" | "maxGuests" | "bedrooms" | "bathrooms" | "beds" | "pricePerNight" | "currency" | "cleaningFee" | "serviceFee" | "phone" | "email" | "website" | "amenities" | "houseRules" | "checkInTime" | "checkOutTime" | "minStay" | "maxStay" | "instantBook" | "cancellationPolicy" | "coverImage" | "rating" | "reviewCount" | "bookingCount" | "viewCount" | "status" | "isVerified" | "isActive" | "hostId" | "createdAt" | "updatedAt", ExtArgs["result"]["homestay"]>
+  export type HomestayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "shortDesc" | "address" | "city" | "country" | "addressId" | "latitude" | "longitude" | "type" | "maxGuests" | "bedrooms" | "bathrooms" | "beds" | "pricePerNight" | "currency" | "cleaningFee" | "serviceFee" | "phone" | "email" | "website" | "amenities" | "houseRules" | "checkInTime" | "checkOutTime" | "minStay" | "maxStay" | "instantBook" | "cancellationPolicy" | "coverImage" | "rating" | "reviewCount" | "bookingCount" | "viewCount" | "status" | "isVerified" | "isActive" | "hostId" | "createdAt" | "updatedAt", ExtArgs["result"]["homestay"]>
   export type HomestayInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Homestay$imagesArgs<ExtArgs>
     host?: boolean | UserDefaultArgs<ExtArgs>
+    addressInfo?: boolean | Homestay$addressInfoArgs<ExtArgs>
     bookings?: boolean | Homestay$bookingsArgs<ExtArgs>
     reviews?: boolean | Homestay$reviewsArgs<ExtArgs>
     favorites?: boolean | Homestay$favoritesArgs<ExtArgs>
@@ -29284,6 +29521,7 @@ export namespace Prisma {
     objects: {
       images: Prisma.$HomestayImagePayload<ExtArgs>[]
       host: Prisma.$UserPayload<ExtArgs>
+      addressInfo: Prisma.$AddressPayload<ExtArgs> | null
       bookings: Prisma.$HomestayBookingPayload<ExtArgs>[]
       reviews: Prisma.$HomestayReviewPayload<ExtArgs>[]
       favorites: Prisma.$HomestayFavoritePayload<ExtArgs>[]
@@ -29296,6 +29534,7 @@ export namespace Prisma {
       address: string
       city: string
       country: string
+      addressId: string | null
       latitude: number | null
       longitude: number | null
       type: $Enums.HomestayType
@@ -29694,6 +29933,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     images<T extends Homestay$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     host<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    addressInfo<T extends Homestay$addressInfoArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$addressInfoArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     bookings<T extends Homestay$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends Homestay$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favorites<T extends Homestay$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -29733,6 +29973,7 @@ export namespace Prisma {
     readonly address: FieldRef<"Homestay", 'String'>
     readonly city: FieldRef<"Homestay", 'String'>
     readonly country: FieldRef<"Homestay", 'String'>
+    readonly addressId: FieldRef<"Homestay", 'String'>
     readonly latitude: FieldRef<"Homestay", 'Float'>
     readonly longitude: FieldRef<"Homestay", 'Float'>
     readonly type: FieldRef<"Homestay", 'HomestayType'>
@@ -30157,6 +30398,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HomestayImageScalarFieldEnum | HomestayImageScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay.addressInfo
+   */
+  export type Homestay$addressInfoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
   }
 
   /**
@@ -34721,6 +34981,1449 @@ export namespace Prisma {
 
 
   /**
+   * Model Address
+   */
+
+  export type AggregateAddress = {
+    _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  export type AddressAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    area: number | null
+    population: number | null
+    level: number | null
+    destinationCount: number | null
+    homestayCount: number | null
+    viewCount: number | null
+    searchCount: number | null
+  }
+
+  export type AddressSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    area: number | null
+    population: number | null
+    level: number | null
+    destinationCount: number | null
+    homestayCount: number | null
+    viewCount: number | null
+    searchCount: number | null
+  }
+
+  export type AddressMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    fullName: string | null
+    nameEn: string | null
+    slug: string | null
+    type: $Enums.AddressType | null
+    latitude: number | null
+    longitude: number | null
+    area: number | null
+    population: number | null
+    description: string | null
+    shortDesc: string | null
+    coverImage: string | null
+    bestTimeToVisit: string | null
+    climate: string | null
+    parentId: string | null
+    level: number | null
+    destinationCount: number | null
+    homestayCount: number | null
+    viewCount: number | null
+    searchCount: number | null
+    isActive: boolean | null
+    isVerified: boolean | null
+    isPriority: boolean | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AddressMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    fullName: string | null
+    nameEn: string | null
+    slug: string | null
+    type: $Enums.AddressType | null
+    latitude: number | null
+    longitude: number | null
+    area: number | null
+    population: number | null
+    description: string | null
+    shortDesc: string | null
+    coverImage: string | null
+    bestTimeToVisit: string | null
+    climate: string | null
+    parentId: string | null
+    level: number | null
+    destinationCount: number | null
+    homestayCount: number | null
+    viewCount: number | null
+    searchCount: number | null
+    isActive: boolean | null
+    isVerified: boolean | null
+    isPriority: boolean | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AddressCountAggregateOutputType = {
+    id: number
+    name: number
+    fullName: number
+    nameEn: number
+    slug: number
+    type: number
+    latitude: number
+    longitude: number
+    area: number
+    population: number
+    description: number
+    shortDesc: number
+    highlights: number
+    coverImage: number
+    images: number
+    bestTimeToVisit: number
+    climate: number
+    famousFor: number
+    parentId: number
+    level: number
+    path: number
+    destinationCount: number
+    homestayCount: number
+    viewCount: number
+    searchCount: number
+    isActive: number
+    isVerified: number
+    isPriority: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AddressAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    area?: true
+    population?: true
+    level?: true
+    destinationCount?: true
+    homestayCount?: true
+    viewCount?: true
+    searchCount?: true
+  }
+
+  export type AddressSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    area?: true
+    population?: true
+    level?: true
+    destinationCount?: true
+    homestayCount?: true
+    viewCount?: true
+    searchCount?: true
+  }
+
+  export type AddressMinAggregateInputType = {
+    id?: true
+    name?: true
+    fullName?: true
+    nameEn?: true
+    slug?: true
+    type?: true
+    latitude?: true
+    longitude?: true
+    area?: true
+    population?: true
+    description?: true
+    shortDesc?: true
+    coverImage?: true
+    bestTimeToVisit?: true
+    climate?: true
+    parentId?: true
+    level?: true
+    destinationCount?: true
+    homestayCount?: true
+    viewCount?: true
+    searchCount?: true
+    isActive?: true
+    isVerified?: true
+    isPriority?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AddressMaxAggregateInputType = {
+    id?: true
+    name?: true
+    fullName?: true
+    nameEn?: true
+    slug?: true
+    type?: true
+    latitude?: true
+    longitude?: true
+    area?: true
+    population?: true
+    description?: true
+    shortDesc?: true
+    coverImage?: true
+    bestTimeToVisit?: true
+    climate?: true
+    parentId?: true
+    level?: true
+    destinationCount?: true
+    homestayCount?: true
+    viewCount?: true
+    searchCount?: true
+    isActive?: true
+    isVerified?: true
+    isPriority?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AddressCountAggregateInputType = {
+    id?: true
+    name?: true
+    fullName?: true
+    nameEn?: true
+    slug?: true
+    type?: true
+    latitude?: true
+    longitude?: true
+    area?: true
+    population?: true
+    description?: true
+    shortDesc?: true
+    highlights?: true
+    coverImage?: true
+    images?: true
+    bestTimeToVisit?: true
+    climate?: true
+    famousFor?: true
+    parentId?: true
+    level?: true
+    path?: true
+    destinationCount?: true
+    homestayCount?: true
+    viewCount?: true
+    searchCount?: true
+    isActive?: true
+    isVerified?: true
+    isPriority?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AddressAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Address to aggregate.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Addresses
+    **/
+    _count?: true | AddressCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AddressAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AddressSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AddressMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type GetAddressAggregateType<T extends AddressAggregateArgs> = {
+        [P in keyof T & keyof AggregateAddress]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAddress[P]>
+      : GetScalarType<T[P], AggregateAddress[P]>
+  }
+
+
+
+
+  export type AddressGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithAggregationInput | AddressOrderByWithAggregationInput[]
+    by: AddressScalarFieldEnum[] | AddressScalarFieldEnum
+    having?: AddressScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AddressCountAggregateInputType | true
+    _avg?: AddressAvgAggregateInputType
+    _sum?: AddressSumAggregateInputType
+    _min?: AddressMinAggregateInputType
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type AddressGroupByOutputType = {
+    id: string
+    name: string
+    fullName: string | null
+    nameEn: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude: number | null
+    longitude: number | null
+    area: number | null
+    population: number | null
+    description: string | null
+    shortDesc: string | null
+    highlights: string[]
+    coverImage: string | null
+    images: string[]
+    bestTimeToVisit: string | null
+    climate: string | null
+    famousFor: string[]
+    parentId: string | null
+    level: number
+    path: string[]
+    destinationCount: number
+    homestayCount: number
+    viewCount: number
+    searchCount: number
+    isActive: boolean
+    isVerified: boolean
+    isPriority: boolean
+    createdById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  type GetAddressGroupByPayload<T extends AddressGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AddressGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AddressGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AddressGroupByOutputType[P]>
+            : GetScalarType<T[P], AddressGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AddressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    fullName?: boolean
+    nameEn?: boolean
+    slug?: boolean
+    type?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    area?: boolean
+    population?: boolean
+    description?: boolean
+    shortDesc?: boolean
+    highlights?: boolean
+    coverImage?: boolean
+    images?: boolean
+    bestTimeToVisit?: boolean
+    climate?: boolean
+    famousFor?: boolean
+    parentId?: boolean
+    level?: boolean
+    path?: boolean
+    destinationCount?: boolean
+    homestayCount?: boolean
+    viewCount?: boolean
+    searchCount?: boolean
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | Address$createdByArgs<ExtArgs>
+    parent?: boolean | Address$parentArgs<ExtArgs>
+    children?: boolean | Address$childrenArgs<ExtArgs>
+    destinations?: boolean | Address$destinationsArgs<ExtArgs>
+    homestays?: boolean | Address$homestaysArgs<ExtArgs>
+    _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["address"]>
+
+
+
+  export type AddressSelectScalar = {
+    id?: boolean
+    name?: boolean
+    fullName?: boolean
+    nameEn?: boolean
+    slug?: boolean
+    type?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    area?: boolean
+    population?: boolean
+    description?: boolean
+    shortDesc?: boolean
+    highlights?: boolean
+    coverImage?: boolean
+    images?: boolean
+    bestTimeToVisit?: boolean
+    climate?: boolean
+    famousFor?: boolean
+    parentId?: boolean
+    level?: boolean
+    path?: boolean
+    destinationCount?: boolean
+    homestayCount?: boolean
+    viewCount?: boolean
+    searchCount?: boolean
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "fullName" | "nameEn" | "slug" | "type" | "latitude" | "longitude" | "area" | "population" | "description" | "shortDesc" | "highlights" | "coverImage" | "images" | "bestTimeToVisit" | "climate" | "famousFor" | "parentId" | "level" | "path" | "destinationCount" | "homestayCount" | "viewCount" | "searchCount" | "isActive" | "isVerified" | "isPriority" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["address"]>
+  export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | Address$createdByArgs<ExtArgs>
+    parent?: boolean | Address$parentArgs<ExtArgs>
+    children?: boolean | Address$childrenArgs<ExtArgs>
+    destinations?: boolean | Address$destinationsArgs<ExtArgs>
+    homestays?: boolean | Address$homestaysArgs<ExtArgs>
+    _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $AddressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Address"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
+      parent: Prisma.$AddressPayload<ExtArgs> | null
+      children: Prisma.$AddressPayload<ExtArgs>[]
+      destinations: Prisma.$DestinationPayload<ExtArgs>[]
+      homestays: Prisma.$HomestayPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      fullName: string | null
+      nameEn: string | null
+      slug: string
+      type: $Enums.AddressType
+      latitude: number | null
+      longitude: number | null
+      area: number | null
+      population: number | null
+      description: string | null
+      shortDesc: string | null
+      highlights: string[]
+      coverImage: string | null
+      images: string[]
+      bestTimeToVisit: string | null
+      climate: string | null
+      famousFor: string[]
+      parentId: string | null
+      level: number
+      path: string[]
+      destinationCount: number
+      homestayCount: number
+      viewCount: number
+      searchCount: number
+      isActive: boolean
+      isVerified: boolean
+      isPriority: boolean
+      createdById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["address"]>
+    composites: {}
+  }
+
+  type AddressGetPayload<S extends boolean | null | undefined | AddressDefaultArgs> = $Result.GetResult<Prisma.$AddressPayload, S>
+
+  type AddressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AddressFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AddressCountAggregateInputType | true
+    }
+
+  export interface AddressDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Address'], meta: { name: 'Address' } }
+    /**
+     * Find zero or one Address that matches the filter.
+     * @param {AddressFindUniqueArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AddressFindUniqueArgs>(args: SelectSubset<T, AddressFindUniqueArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Address that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AddressFindUniqueOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AddressFindUniqueOrThrowArgs>(args: SelectSubset<T, AddressFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Address that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AddressFindFirstArgs>(args?: SelectSubset<T, AddressFindFirstArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Address that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AddressFindFirstOrThrowArgs>(args?: SelectSubset<T, AddressFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Addresses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Addresses
+     * const addresses = await prisma.address.findMany()
+     * 
+     * // Get first 10 Addresses
+     * const addresses = await prisma.address.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const addressWithIdOnly = await prisma.address.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AddressFindManyArgs>(args?: SelectSubset<T, AddressFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Address.
+     * @param {AddressCreateArgs} args - Arguments to create a Address.
+     * @example
+     * // Create one Address
+     * const Address = await prisma.address.create({
+     *   data: {
+     *     // ... data to create a Address
+     *   }
+     * })
+     * 
+     */
+    create<T extends AddressCreateArgs>(args: SelectSubset<T, AddressCreateArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Addresses.
+     * @param {AddressCreateManyArgs} args - Arguments to create many Addresses.
+     * @example
+     * // Create many Addresses
+     * const address = await prisma.address.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AddressCreateManyArgs>(args?: SelectSubset<T, AddressCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Address.
+     * @param {AddressDeleteArgs} args - Arguments to delete one Address.
+     * @example
+     * // Delete one Address
+     * const Address = await prisma.address.delete({
+     *   where: {
+     *     // ... filter to delete one Address
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AddressDeleteArgs>(args: SelectSubset<T, AddressDeleteArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Address.
+     * @param {AddressUpdateArgs} args - Arguments to update one Address.
+     * @example
+     * // Update one Address
+     * const address = await prisma.address.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AddressUpdateArgs>(args: SelectSubset<T, AddressUpdateArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Addresses.
+     * @param {AddressDeleteManyArgs} args - Arguments to filter Addresses to delete.
+     * @example
+     * // Delete a few Addresses
+     * const { count } = await prisma.address.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AddressDeleteManyArgs>(args?: SelectSubset<T, AddressDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Addresses
+     * const address = await prisma.address.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AddressUpdateManyArgs>(args: SelectSubset<T, AddressUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Address.
+     * @param {AddressUpsertArgs} args - Arguments to update or create a Address.
+     * @example
+     * // Update or create a Address
+     * const address = await prisma.address.upsert({
+     *   create: {
+     *     // ... data to create a Address
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Address we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AddressUpsertArgs>(args: SelectSubset<T, AddressUpsertArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Addresses that matches the filter.
+     * @param {AddressFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const address = await prisma.address.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AddressFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Address.
+     * @param {AddressAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const address = await prisma.address.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AddressAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressCountArgs} args - Arguments to filter Addresses to count.
+     * @example
+     * // Count the number of Addresses
+     * const count = await prisma.address.count({
+     *   where: {
+     *     // ... the filter for the Addresses we want to count
+     *   }
+     * })
+    **/
+    count<T extends AddressCountArgs>(
+      args?: Subset<T, AddressCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AddressCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AddressAggregateArgs>(args: Subset<T, AddressAggregateArgs>): Prisma.PrismaPromise<GetAddressAggregateType<T>>
+
+    /**
+     * Group by Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AddressGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AddressGroupByArgs['orderBy'] }
+        : { orderBy?: AddressGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AddressGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddressGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Address model
+   */
+  readonly fields: AddressFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Address.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AddressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends Address$createdByArgs<ExtArgs> = {}>(args?: Subset<T, Address$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    parent<T extends Address$parentArgs<ExtArgs> = {}>(args?: Subset<T, Address$parentArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    children<T extends Address$childrenArgs<ExtArgs> = {}>(args?: Subset<T, Address$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    destinations<T extends Address$destinationsArgs<ExtArgs> = {}>(args?: Subset<T, Address$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    homestays<T extends Address$homestaysArgs<ExtArgs> = {}>(args?: Subset<T, Address$homestaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Address model
+   */
+  interface AddressFieldRefs {
+    readonly id: FieldRef<"Address", 'String'>
+    readonly name: FieldRef<"Address", 'String'>
+    readonly fullName: FieldRef<"Address", 'String'>
+    readonly nameEn: FieldRef<"Address", 'String'>
+    readonly slug: FieldRef<"Address", 'String'>
+    readonly type: FieldRef<"Address", 'AddressType'>
+    readonly latitude: FieldRef<"Address", 'Float'>
+    readonly longitude: FieldRef<"Address", 'Float'>
+    readonly area: FieldRef<"Address", 'Float'>
+    readonly population: FieldRef<"Address", 'Int'>
+    readonly description: FieldRef<"Address", 'String'>
+    readonly shortDesc: FieldRef<"Address", 'String'>
+    readonly highlights: FieldRef<"Address", 'String[]'>
+    readonly coverImage: FieldRef<"Address", 'String'>
+    readonly images: FieldRef<"Address", 'String[]'>
+    readonly bestTimeToVisit: FieldRef<"Address", 'String'>
+    readonly climate: FieldRef<"Address", 'String'>
+    readonly famousFor: FieldRef<"Address", 'String[]'>
+    readonly parentId: FieldRef<"Address", 'String'>
+    readonly level: FieldRef<"Address", 'Int'>
+    readonly path: FieldRef<"Address", 'String[]'>
+    readonly destinationCount: FieldRef<"Address", 'Int'>
+    readonly homestayCount: FieldRef<"Address", 'Int'>
+    readonly viewCount: FieldRef<"Address", 'Int'>
+    readonly searchCount: FieldRef<"Address", 'Int'>
+    readonly isActive: FieldRef<"Address", 'Boolean'>
+    readonly isVerified: FieldRef<"Address", 'Boolean'>
+    readonly isPriority: FieldRef<"Address", 'Boolean'>
+    readonly createdById: FieldRef<"Address", 'String'>
+    readonly createdAt: FieldRef<"Address", 'DateTime'>
+    readonly updatedAt: FieldRef<"Address", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Address findUnique
+   */
+  export type AddressFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address findUniqueOrThrow
+   */
+  export type AddressFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address findFirst
+   */
+  export type AddressFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address findFirstOrThrow
+   */
+  export type AddressFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address findMany
+   */
+  export type AddressFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Addresses to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address create
+   */
+  export type AddressCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Address.
+     */
+    data: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+  }
+
+  /**
+   * Address createMany
+   */
+  export type AddressCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Addresses.
+     */
+    data: AddressCreateManyInput | AddressCreateManyInput[]
+  }
+
+  /**
+   * Address update
+   */
+  export type AddressUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Address.
+     */
+    data: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+    /**
+     * Choose, which Address to update.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address updateMany
+   */
+  export type AddressUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Addresses.
+     */
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyInput>
+    /**
+     * Filter which Addresses to update
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Address upsert
+   */
+  export type AddressUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Address to update in case it exists.
+     */
+    where: AddressWhereUniqueInput
+    /**
+     * In case the Address found by the `where` argument doesn't exist, create a new Address with this data.
+     */
+    create: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+    /**
+     * In case the Address was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+  }
+
+  /**
+   * Address delete
+   */
+  export type AddressDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter which Address to delete.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address deleteMany
+   */
+  export type AddressDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Addresses to delete
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Address findRaw
+   */
+  export type AddressFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Address aggregateRaw
+   */
+  export type AddressAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Address.createdBy
+   */
+  export type Address$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Address.parent
+   */
+  export type Address$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+  }
+
+  /**
+   * Address.children
+   */
+  export type Address$childrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address.destinations
+   */
+  export type Address$destinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    where?: DestinationWhereInput
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    cursor?: DestinationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Address.homestays
+   */
+  export type Address$homestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    where?: HomestayWhereInput
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    cursor?: HomestayWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayScalarFieldEnum | HomestayScalarFieldEnum[]
+  }
+
+  /**
+   * Address without action
+   */
+  export type AddressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Report
    */
 
@@ -35856,6 +37559,7 @@ export namespace Prisma {
     address: 'address',
     city: 'city',
     country: 'country',
+    addressId: 'addressId',
     latitude: 'latitude',
     longitude: 'longitude',
     category: 'category',
@@ -36061,6 +37765,7 @@ export namespace Prisma {
     address: 'address',
     city: 'city',
     country: 'country',
+    addressId: 'addressId',
     latitude: 'latitude',
     longitude: 'longitude',
     type: 'type',
@@ -36177,6 +37882,43 @@ export namespace Prisma {
   };
 
   export type HomestayFavoriteScalarFieldEnum = (typeof HomestayFavoriteScalarFieldEnum)[keyof typeof HomestayFavoriteScalarFieldEnum]
+
+
+  export const AddressScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    fullName: 'fullName',
+    nameEn: 'nameEn',
+    slug: 'slug',
+    type: 'type',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    area: 'area',
+    population: 'population',
+    description: 'description',
+    shortDesc: 'shortDesc',
+    highlights: 'highlights',
+    coverImage: 'coverImage',
+    images: 'images',
+    bestTimeToVisit: 'bestTimeToVisit',
+    climate: 'climate',
+    famousFor: 'famousFor',
+    parentId: 'parentId',
+    level: 'level',
+    path: 'path',
+    destinationCount: 'destinationCount',
+    homestayCount: 'homestayCount',
+    viewCount: 'viewCount',
+    searchCount: 'searchCount',
+    isActive: 'isActive',
+    isVerified: 'isVerified',
+    isPriority: 'isPriority',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
 
 
   export const ReportScalarFieldEnum: {
@@ -36392,6 +38134,20 @@ export namespace Prisma {
    */
   export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'AddressType'
+   */
+  export type EnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AddressType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AddressType[]'
+   */
+  export type ListEnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AddressType[]'>
+    
   /**
    * Deep Input Types
    */
@@ -36449,6 +38205,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingListRelationFilter
     homestayReviews?: HomestayReviewListRelationFilter
     homestayFavorites?: HomestayFavoriteListRelationFilter
+    createdAddresses?: AddressListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -36500,6 +38257,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingOrderByRelationAggregateInput
     homestayReviews?: HomestayReviewOrderByRelationAggregateInput
     homestayFavorites?: HomestayFavoriteOrderByRelationAggregateInput
+    createdAddresses?: AddressOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -36554,6 +38312,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingListRelationFilter
     homestayReviews?: HomestayReviewListRelationFilter
     homestayFavorites?: HomestayFavoriteListRelationFilter
+    createdAddresses?: AddressListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -37238,6 +38997,7 @@ export namespace Prisma {
     address?: StringFilter<"Destination"> | string
     city?: StringFilter<"Destination"> | string
     country?: StringFilter<"Destination"> | string
+    addressId?: StringNullableFilter<"Destination"> | string | null
     latitude?: FloatNullableFilter<"Destination"> | number | null
     longitude?: FloatNullableFilter<"Destination"> | number | null
     category?: EnumDestinationCategoryFilter<"Destination"> | $Enums.DestinationCategory
@@ -37265,6 +39025,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Destination"> | Date | string
     images?: DestinationImageListRelationFilter
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    addressInfo?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     favorites?: DestinationFavoriteListRelationFilter
     reviews?: DestinationReviewListRelationFilter
     checkins?: DestinationCheckinListRelationFilter
@@ -37280,6 +39041,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     category?: SortOrder
@@ -37307,6 +39069,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     images?: DestinationImageOrderByRelationAggregateInput
     createdBy?: UserOrderByWithRelationInput
+    addressInfo?: AddressOrderByWithRelationInput
     favorites?: DestinationFavoriteOrderByRelationAggregateInput
     reviews?: DestinationReviewOrderByRelationAggregateInput
     checkins?: DestinationCheckinOrderByRelationAggregateInput
@@ -37325,6 +39088,7 @@ export namespace Prisma {
     address?: StringFilter<"Destination"> | string
     city?: StringFilter<"Destination"> | string
     country?: StringFilter<"Destination"> | string
+    addressId?: StringNullableFilter<"Destination"> | string | null
     latitude?: FloatNullableFilter<"Destination"> | number | null
     longitude?: FloatNullableFilter<"Destination"> | number | null
     category?: EnumDestinationCategoryFilter<"Destination"> | $Enums.DestinationCategory
@@ -37352,6 +39116,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Destination"> | Date | string
     images?: DestinationImageListRelationFilter
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    addressInfo?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     favorites?: DestinationFavoriteListRelationFilter
     reviews?: DestinationReviewListRelationFilter
     checkins?: DestinationCheckinListRelationFilter
@@ -37367,6 +39132,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     category?: SortOrder
@@ -37410,6 +39176,7 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"Destination"> | string
     city?: StringWithAggregatesFilter<"Destination"> | string
     country?: StringWithAggregatesFilter<"Destination"> | string
+    addressId?: StringNullableWithAggregatesFilter<"Destination"> | string | null
     latitude?: FloatNullableWithAggregatesFilter<"Destination"> | number | null
     longitude?: FloatNullableWithAggregatesFilter<"Destination"> | number | null
     category?: EnumDestinationCategoryWithAggregatesFilter<"Destination"> | $Enums.DestinationCategory
@@ -38346,6 +40113,7 @@ export namespace Prisma {
     address?: StringFilter<"Homestay"> | string
     city?: StringFilter<"Homestay"> | string
     country?: StringFilter<"Homestay"> | string
+    addressId?: StringNullableFilter<"Homestay"> | string | null
     latitude?: FloatNullableFilter<"Homestay"> | number | null
     longitude?: FloatNullableFilter<"Homestay"> | number | null
     type?: EnumHomestayTypeFilter<"Homestay"> | $Enums.HomestayType
@@ -38381,6 +40149,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Homestay"> | Date | string
     images?: HomestayImageListRelationFilter
     host?: XOR<UserScalarRelationFilter, UserWhereInput>
+    addressInfo?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     bookings?: HomestayBookingListRelationFilter
     reviews?: HomestayReviewListRelationFilter
     favorites?: HomestayFavoriteListRelationFilter
@@ -38394,6 +40163,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     type?: SortOrder
@@ -38429,6 +40199,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     images?: HomestayImageOrderByRelationAggregateInput
     host?: UserOrderByWithRelationInput
+    addressInfo?: AddressOrderByWithRelationInput
     bookings?: HomestayBookingOrderByRelationAggregateInput
     reviews?: HomestayReviewOrderByRelationAggregateInput
     favorites?: HomestayFavoriteOrderByRelationAggregateInput
@@ -38445,6 +40216,7 @@ export namespace Prisma {
     address?: StringFilter<"Homestay"> | string
     city?: StringFilter<"Homestay"> | string
     country?: StringFilter<"Homestay"> | string
+    addressId?: StringNullableFilter<"Homestay"> | string | null
     latitude?: FloatNullableFilter<"Homestay"> | number | null
     longitude?: FloatNullableFilter<"Homestay"> | number | null
     type?: EnumHomestayTypeFilter<"Homestay"> | $Enums.HomestayType
@@ -38480,6 +40252,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Homestay"> | Date | string
     images?: HomestayImageListRelationFilter
     host?: XOR<UserScalarRelationFilter, UserWhereInput>
+    addressInfo?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     bookings?: HomestayBookingListRelationFilter
     reviews?: HomestayReviewListRelationFilter
     favorites?: HomestayFavoriteListRelationFilter
@@ -38493,6 +40266,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     type?: SortOrder
@@ -38544,6 +40318,7 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"Homestay"> | string
     city?: StringWithAggregatesFilter<"Homestay"> | string
     country?: StringWithAggregatesFilter<"Homestay"> | string
+    addressId?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
     latitude?: FloatNullableWithAggregatesFilter<"Homestay"> | number | null
     longitude?: FloatNullableWithAggregatesFilter<"Homestay"> | number | null
     type?: EnumHomestayTypeWithAggregatesFilter<"Homestay"> | $Enums.HomestayType
@@ -38996,6 +40771,205 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"HomestayFavorite"> | Date | string
   }
 
+  export type AddressWhereInput = {
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    id?: StringFilter<"Address"> | string
+    name?: StringFilter<"Address"> | string
+    fullName?: StringNullableFilter<"Address"> | string | null
+    nameEn?: StringNullableFilter<"Address"> | string | null
+    slug?: StringFilter<"Address"> | string
+    type?: EnumAddressTypeFilter<"Address"> | $Enums.AddressType
+    latitude?: FloatNullableFilter<"Address"> | number | null
+    longitude?: FloatNullableFilter<"Address"> | number | null
+    area?: FloatNullableFilter<"Address"> | number | null
+    population?: IntNullableFilter<"Address"> | number | null
+    description?: StringNullableFilter<"Address"> | string | null
+    shortDesc?: StringNullableFilter<"Address"> | string | null
+    highlights?: StringNullableListFilter<"Address">
+    coverImage?: StringNullableFilter<"Address"> | string | null
+    images?: StringNullableListFilter<"Address">
+    bestTimeToVisit?: StringNullableFilter<"Address"> | string | null
+    climate?: StringNullableFilter<"Address"> | string | null
+    famousFor?: StringNullableListFilter<"Address">
+    parentId?: StringNullableFilter<"Address"> | string | null
+    level?: IntFilter<"Address"> | number
+    path?: StringNullableListFilter<"Address">
+    destinationCount?: IntFilter<"Address"> | number
+    homestayCount?: IntFilter<"Address"> | number
+    viewCount?: IntFilter<"Address"> | number
+    searchCount?: IntFilter<"Address"> | number
+    isActive?: BoolFilter<"Address"> | boolean
+    isVerified?: BoolFilter<"Address"> | boolean
+    isPriority?: BoolFilter<"Address"> | boolean
+    createdById?: StringNullableFilter<"Address"> | string | null
+    createdAt?: DateTimeFilter<"Address"> | Date | string
+    updatedAt?: DateTimeFilter<"Address"> | Date | string
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    parent?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
+    children?: AddressListRelationFilter
+    destinations?: DestinationListRelationFilter
+    homestays?: HomestayListRelationFilter
+  }
+
+  export type AddressOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fullName?: SortOrder
+    nameEn?: SortOrder
+    slug?: SortOrder
+    type?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    description?: SortOrder
+    shortDesc?: SortOrder
+    highlights?: SortOrder
+    coverImage?: SortOrder
+    images?: SortOrder
+    bestTimeToVisit?: SortOrder
+    climate?: SortOrder
+    famousFor?: SortOrder
+    parentId?: SortOrder
+    level?: SortOrder
+    path?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    isPriority?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+    parent?: AddressOrderByWithRelationInput
+    children?: AddressOrderByRelationAggregateInput
+    destinations?: DestinationOrderByRelationAggregateInput
+    homestays?: HomestayOrderByRelationAggregateInput
+  }
+
+  export type AddressWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    name?: StringFilter<"Address"> | string
+    fullName?: StringNullableFilter<"Address"> | string | null
+    nameEn?: StringNullableFilter<"Address"> | string | null
+    type?: EnumAddressTypeFilter<"Address"> | $Enums.AddressType
+    latitude?: FloatNullableFilter<"Address"> | number | null
+    longitude?: FloatNullableFilter<"Address"> | number | null
+    area?: FloatNullableFilter<"Address"> | number | null
+    population?: IntNullableFilter<"Address"> | number | null
+    description?: StringNullableFilter<"Address"> | string | null
+    shortDesc?: StringNullableFilter<"Address"> | string | null
+    highlights?: StringNullableListFilter<"Address">
+    coverImage?: StringNullableFilter<"Address"> | string | null
+    images?: StringNullableListFilter<"Address">
+    bestTimeToVisit?: StringNullableFilter<"Address"> | string | null
+    climate?: StringNullableFilter<"Address"> | string | null
+    famousFor?: StringNullableListFilter<"Address">
+    parentId?: StringNullableFilter<"Address"> | string | null
+    level?: IntFilter<"Address"> | number
+    path?: StringNullableListFilter<"Address">
+    destinationCount?: IntFilter<"Address"> | number
+    homestayCount?: IntFilter<"Address"> | number
+    viewCount?: IntFilter<"Address"> | number
+    searchCount?: IntFilter<"Address"> | number
+    isActive?: BoolFilter<"Address"> | boolean
+    isVerified?: BoolFilter<"Address"> | boolean
+    isPriority?: BoolFilter<"Address"> | boolean
+    createdById?: StringNullableFilter<"Address"> | string | null
+    createdAt?: DateTimeFilter<"Address"> | Date | string
+    updatedAt?: DateTimeFilter<"Address"> | Date | string
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    parent?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
+    children?: AddressListRelationFilter
+    destinations?: DestinationListRelationFilter
+    homestays?: HomestayListRelationFilter
+  }, "id" | "slug">
+
+  export type AddressOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fullName?: SortOrder
+    nameEn?: SortOrder
+    slug?: SortOrder
+    type?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    description?: SortOrder
+    shortDesc?: SortOrder
+    highlights?: SortOrder
+    coverImage?: SortOrder
+    images?: SortOrder
+    bestTimeToVisit?: SortOrder
+    climate?: SortOrder
+    famousFor?: SortOrder
+    parentId?: SortOrder
+    level?: SortOrder
+    path?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    isPriority?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AddressCountOrderByAggregateInput
+    _avg?: AddressAvgOrderByAggregateInput
+    _max?: AddressMaxOrderByAggregateInput
+    _min?: AddressMinOrderByAggregateInput
+    _sum?: AddressSumOrderByAggregateInput
+  }
+
+  export type AddressScalarWhereWithAggregatesInput = {
+    AND?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    OR?: AddressScalarWhereWithAggregatesInput[]
+    NOT?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Address"> | string
+    name?: StringWithAggregatesFilter<"Address"> | string
+    fullName?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    nameEn?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    slug?: StringWithAggregatesFilter<"Address"> | string
+    type?: EnumAddressTypeWithAggregatesFilter<"Address"> | $Enums.AddressType
+    latitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
+    area?: FloatNullableWithAggregatesFilter<"Address"> | number | null
+    population?: IntNullableWithAggregatesFilter<"Address"> | number | null
+    description?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    shortDesc?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    highlights?: StringNullableListFilter<"Address">
+    coverImage?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    images?: StringNullableListFilter<"Address">
+    bestTimeToVisit?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    climate?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    famousFor?: StringNullableListFilter<"Address">
+    parentId?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    level?: IntWithAggregatesFilter<"Address"> | number
+    path?: StringNullableListFilter<"Address">
+    destinationCount?: IntWithAggregatesFilter<"Address"> | number
+    homestayCount?: IntWithAggregatesFilter<"Address"> | number
+    viewCount?: IntWithAggregatesFilter<"Address"> | number
+    searchCount?: IntWithAggregatesFilter<"Address"> | number
+    isActive?: BoolWithAggregatesFilter<"Address"> | boolean
+    isVerified?: BoolWithAggregatesFilter<"Address"> | boolean
+    isPriority?: BoolWithAggregatesFilter<"Address"> | boolean
+    createdById?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
+  }
+
   export type ReportWhereInput = {
     AND?: ReportWhereInput | ReportWhereInput[]
     OR?: ReportWhereInput[]
@@ -39105,6 +41079,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -39156,6 +41131,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -39206,6 +41182,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -39256,6 +41233,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -39937,6 +41915,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
@@ -39952,6 +41931,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -40018,6 +41998,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
@@ -40032,6 +42013,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -40073,6 +42055,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -40140,6 +42123,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -41079,6 +43063,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: HomestayImageCreateNestedManyWithoutHomestayInput
     host: UserCreateNestedOneWithoutHostedHomestaysInput
+    addressInfo?: AddressCreateNestedOneWithoutHomestaysInput
     bookings?: HomestayBookingCreateNestedManyWithoutHomestayInput
     reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
     favorites?: HomestayFavoriteCreateNestedManyWithoutHomestayInput
@@ -41092,6 +43077,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -41172,6 +43158,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: HomestayImageUpdateManyWithoutHomestayNestedInput
     host?: UserUpdateOneRequiredWithoutHostedHomestaysNestedInput
+    addressInfo?: AddressUpdateOneWithoutHomestaysNestedInput
     bookings?: HomestayBookingUpdateManyWithoutHomestayNestedInput
     reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
     favorites?: HomestayFavoriteUpdateManyWithoutHomestayNestedInput
@@ -41184,6 +43171,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -41231,6 +43219,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -41314,6 +43303,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -41802,6 +43792,250 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AddressCreateInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCreatedAddressesInput
+    parent?: AddressCreateNestedOneWithoutChildrenInput
+    children?: AddressCreateNestedManyWithoutParentInput
+    destinations?: DestinationCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUncheckedCreateInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: AddressUncheckedCreateNestedManyWithoutParentInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCreatedAddressesNestedInput
+    parent?: AddressUpdateOneWithoutChildrenNestedInput
+    children?: AddressUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: AddressUncheckedUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressCreateManyInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AddressUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AddressUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ReportCreateInput = {
     id?: string
     targetType: string
@@ -42080,6 +44314,12 @@ export namespace Prisma {
     none?: HomestayFavoriteWhereInput
   }
 
+  export type AddressListRelationFilter = {
+    every?: AddressWhereInput
+    some?: AddressWhereInput
+    none?: AddressWhereInput
+  }
+
   export type PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -42177,6 +44417,10 @@ export namespace Prisma {
   }
 
   export type HomestayFavoriteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AddressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42730,6 +44974,11 @@ export namespace Prisma {
     not?: NestedEnumDestinationStatusFilter<$PrismaModel> | $Enums.DestinationStatus
   }
 
+  export type AddressNullableScalarRelationFilter = {
+    is?: AddressWhereInput | null
+    isNot?: AddressWhereInput | null
+  }
+
   export type TripDestinationListRelationFilter = {
     every?: TripDestinationWhereInput
     some?: TripDestinationWhereInput
@@ -42748,6 +44997,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     category?: SortOrder
@@ -42793,6 +45043,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     category?: SortOrder
@@ -42825,6 +45076,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     category?: SortOrder
@@ -43509,6 +45761,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     type?: SortOrder
@@ -43570,6 +45823,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     type?: SortOrder
@@ -43611,6 +45865,7 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    addressId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     type?: SortOrder
@@ -43964,6 +46219,141 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumAddressTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeFilter<$PrismaModel> | $Enums.AddressType
+  }
+
+  export type AddressCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fullName?: SortOrder
+    nameEn?: SortOrder
+    slug?: SortOrder
+    type?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    description?: SortOrder
+    shortDesc?: SortOrder
+    highlights?: SortOrder
+    coverImage?: SortOrder
+    images?: SortOrder
+    bestTimeToVisit?: SortOrder
+    climate?: SortOrder
+    famousFor?: SortOrder
+    parentId?: SortOrder
+    level?: SortOrder
+    path?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    isPriority?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AddressAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    level?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+  }
+
+  export type AddressMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fullName?: SortOrder
+    nameEn?: SortOrder
+    slug?: SortOrder
+    type?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    description?: SortOrder
+    shortDesc?: SortOrder
+    coverImage?: SortOrder
+    bestTimeToVisit?: SortOrder
+    climate?: SortOrder
+    parentId?: SortOrder
+    level?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    isPriority?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AddressMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fullName?: SortOrder
+    nameEn?: SortOrder
+    slug?: SortOrder
+    type?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    description?: SortOrder
+    shortDesc?: SortOrder
+    coverImage?: SortOrder
+    bestTimeToVisit?: SortOrder
+    climate?: SortOrder
+    parentId?: SortOrder
+    level?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    isPriority?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AddressSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    area?: SortOrder
+    population?: SortOrder
+    level?: SortOrder
+    destinationCount?: SortOrder
+    homestayCount?: SortOrder
+    viewCount?: SortOrder
+    searchCount?: SortOrder
+  }
+
+  export type EnumAddressTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeWithAggregatesFilter<$PrismaModel> | $Enums.AddressType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAddressTypeFilter<$PrismaModel>
+    _max?: NestedEnumAddressTypeFilter<$PrismaModel>
+  }
+
   export type ReportCountOrderByAggregateInput = {
     id?: SortOrder
     reporterId?: SortOrder
@@ -44187,6 +46577,13 @@ export namespace Prisma {
     connect?: HomestayFavoriteWhereUniqueInput | HomestayFavoriteWhereUniqueInput[]
   }
 
+  export type AddressCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<AddressCreateWithoutCreatedByInput, AddressUncheckedCreateWithoutCreatedByInput> | AddressCreateWithoutCreatedByInput[] | AddressUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCreatedByInput | AddressCreateOrConnectWithoutCreatedByInput[]
+    createMany?: AddressCreateManyCreatedByInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
   export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -44381,6 +46778,13 @@ export namespace Prisma {
     connectOrCreate?: HomestayFavoriteCreateOrConnectWithoutUserInput | HomestayFavoriteCreateOrConnectWithoutUserInput[]
     createMany?: HomestayFavoriteCreateManyUserInputEnvelope
     connect?: HomestayFavoriteWhereUniqueInput | HomestayFavoriteWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<AddressCreateWithoutCreatedByInput, AddressUncheckedCreateWithoutCreatedByInput> | AddressCreateWithoutCreatedByInput[] | AddressUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCreatedByInput | AddressCreateOrConnectWithoutCreatedByInput[]
+    createMany?: AddressCreateManyCreatedByInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -44805,6 +47209,20 @@ export namespace Prisma {
     deleteMany?: HomestayFavoriteScalarWhereInput | HomestayFavoriteScalarWhereInput[]
   }
 
+  export type AddressUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<AddressCreateWithoutCreatedByInput, AddressUncheckedCreateWithoutCreatedByInput> | AddressCreateWithoutCreatedByInput[] | AddressUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCreatedByInput | AddressCreateOrConnectWithoutCreatedByInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutCreatedByInput | AddressUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: AddressCreateManyCreatedByInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutCreatedByInput | AddressUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutCreatedByInput | AddressUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
   export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -45195,6 +47613,20 @@ export namespace Prisma {
     update?: HomestayFavoriteUpdateWithWhereUniqueWithoutUserInput | HomestayFavoriteUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: HomestayFavoriteUpdateManyWithWhereWithoutUserInput | HomestayFavoriteUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: HomestayFavoriteScalarWhereInput | HomestayFavoriteScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<AddressCreateWithoutCreatedByInput, AddressUncheckedCreateWithoutCreatedByInput> | AddressCreateWithoutCreatedByInput[] | AddressUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCreatedByInput | AddressCreateOrConnectWithoutCreatedByInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutCreatedByInput | AddressUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: AddressCreateManyCreatedByInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutCreatedByInput | AddressUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutCreatedByInput | AddressUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutFollowersInput = {
@@ -45982,6 +48414,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type AddressCreateNestedOneWithoutDestinationsInput = {
+    create?: XOR<AddressCreateWithoutDestinationsInput, AddressUncheckedCreateWithoutDestinationsInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutDestinationsInput
+    connect?: AddressWhereUniqueInput
+  }
+
   export type DestinationFavoriteCreateNestedManyWithoutDestinationInput = {
     create?: XOR<DestinationFavoriteCreateWithoutDestinationInput, DestinationFavoriteUncheckedCreateWithoutDestinationInput> | DestinationFavoriteCreateWithoutDestinationInput[] | DestinationFavoriteUncheckedCreateWithoutDestinationInput[]
     connectOrCreate?: DestinationFavoriteCreateOrConnectWithoutDestinationInput | DestinationFavoriteCreateOrConnectWithoutDestinationInput[]
@@ -46110,6 +48548,16 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDestinationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDestinationsInput, UserUpdateWithoutDestinationsInput>, UserUncheckedUpdateWithoutDestinationsInput>
+  }
+
+  export type AddressUpdateOneWithoutDestinationsNestedInput = {
+    create?: XOR<AddressCreateWithoutDestinationsInput, AddressUncheckedCreateWithoutDestinationsInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutDestinationsInput
+    upsert?: AddressUpsertWithoutDestinationsInput
+    disconnect?: boolean
+    delete?: AddressWhereInput | boolean
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutDestinationsInput, AddressUpdateWithoutDestinationsInput>, AddressUncheckedUpdateWithoutDestinationsInput>
   }
 
   export type DestinationFavoriteUpdateManyWithoutDestinationNestedInput = {
@@ -46955,6 +49403,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type AddressCreateNestedOneWithoutHomestaysInput = {
+    create?: XOR<AddressCreateWithoutHomestaysInput, AddressUncheckedCreateWithoutHomestaysInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutHomestaysInput
+    connect?: AddressWhereUniqueInput
+  }
+
   export type HomestayBookingCreateNestedManyWithoutHomestayInput = {
     create?: XOR<HomestayBookingCreateWithoutHomestayInput, HomestayBookingUncheckedCreateWithoutHomestayInput> | HomestayBookingCreateWithoutHomestayInput[] | HomestayBookingUncheckedCreateWithoutHomestayInput[]
     connectOrCreate?: HomestayBookingCreateOrConnectWithoutHomestayInput | HomestayBookingCreateOrConnectWithoutHomestayInput[]
@@ -47042,6 +49496,16 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutHostedHomestaysInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHostedHomestaysInput, UserUpdateWithoutHostedHomestaysInput>, UserUncheckedUpdateWithoutHostedHomestaysInput>
+  }
+
+  export type AddressUpdateOneWithoutHomestaysNestedInput = {
+    create?: XOR<AddressCreateWithoutHomestaysInput, AddressUncheckedCreateWithoutHomestaysInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutHomestaysInput
+    upsert?: AddressUpsertWithoutHomestaysInput
+    disconnect?: boolean
+    delete?: AddressWhereInput | boolean
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutHomestaysInput, AddressUpdateWithoutHomestaysInput>, AddressUncheckedUpdateWithoutHomestaysInput>
   }
 
   export type HomestayBookingUpdateManyWithoutHomestayNestedInput = {
@@ -47251,6 +49715,204 @@ export namespace Prisma {
     upsert?: HomestayUpsertWithoutFavoritesInput
     connect?: HomestayWhereUniqueInput
     update?: XOR<XOR<HomestayUpdateToOneWithWhereWithoutFavoritesInput, HomestayUpdateWithoutFavoritesInput>, HomestayUncheckedUpdateWithoutFavoritesInput>
+  }
+
+  export type AddressCreatehighlightsInput = {
+    set: string[]
+  }
+
+  export type AddressCreateimagesInput = {
+    set: string[]
+  }
+
+  export type AddressCreatefamousForInput = {
+    set: string[]
+  }
+
+  export type AddressCreatepathInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutCreatedAddressesInput = {
+    create?: XOR<UserCreateWithoutCreatedAddressesInput, UserUncheckedCreateWithoutCreatedAddressesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedAddressesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AddressCreateNestedOneWithoutChildrenInput = {
+    create?: XOR<AddressCreateWithoutChildrenInput, AddressUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutChildrenInput
+    connect?: AddressWhereUniqueInput
+  }
+
+  export type AddressCreateNestedManyWithoutParentInput = {
+    create?: XOR<AddressCreateWithoutParentInput, AddressUncheckedCreateWithoutParentInput> | AddressCreateWithoutParentInput[] | AddressUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParentInput | AddressCreateOrConnectWithoutParentInput[]
+    createMany?: AddressCreateManyParentInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type DestinationCreateNestedManyWithoutAddressInfoInput = {
+    create?: XOR<DestinationCreateWithoutAddressInfoInput, DestinationUncheckedCreateWithoutAddressInfoInput> | DestinationCreateWithoutAddressInfoInput[] | DestinationUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutAddressInfoInput | DestinationCreateOrConnectWithoutAddressInfoInput[]
+    createMany?: DestinationCreateManyAddressInfoInputEnvelope
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type HomestayCreateNestedManyWithoutAddressInfoInput = {
+    create?: XOR<HomestayCreateWithoutAddressInfoInput, HomestayUncheckedCreateWithoutAddressInfoInput> | HomestayCreateWithoutAddressInfoInput[] | HomestayUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutAddressInfoInput | HomestayCreateOrConnectWithoutAddressInfoInput[]
+    createMany?: HomestayCreateManyAddressInfoInputEnvelope
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<AddressCreateWithoutParentInput, AddressUncheckedCreateWithoutParentInput> | AddressCreateWithoutParentInput[] | AddressUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParentInput | AddressCreateOrConnectWithoutParentInput[]
+    createMany?: AddressCreateManyParentInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type DestinationUncheckedCreateNestedManyWithoutAddressInfoInput = {
+    create?: XOR<DestinationCreateWithoutAddressInfoInput, DestinationUncheckedCreateWithoutAddressInfoInput> | DestinationCreateWithoutAddressInfoInput[] | DestinationUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutAddressInfoInput | DestinationCreateOrConnectWithoutAddressInfoInput[]
+    createMany?: DestinationCreateManyAddressInfoInputEnvelope
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type HomestayUncheckedCreateNestedManyWithoutAddressInfoInput = {
+    create?: XOR<HomestayCreateWithoutAddressInfoInput, HomestayUncheckedCreateWithoutAddressInfoInput> | HomestayCreateWithoutAddressInfoInput[] | HomestayUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutAddressInfoInput | HomestayCreateOrConnectWithoutAddressInfoInput[]
+    createMany?: HomestayCreateManyAddressInfoInputEnvelope
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+  }
+
+  export type EnumAddressTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AddressType
+  }
+
+  export type AddressUpdatehighlightsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type AddressUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type AddressUpdatefamousForInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type AddressUpdatepathInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneWithoutCreatedAddressesNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedAddressesInput, UserUncheckedCreateWithoutCreatedAddressesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedAddressesInput
+    upsert?: UserUpsertWithoutCreatedAddressesInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedAddressesInput, UserUpdateWithoutCreatedAddressesInput>, UserUncheckedUpdateWithoutCreatedAddressesInput>
+  }
+
+  export type AddressUpdateOneWithoutChildrenNestedInput = {
+    create?: XOR<AddressCreateWithoutChildrenInput, AddressUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutChildrenInput
+    upsert?: AddressUpsertWithoutChildrenInput
+    disconnect?: boolean
+    delete?: AddressWhereInput | boolean
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutChildrenInput, AddressUpdateWithoutChildrenInput>, AddressUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type AddressUpdateManyWithoutParentNestedInput = {
+    create?: XOR<AddressCreateWithoutParentInput, AddressUncheckedCreateWithoutParentInput> | AddressCreateWithoutParentInput[] | AddressUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParentInput | AddressCreateOrConnectWithoutParentInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutParentInput | AddressUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: AddressCreateManyParentInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutParentInput | AddressUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutParentInput | AddressUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type DestinationUpdateManyWithoutAddressInfoNestedInput = {
+    create?: XOR<DestinationCreateWithoutAddressInfoInput, DestinationUncheckedCreateWithoutAddressInfoInput> | DestinationCreateWithoutAddressInfoInput[] | DestinationUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutAddressInfoInput | DestinationCreateOrConnectWithoutAddressInfoInput[]
+    upsert?: DestinationUpsertWithWhereUniqueWithoutAddressInfoInput | DestinationUpsertWithWhereUniqueWithoutAddressInfoInput[]
+    createMany?: DestinationCreateManyAddressInfoInputEnvelope
+    set?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    disconnect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    delete?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    update?: DestinationUpdateWithWhereUniqueWithoutAddressInfoInput | DestinationUpdateWithWhereUniqueWithoutAddressInfoInput[]
+    updateMany?: DestinationUpdateManyWithWhereWithoutAddressInfoInput | DestinationUpdateManyWithWhereWithoutAddressInfoInput[]
+    deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type HomestayUpdateManyWithoutAddressInfoNestedInput = {
+    create?: XOR<HomestayCreateWithoutAddressInfoInput, HomestayUncheckedCreateWithoutAddressInfoInput> | HomestayCreateWithoutAddressInfoInput[] | HomestayUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutAddressInfoInput | HomestayCreateOrConnectWithoutAddressInfoInput[]
+    upsert?: HomestayUpsertWithWhereUniqueWithoutAddressInfoInput | HomestayUpsertWithWhereUniqueWithoutAddressInfoInput[]
+    createMany?: HomestayCreateManyAddressInfoInputEnvelope
+    set?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    disconnect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    delete?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    update?: HomestayUpdateWithWhereUniqueWithoutAddressInfoInput | HomestayUpdateWithWhereUniqueWithoutAddressInfoInput[]
+    updateMany?: HomestayUpdateManyWithWhereWithoutAddressInfoInput | HomestayUpdateManyWithWhereWithoutAddressInfoInput[]
+    deleteMany?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<AddressCreateWithoutParentInput, AddressUncheckedCreateWithoutParentInput> | AddressCreateWithoutParentInput[] | AddressUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParentInput | AddressCreateOrConnectWithoutParentInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutParentInput | AddressUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: AddressCreateManyParentInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutParentInput | AddressUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutParentInput | AddressUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type DestinationUncheckedUpdateManyWithoutAddressInfoNestedInput = {
+    create?: XOR<DestinationCreateWithoutAddressInfoInput, DestinationUncheckedCreateWithoutAddressInfoInput> | DestinationCreateWithoutAddressInfoInput[] | DestinationUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutAddressInfoInput | DestinationCreateOrConnectWithoutAddressInfoInput[]
+    upsert?: DestinationUpsertWithWhereUniqueWithoutAddressInfoInput | DestinationUpsertWithWhereUniqueWithoutAddressInfoInput[]
+    createMany?: DestinationCreateManyAddressInfoInputEnvelope
+    set?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    disconnect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    delete?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    update?: DestinationUpdateWithWhereUniqueWithoutAddressInfoInput | DestinationUpdateWithWhereUniqueWithoutAddressInfoInput[]
+    updateMany?: DestinationUpdateManyWithWhereWithoutAddressInfoInput | DestinationUpdateManyWithWhereWithoutAddressInfoInput[]
+    deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type HomestayUncheckedUpdateManyWithoutAddressInfoNestedInput = {
+    create?: XOR<HomestayCreateWithoutAddressInfoInput, HomestayUncheckedCreateWithoutAddressInfoInput> | HomestayCreateWithoutAddressInfoInput[] | HomestayUncheckedCreateWithoutAddressInfoInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutAddressInfoInput | HomestayCreateOrConnectWithoutAddressInfoInput[]
+    upsert?: HomestayUpsertWithWhereUniqueWithoutAddressInfoInput | HomestayUpsertWithWhereUniqueWithoutAddressInfoInput[]
+    createMany?: HomestayCreateManyAddressInfoInputEnvelope
+    set?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    disconnect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    delete?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    update?: HomestayUpdateWithWhereUniqueWithoutAddressInfoInput | HomestayUpdateWithWhereUniqueWithoutAddressInfoInput[]
+    updateMany?: HomestayUpdateManyWithWhereWithoutAddressInfoInput | HomestayUpdateManyWithWhereWithoutAddressInfoInput[]
+    deleteMany?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutReportsInput = {
@@ -47654,6 +50316,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBookingStatusFilter<$PrismaModel>
     _max?: NestedEnumBookingStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAddressTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeFilter<$PrismaModel> | $Enums.AddressType
+  }
+
+  export type NestedEnumAddressTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeWithAggregatesFilter<$PrismaModel> | $Enums.AddressType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAddressTypeFilter<$PrismaModel>
+    _max?: NestedEnumAddressTypeFilter<$PrismaModel>
   }
 
   export type PostCreateWithoutAuthorInput = {
@@ -48230,6 +50909,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
@@ -48245,6 +50925,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -48472,6 +51153,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     images?: HomestayImageCreateNestedManyWithoutHomestayInput
+    addressInfo?: AddressCreateNestedOneWithoutHomestaysInput
     bookings?: HomestayBookingCreateNestedManyWithoutHomestayInput
     reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
     favorites?: HomestayFavoriteCreateNestedManyWithoutHomestayInput
@@ -48485,6 +51167,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -48667,6 +51350,87 @@ export namespace Prisma {
 
   export type HomestayFavoriteCreateManyUserInputEnvelope = {
     data: HomestayFavoriteCreateManyUserInput | HomestayFavoriteCreateManyUserInput[]
+  }
+
+  export type AddressCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parent?: AddressCreateNestedOneWithoutChildrenInput
+    children?: AddressCreateNestedManyWithoutParentInput
+    destinations?: DestinationCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: AddressUncheckedCreateNestedManyWithoutParentInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressCreateOrConnectWithoutCreatedByInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutCreatedByInput, AddressUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type AddressCreateManyCreatedByInputEnvelope = {
+    data: AddressCreateManyCreatedByInput | AddressCreateManyCreatedByInput[]
   }
 
   export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -49187,6 +51951,7 @@ export namespace Prisma {
     address?: StringFilter<"Destination"> | string
     city?: StringFilter<"Destination"> | string
     country?: StringFilter<"Destination"> | string
+    addressId?: StringNullableFilter<"Destination"> | string | null
     latitude?: FloatNullableFilter<"Destination"> | number | null
     longitude?: FloatNullableFilter<"Destination"> | number | null
     category?: EnumDestinationCategoryFilter<"Destination"> | $Enums.DestinationCategory
@@ -49390,6 +52155,7 @@ export namespace Prisma {
     address?: StringFilter<"Homestay"> | string
     city?: StringFilter<"Homestay"> | string
     country?: StringFilter<"Homestay"> | string
+    addressId?: StringNullableFilter<"Homestay"> | string | null
     latitude?: FloatNullableFilter<"Homestay"> | number | null
     longitude?: FloatNullableFilter<"Homestay"> | number | null
     type?: EnumHomestayTypeFilter<"Homestay"> | $Enums.HomestayType
@@ -49540,6 +52306,59 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"HomestayFavorite"> | Date | string
   }
 
+  export type AddressUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutCreatedByInput, AddressUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<AddressCreateWithoutCreatedByInput, AddressUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutCreatedByInput, AddressUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutCreatedByInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type AddressScalarWhereInput = {
+    AND?: AddressScalarWhereInput | AddressScalarWhereInput[]
+    OR?: AddressScalarWhereInput[]
+    NOT?: AddressScalarWhereInput | AddressScalarWhereInput[]
+    id?: StringFilter<"Address"> | string
+    name?: StringFilter<"Address"> | string
+    fullName?: StringNullableFilter<"Address"> | string | null
+    nameEn?: StringNullableFilter<"Address"> | string | null
+    slug?: StringFilter<"Address"> | string
+    type?: EnumAddressTypeFilter<"Address"> | $Enums.AddressType
+    latitude?: FloatNullableFilter<"Address"> | number | null
+    longitude?: FloatNullableFilter<"Address"> | number | null
+    area?: FloatNullableFilter<"Address"> | number | null
+    population?: IntNullableFilter<"Address"> | number | null
+    description?: StringNullableFilter<"Address"> | string | null
+    shortDesc?: StringNullableFilter<"Address"> | string | null
+    highlights?: StringNullableListFilter<"Address">
+    coverImage?: StringNullableFilter<"Address"> | string | null
+    images?: StringNullableListFilter<"Address">
+    bestTimeToVisit?: StringNullableFilter<"Address"> | string | null
+    climate?: StringNullableFilter<"Address"> | string | null
+    famousFor?: StringNullableListFilter<"Address">
+    parentId?: StringNullableFilter<"Address"> | string | null
+    level?: IntFilter<"Address"> | number
+    path?: StringNullableListFilter<"Address">
+    destinationCount?: IntFilter<"Address"> | number
+    homestayCount?: IntFilter<"Address"> | number
+    viewCount?: IntFilter<"Address"> | number
+    searchCount?: IntFilter<"Address"> | number
+    isActive?: BoolFilter<"Address"> | boolean
+    isVerified?: BoolFilter<"Address"> | boolean
+    isPriority?: BoolFilter<"Address"> | boolean
+    createdById?: StringNullableFilter<"Address"> | string | null
+    createdAt?: DateTimeFilter<"Address"> | Date | string
+    updatedAt?: DateTimeFilter<"Address"> | Date | string
+  }
+
   export type UserCreateWithoutFollowersInput = {
     id?: string
     email: string
@@ -49588,6 +52407,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -49638,6 +52458,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -49693,6 +52514,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -49743,6 +52565,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -49808,6 +52631,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -49857,6 +52681,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutFollowingInput = {
@@ -49917,6 +52742,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -49966,6 +52792,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -50016,6 +52843,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -50066,6 +52894,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -50107,6 +52936,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
@@ -50121,6 +52951,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -50383,6 +53214,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -50432,6 +53264,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type DestinationUpsertWithoutPostsInput = {
@@ -50478,6 +53311,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
@@ -50491,6 +53325,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -50667,6 +53502,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSharedPostsSentInput = {
@@ -50717,6 +53553,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSharedPostsSentInput = {
@@ -50772,6 +53609,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSharedPostsReceivedInput = {
@@ -50822,6 +53660,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSharedPostsReceivedInput = {
@@ -51037,6 +53876,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedPostsSentInput = {
@@ -51086,6 +53926,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutSharedPostsReceivedInput = {
@@ -51146,6 +53987,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedPostsReceivedInput = {
@@ -51195,6 +54037,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type StoryUpsertWithoutSharedPostsInput = {
@@ -51437,6 +54280,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutTaggedInPostsInput = {
@@ -51487,6 +54331,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutTaggedInPostsInput = {
@@ -51603,6 +54448,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaggedInPostsInput = {
@@ -51652,6 +54498,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type PostCreateWithoutCommentsInput = {
@@ -51749,6 +54596,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -51799,6 +54647,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -52005,6 +54854,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -52054,6 +54904,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type CommentUpsertWithoutRepliesInput = {
@@ -52171,6 +55022,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutLikesInput = {
@@ -52221,6 +55073,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutLikesInput = {
@@ -52364,6 +55217,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesInput = {
@@ -52413,6 +55267,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type PostUpsertWithoutLikesInput = {
@@ -52549,6 +55404,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSavedPostsInput = {
@@ -52599,6 +55455,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSavedPostsInput = {
@@ -52711,6 +55568,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedPostsInput = {
@@ -52760,6 +55618,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type PostUpsertWithoutSavedByInput = {
@@ -52886,6 +55745,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -52936,6 +55796,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -53051,6 +55912,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -53100,6 +55962,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type MessageReactionUpsertWithWhereUniqueWithoutMessageInput = {
@@ -53201,6 +56064,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutDestinationsInput = {
@@ -53251,11 +56115,89 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutDestinationsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutDestinationsInput, UserUncheckedCreateWithoutDestinationsInput>
+  }
+
+  export type AddressCreateWithoutDestinationsInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCreatedAddressesInput
+    parent?: AddressCreateNestedOneWithoutChildrenInput
+    children?: AddressCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUncheckedCreateWithoutDestinationsInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: AddressUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressCreateOrConnectWithoutDestinationsInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutDestinationsInput, AddressUncheckedCreateWithoutDestinationsInput>
   }
 
   export type DestinationFavoriteCreateWithoutDestinationInput = {
@@ -53503,6 +56445,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationsInput = {
@@ -53552,6 +56495,88 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type AddressUpsertWithoutDestinationsInput = {
+    update: XOR<AddressUpdateWithoutDestinationsInput, AddressUncheckedUpdateWithoutDestinationsInput>
+    create: XOR<AddressCreateWithoutDestinationsInput, AddressUncheckedCreateWithoutDestinationsInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutDestinationsInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutDestinationsInput, AddressUncheckedUpdateWithoutDestinationsInput>
+  }
+
+  export type AddressUpdateWithoutDestinationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCreatedAddressesNestedInput
+    parent?: AddressUpdateOneWithoutChildrenNestedInput
+    children?: AddressUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutDestinationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: AddressUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutAddressInfoNestedInput
   }
 
   export type DestinationFavoriteUpsertWithWhereUniqueWithoutDestinationInput = {
@@ -53682,6 +56707,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
@@ -53697,6 +56723,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -53782,6 +56809,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutUploadedImagesInput = {
@@ -53832,6 +56860,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutUploadedImagesInput = {
@@ -53882,6 +56911,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
@@ -53896,6 +56926,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -53986,6 +57017,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedImagesInput = {
@@ -54035,6 +57067,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutDestinationFavoritesInput = {
@@ -54085,6 +57118,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutDestinationFavoritesInput = {
@@ -54135,6 +57169,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutDestinationFavoritesInput = {
@@ -54176,6 +57211,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
     trips?: TripDestinationCreateNestedManyWithoutDestinationInput
@@ -54190,6 +57226,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -54285,6 +57322,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationFavoritesInput = {
@@ -54334,6 +57372,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type DestinationUpsertWithoutFavoritesInput = {
@@ -54380,6 +57419,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
     trips?: TripDestinationUpdateManyWithoutDestinationNestedInput
@@ -54393,6 +57433,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -54459,6 +57500,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
     trips?: TripDestinationCreateNestedManyWithoutDestinationInput
@@ -54473,6 +57515,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -54558,6 +57601,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutDestinationReviewsInput = {
@@ -54608,6 +57652,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutDestinationReviewsInput = {
@@ -54680,6 +57725,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
     trips?: TripDestinationUpdateManyWithoutDestinationNestedInput
@@ -54693,6 +57739,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -54783,6 +57830,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationReviewsInput = {
@@ -54832,6 +57880,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ReviewHelpfulUpsertWithWhereUniqueWithoutReviewInput = {
@@ -54933,6 +57982,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutReviewHelpfulInput = {
@@ -54983,6 +58033,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutReviewHelpfulInput = {
@@ -55087,6 +58138,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewHelpfulInput = {
@@ -55136,6 +58188,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type DestinationCreateWithoutCheckinsInput = {
@@ -55172,6 +58225,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     trips?: TripDestinationCreateNestedManyWithoutDestinationInput
@@ -55186,6 +58240,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -55271,6 +58326,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutDestinationCheckinsInput = {
@@ -55321,6 +58377,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutDestinationCheckinsInput = {
@@ -55372,6 +58429,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     trips?: TripDestinationUpdateManyWithoutDestinationNestedInput
@@ -55385,6 +58443,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -55475,6 +58534,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationCheckinsInput = {
@@ -55524,6 +58584,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TripCreateWithoutDestinationsInput = {
@@ -55603,6 +58664,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: DestinationImageCreateNestedManyWithoutDestinationInput
     createdBy: UserCreateNestedOneWithoutDestinationsInput
+    addressInfo?: AddressCreateNestedOneWithoutDestinationsInput
     favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
@@ -55617,6 +58679,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -55745,6 +58808,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
@@ -55758,6 +58822,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -55838,6 +58903,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -55888,6 +58954,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -55986,6 +59053,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -56035,6 +59103,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -56122,6 +59191,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationsCreatedInput = {
@@ -56172,6 +59242,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationsCreatedInput = {
@@ -56295,6 +59366,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsCreatedInput = {
@@ -56344,6 +59416,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationParticipantUpsertWithWhereUniqueWithoutConversationInput = {
@@ -56451,6 +59524,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipantsInput = {
@@ -56501,6 +59575,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipantsInput = {
@@ -56595,6 +59670,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipantsInput = {
@@ -56644,6 +59720,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutNotificationsSentInput = {
@@ -56694,6 +59771,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsSentInput = {
@@ -56744,6 +59822,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsSentInput = {
@@ -56799,6 +59878,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsRecvInput = {
@@ -56849,6 +59929,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsRecvInput = {
@@ -56990,6 +60071,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsSentInput = {
@@ -57039,6 +60121,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutNotificationsRecvInput = {
@@ -57099,6 +60182,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsRecvInput = {
@@ -57148,6 +60232,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type PostUpsertWithoutNotificationsInput = {
@@ -57282,6 +60367,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutTripsInput = {
@@ -57332,6 +60418,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutTripsInput = {
@@ -57461,6 +60548,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTripsInput = {
@@ -57510,6 +60598,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TripDestinationUpsertWithWhereUniqueWithoutTripInput = {
@@ -57592,6 +60681,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutStoriesInput = {
@@ -57642,6 +60732,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutStoriesInput = {
@@ -57740,6 +60831,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStoriesInput = {
@@ -57789,6 +60881,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type SharedPostUpsertWithWhereUniqueWithoutStoryInput = {
@@ -57882,6 +60975,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutHostedHomestaysInput = {
@@ -57932,11 +61026,89 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutHostedHomestaysInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutHostedHomestaysInput, UserUncheckedCreateWithoutHostedHomestaysInput>
+  }
+
+  export type AddressCreateWithoutHomestaysInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCreatedAddressesInput
+    parent?: AddressCreateNestedOneWithoutChildrenInput
+    children?: AddressCreateNestedManyWithoutParentInput
+    destinations?: DestinationCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUncheckedCreateWithoutHomestaysInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: AddressUncheckedCreateNestedManyWithoutParentInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressCreateOrConnectWithoutHomestaysInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutHomestaysInput, AddressUncheckedCreateWithoutHomestaysInput>
   }
 
   export type HomestayBookingCreateWithoutHomestayInput = {
@@ -58163,6 +61335,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHostedHomestaysInput = {
@@ -58212,6 +61385,88 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type AddressUpsertWithoutHomestaysInput = {
+    update: XOR<AddressUpdateWithoutHomestaysInput, AddressUncheckedUpdateWithoutHomestaysInput>
+    create: XOR<AddressCreateWithoutHomestaysInput, AddressUncheckedCreateWithoutHomestaysInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutHomestaysInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutHomestaysInput, AddressUncheckedUpdateWithoutHomestaysInput>
+  }
+
+  export type AddressUpdateWithoutHomestaysInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCreatedAddressesNestedInput
+    parent?: AddressUpdateOneWithoutChildrenNestedInput
+    children?: AddressUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutHomestaysInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: AddressUncheckedUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutAddressInfoNestedInput
   }
 
   export type HomestayBookingUpsertWithWhereUniqueWithoutHomestayInput = {
@@ -58303,6 +61558,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     host: UserCreateNestedOneWithoutHostedHomestaysInput
+    addressInfo?: AddressCreateNestedOneWithoutHomestaysInput
     bookings?: HomestayBookingCreateNestedManyWithoutHomestayInput
     reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
     favorites?: HomestayFavoriteCreateNestedManyWithoutHomestayInput
@@ -58316,6 +61572,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -58410,6 +61667,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     host?: UserUpdateOneRequiredWithoutHostedHomestaysNestedInput
+    addressInfo?: AddressUpdateOneWithoutHomestaysNestedInput
     bookings?: HomestayBookingUpdateManyWithoutHomestayNestedInput
     reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
     favorites?: HomestayFavoriteUpdateManyWithoutHomestayNestedInput
@@ -58422,6 +61680,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -58502,6 +61761,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: HomestayImageCreateNestedManyWithoutHomestayInput
     host: UserCreateNestedOneWithoutHostedHomestaysInput
+    addressInfo?: AddressCreateNestedOneWithoutHomestaysInput
     reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
     favorites?: HomestayFavoriteCreateNestedManyWithoutHomestayInput
   }
@@ -58514,6 +61774,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -58605,6 +61866,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayCreateNestedManyWithoutHostInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutHomestayBookingsInput = {
@@ -58655,6 +61917,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUncheckedCreateNestedManyWithoutHostInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutHomestayBookingsInput = {
@@ -58714,6 +61977,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: HomestayImageUpdateManyWithoutHomestayNestedInput
     host?: UserUpdateOneRequiredWithoutHostedHomestaysNestedInput
+    addressInfo?: AddressUpdateOneWithoutHomestaysNestedInput
     reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
     favorites?: HomestayFavoriteUpdateManyWithoutHomestayNestedInput
   }
@@ -58725,6 +61989,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -58821,6 +62086,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUpdateManyWithoutHostNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHomestayBookingsInput = {
@@ -58870,6 +62136,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUncheckedUpdateManyWithoutHostNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type HomestayCreateWithoutReviewsInput = {
@@ -58914,6 +62181,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: HomestayImageCreateNestedManyWithoutHomestayInput
     host: UserCreateNestedOneWithoutHostedHomestaysInput
+    addressInfo?: AddressCreateNestedOneWithoutHomestaysInput
     bookings?: HomestayBookingCreateNestedManyWithoutHomestayInput
     favorites?: HomestayFavoriteCreateNestedManyWithoutHomestayInput
   }
@@ -58926,6 +62194,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -59017,6 +62286,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayCreateNestedManyWithoutHostInput
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutHomestayReviewsInput = {
@@ -59067,6 +62337,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUncheckedCreateNestedManyWithoutHostInput
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutHomestayReviewsInput = {
@@ -59126,6 +62397,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: HomestayImageUpdateManyWithoutHomestayNestedInput
     host?: UserUpdateOneRequiredWithoutHostedHomestaysNestedInput
+    addressInfo?: AddressUpdateOneWithoutHomestaysNestedInput
     bookings?: HomestayBookingUpdateManyWithoutHomestayNestedInput
     favorites?: HomestayFavoriteUpdateManyWithoutHomestayNestedInput
   }
@@ -59137,6 +62409,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -59233,6 +62506,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUpdateManyWithoutHostNestedInput
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHomestayReviewsInput = {
@@ -59282,6 +62556,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUncheckedUpdateManyWithoutHostNestedInput
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutHomestayFavoritesInput = {
@@ -59332,6 +62607,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayCreateNestedManyWithoutHostInput
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutHomestayFavoritesInput = {
@@ -59382,6 +62658,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUncheckedCreateNestedManyWithoutHostInput
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutHomestayFavoritesInput = {
@@ -59431,6 +62708,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: HomestayImageCreateNestedManyWithoutHomestayInput
     host: UserCreateNestedOneWithoutHostedHomestaysInput
+    addressInfo?: AddressCreateNestedOneWithoutHomestaysInput
     bookings?: HomestayBookingCreateNestedManyWithoutHomestayInput
     reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
   }
@@ -59443,6 +62721,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -59544,6 +62823,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUpdateManyWithoutHostNestedInput
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHomestayFavoritesInput = {
@@ -59593,6 +62873,7 @@ export namespace Prisma {
     hostedHomestays?: HomestayUncheckedUpdateManyWithoutHostNestedInput
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type HomestayUpsertWithoutFavoritesInput = {
@@ -59647,6 +62928,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: HomestayImageUpdateManyWithoutHomestayNestedInput
     host?: UserUpdateOneRequiredWithoutHostedHomestaysNestedInput
+    addressInfo?: AddressUpdateOneWithoutHomestaysNestedInput
     bookings?: HomestayBookingUpdateManyWithoutHomestayNestedInput
     reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
   }
@@ -59658,6 +62940,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -59694,6 +62977,705 @@ export namespace Prisma {
     images?: HomestayImageUncheckedUpdateManyWithoutHomestayNestedInput
     bookings?: HomestayBookingUncheckedUpdateManyWithoutHomestayNestedInput
     reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type UserCreateWithoutCreatedAddressesInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutCreatedByInput
+    destinationFavorites?: DestinationFavoriteCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+    reviewHelpful?: ReviewHelpfulCreateNestedManyWithoutUserInput
+    destinationCheckins?: DestinationCheckinCreateNestedManyWithoutUserInput
+    uploadedImages?: DestinationImageCreateNestedManyWithoutUploadedByInput
+    hostedHomestays?: HomestayCreateNestedManyWithoutHostInput
+    homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedAddressesInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutCreatedByInput
+    destinationFavorites?: DestinationFavoriteUncheckedCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+    reviewHelpful?: ReviewHelpfulUncheckedCreateNestedManyWithoutUserInput
+    destinationCheckins?: DestinationCheckinUncheckedCreateNestedManyWithoutUserInput
+    uploadedImages?: DestinationImageUncheckedCreateNestedManyWithoutUploadedByInput
+    hostedHomestays?: HomestayUncheckedCreateNestedManyWithoutHostInput
+    homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedAddressesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedAddressesInput, UserUncheckedCreateWithoutCreatedAddressesInput>
+  }
+
+  export type AddressCreateWithoutChildrenInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCreatedAddressesInput
+    parent?: AddressCreateNestedOneWithoutChildrenInput
+    destinations?: DestinationCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUncheckedCreateWithoutChildrenInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destinations?: DestinationUncheckedCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressCreateOrConnectWithoutChildrenInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutChildrenInput, AddressUncheckedCreateWithoutChildrenInput>
+  }
+
+  export type AddressCreateWithoutParentInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCreatedAddressesInput
+    children?: AddressCreateNestedManyWithoutParentInput
+    destinations?: DestinationCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressUncheckedCreateWithoutParentInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: AddressUncheckedCreateNestedManyWithoutParentInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutAddressInfoInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutAddressInfoInput
+  }
+
+  export type AddressCreateOrConnectWithoutParentInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutParentInput, AddressUncheckedCreateWithoutParentInput>
+  }
+
+  export type AddressCreateManyParentInputEnvelope = {
+    data: AddressCreateManyParentInput | AddressCreateManyParentInput[]
+  }
+
+  export type DestinationCreateWithoutAddressInfoInput = {
+    id?: string
+    name: string
+    description?: string | null
+    shortDesc?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category: $Enums.DestinationCategory
+    subCategory?: string | null
+    coverImage?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    openingHours?: InputJsonValue | null
+    bestTimeToVisit?: string | null
+    priceRange?: $Enums.PriceRange
+    avgCost?: number | null
+    currency?: string | null
+    rating?: number | null
+    reviewCount?: number
+    visitCount?: number
+    shareCount?: number
+    status?: $Enums.DestinationStatus
+    isVerified?: boolean
+    isPublic?: boolean
+    tags?: DestinationCreatetagsInput | string[]
+    amenities?: DestinationCreateamenitiesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: DestinationImageCreateNestedManyWithoutDestinationInput
+    createdBy: UserCreateNestedOneWithoutDestinationsInput
+    favorites?: DestinationFavoriteCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+    checkins?: DestinationCheckinCreateNestedManyWithoutDestinationInput
+    trips?: TripDestinationCreateNestedManyWithoutDestinationInput
+    posts?: PostCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutAddressInfoInput = {
+    id?: string
+    name: string
+    description?: string | null
+    shortDesc?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category: $Enums.DestinationCategory
+    subCategory?: string | null
+    coverImage?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    openingHours?: InputJsonValue | null
+    bestTimeToVisit?: string | null
+    priceRange?: $Enums.PriceRange
+    avgCost?: number | null
+    currency?: string | null
+    rating?: number | null
+    reviewCount?: number
+    visitCount?: number
+    shareCount?: number
+    status?: $Enums.DestinationStatus
+    isVerified?: boolean
+    isPublic?: boolean
+    tags?: DestinationCreatetagsInput | string[]
+    amenities?: DestinationCreateamenitiesInput | string[]
+    createdById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: DestinationImageUncheckedCreateNestedManyWithoutDestinationInput
+    favorites?: DestinationFavoriteUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+    checkins?: DestinationCheckinUncheckedCreateNestedManyWithoutDestinationInput
+    trips?: TripDestinationUncheckedCreateNestedManyWithoutDestinationInput
+    posts?: PostUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutAddressInfoInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutAddressInfoInput, DestinationUncheckedCreateWithoutAddressInfoInput>
+  }
+
+  export type DestinationCreateManyAddressInfoInputEnvelope = {
+    data: DestinationCreateManyAddressInfoInput | DestinationCreateManyAddressInfoInput[]
+  }
+
+  export type HomestayCreateWithoutAddressInfoInput = {
+    id?: string
+    title: string
+    description: string
+    shortDesc?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    type: $Enums.HomestayType
+    maxGuests: number
+    bedrooms: number
+    bathrooms: number
+    beds: number
+    pricePerNight: number
+    currency?: string
+    cleaningFee?: number | null
+    serviceFee?: number | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    minStay?: number | null
+    maxStay?: number | null
+    instantBook?: boolean
+    cancellationPolicy?: string | null
+    coverImage?: string | null
+    rating?: number | null
+    reviewCount?: number
+    bookingCount?: number
+    viewCount?: number
+    status?: $Enums.HomestayStatus
+    isVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: HomestayImageCreateNestedManyWithoutHomestayInput
+    host: UserCreateNestedOneWithoutHostedHomestaysInput
+    bookings?: HomestayBookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    favorites?: HomestayFavoriteCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutAddressInfoInput = {
+    id?: string
+    title: string
+    description: string
+    shortDesc?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    type: $Enums.HomestayType
+    maxGuests: number
+    bedrooms: number
+    bathrooms: number
+    beds: number
+    pricePerNight: number
+    currency?: string
+    cleaningFee?: number | null
+    serviceFee?: number | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    minStay?: number | null
+    maxStay?: number | null
+    instantBook?: boolean
+    cancellationPolicy?: string | null
+    coverImage?: string | null
+    rating?: number | null
+    reviewCount?: number
+    bookingCount?: number
+    viewCount?: number
+    status?: $Enums.HomestayStatus
+    isVerified?: boolean
+    isActive?: boolean
+    hostId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: HomestayImageUncheckedCreateNestedManyWithoutHomestayInput
+    bookings?: HomestayBookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    favorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutAddressInfoInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutAddressInfoInput, HomestayUncheckedCreateWithoutAddressInfoInput>
+  }
+
+  export type HomestayCreateManyAddressInfoInputEnvelope = {
+    data: HomestayCreateManyAddressInfoInput | HomestayCreateManyAddressInfoInput[]
+  }
+
+  export type UserUpsertWithoutCreatedAddressesInput = {
+    update: XOR<UserUpdateWithoutCreatedAddressesInput, UserUncheckedUpdateWithoutCreatedAddressesInput>
+    create: XOR<UserCreateWithoutCreatedAddressesInput, UserUncheckedCreateWithoutCreatedAddressesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedAddressesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedAddressesInput, UserUncheckedUpdateWithoutCreatedAddressesInput>
+  }
+
+  export type UserUpdateWithoutCreatedAddressesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutCreatedByNestedInput
+    destinationFavorites?: DestinationFavoriteUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+    reviewHelpful?: ReviewHelpfulUpdateManyWithoutUserNestedInput
+    destinationCheckins?: DestinationCheckinUpdateManyWithoutUserNestedInput
+    uploadedImages?: DestinationImageUpdateManyWithoutUploadedByNestedInput
+    hostedHomestays?: HomestayUpdateManyWithoutHostNestedInput
+    homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedAddressesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutCreatedByNestedInput
+    destinationFavorites?: DestinationFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+    reviewHelpful?: ReviewHelpfulUncheckedUpdateManyWithoutUserNestedInput
+    destinationCheckins?: DestinationCheckinUncheckedUpdateManyWithoutUserNestedInput
+    uploadedImages?: DestinationImageUncheckedUpdateManyWithoutUploadedByNestedInput
+    hostedHomestays?: HomestayUncheckedUpdateManyWithoutHostNestedInput
+    homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AddressUpsertWithoutChildrenInput = {
+    update: XOR<AddressUpdateWithoutChildrenInput, AddressUncheckedUpdateWithoutChildrenInput>
+    create: XOR<AddressCreateWithoutChildrenInput, AddressUncheckedCreateWithoutChildrenInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutChildrenInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutChildrenInput, AddressUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type AddressUpdateWithoutChildrenInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCreatedAddressesNestedInput
+    parent?: AddressUpdateOneWithoutChildrenNestedInput
+    destinations?: DestinationUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutChildrenInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinations?: DestinationUncheckedUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUpsertWithWhereUniqueWithoutParentInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutParentInput, AddressUncheckedUpdateWithoutParentInput>
+    create: XOR<AddressCreateWithoutParentInput, AddressUncheckedCreateWithoutParentInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutParentInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutParentInput, AddressUncheckedUpdateWithoutParentInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutParentInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type DestinationUpsertWithWhereUniqueWithoutAddressInfoInput = {
+    where: DestinationWhereUniqueInput
+    update: XOR<DestinationUpdateWithoutAddressInfoInput, DestinationUncheckedUpdateWithoutAddressInfoInput>
+    create: XOR<DestinationCreateWithoutAddressInfoInput, DestinationUncheckedCreateWithoutAddressInfoInput>
+  }
+
+  export type DestinationUpdateWithWhereUniqueWithoutAddressInfoInput = {
+    where: DestinationWhereUniqueInput
+    data: XOR<DestinationUpdateWithoutAddressInfoInput, DestinationUncheckedUpdateWithoutAddressInfoInput>
+  }
+
+  export type DestinationUpdateManyWithWhereWithoutAddressInfoInput = {
+    where: DestinationScalarWhereInput
+    data: XOR<DestinationUpdateManyMutationInput, DestinationUncheckedUpdateManyWithoutAddressInfoInput>
+  }
+
+  export type HomestayUpsertWithWhereUniqueWithoutAddressInfoInput = {
+    where: HomestayWhereUniqueInput
+    update: XOR<HomestayUpdateWithoutAddressInfoInput, HomestayUncheckedUpdateWithoutAddressInfoInput>
+    create: XOR<HomestayCreateWithoutAddressInfoInput, HomestayUncheckedCreateWithoutAddressInfoInput>
+  }
+
+  export type HomestayUpdateWithWhereUniqueWithoutAddressInfoInput = {
+    where: HomestayWhereUniqueInput
+    data: XOR<HomestayUpdateWithoutAddressInfoInput, HomestayUncheckedUpdateWithoutAddressInfoInput>
+  }
+
+  export type HomestayUpdateManyWithWhereWithoutAddressInfoInput = {
+    where: HomestayScalarWhereInput
+    data: XOR<HomestayUpdateManyMutationInput, HomestayUncheckedUpdateManyWithoutAddressInfoInput>
   }
 
   export type UserCreateWithoutReportsInput = {
@@ -59744,6 +63726,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutReportsInput = {
@@ -59794,6 +63777,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedCreateNestedManyWithoutGuestInput
     homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
     homestayFavorites?: HomestayFavoriteUncheckedCreateNestedManyWithoutUserInput
+    createdAddresses?: AddressUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutReportsInput = {
@@ -59859,6 +63843,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsInput = {
@@ -59908,6 +63893,7 @@ export namespace Prisma {
     homestayBookings?: HomestayBookingUncheckedUpdateManyWithoutGuestNestedInput
     homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
     homestayFavorites?: HomestayFavoriteUncheckedUpdateManyWithoutUserNestedInput
+    createdAddresses?: AddressUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type PostCreateManyAuthorInput = {
@@ -60091,6 +64077,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     category: $Enums.DestinationCategory
@@ -60174,6 +64161,7 @@ export namespace Prisma {
     address: string
     city: string
     country: string
+    addressId?: string | null
     latitude?: number | null
     longitude?: number | null
     type: $Enums.HomestayType
@@ -60261,6 +64249,39 @@ export namespace Prisma {
     homestayId: string
     note?: string | null
     createdAt?: Date | string
+  }
+
+  export type AddressCreateManyCreatedByInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    parentId?: string | null
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PostUpdateWithoutAuthorInput = {
@@ -60793,6 +64814,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DestinationImageUpdateManyWithoutDestinationNestedInput
+    addressInfo?: AddressUpdateOneWithoutDestinationsNestedInput
     favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
@@ -60807,6 +64829,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -60846,6 +64869,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
@@ -61046,6 +65070,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: HomestayImageUpdateManyWithoutHomestayNestedInput
+    addressInfo?: AddressUpdateOneWithoutHomestaysNestedInput
     bookings?: HomestayBookingUpdateManyWithoutHomestayNestedInput
     reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
     favorites?: HomestayFavoriteUpdateManyWithoutHomestayNestedInput
@@ -61058,6 +65083,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -61103,6 +65129,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
+    addressId?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
@@ -61291,6 +65318,108 @@ export namespace Prisma {
     homestayId?: StringFieldUpdateOperationsInput | string
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AddressUpdateWithoutCreatedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: AddressUpdateOneWithoutChildrenNestedInput
+    children?: AddressUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutCreatedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: AddressUncheckedUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateManyWithoutCreatedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostTagCreateManyPostInput = {
@@ -62365,6 +66494,467 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AddressCreateManyParentInput = {
+    id?: string
+    name: string
+    fullName?: string | null
+    nameEn?: string | null
+    slug: string
+    type: $Enums.AddressType
+    latitude?: number | null
+    longitude?: number | null
+    area?: number | null
+    population?: number | null
+    description?: string | null
+    shortDesc?: string | null
+    highlights?: AddressCreatehighlightsInput | string[]
+    coverImage?: string | null
+    images?: AddressCreateimagesInput | string[]
+    bestTimeToVisit?: string | null
+    climate?: string | null
+    famousFor?: AddressCreatefamousForInput | string[]
+    level: number
+    path?: AddressCreatepathInput | string[]
+    destinationCount?: number
+    homestayCount?: number
+    viewCount?: number
+    searchCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    isPriority?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationCreateManyAddressInfoInput = {
+    id?: string
+    name: string
+    description?: string | null
+    shortDesc?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category: $Enums.DestinationCategory
+    subCategory?: string | null
+    coverImage?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    openingHours?: InputJsonValue | null
+    bestTimeToVisit?: string | null
+    priceRange?: $Enums.PriceRange
+    avgCost?: number | null
+    currency?: string | null
+    rating?: number | null
+    reviewCount?: number
+    visitCount?: number
+    shareCount?: number
+    status?: $Enums.DestinationStatus
+    isVerified?: boolean
+    isPublic?: boolean
+    tags?: DestinationCreatetagsInput | string[]
+    amenities?: DestinationCreateamenitiesInput | string[]
+    createdById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayCreateManyAddressInfoInput = {
+    id?: string
+    title: string
+    description: string
+    shortDesc?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    type: $Enums.HomestayType
+    maxGuests: number
+    bedrooms: number
+    bathrooms: number
+    beds: number
+    pricePerNight: number
+    currency?: string
+    cleaningFee?: number | null
+    serviceFee?: number | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    minStay?: number | null
+    maxStay?: number | null
+    instantBook?: boolean
+    cancellationPolicy?: string | null
+    coverImage?: string | null
+    rating?: number | null
+    reviewCount?: number
+    bookingCount?: number
+    viewCount?: number
+    status?: $Enums.HomestayStatus
+    isVerified?: boolean
+    isActive?: boolean
+    hostId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AddressUpdateWithoutParentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCreatedAddressesNestedInput
+    children?: AddressUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutParentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: AddressUncheckedUpdateManyWithoutParentNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutAddressInfoNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutAddressInfoNestedInput
+  }
+
+  export type AddressUncheckedUpdateManyWithoutParentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableFloatFieldUpdateOperationsInput | number | null
+    population?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    highlights?: AddressUpdatehighlightsInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: AddressUpdateimagesInput | string[]
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    climate?: NullableStringFieldUpdateOperationsInput | string | null
+    famousFor?: AddressUpdatefamousForInput | string[]
+    level?: IntFieldUpdateOperationsInput | number
+    path?: AddressUpdatepathInput | string[]
+    destinationCount?: IntFieldUpdateOperationsInput | number
+    homestayCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    searchCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPriority?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationUpdateWithoutAddressInfoInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    openingHours?: InputJsonValue | InputJsonValue | null
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    priceRange?: EnumPriceRangeFieldUpdateOperationsInput | $Enums.PriceRange
+    avgCost?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    visitCount?: IntFieldUpdateOperationsInput | number
+    shareCount?: IntFieldUpdateOperationsInput | number
+    status?: EnumDestinationStatusFieldUpdateOperationsInput | $Enums.DestinationStatus
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    tags?: DestinationUpdatetagsInput | string[]
+    amenities?: DestinationUpdateamenitiesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: DestinationImageUpdateManyWithoutDestinationNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    favorites?: DestinationFavoriteUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+    checkins?: DestinationCheckinUpdateManyWithoutDestinationNestedInput
+    trips?: TripDestinationUpdateManyWithoutDestinationNestedInput
+    posts?: PostUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutAddressInfoInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    openingHours?: InputJsonValue | InputJsonValue | null
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    priceRange?: EnumPriceRangeFieldUpdateOperationsInput | $Enums.PriceRange
+    avgCost?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    visitCount?: IntFieldUpdateOperationsInput | number
+    shareCount?: IntFieldUpdateOperationsInput | number
+    status?: EnumDestinationStatusFieldUpdateOperationsInput | $Enums.DestinationStatus
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    tags?: DestinationUpdatetagsInput | string[]
+    amenities?: DestinationUpdateamenitiesInput | string[]
+    createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: DestinationImageUncheckedUpdateManyWithoutDestinationNestedInput
+    favorites?: DestinationFavoriteUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+    checkins?: DestinationCheckinUncheckedUpdateManyWithoutDestinationNestedInput
+    trips?: TripDestinationUncheckedUpdateManyWithoutDestinationNestedInput
+    posts?: PostUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateManyWithoutAddressInfoInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: EnumDestinationCategoryFieldUpdateOperationsInput | $Enums.DestinationCategory
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    openingHours?: InputJsonValue | InputJsonValue | null
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    priceRange?: EnumPriceRangeFieldUpdateOperationsInput | $Enums.PriceRange
+    avgCost?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    visitCount?: IntFieldUpdateOperationsInput | number
+    shareCount?: IntFieldUpdateOperationsInput | number
+    status?: EnumDestinationStatusFieldUpdateOperationsInput | $Enums.DestinationStatus
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    tags?: DestinationUpdatetagsInput | string[]
+    amenities?: DestinationUpdateamenitiesInput | string[]
+    createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayUpdateWithoutAddressInfoInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    cleaningFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    minStay?: NullableIntFieldUpdateOperationsInput | number | null
+    maxStay?: NullableIntFieldUpdateOperationsInput | number | null
+    instantBook?: BoolFieldUpdateOperationsInput | boolean
+    cancellationPolicy?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    bookingCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    status?: EnumHomestayStatusFieldUpdateOperationsInput | $Enums.HomestayStatus
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: HomestayImageUpdateManyWithoutHomestayNestedInput
+    host?: UserUpdateOneRequiredWithoutHostedHomestaysNestedInput
+    bookings?: HomestayBookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    favorites?: HomestayFavoriteUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutAddressInfoInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    cleaningFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    minStay?: NullableIntFieldUpdateOperationsInput | number | null
+    maxStay?: NullableIntFieldUpdateOperationsInput | number | null
+    instantBook?: BoolFieldUpdateOperationsInput | boolean
+    cancellationPolicy?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    bookingCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    status?: EnumHomestayStatusFieldUpdateOperationsInput | $Enums.HomestayStatus
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    hostId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: HomestayImageUncheckedUpdateManyWithoutHomestayNestedInput
+    bookings?: HomestayBookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    favorites?: HomestayFavoriteUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateManyWithoutAddressInfoInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    type?: EnumHomestayTypeFieldUpdateOperationsInput | $Enums.HomestayType
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    cleaningFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    minStay?: NullableIntFieldUpdateOperationsInput | number | null
+    maxStay?: NullableIntFieldUpdateOperationsInput | number | null
+    instantBook?: BoolFieldUpdateOperationsInput | boolean
+    cancellationPolicy?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    bookingCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    status?: EnumHomestayStatusFieldUpdateOperationsInput | $Enums.HomestayStatus
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    hostId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

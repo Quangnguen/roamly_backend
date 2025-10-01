@@ -44,6 +44,14 @@ enum DestinationCategory {
   STREET_FOOD
 }
 
+enum AddressType {
+  COUNTRY     // Quốc gia
+  PROVINCE    // Tỉnh/Thành phố
+  DISTRICT    // Quận/Huyện  
+  WARD        // Phường/Xã
+  AREA        // Khu vực đặc biệt (VD: Vịnh Hạ Long, Phố cổ Hội An)
+}
+
 enum PriceRange {
   FREE
   BUDGET      // < 100k VND
@@ -136,6 +144,9 @@ model User {
   homestayBookings     HomestayBooking[]    @relation("BookingGuest")
   homestayReviews      HomestayReview[]
   homestayFavorites    HomestayFavorite[]
+
+  // NEW: Address relations - CHỈ THÊM MỚI
+  createdAddresses     Address[]
 
   @@map("users")
 }
@@ -292,6 +303,7 @@ model Destination {
   address       String
   city          String
   country       String
+  addressId     String?           // Liên kết với Address để quản lý theo vùng
   latitude      Float?
   longitude     Float?
   category      DestinationCategory
@@ -337,6 +349,7 @@ model Destination {
 
   // Relations
   createdBy     User                    @relation(fields: [createdById], references: [id])
+  addressInfo   Address?                @relation(fields: [addressId], references: [id])
   favorites     DestinationFavorite[]
   reviews       DestinationReview[]
   checkins      DestinationCheckin[]
@@ -557,6 +570,7 @@ model Homestay {
   address         String
   city            String
   country         String
+  addressId       String?       // Liên kết với Address để quản lý theo vùng
   latitude        Float?
   longitude       Float?
   
@@ -610,6 +624,7 @@ model Homestay {
 
   // Relations
   host            User                @relation("HomestayHost", fields: [hostId], references: [id])
+  addressInfo     Address?            @relation(fields: [addressId], references: [id])
   bookings        HomestayBooking[]
   reviews         HomestayReview[]
   favorites       HomestayFavorite[]
@@ -723,6 +738,65 @@ model HomestayFavorite {
 
   @@unique([userId, homestayId])
   @@map("homestay_favorites")
+}
+
+model Address {
+  id            String      @id @default(cuid()) @map("_id")
+  name          String      // Tên địa chỉ: "Ninh Bình", "Tràng An", "Tam Cốc"
+  fullName      String?     // Tên đầy đủ: "Tỉnh Ninh Bình", "Quần thể danh thắng Tràng An"
+  nameEn        String?     // Tên tiếng Anh
+  slug          String      @unique // URL-friendly slug: "ninh-binh", "trang-an"
+  type          AddressType // Loại địa chỉ
+  
+  // Thông tin địa lý
+  latitude      Float?
+  longitude     Float?
+  area          Float?      // Diện tích (km²)
+  population    Int?        // Dân số
+  
+  // Thông tin mô tả
+  description   String?     // Mô tả chi tiết
+  shortDesc     String?     // Mô tả ngắn
+  highlights    String[]    // Điểm nổi bật: ["Di sản thế giới", "Phong cảnh tuyệt đẹp"]
+  
+  // Hình ảnh
+  coverImage    String?     // Ảnh đại diện
+  images        String[]    // Album ảnh
+  
+  // Thông tin du lịch
+  bestTimeToVisit String?   // Thời gian tốt nhất để ghé thăm
+  climate       String?     // Khí hậu
+  famousFor     String[]    // Nổi tiếng về: ["Phong cảnh", "Ẩm thực", "Lịch sử"]
+  
+  // Cấu trúc phân cấp
+  parentId      String?     // ID của địa chỉ cha (VD: Tràng An thuộc Ninh Bình)
+  level         Int         // Cấp độ: 0=Country, 1=Province, 2=District, 3=Ward, 4=Area
+  path          String[]    // Đường dẫn phân cấp: ["vietnam", "ninh-binh", "trang-an"]
+  
+  // Thống kê
+  destinationCount Int      @default(0) // Số lượng địa điểm
+  homestayCount    Int      @default(0) // Số lượng homestay
+  viewCount        Int      @default(0) // Lượt xem
+  searchCount      Int      @default(0) // Lượt tìm kiếm
+  
+  // Trạng thái
+  isActive      Boolean     @default(true)
+  isVerified    Boolean     @default(false)
+  isPriority    Boolean     @default(false) // Địa chỉ ưu tiên hiển thị
+  
+  // Thông tin quản lý
+  createdById   String?     // Người tạo
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  createdBy     User?       @relation(fields: [createdById], references: [id])
+  parent        Address?    @relation("AddressHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children      Address[]   @relation("AddressHierarchy")
+  destinations  Destination[] // Các địa điểm thuộc địa chỉ này
+  homestays     Homestay[]    // Các homestay thuộc địa chỉ này
+
+  @@map("addresses")
 }
 
 model Report {

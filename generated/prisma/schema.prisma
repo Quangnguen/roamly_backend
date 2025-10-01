@@ -8,14 +8,85 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 enum NotificationType {
   LIKE
   COMMENT
   FOLLOW
+  TRIP_INVITE
   MESSAGE
-  TAG
-  TRIP_SHARED
-  SYSTEM
+}
+
+enum DestinationCategory {
+  BEACH
+  MOUNTAIN
+  CITY
+  HISTORICAL
+  NATURE
+  ADVENTURE
+  CULTURAL
+  RELIGIOUS
+  ENTERTAINMENT
+  FOOD
+  HOTEL
+  RESTAURANT
+  SHOPPING
+  MUSEUM
+  PARK
+  TEMPLE
+  LAKE
+  WATERFALL
+  RESORT
+  STREET_FOOD
+}
+
+enum AddressType {
+  COUNTRY // Quốc gia
+  PROVINCE // Tỉnh/Thành phố
+  DISTRICT // Quận/Huyện  
+  WARD // Phường/Xã
+  AREA // Khu vực đặc biệt (VD: Vịnh Hạ Long, Phố cổ Hội An)
+}
+
+enum PriceRange {
+  FREE
+  BUDGET // < 100k VND
+  MODERATE // 100k - 500k VND
+  EXPENSIVE // 500k - 1M VND
+  LUXURY // > 1M VND
+}
+
+enum DestinationStatus {
+  ACTIVE
+  INACTIVE
+  PENDING_APPROVAL
+  REPORTED
+}
+
+enum HomestayType {
+  ENTIRE_PLACE // Toàn bộ căn nhà
+  PRIVATE_ROOM // Phòng riêng
+  SHARED_ROOM // Phòng chung
+}
+
+enum HomestayStatus {
+  ACTIVE
+  AVAILABLE
+  BOOKED
+  MAINTENANCE
+  INACTIVE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  REFUNDED
 }
 
 model User {
@@ -40,6 +111,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   deleteAt      DateTime?
 
+  // Existing relations - KHÔNG THAY ĐỔI
   posts                    Post[]                    @relation("UserPosts")
   comments                 Comment[]
   likes                    Like[]
@@ -57,7 +129,24 @@ model User {
   conversationsCreated     Conversation[]            @relation("ConversationCreatedBy")
   conversationParticipants ConversationParticipant[]
   messageReactions         MessageReaction[]
-  sentMessages             Message[]
+  sentMessages             Message[]                 @relation("MessageSender")
+
+  // NEW: Destination relations - CHỈ THÊM MỚI
+  destinations         Destination[]
+  destinationFavorites DestinationFavorite[]
+  destinationReviews   DestinationReview[]
+  reviewHelpful        ReviewHelpful[]
+  destinationCheckins  DestinationCheckin[]
+  uploadedImages       DestinationImage[]
+
+  // NEW: Homestay relations - CHỈ THÊM MỚI
+  hostedHomestays   Homestay[]         @relation("HomestayHost")
+  homestayBookings  HomestayBooking[]  @relation("BookingGuest")
+  homestayReviews   HomestayReview[]
+  homestayFavorites HomestayFavorite[]
+
+  // NEW: Address relations - CHỈ THÊM MỚI
+  createdAddresses Address[]
 
   @@map("users")
 }
@@ -77,20 +166,22 @@ model Follow {
 }
 
 model Post {
-  id           String   @id @default(uuid()) @map("_id")
-  authorId     String
-  imageUrl     String[]
-  caption      String?
-  location     String?
-  tags         String[]
-  isPublic     Boolean  @default(true)
-  likeCount    Int      @default(0)
-  commentCount Int      @default(0)
-  sharedCount  Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(uuid()) @map("_id")
+  authorId      String
+  imageUrl      String[]
+  caption       String?
+  location      String?
+  destinationId String? // Tag địa điểm du lịch
+  tags          String[]
+  isPublic      Boolean  @default(true)
+  likeCount     Int      @default(0)
+  commentCount  Int      @default(0)
+  sharedCount   Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   author        User           @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+  destination   Destination?   @relation(fields: [destinationId], references: [id])
   taggedUsers   PostTag[]
   sharedPosts   SharedPost[]
   comments      Comment[]
@@ -198,10 +289,175 @@ model Message {
   pinned         Boolean  @default(false)
 
   conversation Conversation      @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender       User              @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  sender       User              @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
   reactions    MessageReaction[]
 
   @@map("messages")
+}
+
+model Destination {
+  id          String              @id @default(cuid()) @map("_id")
+  name        String
+  description String?
+  shortDesc   String? // Mô tả ngắn cho preview
+  address     String
+  city        String
+  country     String
+  addressId   String? // Liên kết với Address để quản lý theo vùng
+  latitude    Float?
+  longitude   Float?
+  category    DestinationCategory
+  subCategory String? // Phân loại con, VD: "Beach Resort", "Street Food Market"
+
+  // Thông tin hình ảnh
+  images     DestinationImage[] // Danh sách ảnh với metadata
+  coverImage String? // Ảnh bìa chính
+
+  // Thông tin liên hệ và web
+  website String?
+  phone   String?
+  email   String?
+
+  // Thông tin hoạt động
+  openingHours    Json? // Lưu giờ mở cửa theo từng ngày
+  bestTimeToVisit String? // VD: "6am-8am, 5pm-7pm"
+
+  // Thông tin giá cả
+  priceRange PriceRange @default(FREE)
+  avgCost    Float? // Chi phí trung bình
+  currency   String?    @default("VND")
+
+  // Đánh giá và thống kê
+  rating      Float? @default(0)
+  reviewCount Int    @default(0)
+  visitCount  Int    @default(0)
+  shareCount  Int    @default(0)
+
+  // Trạng thái và quyền
+  status     DestinationStatus @default(PENDING_APPROVAL)
+  isVerified Boolean           @default(false) // Xác minh bởi admin
+  isPublic   Boolean           @default(true)
+
+  // Tags và tìm kiếm
+  tags      String[] // Tags để tìm kiếm: ["romantic", "family-friendly", "instagram-worthy"]
+  amenities String[] // Tiện nghi: ["wifi", "parking", "wheelchair-accessible"]
+
+  // Thông tin người tạo
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  createdBy   User                  @relation(fields: [createdById], references: [id])
+  addressInfo Address?              @relation(fields: [addressId], references: [id])
+  favorites   DestinationFavorite[]
+  reviews     DestinationReview[]
+  checkins    DestinationCheckin[]
+  trips       TripDestination[] // Many-to-many với Trip
+  posts       Post[] // Posts được tag tại địa điểm này
+
+  @@map("destinations")
+}
+
+model DestinationImage {
+  id            String   @id @default(cuid()) @map("_id")
+  destinationId String
+  url           String // URL của ảnh
+  caption       String? // Mô tả ảnh
+  uploadedById  String // Người upload ảnh
+  isMain        Boolean  @default(false) // Ảnh chính
+  order         Int? // Thứ tự hiển thị
+  width         Int? // Kích thước ảnh
+  height        Int?
+  fileSize      Int? // Dung lượng file (bytes)
+  createdAt     DateTime @default(now())
+
+  destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  uploadedBy  User        @relation(fields: [uploadedById], references: [id])
+
+  @@map("destination_images")
+}
+
+model DestinationFavorite {
+  id            String   @id @default(cuid()) @map("_id")
+  userId        String
+  destinationId String
+  note          String? // Ghi chú cá nhân
+  createdAt     DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id])
+  destination Destination @relation(fields: [destinationId], references: [id])
+
+  @@unique([userId, destinationId])
+  @@map("destination_favorites")
+}
+
+model DestinationReview {
+  id            String    @id @default(cuid()) @map("_id")
+  destinationId String
+  userId        String
+  rating        Float // 1-5 sao
+  title         String?
+  content       String
+  images        String[] // Ảnh đính kèm trong review
+  helpful       Int       @default(0) // Số lượt "helpful"
+  isVerified    Boolean   @default(false) // Đã xác minh đã đến thăm
+  visitDate     DateTime? // Ngày thăm quan
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  destination  Destination     @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  user         User            @relation(fields: [userId], references: [id])
+  helpfulUsers ReviewHelpful[] // Users đã vote helpful
+
+  @@unique([userId, destinationId]) // Mỗi user chỉ review 1 lần
+  @@map("destination_reviews")
+}
+
+model ReviewHelpful {
+  id        String   @id @default(cuid()) @map("_id")
+  reviewId  String
+  userId    String
+  createdAt DateTime @default(now())
+
+  review DestinationReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user   User              @relation(fields: [userId], references: [id])
+
+  @@unique([reviewId, userId])
+  @@map("review_helpful")
+}
+
+model DestinationCheckin {
+  id            String   @id @default(cuid()) @map("_id")
+  destinationId String
+  userId        String
+  message       String? // Message khi checkin
+  images        String[] // Ảnh checkin
+  isPublic      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  destination Destination @relation(fields: [destinationId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+
+  @@map("destination_checkins")
+}
+
+model TripDestination {
+  id            String    @id @default(cuid()) @map("_id")
+  tripId        String
+  destinationId String
+  visitDate     DateTime?
+  duration      Int? // Thời gian ở lại (phút)
+  cost          Float? // Chi phí tại địa điểm này
+  notes         String? // Ghi chú cá nhân
+  order         Int? // Thứ tự trong hành trình
+  createdAt     DateTime  @default(now())
+
+  trip        Trip        @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  destination Destination @relation(fields: [destinationId], references: [id])
+
+  @@unique([tripId, destinationId])
+  @@map("trip_destinations")
 }
 
 model MessageReaction {
@@ -282,8 +538,9 @@ model Trip {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sharedPosts SharedPost[]
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destinations TripDestination[] // NEW: Many-to-many với Destination
+  sharedPosts  SharedPost[]
 }
 
 model Story {
@@ -303,6 +560,243 @@ model Story {
 enum MediaType {
   IMAGE
   VIDEO
+}
+
+model Homestay {
+  id          String  @id @default(cuid()) @map("_id")
+  title       String
+  description String
+  shortDesc   String? // Mô tả ngắn
+  address     String
+  city        String
+  country     String
+  addressId   String? // Liên kết với Address để quản lý theo vùng
+  latitude    Float?
+  longitude   Float?
+
+  // Thông tin homestay
+  type      HomestayType
+  maxGuests Int
+  bedrooms  Int
+  bathrooms Int
+  beds      Int
+
+  // Giá cả
+  pricePerNight Float
+  currency      String @default("VND")
+  cleaningFee   Float?
+  serviceFee    Float?
+
+  // Thông tin liên hệ
+  phone   String?
+  email   String?
+  website String?
+
+  // Tiện nghi và quy định
+  amenities          String[] // ["wifi", "kitchen", "parking", "pool"]
+  houseRules         String[] // ["no-smoking", "no-pets", "quiet-hours"]
+  checkInTime        String? // "15:00"
+  checkOutTime       String? // "11:00"
+  minStay            Int?     @default(1)
+  maxStay            Int?
+  instantBook        Boolean  @default(false)
+  cancellationPolicy String?
+
+  // Hình ảnh
+  images     HomestayImage[]
+  coverImage String?
+
+  // Đánh giá và thống kê
+  rating       Float? @default(0)
+  reviewCount  Int    @default(0)
+  bookingCount Int    @default(0)
+  viewCount    Int    @default(0)
+
+  // Trạng thái
+  status     HomestayStatus @default(ACTIVE)
+  isVerified Boolean        @default(false)
+  isActive   Boolean        @default(true)
+
+  // Thông tin chủ nhà
+  hostId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  host        User               @relation("HomestayHost", fields: [hostId], references: [id])
+  addressInfo Address?           @relation(fields: [addressId], references: [id])
+  bookings    HomestayBooking[]
+  reviews     HomestayReview[]
+  favorites   HomestayFavorite[]
+
+  @@map("homestays")
+}
+
+model HomestayImage {
+  id         String   @id @default(cuid()) @map("_id")
+  homestayId String
+  url        String
+  caption    String?
+  isMain     Boolean  @default(false)
+  order      Int?
+  createdAt  DateTime @default(now())
+
+  homestay Homestay @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+
+  @@map("homestay_images")
+}
+
+model HomestayBooking {
+  id           String   @id @default(cuid()) @map("_id")
+  homestayId   String
+  guestId      String
+  checkInDate  DateTime
+  checkOutDate DateTime
+  guests       Int
+  totalNights  Int
+
+  // Thông tin giá
+  pricePerNight Float
+  totalPrice    Float
+  cleaningFee   Float?
+  serviceFee    Float?
+  finalPrice    Float? // Tổng tiền cuối cùng
+  currency      String @default("VND")
+
+  // Thông tin đặt phòng
+  guestName       String
+  guestPhone      String
+  guestEmail      String
+  specialRequests String? // Yêu cầu đặc biệt
+  paymentMethod   String?
+
+  // Trạng thái
+  status        BookingStatus @default(PENDING)
+  paymentStatus String? // "pending", "paid", "refunded"
+
+  // Thời gian
+  bookedAt    DateTime  @default(now())
+  confirmedAt DateTime?
+  cancelledAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  homestay Homestay @relation(fields: [homestayId], references: [id])
+  guest    User     @relation("BookingGuest", fields: [guestId], references: [id])
+
+  @@map("homestay_bookings")
+}
+
+model HomestayReview {
+  id         String  @id @default(cuid()) @map("_id")
+  homestayId String
+  userId     String
+  bookingId  String? // Liên kết với booking nếu có
+
+  // Đánh giá chi tiết
+  overallRating  Float // 1-5 sao tổng thể
+  cleanRating    Float? // Độ sạch sẽ
+  locationRating Float? // Vị trí
+  serviceRating  Float? // Dịch vụ
+  valueRating    Float? // Giá trị tiền
+  amenityRating  Float? // Tiện nghi
+
+  // Nội dung
+  title      String?
+  comment    String
+  images     String[] // Ảnh đính kèm
+  tripType   String? // Loại chuyến đi
+  stayPeriod String? // Thời gian ở
+
+  // Thống kê
+  helpful Int @default(0)
+
+  // Thời gian
+  stayDate  DateTime? // Ngày ở
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  homestay Homestay @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, homestayId]) // Mỗi user chỉ review 1 lần
+  @@map("homestay_reviews")
+}
+
+model HomestayFavorite {
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  homestayId String
+  note       String? // Ghi chú cá nhân
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id])
+  homestay Homestay @relation(fields: [homestayId], references: [id])
+
+  @@unique([userId, homestayId])
+  @@map("homestay_favorites")
+}
+
+model Address {
+  id       String      @id @default(cuid()) @map("_id")
+  name     String // Tên địa chỉ: "Ninh Bình", "Tràng An", "Tam Cốc"
+  fullName String? // Tên đầy đủ: "Tỉnh Ninh Bình", "Quần thể danh thắng Tràng An"
+  nameEn   String? // Tên tiếng Anh
+  slug     String      @unique // URL-friendly slug: "ninh-binh", "trang-an"
+  type     AddressType // Loại địa chỉ
+
+  // Thông tin địa lý
+  latitude   Float?
+  longitude  Float?
+  area       Float? // Diện tích (km²)
+  population Int? // Dân số
+
+  // Thông tin mô tả
+  description String? // Mô tả chi tiết
+  shortDesc   String? // Mô tả ngắn
+  highlights  String[] // Điểm nổi bật: ["Di sản thế giới", "Phong cảnh tuyệt đẹp"]
+
+  // Hình ảnh
+  coverImage String? // Ảnh đại diện
+  images     String[] // Album ảnh
+
+  // Thông tin du lịch
+  bestTimeToVisit String? // Thời gian tốt nhất để ghé thăm
+  climate         String? // Khí hậu
+  famousFor       String[] // Nổi tiếng về: ["Phong cảnh", "Ẩm thực", "Lịch sử"]
+
+  // Cấu trúc phân cấp
+  parentId String? // ID của địa chỉ cha (VD: Tràng An thuộc Ninh Bình)
+  level    Int // Cấp độ: 0=Country, 1=Province, 2=District, 3=Ward, 4=Area
+  path     String[] // Đường dẫn phân cấp: ["vietnam", "ninh-binh", "trang-an"]
+
+  // Thống kê
+  destinationCount Int @default(0) // Số lượng địa điểm
+  homestayCount    Int @default(0) // Số lượng homestay
+  viewCount        Int @default(0) // Lượt xem
+  searchCount      Int @default(0) // Lượt tìm kiếm
+
+  // Trạng thái
+  isActive   Boolean @default(true)
+  isVerified Boolean @default(false)
+  isPriority Boolean @default(false) // Địa chỉ ưu tiên hiển thị
+
+  // Thông tin quản lý
+  createdById String? // Người tạo
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  createdBy    User?         @relation(fields: [createdById], references: [id])
+  parent       Address?      @relation("AddressHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children     Address[]     @relation("AddressHierarchy")
+  destinations Destination[] // Các địa điểm thuộc địa chỉ này
+  homestays    Homestay[] // Các homestay thuộc địa chỉ này
+
+  @@map("addresses")
 }
 
 model Report {

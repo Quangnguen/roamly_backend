@@ -20,6 +20,13 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiConsumes,
+} from '@nestjs/swagger';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -29,6 +36,7 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/common/enums/role.enum';
 import { RolesGuard } from 'src/common/guard/roles.guard';
 
+@ApiTags('posts')
 @Controller('posts')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @UsePipes(new CustomValidationPipe())
@@ -37,6 +45,14 @@ export class PostController {
 
   @Post()
   @UseInterceptors(FilesInterceptor('images'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Create new post with images',
+    description: 'Upload images from gallery or camera to create a new post',
+  })
+  @ApiResponse({ status: 201, description: 'Post created successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @Roles(Role.User, Role.Admin)
   create(
     @UploadedFiles() files: Express.Multer.File[],

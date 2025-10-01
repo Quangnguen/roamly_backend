@@ -15,12 +15,15 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { ChatService } from './chat.service';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
+@ApiTags('chat')
 @Controller('chat')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
 export class ChatController {
   constructor(private readonly chatService: ChatService) { }
 

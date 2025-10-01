@@ -12,6 +12,9 @@ import { ChatModule } from './modules/chat/chat.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { DestinationModule } from './modules/destination/destination.module';
+import { HomestayModule } from './modules/homestay/homestay.module';
+import { AddressModule } from './modules/address/address.module';
 import { SocketGateway } from './modules/socket/socket.gateway';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -23,6 +26,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     FollowModule,
     TripModule,
     CloudinaryModule,
+    DestinationModule,
+    HomestayModule,
+    AddressModule,
     LikeModule,
     ChatModule,
     NotificationModule,

@@ -18,31 +18,49 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiParam,
+} from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/common/guard/jwt-auth.guard';
 import { CustomValidationPipe } from 'src/common/pipe/validation.pipe';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { UploadAvatarDto } from './dto/upload-avatar.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+
+@ApiTags('users')
 @Controller('users')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
 @UsePipes(new CustomValidationPipe())
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('me')
+  @ApiOperation({ summary: 'Lấy thông tin người dùng hiện tại' })
+  @ApiResponse({ status: 200, description: 'Lấy thông tin thành công' })
   @HttpCode(HttpStatus.OK)
   async getMe(@Req() req: any) {
     return this.userService.getUserById(req.user.id);
   }
 
   @Patch('me')
+  @ApiOperation({ summary: 'Cập nhật thông tin người dùng' })
+  @ApiResponse({ status: 200, description: 'Cập nhật thành công' })
   @HttpCode(HttpStatus.OK)
   async updateMe(@Req() req: any, @Body() dto: UpdateUserDto) {
     return this.userService.updateUser(req.user.id, dto);
   }
 
   @Get('get-users')
+  @ApiOperation({ summary: 'Lấy danh sách người dùng (phân trang)' })
+  @ApiResponse({ status: 200, description: 'Lấy danh sách thành công' })
   @HttpCode(HttpStatus.OK)
   async getUsers(
     @Req() req: any,
@@ -66,10 +84,19 @@ export class UserController {
   }
 
   @Patch('profile-pic')
+  @ApiOperation({
+    summary: 'Upload avatar',
+    description: 'Upload profile picture from gallery or camera',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiResponse({ status: 200, description: 'Avatar uploaded successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid file format' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @UseInterceptors(FileInterceptor('file'))
   async updateProfilePic(
     @Req() req: any,
     @UploadedFile() file: Express.Multer.File,
+    @Body() uploadDto: UploadAvatarDto,
   ) {
     console.log('Updating profile pic for user:', req.user.id);
     return this.userService.updateProfilePic(req.user.id, file);

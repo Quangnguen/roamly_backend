@@ -93,6 +93,21 @@ export type Story = $Result.DefaultSelection<Prisma.$StoryPayload>
  * 
  */
 export type Report = $Result.DefaultSelection<Prisma.$ReportPayload>
+/**
+ * Model Destination
+ * 
+ */
+export type Destination = $Result.DefaultSelection<Prisma.$DestinationPayload>
+/**
+ * Model DestinationComment
+ * 
+ */
+export type DestinationComment = $Result.DefaultSelection<Prisma.$DestinationCommentPayload>
+/**
+ * Model DestinationReview
+ * 
+ */
+export type DestinationReview = $Result.DefaultSelection<Prisma.$DestinationReviewPayload>
 
 /**
  * Enums
@@ -379,6 +394,36 @@ export class PrismaClient<
     * ```
     */
   get report(): Prisma.ReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.destination`: Exposes CRUD operations for the **Destination** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Destinations
+    * const destinations = await prisma.destination.findMany()
+    * ```
+    */
+  get destination(): Prisma.DestinationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.destinationComment`: Exposes CRUD operations for the **DestinationComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DestinationComments
+    * const destinationComments = await prisma.destinationComment.findMany()
+    * ```
+    */
+  get destinationComment(): Prisma.DestinationCommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.destinationReview`: Exposes CRUD operations for the **DestinationReview** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DestinationReviews
+    * const destinationReviews = await prisma.destinationReview.findMany()
+    * ```
+    */
+  get destinationReview(): Prisma.DestinationReviewDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -834,7 +879,10 @@ export namespace Prisma {
     Notification: 'Notification',
     Trip: 'Trip',
     Story: 'Story',
-    Report: 'Report'
+    Report: 'Report',
+    Destination: 'Destination',
+    DestinationComment: 'DestinationComment',
+    DestinationReview: 'DestinationReview'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -853,7 +901,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "comment" | "like" | "savedPost" | "message" | "messageReaction" | "conversation" | "conversationParticipant" | "notification" | "trip" | "story" | "report"
+      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "comment" | "like" | "savedPost" | "message" | "messageReaction" | "conversation" | "conversationParticipant" | "notification" | "trip" | "story" | "report" | "destination" | "destinationComment" | "destinationReview"
       txIsolationLevel: never
     }
     model: {
@@ -2041,6 +2089,228 @@ export namespace Prisma {
           }
         }
       }
+      Destination: {
+        payload: Prisma.$DestinationPayload<ExtArgs>
+        fields: Prisma.DestinationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DestinationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DestinationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>
+          }
+          findFirst: {
+            args: Prisma.DestinationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DestinationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>
+          }
+          findMany: {
+            args: Prisma.DestinationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>[]
+          }
+          create: {
+            args: Prisma.DestinationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>
+          }
+          createMany: {
+            args: Prisma.DestinationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DestinationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>
+          }
+          update: {
+            args: Prisma.DestinationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>
+          }
+          deleteMany: {
+            args: Prisma.DestinationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DestinationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DestinationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationPayload>
+          }
+          aggregate: {
+            args: Prisma.DestinationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDestination>
+          }
+          groupBy: {
+            args: Prisma.DestinationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DestinationGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.DestinationFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.DestinationAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.DestinationCountArgs<ExtArgs>
+            result: $Utils.Optional<DestinationCountAggregateOutputType> | number
+          }
+        }
+      }
+      DestinationComment: {
+        payload: Prisma.$DestinationCommentPayload<ExtArgs>
+        fields: Prisma.DestinationCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DestinationCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DestinationCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.DestinationCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DestinationCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>
+          }
+          findMany: {
+            args: Prisma.DestinationCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>[]
+          }
+          create: {
+            args: Prisma.DestinationCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>
+          }
+          createMany: {
+            args: Prisma.DestinationCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DestinationCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>
+          }
+          update: {
+            args: Prisma.DestinationCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.DestinationCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DestinationCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DestinationCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.DestinationCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDestinationComment>
+          }
+          groupBy: {
+            args: Prisma.DestinationCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DestinationCommentGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.DestinationCommentFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.DestinationCommentAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.DestinationCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<DestinationCommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      DestinationReview: {
+        payload: Prisma.$DestinationReviewPayload<ExtArgs>
+        fields: Prisma.DestinationReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DestinationReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DestinationReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.DestinationReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DestinationReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>
+          }
+          findMany: {
+            args: Prisma.DestinationReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>[]
+          }
+          create: {
+            args: Prisma.DestinationReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>
+          }
+          createMany: {
+            args: Prisma.DestinationReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DestinationReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>
+          }
+          update: {
+            args: Prisma.DestinationReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.DestinationReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DestinationReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DestinationReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DestinationReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.DestinationReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDestinationReview>
+          }
+          groupBy: {
+            args: Prisma.DestinationReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DestinationReviewGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.DestinationReviewFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.DestinationReviewAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.DestinationReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<DestinationReviewCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2128,6 +2398,9 @@ export namespace Prisma {
     trip?: TripOmit
     story?: StoryOmit
     report?: ReportOmit
+    destination?: DestinationOmit
+    destinationComment?: DestinationCommentOmit
+    destinationReview?: DestinationReviewOmit
   }
 
   /* Types for Logging */
@@ -2240,6 +2513,9 @@ export namespace Prisma {
     conversationParticipants: number
     messageReactions: number
     sentMessages: number
+    destinations: number
+    destinationComments: number
+    destinationReviews: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2261,6 +2537,9 @@ export namespace Prisma {
     conversationParticipants?: boolean | UserCountOutputTypeCountConversationParticipantsArgs
     messageReactions?: boolean | UserCountOutputTypeCountMessageReactionsArgs
     sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+    destinations?: boolean | UserCountOutputTypeCountDestinationsArgs
+    destinationComments?: boolean | UserCountOutputTypeCountDestinationCommentsArgs
+    destinationReviews?: boolean | UserCountOutputTypeCountDestinationReviewsArgs
   }
 
   // Custom InputTypes
@@ -2398,6 +2677,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDestinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDestinationCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationCommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDestinationReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationReviewWhereInput
   }
 
 
@@ -2678,6 +2978,95 @@ export namespace Prisma {
    */
   export type StoryCountOutputTypeCountSharedPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SharedPostWhereInput
+  }
+
+
+  /**
+   * Count Type DestinationCountOutputType
+   */
+
+  export type DestinationCountOutputType = {
+    subLocations: number
+    likes: number
+    comments: number
+    reviews: number
+  }
+
+  export type DestinationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subLocations?: boolean | DestinationCountOutputTypeCountSubLocationsArgs
+    likes?: boolean | DestinationCountOutputTypeCountLikesArgs
+    comments?: boolean | DestinationCountOutputTypeCountCommentsArgs
+    reviews?: boolean | DestinationCountOutputTypeCountReviewsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DestinationCountOutputType without action
+   */
+  export type DestinationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationCountOutputType
+     */
+    select?: DestinationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DestinationCountOutputType without action
+   */
+  export type DestinationCountOutputTypeCountSubLocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationWhereInput
+  }
+
+  /**
+   * DestinationCountOutputType without action
+   */
+  export type DestinationCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LikeWhereInput
+  }
+
+  /**
+   * DestinationCountOutputType without action
+   */
+  export type DestinationCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationCommentWhereInput
+  }
+
+  /**
+   * DestinationCountOutputType without action
+   */
+  export type DestinationCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationReviewWhereInput
+  }
+
+
+  /**
+   * Count Type DestinationCommentCountOutputType
+   */
+
+  export type DestinationCommentCountOutputType = {
+    replies: number
+  }
+
+  export type DestinationCommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | DestinationCommentCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DestinationCommentCountOutputType without action
+   */
+  export type DestinationCommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationCommentCountOutputType
+     */
+    select?: DestinationCommentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DestinationCommentCountOutputType without action
+   */
+  export type DestinationCommentCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationCommentWhereInput
   }
 
 
@@ -3021,6 +3410,9 @@ export namespace Prisma {
     conversationParticipants?: boolean | User$conversationParticipantsArgs<ExtArgs>
     messageReactions?: boolean | User$messageReactionsArgs<ExtArgs>
     sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    destinations?: boolean | User$destinationsArgs<ExtArgs>
+    destinationComments?: boolean | User$destinationCommentsArgs<ExtArgs>
+    destinationReviews?: boolean | User$destinationReviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3069,6 +3461,9 @@ export namespace Prisma {
     conversationParticipants?: boolean | User$conversationParticipantsArgs<ExtArgs>
     messageReactions?: boolean | User$messageReactionsArgs<ExtArgs>
     sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    destinations?: boolean | User$destinationsArgs<ExtArgs>
+    destinationComments?: boolean | User$destinationCommentsArgs<ExtArgs>
+    destinationReviews?: boolean | User$destinationReviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3093,6 +3488,9 @@ export namespace Prisma {
       conversationParticipants: Prisma.$ConversationParticipantPayload<ExtArgs>[]
       messageReactions: Prisma.$MessageReactionPayload<ExtArgs>[]
       sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+      destinations: Prisma.$DestinationPayload<ExtArgs>[]
+      destinationComments: Prisma.$DestinationCommentPayload<ExtArgs>[]
+      destinationReviews: Prisma.$DestinationReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3496,6 +3894,9 @@ export namespace Prisma {
     conversationParticipants<T extends User$conversationParticipantsArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     messageReactions<T extends User$messageReactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$messageReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sentMessages<T extends User$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    destinations<T extends User$destinationsArgs<ExtArgs> = {}>(args?: Subset<T, User$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    destinationComments<T extends User$destinationCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$destinationCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    destinationReviews<T extends User$destinationReviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$destinationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4344,6 +4745,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.destinations
+   */
+  export type User$destinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    where?: DestinationWhereInput
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    cursor?: DestinationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * User.destinationComments
+   */
+  export type User$destinationCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    where?: DestinationCommentWhereInput
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    cursor?: DestinationCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationCommentScalarFieldEnum | DestinationCommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.destinationReviews
+   */
+  export type User$destinationReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    where?: DestinationReviewWhereInput
+    orderBy?: DestinationReviewOrderByWithRelationInput | DestinationReviewOrderByWithRelationInput[]
+    cursor?: DestinationReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationReviewScalarFieldEnum | DestinationReviewScalarFieldEnum[]
   }
 
   /**
@@ -10015,6 +10488,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     post?: boolean | Like$postArgs<ExtArgs>
     comment?: boolean | Like$commentArgs<ExtArgs>
+    destination?: boolean | Like$destinationArgs<ExtArgs>
   }, ExtArgs["result"]["like"]>
 
 
@@ -10032,6 +10506,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     post?: boolean | Like$postArgs<ExtArgs>
     comment?: boolean | Like$commentArgs<ExtArgs>
+    destination?: boolean | Like$destinationArgs<ExtArgs>
   }
 
   export type $LikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10040,6 +10515,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       post: Prisma.$PostPayload<ExtArgs> | null
       comment: Prisma.$CommentPayload<ExtArgs> | null
+      destination: Prisma.$DestinationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10413,6 +10889,7 @@ export namespace Prisma {
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     post<T extends Like$postArgs<ExtArgs> = {}>(args?: Subset<T, Like$postArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     comment<T extends Like$commentArgs<ExtArgs> = {}>(args?: Subset<T, Like$commentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    destination<T extends Like$destinationArgs<ExtArgs> = {}>(args?: Subset<T, Like$destinationArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10852,6 +11329,25 @@ export namespace Prisma {
      */
     include?: CommentInclude<ExtArgs> | null
     where?: CommentWhereInput
+  }
+
+  /**
+   * Like.destination
+   */
+  export type Like$destinationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    where?: DestinationWhereInput
   }
 
   /**
@@ -20135,6 +20631,3576 @@ export namespace Prisma {
 
 
   /**
+   * Model Destination
+   */
+
+  export type AggregateDestination = {
+    _count: DestinationCountAggregateOutputType | null
+    _avg: DestinationAvgAggregateOutputType | null
+    _sum: DestinationSumAggregateOutputType | null
+    _min: DestinationMinAggregateOutputType | null
+    _max: DestinationMaxAggregateOutputType | null
+  }
+
+  export type DestinationAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    visitCount: number | null
+    likeCount: number | null
+    commentCount: number | null
+    reviewCount: number | null
+    rating: number | null
+  }
+
+  export type DestinationSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    visitCount: number | null
+    likeCount: number | null
+    commentCount: number | null
+    reviewCount: number | null
+    rating: number | null
+  }
+
+  export type DestinationMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    location: string | null
+    city: string | null
+    country: string | null
+    latitude: number | null
+    longitude: number | null
+    visitCount: number | null
+    likeCount: number | null
+    commentCount: number | null
+    reviewCount: number | null
+    rating: number | null
+    bestTimeToVisit: string | null
+    openingHours: string | null
+    isPublic: boolean | null
+    parentId: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DestinationMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    location: string | null
+    city: string | null
+    country: string | null
+    latitude: number | null
+    longitude: number | null
+    visitCount: number | null
+    likeCount: number | null
+    commentCount: number | null
+    reviewCount: number | null
+    rating: number | null
+    bestTimeToVisit: string | null
+    openingHours: string | null
+    isPublic: boolean | null
+    parentId: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DestinationCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    location: number
+    city: number
+    country: number
+    latitude: number
+    longitude: number
+    category: number
+    imageUrl: number
+    tags: number
+    visitCount: number
+    likeCount: number
+    commentCount: number
+    reviewCount: number
+    rating: number
+    bestTimeToVisit: number
+    entryFee: number
+    openingHours: number
+    facilities: number
+    activities: number
+    travelTips: number
+    isPublic: number
+    parentId: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DestinationAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    visitCount?: true
+    likeCount?: true
+    commentCount?: true
+    reviewCount?: true
+    rating?: true
+  }
+
+  export type DestinationSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    visitCount?: true
+    likeCount?: true
+    commentCount?: true
+    reviewCount?: true
+    rating?: true
+  }
+
+  export type DestinationMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    location?: true
+    city?: true
+    country?: true
+    latitude?: true
+    longitude?: true
+    visitCount?: true
+    likeCount?: true
+    commentCount?: true
+    reviewCount?: true
+    rating?: true
+    bestTimeToVisit?: true
+    openingHours?: true
+    isPublic?: true
+    parentId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DestinationMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    location?: true
+    city?: true
+    country?: true
+    latitude?: true
+    longitude?: true
+    visitCount?: true
+    likeCount?: true
+    commentCount?: true
+    reviewCount?: true
+    rating?: true
+    bestTimeToVisit?: true
+    openingHours?: true
+    isPublic?: true
+    parentId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DestinationCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    location?: true
+    city?: true
+    country?: true
+    latitude?: true
+    longitude?: true
+    category?: true
+    imageUrl?: true
+    tags?: true
+    visitCount?: true
+    likeCount?: true
+    commentCount?: true
+    reviewCount?: true
+    rating?: true
+    bestTimeToVisit?: true
+    entryFee?: true
+    openingHours?: true
+    facilities?: true
+    activities?: true
+    travelTips?: true
+    isPublic?: true
+    parentId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DestinationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Destination to aggregate.
+     */
+    where?: DestinationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Destinations to fetch.
+     */
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DestinationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Destinations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Destinations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Destinations
+    **/
+    _count?: true | DestinationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DestinationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DestinationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DestinationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DestinationMaxAggregateInputType
+  }
+
+  export type GetDestinationAggregateType<T extends DestinationAggregateArgs> = {
+        [P in keyof T & keyof AggregateDestination]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDestination[P]>
+      : GetScalarType<T[P], AggregateDestination[P]>
+  }
+
+
+
+
+  export type DestinationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationWhereInput
+    orderBy?: DestinationOrderByWithAggregationInput | DestinationOrderByWithAggregationInput[]
+    by: DestinationScalarFieldEnum[] | DestinationScalarFieldEnum
+    having?: DestinationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DestinationCountAggregateInputType | true
+    _avg?: DestinationAvgAggregateInputType
+    _sum?: DestinationSumAggregateInputType
+    _min?: DestinationMinAggregateInputType
+    _max?: DestinationMaxAggregateInputType
+  }
+
+  export type DestinationGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    location: string
+    city: string
+    country: string
+    latitude: number | null
+    longitude: number | null
+    category: string[]
+    imageUrl: string[]
+    tags: string[]
+    visitCount: number
+    likeCount: number
+    commentCount: number
+    reviewCount: number
+    rating: number
+    bestTimeToVisit: string | null
+    entryFee: JsonValue | null
+    openingHours: string | null
+    facilities: string[]
+    activities: string[]
+    travelTips: string[]
+    isPublic: boolean
+    parentId: string | null
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DestinationCountAggregateOutputType | null
+    _avg: DestinationAvgAggregateOutputType | null
+    _sum: DestinationSumAggregateOutputType | null
+    _min: DestinationMinAggregateOutputType | null
+    _max: DestinationMaxAggregateOutputType | null
+  }
+
+  type GetDestinationGroupByPayload<T extends DestinationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DestinationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DestinationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DestinationGroupByOutputType[P]>
+            : GetScalarType<T[P], DestinationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DestinationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    location?: boolean
+    city?: boolean
+    country?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    category?: boolean
+    imageUrl?: boolean
+    tags?: boolean
+    visitCount?: boolean
+    likeCount?: boolean
+    commentCount?: boolean
+    reviewCount?: boolean
+    rating?: boolean
+    bestTimeToVisit?: boolean
+    entryFee?: boolean
+    openingHours?: boolean
+    facilities?: boolean
+    activities?: boolean
+    travelTips?: boolean
+    isPublic?: boolean
+    parentId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | Destination$parentArgs<ExtArgs>
+    subLocations?: boolean | Destination$subLocationsArgs<ExtArgs>
+    likes?: boolean | Destination$likesArgs<ExtArgs>
+    comments?: boolean | Destination$commentsArgs<ExtArgs>
+    reviews?: boolean | Destination$reviewsArgs<ExtArgs>
+    _count?: boolean | DestinationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["destination"]>
+
+
+
+  export type DestinationSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    location?: boolean
+    city?: boolean
+    country?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    category?: boolean
+    imageUrl?: boolean
+    tags?: boolean
+    visitCount?: boolean
+    likeCount?: boolean
+    commentCount?: boolean
+    reviewCount?: boolean
+    rating?: boolean
+    bestTimeToVisit?: boolean
+    entryFee?: boolean
+    openingHours?: boolean
+    facilities?: boolean
+    activities?: boolean
+    travelTips?: boolean
+    isPublic?: boolean
+    parentId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DestinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "location" | "city" | "country" | "latitude" | "longitude" | "category" | "imageUrl" | "tags" | "visitCount" | "likeCount" | "commentCount" | "reviewCount" | "rating" | "bestTimeToVisit" | "entryFee" | "openingHours" | "facilities" | "activities" | "travelTips" | "isPublic" | "parentId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["destination"]>
+  export type DestinationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | Destination$parentArgs<ExtArgs>
+    subLocations?: boolean | Destination$subLocationsArgs<ExtArgs>
+    likes?: boolean | Destination$likesArgs<ExtArgs>
+    comments?: boolean | Destination$commentsArgs<ExtArgs>
+    reviews?: boolean | Destination$reviewsArgs<ExtArgs>
+    _count?: boolean | DestinationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $DestinationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Destination"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      parent: Prisma.$DestinationPayload<ExtArgs> | null
+      subLocations: Prisma.$DestinationPayload<ExtArgs>[]
+      likes: Prisma.$LikePayload<ExtArgs>[]
+      comments: Prisma.$DestinationCommentPayload<ExtArgs>[]
+      reviews: Prisma.$DestinationReviewPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      location: string
+      city: string
+      country: string
+      latitude: number | null
+      longitude: number | null
+      category: string[]
+      imageUrl: string[]
+      tags: string[]
+      visitCount: number
+      likeCount: number
+      commentCount: number
+      reviewCount: number
+      rating: number
+      bestTimeToVisit: string | null
+      entryFee: Prisma.JsonValue | null
+      openingHours: string | null
+      facilities: string[]
+      activities: string[]
+      travelTips: string[]
+      isPublic: boolean
+      parentId: string | null
+      userId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["destination"]>
+    composites: {}
+  }
+
+  type DestinationGetPayload<S extends boolean | null | undefined | DestinationDefaultArgs> = $Result.GetResult<Prisma.$DestinationPayload, S>
+
+  type DestinationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DestinationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DestinationCountAggregateInputType | true
+    }
+
+  export interface DestinationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Destination'], meta: { name: 'Destination' } }
+    /**
+     * Find zero or one Destination that matches the filter.
+     * @param {DestinationFindUniqueArgs} args - Arguments to find a Destination
+     * @example
+     * // Get one Destination
+     * const destination = await prisma.destination.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DestinationFindUniqueArgs>(args: SelectSubset<T, DestinationFindUniqueArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Destination that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DestinationFindUniqueOrThrowArgs} args - Arguments to find a Destination
+     * @example
+     * // Get one Destination
+     * const destination = await prisma.destination.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DestinationFindUniqueOrThrowArgs>(args: SelectSubset<T, DestinationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Destination that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationFindFirstArgs} args - Arguments to find a Destination
+     * @example
+     * // Get one Destination
+     * const destination = await prisma.destination.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DestinationFindFirstArgs>(args?: SelectSubset<T, DestinationFindFirstArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Destination that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationFindFirstOrThrowArgs} args - Arguments to find a Destination
+     * @example
+     * // Get one Destination
+     * const destination = await prisma.destination.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DestinationFindFirstOrThrowArgs>(args?: SelectSubset<T, DestinationFindFirstOrThrowArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Destinations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Destinations
+     * const destinations = await prisma.destination.findMany()
+     * 
+     * // Get first 10 Destinations
+     * const destinations = await prisma.destination.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const destinationWithIdOnly = await prisma.destination.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DestinationFindManyArgs>(args?: SelectSubset<T, DestinationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Destination.
+     * @param {DestinationCreateArgs} args - Arguments to create a Destination.
+     * @example
+     * // Create one Destination
+     * const Destination = await prisma.destination.create({
+     *   data: {
+     *     // ... data to create a Destination
+     *   }
+     * })
+     * 
+     */
+    create<T extends DestinationCreateArgs>(args: SelectSubset<T, DestinationCreateArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Destinations.
+     * @param {DestinationCreateManyArgs} args - Arguments to create many Destinations.
+     * @example
+     * // Create many Destinations
+     * const destination = await prisma.destination.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DestinationCreateManyArgs>(args?: SelectSubset<T, DestinationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Destination.
+     * @param {DestinationDeleteArgs} args - Arguments to delete one Destination.
+     * @example
+     * // Delete one Destination
+     * const Destination = await prisma.destination.delete({
+     *   where: {
+     *     // ... filter to delete one Destination
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DestinationDeleteArgs>(args: SelectSubset<T, DestinationDeleteArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Destination.
+     * @param {DestinationUpdateArgs} args - Arguments to update one Destination.
+     * @example
+     * // Update one Destination
+     * const destination = await prisma.destination.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DestinationUpdateArgs>(args: SelectSubset<T, DestinationUpdateArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Destinations.
+     * @param {DestinationDeleteManyArgs} args - Arguments to filter Destinations to delete.
+     * @example
+     * // Delete a few Destinations
+     * const { count } = await prisma.destination.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DestinationDeleteManyArgs>(args?: SelectSubset<T, DestinationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Destinations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Destinations
+     * const destination = await prisma.destination.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DestinationUpdateManyArgs>(args: SelectSubset<T, DestinationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Destination.
+     * @param {DestinationUpsertArgs} args - Arguments to update or create a Destination.
+     * @example
+     * // Update or create a Destination
+     * const destination = await prisma.destination.upsert({
+     *   create: {
+     *     // ... data to create a Destination
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Destination we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DestinationUpsertArgs>(args: SelectSubset<T, DestinationUpsertArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Destinations that matches the filter.
+     * @param {DestinationFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const destination = await prisma.destination.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: DestinationFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Destination.
+     * @param {DestinationAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const destination = await prisma.destination.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: DestinationAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Destinations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCountArgs} args - Arguments to filter Destinations to count.
+     * @example
+     * // Count the number of Destinations
+     * const count = await prisma.destination.count({
+     *   where: {
+     *     // ... the filter for the Destinations we want to count
+     *   }
+     * })
+    **/
+    count<T extends DestinationCountArgs>(
+      args?: Subset<T, DestinationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DestinationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Destination.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DestinationAggregateArgs>(args: Subset<T, DestinationAggregateArgs>): Prisma.PrismaPromise<GetDestinationAggregateType<T>>
+
+    /**
+     * Group by Destination.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DestinationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DestinationGroupByArgs['orderBy'] }
+        : { orderBy?: DestinationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DestinationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDestinationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Destination model
+   */
+  readonly fields: DestinationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Destination.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DestinationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent<T extends Destination$parentArgs<ExtArgs> = {}>(args?: Subset<T, Destination$parentArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    subLocations<T extends Destination$subLocationsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$subLocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends Destination$likesArgs<ExtArgs> = {}>(args?: Subset<T, Destination$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends Destination$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends Destination$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Destination model
+   */
+  interface DestinationFieldRefs {
+    readonly id: FieldRef<"Destination", 'String'>
+    readonly title: FieldRef<"Destination", 'String'>
+    readonly description: FieldRef<"Destination", 'String'>
+    readonly location: FieldRef<"Destination", 'String'>
+    readonly city: FieldRef<"Destination", 'String'>
+    readonly country: FieldRef<"Destination", 'String'>
+    readonly latitude: FieldRef<"Destination", 'Float'>
+    readonly longitude: FieldRef<"Destination", 'Float'>
+    readonly category: FieldRef<"Destination", 'String[]'>
+    readonly imageUrl: FieldRef<"Destination", 'String[]'>
+    readonly tags: FieldRef<"Destination", 'String[]'>
+    readonly visitCount: FieldRef<"Destination", 'Int'>
+    readonly likeCount: FieldRef<"Destination", 'Int'>
+    readonly commentCount: FieldRef<"Destination", 'Int'>
+    readonly reviewCount: FieldRef<"Destination", 'Int'>
+    readonly rating: FieldRef<"Destination", 'Float'>
+    readonly bestTimeToVisit: FieldRef<"Destination", 'String'>
+    readonly entryFee: FieldRef<"Destination", 'Json'>
+    readonly openingHours: FieldRef<"Destination", 'String'>
+    readonly facilities: FieldRef<"Destination", 'String[]'>
+    readonly activities: FieldRef<"Destination", 'String[]'>
+    readonly travelTips: FieldRef<"Destination", 'String[]'>
+    readonly isPublic: FieldRef<"Destination", 'Boolean'>
+    readonly parentId: FieldRef<"Destination", 'String'>
+    readonly userId: FieldRef<"Destination", 'String'>
+    readonly createdAt: FieldRef<"Destination", 'DateTime'>
+    readonly updatedAt: FieldRef<"Destination", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Destination findUnique
+   */
+  export type DestinationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * Filter, which Destination to fetch.
+     */
+    where: DestinationWhereUniqueInput
+  }
+
+  /**
+   * Destination findUniqueOrThrow
+   */
+  export type DestinationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * Filter, which Destination to fetch.
+     */
+    where: DestinationWhereUniqueInput
+  }
+
+  /**
+   * Destination findFirst
+   */
+  export type DestinationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * Filter, which Destination to fetch.
+     */
+    where?: DestinationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Destinations to fetch.
+     */
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Destinations.
+     */
+    cursor?: DestinationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Destinations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Destinations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Destinations.
+     */
+    distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Destination findFirstOrThrow
+   */
+  export type DestinationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * Filter, which Destination to fetch.
+     */
+    where?: DestinationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Destinations to fetch.
+     */
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Destinations.
+     */
+    cursor?: DestinationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Destinations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Destinations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Destinations.
+     */
+    distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Destination findMany
+   */
+  export type DestinationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * Filter, which Destinations to fetch.
+     */
+    where?: DestinationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Destinations to fetch.
+     */
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Destinations.
+     */
+    cursor?: DestinationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Destinations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Destinations.
+     */
+    skip?: number
+    distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Destination create
+   */
+  export type DestinationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Destination.
+     */
+    data: XOR<DestinationCreateInput, DestinationUncheckedCreateInput>
+  }
+
+  /**
+   * Destination createMany
+   */
+  export type DestinationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Destinations.
+     */
+    data: DestinationCreateManyInput | DestinationCreateManyInput[]
+  }
+
+  /**
+   * Destination update
+   */
+  export type DestinationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Destination.
+     */
+    data: XOR<DestinationUpdateInput, DestinationUncheckedUpdateInput>
+    /**
+     * Choose, which Destination to update.
+     */
+    where: DestinationWhereUniqueInput
+  }
+
+  /**
+   * Destination updateMany
+   */
+  export type DestinationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Destinations.
+     */
+    data: XOR<DestinationUpdateManyMutationInput, DestinationUncheckedUpdateManyInput>
+    /**
+     * Filter which Destinations to update
+     */
+    where?: DestinationWhereInput
+    /**
+     * Limit how many Destinations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Destination upsert
+   */
+  export type DestinationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Destination to update in case it exists.
+     */
+    where: DestinationWhereUniqueInput
+    /**
+     * In case the Destination found by the `where` argument doesn't exist, create a new Destination with this data.
+     */
+    create: XOR<DestinationCreateInput, DestinationUncheckedCreateInput>
+    /**
+     * In case the Destination was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DestinationUpdateInput, DestinationUncheckedUpdateInput>
+  }
+
+  /**
+   * Destination delete
+   */
+  export type DestinationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    /**
+     * Filter which Destination to delete.
+     */
+    where: DestinationWhereUniqueInput
+  }
+
+  /**
+   * Destination deleteMany
+   */
+  export type DestinationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Destinations to delete
+     */
+    where?: DestinationWhereInput
+    /**
+     * Limit how many Destinations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Destination findRaw
+   */
+  export type DestinationFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Destination aggregateRaw
+   */
+  export type DestinationAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Destination.parent
+   */
+  export type Destination$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    where?: DestinationWhereInput
+  }
+
+  /**
+   * Destination.subLocations
+   */
+  export type Destination$subLocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    where?: DestinationWhereInput
+    orderBy?: DestinationOrderByWithRelationInput | DestinationOrderByWithRelationInput[]
+    cursor?: DestinationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Destination.likes
+   */
+  export type Destination$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    where?: LikeWhereInput
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    cursor?: LikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Destination.comments
+   */
+  export type Destination$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    where?: DestinationCommentWhereInput
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    cursor?: DestinationCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationCommentScalarFieldEnum | DestinationCommentScalarFieldEnum[]
+  }
+
+  /**
+   * Destination.reviews
+   */
+  export type Destination$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    where?: DestinationReviewWhereInput
+    orderBy?: DestinationReviewOrderByWithRelationInput | DestinationReviewOrderByWithRelationInput[]
+    cursor?: DestinationReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationReviewScalarFieldEnum | DestinationReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Destination without action
+   */
+  export type DestinationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DestinationComment
+   */
+
+  export type AggregateDestinationComment = {
+    _count: DestinationCommentCountAggregateOutputType | null
+    _avg: DestinationCommentAvgAggregateOutputType | null
+    _sum: DestinationCommentSumAggregateOutputType | null
+    _min: DestinationCommentMinAggregateOutputType | null
+    _max: DestinationCommentMaxAggregateOutputType | null
+  }
+
+  export type DestinationCommentAvgAggregateOutputType = {
+    likeCount: number | null
+  }
+
+  export type DestinationCommentSumAggregateOutputType = {
+    likeCount: number | null
+  }
+
+  export type DestinationCommentMinAggregateOutputType = {
+    id: string | null
+    destinationId: string | null
+    authorId: string | null
+    content: string | null
+    parentId: string | null
+    likeCount: number | null
+    isEdited: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DestinationCommentMaxAggregateOutputType = {
+    id: string | null
+    destinationId: string | null
+    authorId: string | null
+    content: string | null
+    parentId: string | null
+    likeCount: number | null
+    isEdited: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DestinationCommentCountAggregateOutputType = {
+    id: number
+    destinationId: number
+    authorId: number
+    content: number
+    parentId: number
+    likeCount: number
+    isEdited: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DestinationCommentAvgAggregateInputType = {
+    likeCount?: true
+  }
+
+  export type DestinationCommentSumAggregateInputType = {
+    likeCount?: true
+  }
+
+  export type DestinationCommentMinAggregateInputType = {
+    id?: true
+    destinationId?: true
+    authorId?: true
+    content?: true
+    parentId?: true
+    likeCount?: true
+    isEdited?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DestinationCommentMaxAggregateInputType = {
+    id?: true
+    destinationId?: true
+    authorId?: true
+    content?: true
+    parentId?: true
+    likeCount?: true
+    isEdited?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DestinationCommentCountAggregateInputType = {
+    id?: true
+    destinationId?: true
+    authorId?: true
+    content?: true
+    parentId?: true
+    likeCount?: true
+    isEdited?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DestinationCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DestinationComment to aggregate.
+     */
+    where?: DestinationCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationComments to fetch.
+     */
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DestinationCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DestinationComments
+    **/
+    _count?: true | DestinationCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DestinationCommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DestinationCommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DestinationCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DestinationCommentMaxAggregateInputType
+  }
+
+  export type GetDestinationCommentAggregateType<T extends DestinationCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateDestinationComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDestinationComment[P]>
+      : GetScalarType<T[P], AggregateDestinationComment[P]>
+  }
+
+
+
+
+  export type DestinationCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationCommentWhereInput
+    orderBy?: DestinationCommentOrderByWithAggregationInput | DestinationCommentOrderByWithAggregationInput[]
+    by: DestinationCommentScalarFieldEnum[] | DestinationCommentScalarFieldEnum
+    having?: DestinationCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DestinationCommentCountAggregateInputType | true
+    _avg?: DestinationCommentAvgAggregateInputType
+    _sum?: DestinationCommentSumAggregateInputType
+    _min?: DestinationCommentMinAggregateInputType
+    _max?: DestinationCommentMaxAggregateInputType
+  }
+
+  export type DestinationCommentGroupByOutputType = {
+    id: string
+    destinationId: string
+    authorId: string
+    content: string
+    parentId: string | null
+    likeCount: number
+    isEdited: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DestinationCommentCountAggregateOutputType | null
+    _avg: DestinationCommentAvgAggregateOutputType | null
+    _sum: DestinationCommentSumAggregateOutputType | null
+    _min: DestinationCommentMinAggregateOutputType | null
+    _max: DestinationCommentMaxAggregateOutputType | null
+  }
+
+  type GetDestinationCommentGroupByPayload<T extends DestinationCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DestinationCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DestinationCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DestinationCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], DestinationCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DestinationCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    destinationId?: boolean
+    authorId?: boolean
+    content?: boolean
+    parentId?: boolean
+    likeCount?: boolean
+    isEdited?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    destination?: boolean | DestinationDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | DestinationComment$parentArgs<ExtArgs>
+    replies?: boolean | DestinationComment$repliesArgs<ExtArgs>
+    _count?: boolean | DestinationCommentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["destinationComment"]>
+
+
+
+  export type DestinationCommentSelectScalar = {
+    id?: boolean
+    destinationId?: boolean
+    authorId?: boolean
+    content?: boolean
+    parentId?: boolean
+    likeCount?: boolean
+    isEdited?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DestinationCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destinationId" | "authorId" | "content" | "parentId" | "likeCount" | "isEdited" | "createdAt" | "updatedAt", ExtArgs["result"]["destinationComment"]>
+  export type DestinationCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    destination?: boolean | DestinationDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | DestinationComment$parentArgs<ExtArgs>
+    replies?: boolean | DestinationComment$repliesArgs<ExtArgs>
+    _count?: boolean | DestinationCommentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $DestinationCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DestinationComment"
+    objects: {
+      destination: Prisma.$DestinationPayload<ExtArgs>
+      author: Prisma.$UserPayload<ExtArgs>
+      parent: Prisma.$DestinationCommentPayload<ExtArgs> | null
+      replies: Prisma.$DestinationCommentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      destinationId: string
+      authorId: string
+      content: string
+      parentId: string | null
+      likeCount: number
+      isEdited: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["destinationComment"]>
+    composites: {}
+  }
+
+  type DestinationCommentGetPayload<S extends boolean | null | undefined | DestinationCommentDefaultArgs> = $Result.GetResult<Prisma.$DestinationCommentPayload, S>
+
+  type DestinationCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DestinationCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DestinationCommentCountAggregateInputType | true
+    }
+
+  export interface DestinationCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DestinationComment'], meta: { name: 'DestinationComment' } }
+    /**
+     * Find zero or one DestinationComment that matches the filter.
+     * @param {DestinationCommentFindUniqueArgs} args - Arguments to find a DestinationComment
+     * @example
+     * // Get one DestinationComment
+     * const destinationComment = await prisma.destinationComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DestinationCommentFindUniqueArgs>(args: SelectSubset<T, DestinationCommentFindUniqueArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DestinationComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DestinationCommentFindUniqueOrThrowArgs} args - Arguments to find a DestinationComment
+     * @example
+     * // Get one DestinationComment
+     * const destinationComment = await prisma.destinationComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DestinationCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, DestinationCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DestinationComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentFindFirstArgs} args - Arguments to find a DestinationComment
+     * @example
+     * // Get one DestinationComment
+     * const destinationComment = await prisma.destinationComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DestinationCommentFindFirstArgs>(args?: SelectSubset<T, DestinationCommentFindFirstArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DestinationComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentFindFirstOrThrowArgs} args - Arguments to find a DestinationComment
+     * @example
+     * // Get one DestinationComment
+     * const destinationComment = await prisma.destinationComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DestinationCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, DestinationCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DestinationComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DestinationComments
+     * const destinationComments = await prisma.destinationComment.findMany()
+     * 
+     * // Get first 10 DestinationComments
+     * const destinationComments = await prisma.destinationComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const destinationCommentWithIdOnly = await prisma.destinationComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DestinationCommentFindManyArgs>(args?: SelectSubset<T, DestinationCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DestinationComment.
+     * @param {DestinationCommentCreateArgs} args - Arguments to create a DestinationComment.
+     * @example
+     * // Create one DestinationComment
+     * const DestinationComment = await prisma.destinationComment.create({
+     *   data: {
+     *     // ... data to create a DestinationComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends DestinationCommentCreateArgs>(args: SelectSubset<T, DestinationCommentCreateArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DestinationComments.
+     * @param {DestinationCommentCreateManyArgs} args - Arguments to create many DestinationComments.
+     * @example
+     * // Create many DestinationComments
+     * const destinationComment = await prisma.destinationComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DestinationCommentCreateManyArgs>(args?: SelectSubset<T, DestinationCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DestinationComment.
+     * @param {DestinationCommentDeleteArgs} args - Arguments to delete one DestinationComment.
+     * @example
+     * // Delete one DestinationComment
+     * const DestinationComment = await prisma.destinationComment.delete({
+     *   where: {
+     *     // ... filter to delete one DestinationComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DestinationCommentDeleteArgs>(args: SelectSubset<T, DestinationCommentDeleteArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DestinationComment.
+     * @param {DestinationCommentUpdateArgs} args - Arguments to update one DestinationComment.
+     * @example
+     * // Update one DestinationComment
+     * const destinationComment = await prisma.destinationComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DestinationCommentUpdateArgs>(args: SelectSubset<T, DestinationCommentUpdateArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DestinationComments.
+     * @param {DestinationCommentDeleteManyArgs} args - Arguments to filter DestinationComments to delete.
+     * @example
+     * // Delete a few DestinationComments
+     * const { count } = await prisma.destinationComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DestinationCommentDeleteManyArgs>(args?: SelectSubset<T, DestinationCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DestinationComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DestinationComments
+     * const destinationComment = await prisma.destinationComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DestinationCommentUpdateManyArgs>(args: SelectSubset<T, DestinationCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DestinationComment.
+     * @param {DestinationCommentUpsertArgs} args - Arguments to update or create a DestinationComment.
+     * @example
+     * // Update or create a DestinationComment
+     * const destinationComment = await prisma.destinationComment.upsert({
+     *   create: {
+     *     // ... data to create a DestinationComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DestinationComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DestinationCommentUpsertArgs>(args: SelectSubset<T, DestinationCommentUpsertArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DestinationComments that matches the filter.
+     * @param {DestinationCommentFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const destinationComment = await prisma.destinationComment.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: DestinationCommentFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a DestinationComment.
+     * @param {DestinationCommentAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const destinationComment = await prisma.destinationComment.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: DestinationCommentAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of DestinationComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentCountArgs} args - Arguments to filter DestinationComments to count.
+     * @example
+     * // Count the number of DestinationComments
+     * const count = await prisma.destinationComment.count({
+     *   where: {
+     *     // ... the filter for the DestinationComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends DestinationCommentCountArgs>(
+      args?: Subset<T, DestinationCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DestinationCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DestinationComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DestinationCommentAggregateArgs>(args: Subset<T, DestinationCommentAggregateArgs>): Prisma.PrismaPromise<GetDestinationCommentAggregateType<T>>
+
+    /**
+     * Group by DestinationComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DestinationCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DestinationCommentGroupByArgs['orderBy'] }
+        : { orderBy?: DestinationCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DestinationCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDestinationCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DestinationComment model
+   */
+  readonly fields: DestinationCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DestinationComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DestinationCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    destination<T extends DestinationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DestinationDefaultArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent<T extends DestinationComment$parentArgs<ExtArgs> = {}>(args?: Subset<T, DestinationComment$parentArgs<ExtArgs>>): Prisma__DestinationCommentClient<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends DestinationComment$repliesArgs<ExtArgs> = {}>(args?: Subset<T, DestinationComment$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DestinationComment model
+   */
+  interface DestinationCommentFieldRefs {
+    readonly id: FieldRef<"DestinationComment", 'String'>
+    readonly destinationId: FieldRef<"DestinationComment", 'String'>
+    readonly authorId: FieldRef<"DestinationComment", 'String'>
+    readonly content: FieldRef<"DestinationComment", 'String'>
+    readonly parentId: FieldRef<"DestinationComment", 'String'>
+    readonly likeCount: FieldRef<"DestinationComment", 'Int'>
+    readonly isEdited: FieldRef<"DestinationComment", 'Boolean'>
+    readonly createdAt: FieldRef<"DestinationComment", 'DateTime'>
+    readonly updatedAt: FieldRef<"DestinationComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DestinationComment findUnique
+   */
+  export type DestinationCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationComment to fetch.
+     */
+    where: DestinationCommentWhereUniqueInput
+  }
+
+  /**
+   * DestinationComment findUniqueOrThrow
+   */
+  export type DestinationCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationComment to fetch.
+     */
+    where: DestinationCommentWhereUniqueInput
+  }
+
+  /**
+   * DestinationComment findFirst
+   */
+  export type DestinationCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationComment to fetch.
+     */
+    where?: DestinationCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationComments to fetch.
+     */
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DestinationComments.
+     */
+    cursor?: DestinationCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DestinationComments.
+     */
+    distinct?: DestinationCommentScalarFieldEnum | DestinationCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationComment findFirstOrThrow
+   */
+  export type DestinationCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationComment to fetch.
+     */
+    where?: DestinationCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationComments to fetch.
+     */
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DestinationComments.
+     */
+    cursor?: DestinationCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DestinationComments.
+     */
+    distinct?: DestinationCommentScalarFieldEnum | DestinationCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationComment findMany
+   */
+  export type DestinationCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationComments to fetch.
+     */
+    where?: DestinationCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationComments to fetch.
+     */
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DestinationComments.
+     */
+    cursor?: DestinationCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationComments.
+     */
+    skip?: number
+    distinct?: DestinationCommentScalarFieldEnum | DestinationCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationComment create
+   */
+  export type DestinationCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DestinationComment.
+     */
+    data: XOR<DestinationCommentCreateInput, DestinationCommentUncheckedCreateInput>
+  }
+
+  /**
+   * DestinationComment createMany
+   */
+  export type DestinationCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DestinationComments.
+     */
+    data: DestinationCommentCreateManyInput | DestinationCommentCreateManyInput[]
+  }
+
+  /**
+   * DestinationComment update
+   */
+  export type DestinationCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DestinationComment.
+     */
+    data: XOR<DestinationCommentUpdateInput, DestinationCommentUncheckedUpdateInput>
+    /**
+     * Choose, which DestinationComment to update.
+     */
+    where: DestinationCommentWhereUniqueInput
+  }
+
+  /**
+   * DestinationComment updateMany
+   */
+  export type DestinationCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DestinationComments.
+     */
+    data: XOR<DestinationCommentUpdateManyMutationInput, DestinationCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which DestinationComments to update
+     */
+    where?: DestinationCommentWhereInput
+    /**
+     * Limit how many DestinationComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DestinationComment upsert
+   */
+  export type DestinationCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DestinationComment to update in case it exists.
+     */
+    where: DestinationCommentWhereUniqueInput
+    /**
+     * In case the DestinationComment found by the `where` argument doesn't exist, create a new DestinationComment with this data.
+     */
+    create: XOR<DestinationCommentCreateInput, DestinationCommentUncheckedCreateInput>
+    /**
+     * In case the DestinationComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DestinationCommentUpdateInput, DestinationCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * DestinationComment delete
+   */
+  export type DestinationCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    /**
+     * Filter which DestinationComment to delete.
+     */
+    where: DestinationCommentWhereUniqueInput
+  }
+
+  /**
+   * DestinationComment deleteMany
+   */
+  export type DestinationCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DestinationComments to delete
+     */
+    where?: DestinationCommentWhereInput
+    /**
+     * Limit how many DestinationComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DestinationComment findRaw
+   */
+  export type DestinationCommentFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * DestinationComment aggregateRaw
+   */
+  export type DestinationCommentAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * DestinationComment.parent
+   */
+  export type DestinationComment$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    where?: DestinationCommentWhereInput
+  }
+
+  /**
+   * DestinationComment.replies
+   */
+  export type DestinationComment$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+    where?: DestinationCommentWhereInput
+    orderBy?: DestinationCommentOrderByWithRelationInput | DestinationCommentOrderByWithRelationInput[]
+    cursor?: DestinationCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DestinationCommentScalarFieldEnum | DestinationCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationComment without action
+   */
+  export type DestinationCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationComment
+     */
+    select?: DestinationCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationComment
+     */
+    omit?: DestinationCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DestinationReview
+   */
+
+  export type AggregateDestinationReview = {
+    _count: DestinationReviewCountAggregateOutputType | null
+    _avg: DestinationReviewAvgAggregateOutputType | null
+    _sum: DestinationReviewSumAggregateOutputType | null
+    _min: DestinationReviewMinAggregateOutputType | null
+    _max: DestinationReviewMaxAggregateOutputType | null
+  }
+
+  export type DestinationReviewAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type DestinationReviewSumAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type DestinationReviewMinAggregateOutputType = {
+    id: string | null
+    destinationId: string | null
+    userId: string | null
+    rating: number | null
+    comment: string | null
+    visitDate: Date | null
+    isVerified: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DestinationReviewMaxAggregateOutputType = {
+    id: string | null
+    destinationId: string | null
+    userId: string | null
+    rating: number | null
+    comment: string | null
+    visitDate: Date | null
+    isVerified: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DestinationReviewCountAggregateOutputType = {
+    id: number
+    destinationId: number
+    userId: number
+    rating: number
+    comment: number
+    imageUrl: number
+    visitDate: number
+    isVerified: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DestinationReviewAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type DestinationReviewSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type DestinationReviewMinAggregateInputType = {
+    id?: true
+    destinationId?: true
+    userId?: true
+    rating?: true
+    comment?: true
+    visitDate?: true
+    isVerified?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DestinationReviewMaxAggregateInputType = {
+    id?: true
+    destinationId?: true
+    userId?: true
+    rating?: true
+    comment?: true
+    visitDate?: true
+    isVerified?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DestinationReviewCountAggregateInputType = {
+    id?: true
+    destinationId?: true
+    userId?: true
+    rating?: true
+    comment?: true
+    imageUrl?: true
+    visitDate?: true
+    isVerified?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DestinationReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DestinationReview to aggregate.
+     */
+    where?: DestinationReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationReviews to fetch.
+     */
+    orderBy?: DestinationReviewOrderByWithRelationInput | DestinationReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DestinationReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DestinationReviews
+    **/
+    _count?: true | DestinationReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DestinationReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DestinationReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DestinationReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DestinationReviewMaxAggregateInputType
+  }
+
+  export type GetDestinationReviewAggregateType<T extends DestinationReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateDestinationReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDestinationReview[P]>
+      : GetScalarType<T[P], AggregateDestinationReview[P]>
+  }
+
+
+
+
+  export type DestinationReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DestinationReviewWhereInput
+    orderBy?: DestinationReviewOrderByWithAggregationInput | DestinationReviewOrderByWithAggregationInput[]
+    by: DestinationReviewScalarFieldEnum[] | DestinationReviewScalarFieldEnum
+    having?: DestinationReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DestinationReviewCountAggregateInputType | true
+    _avg?: DestinationReviewAvgAggregateInputType
+    _sum?: DestinationReviewSumAggregateInputType
+    _min?: DestinationReviewMinAggregateInputType
+    _max?: DestinationReviewMaxAggregateInputType
+  }
+
+  export type DestinationReviewGroupByOutputType = {
+    id: string
+    destinationId: string
+    userId: string
+    rating: number
+    comment: string | null
+    imageUrl: string[]
+    visitDate: Date | null
+    isVerified: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DestinationReviewCountAggregateOutputType | null
+    _avg: DestinationReviewAvgAggregateOutputType | null
+    _sum: DestinationReviewSumAggregateOutputType | null
+    _min: DestinationReviewMinAggregateOutputType | null
+    _max: DestinationReviewMaxAggregateOutputType | null
+  }
+
+  type GetDestinationReviewGroupByPayload<T extends DestinationReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DestinationReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DestinationReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DestinationReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], DestinationReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DestinationReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    destinationId?: boolean
+    userId?: boolean
+    rating?: boolean
+    comment?: boolean
+    imageUrl?: boolean
+    visitDate?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    destination?: boolean | DestinationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["destinationReview"]>
+
+
+
+  export type DestinationReviewSelectScalar = {
+    id?: boolean
+    destinationId?: boolean
+    userId?: boolean
+    rating?: boolean
+    comment?: boolean
+    imageUrl?: boolean
+    visitDate?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DestinationReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "destinationId" | "userId" | "rating" | "comment" | "imageUrl" | "visitDate" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["destinationReview"]>
+  export type DestinationReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    destination?: boolean | DestinationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DestinationReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DestinationReview"
+    objects: {
+      destination: Prisma.$DestinationPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      destinationId: string
+      userId: string
+      rating: number
+      comment: string | null
+      imageUrl: string[]
+      visitDate: Date | null
+      isVerified: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["destinationReview"]>
+    composites: {}
+  }
+
+  type DestinationReviewGetPayload<S extends boolean | null | undefined | DestinationReviewDefaultArgs> = $Result.GetResult<Prisma.$DestinationReviewPayload, S>
+
+  type DestinationReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DestinationReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DestinationReviewCountAggregateInputType | true
+    }
+
+  export interface DestinationReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DestinationReview'], meta: { name: 'DestinationReview' } }
+    /**
+     * Find zero or one DestinationReview that matches the filter.
+     * @param {DestinationReviewFindUniqueArgs} args - Arguments to find a DestinationReview
+     * @example
+     * // Get one DestinationReview
+     * const destinationReview = await prisma.destinationReview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DestinationReviewFindUniqueArgs>(args: SelectSubset<T, DestinationReviewFindUniqueArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DestinationReview that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DestinationReviewFindUniqueOrThrowArgs} args - Arguments to find a DestinationReview
+     * @example
+     * // Get one DestinationReview
+     * const destinationReview = await prisma.destinationReview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DestinationReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, DestinationReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DestinationReview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewFindFirstArgs} args - Arguments to find a DestinationReview
+     * @example
+     * // Get one DestinationReview
+     * const destinationReview = await prisma.destinationReview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DestinationReviewFindFirstArgs>(args?: SelectSubset<T, DestinationReviewFindFirstArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DestinationReview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewFindFirstOrThrowArgs} args - Arguments to find a DestinationReview
+     * @example
+     * // Get one DestinationReview
+     * const destinationReview = await prisma.destinationReview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DestinationReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, DestinationReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DestinationReviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DestinationReviews
+     * const destinationReviews = await prisma.destinationReview.findMany()
+     * 
+     * // Get first 10 DestinationReviews
+     * const destinationReviews = await prisma.destinationReview.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const destinationReviewWithIdOnly = await prisma.destinationReview.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DestinationReviewFindManyArgs>(args?: SelectSubset<T, DestinationReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DestinationReview.
+     * @param {DestinationReviewCreateArgs} args - Arguments to create a DestinationReview.
+     * @example
+     * // Create one DestinationReview
+     * const DestinationReview = await prisma.destinationReview.create({
+     *   data: {
+     *     // ... data to create a DestinationReview
+     *   }
+     * })
+     * 
+     */
+    create<T extends DestinationReviewCreateArgs>(args: SelectSubset<T, DestinationReviewCreateArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DestinationReviews.
+     * @param {DestinationReviewCreateManyArgs} args - Arguments to create many DestinationReviews.
+     * @example
+     * // Create many DestinationReviews
+     * const destinationReview = await prisma.destinationReview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DestinationReviewCreateManyArgs>(args?: SelectSubset<T, DestinationReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DestinationReview.
+     * @param {DestinationReviewDeleteArgs} args - Arguments to delete one DestinationReview.
+     * @example
+     * // Delete one DestinationReview
+     * const DestinationReview = await prisma.destinationReview.delete({
+     *   where: {
+     *     // ... filter to delete one DestinationReview
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DestinationReviewDeleteArgs>(args: SelectSubset<T, DestinationReviewDeleteArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DestinationReview.
+     * @param {DestinationReviewUpdateArgs} args - Arguments to update one DestinationReview.
+     * @example
+     * // Update one DestinationReview
+     * const destinationReview = await prisma.destinationReview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DestinationReviewUpdateArgs>(args: SelectSubset<T, DestinationReviewUpdateArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DestinationReviews.
+     * @param {DestinationReviewDeleteManyArgs} args - Arguments to filter DestinationReviews to delete.
+     * @example
+     * // Delete a few DestinationReviews
+     * const { count } = await prisma.destinationReview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DestinationReviewDeleteManyArgs>(args?: SelectSubset<T, DestinationReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DestinationReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DestinationReviews
+     * const destinationReview = await prisma.destinationReview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DestinationReviewUpdateManyArgs>(args: SelectSubset<T, DestinationReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DestinationReview.
+     * @param {DestinationReviewUpsertArgs} args - Arguments to update or create a DestinationReview.
+     * @example
+     * // Update or create a DestinationReview
+     * const destinationReview = await prisma.destinationReview.upsert({
+     *   create: {
+     *     // ... data to create a DestinationReview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DestinationReview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DestinationReviewUpsertArgs>(args: SelectSubset<T, DestinationReviewUpsertArgs<ExtArgs>>): Prisma__DestinationReviewClient<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DestinationReviews that matches the filter.
+     * @param {DestinationReviewFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const destinationReview = await prisma.destinationReview.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: DestinationReviewFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a DestinationReview.
+     * @param {DestinationReviewAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const destinationReview = await prisma.destinationReview.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: DestinationReviewAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of DestinationReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewCountArgs} args - Arguments to filter DestinationReviews to count.
+     * @example
+     * // Count the number of DestinationReviews
+     * const count = await prisma.destinationReview.count({
+     *   where: {
+     *     // ... the filter for the DestinationReviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends DestinationReviewCountArgs>(
+      args?: Subset<T, DestinationReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DestinationReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DestinationReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DestinationReviewAggregateArgs>(args: Subset<T, DestinationReviewAggregateArgs>): Prisma.PrismaPromise<GetDestinationReviewAggregateType<T>>
+
+    /**
+     * Group by DestinationReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DestinationReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DestinationReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DestinationReviewGroupByArgs['orderBy'] }
+        : { orderBy?: DestinationReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DestinationReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDestinationReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DestinationReview model
+   */
+  readonly fields: DestinationReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DestinationReview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DestinationReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    destination<T extends DestinationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DestinationDefaultArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DestinationReview model
+   */
+  interface DestinationReviewFieldRefs {
+    readonly id: FieldRef<"DestinationReview", 'String'>
+    readonly destinationId: FieldRef<"DestinationReview", 'String'>
+    readonly userId: FieldRef<"DestinationReview", 'String'>
+    readonly rating: FieldRef<"DestinationReview", 'Float'>
+    readonly comment: FieldRef<"DestinationReview", 'String'>
+    readonly imageUrl: FieldRef<"DestinationReview", 'String[]'>
+    readonly visitDate: FieldRef<"DestinationReview", 'DateTime'>
+    readonly isVerified: FieldRef<"DestinationReview", 'Boolean'>
+    readonly createdAt: FieldRef<"DestinationReview", 'DateTime'>
+    readonly updatedAt: FieldRef<"DestinationReview", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DestinationReview findUnique
+   */
+  export type DestinationReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationReview to fetch.
+     */
+    where: DestinationReviewWhereUniqueInput
+  }
+
+  /**
+   * DestinationReview findUniqueOrThrow
+   */
+  export type DestinationReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationReview to fetch.
+     */
+    where: DestinationReviewWhereUniqueInput
+  }
+
+  /**
+   * DestinationReview findFirst
+   */
+  export type DestinationReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationReview to fetch.
+     */
+    where?: DestinationReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationReviews to fetch.
+     */
+    orderBy?: DestinationReviewOrderByWithRelationInput | DestinationReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DestinationReviews.
+     */
+    cursor?: DestinationReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DestinationReviews.
+     */
+    distinct?: DestinationReviewScalarFieldEnum | DestinationReviewScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationReview findFirstOrThrow
+   */
+  export type DestinationReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationReview to fetch.
+     */
+    where?: DestinationReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationReviews to fetch.
+     */
+    orderBy?: DestinationReviewOrderByWithRelationInput | DestinationReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DestinationReviews.
+     */
+    cursor?: DestinationReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DestinationReviews.
+     */
+    distinct?: DestinationReviewScalarFieldEnum | DestinationReviewScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationReview findMany
+   */
+  export type DestinationReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinationReviews to fetch.
+     */
+    where?: DestinationReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinationReviews to fetch.
+     */
+    orderBy?: DestinationReviewOrderByWithRelationInput | DestinationReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DestinationReviews.
+     */
+    cursor?: DestinationReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinationReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinationReviews.
+     */
+    skip?: number
+    distinct?: DestinationReviewScalarFieldEnum | DestinationReviewScalarFieldEnum[]
+  }
+
+  /**
+   * DestinationReview create
+   */
+  export type DestinationReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DestinationReview.
+     */
+    data: XOR<DestinationReviewCreateInput, DestinationReviewUncheckedCreateInput>
+  }
+
+  /**
+   * DestinationReview createMany
+   */
+  export type DestinationReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DestinationReviews.
+     */
+    data: DestinationReviewCreateManyInput | DestinationReviewCreateManyInput[]
+  }
+
+  /**
+   * DestinationReview update
+   */
+  export type DestinationReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DestinationReview.
+     */
+    data: XOR<DestinationReviewUpdateInput, DestinationReviewUncheckedUpdateInput>
+    /**
+     * Choose, which DestinationReview to update.
+     */
+    where: DestinationReviewWhereUniqueInput
+  }
+
+  /**
+   * DestinationReview updateMany
+   */
+  export type DestinationReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DestinationReviews.
+     */
+    data: XOR<DestinationReviewUpdateManyMutationInput, DestinationReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which DestinationReviews to update
+     */
+    where?: DestinationReviewWhereInput
+    /**
+     * Limit how many DestinationReviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DestinationReview upsert
+   */
+  export type DestinationReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DestinationReview to update in case it exists.
+     */
+    where: DestinationReviewWhereUniqueInput
+    /**
+     * In case the DestinationReview found by the `where` argument doesn't exist, create a new DestinationReview with this data.
+     */
+    create: XOR<DestinationReviewCreateInput, DestinationReviewUncheckedCreateInput>
+    /**
+     * In case the DestinationReview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DestinationReviewUpdateInput, DestinationReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * DestinationReview delete
+   */
+  export type DestinationReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+    /**
+     * Filter which DestinationReview to delete.
+     */
+    where: DestinationReviewWhereUniqueInput
+  }
+
+  /**
+   * DestinationReview deleteMany
+   */
+  export type DestinationReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DestinationReviews to delete
+     */
+    where?: DestinationReviewWhereInput
+    /**
+     * Limit how many DestinationReviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DestinationReview findRaw
+   */
+  export type DestinationReviewFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * DestinationReview aggregateRaw
+   */
+  export type DestinationReviewAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * DestinationReview without action
+   */
+  export type DestinationReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinationReview
+     */
+    select?: DestinationReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinationReview
+     */
+    omit?: DestinationReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationReviewInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -20366,6 +24432,70 @@ export namespace Prisma {
   export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
+  export const DestinationScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    location: 'location',
+    city: 'city',
+    country: 'country',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    category: 'category',
+    imageUrl: 'imageUrl',
+    tags: 'tags',
+    visitCount: 'visitCount',
+    likeCount: 'likeCount',
+    commentCount: 'commentCount',
+    reviewCount: 'reviewCount',
+    rating: 'rating',
+    bestTimeToVisit: 'bestTimeToVisit',
+    entryFee: 'entryFee',
+    openingHours: 'openingHours',
+    facilities: 'facilities',
+    activities: 'activities',
+    travelTips: 'travelTips',
+    isPublic: 'isPublic',
+    parentId: 'parentId',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DestinationScalarFieldEnum = (typeof DestinationScalarFieldEnum)[keyof typeof DestinationScalarFieldEnum]
+
+
+  export const DestinationCommentScalarFieldEnum: {
+    id: 'id',
+    destinationId: 'destinationId',
+    authorId: 'authorId',
+    content: 'content',
+    parentId: 'parentId',
+    likeCount: 'likeCount',
+    isEdited: 'isEdited',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DestinationCommentScalarFieldEnum = (typeof DestinationCommentScalarFieldEnum)[keyof typeof DestinationCommentScalarFieldEnum]
+
+
+  export const DestinationReviewScalarFieldEnum: {
+    id: 'id',
+    destinationId: 'destinationId',
+    userId: 'userId',
+    rating: 'rating',
+    comment: 'comment',
+    imageUrl: 'imageUrl',
+    visitDate: 'visitDate',
+    isVerified: 'isVerified',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DestinationReviewScalarFieldEnum = (typeof DestinationReviewScalarFieldEnum)[keyof typeof DestinationReviewScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -20530,6 +24660,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantListRelationFilter
     messageReactions?: MessageReactionListRelationFilter
     sentMessages?: MessageListRelationFilter
+    destinations?: DestinationListRelationFilter
+    destinationComments?: DestinationCommentListRelationFilter
+    destinationReviews?: DestinationReviewListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -20571,6 +24704,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantOrderByRelationAggregateInput
     messageReactions?: MessageReactionOrderByRelationAggregateInput
     sentMessages?: MessageOrderByRelationAggregateInput
+    destinations?: DestinationOrderByRelationAggregateInput
+    destinationComments?: DestinationCommentOrderByRelationAggregateInput
+    destinationReviews?: DestinationReviewOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -20615,6 +24751,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantListRelationFilter
     messageReactions?: MessageReactionListRelationFilter
     sentMessages?: MessageListRelationFilter
+    destinations?: DestinationListRelationFilter
+    destinationComments?: DestinationCommentListRelationFilter
+    destinationReviews?: DestinationReviewListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -21085,6 +25224,7 @@ export namespace Prisma {
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null
     comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    destination?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
   }
 
   export type LikeOrderByWithRelationInput = {
@@ -21096,6 +25236,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     post?: PostOrderByWithRelationInput
     comment?: CommentOrderByWithRelationInput
+    destination?: DestinationOrderByWithRelationInput
   }
 
   export type LikeWhereUniqueInput = Prisma.AtLeast<{
@@ -21111,6 +25252,7 @@ export namespace Prisma {
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null
     comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    destination?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
   }, "id" | "userId_targetId_type">
 
   export type LikeOrderByWithAggregationInput = {
@@ -21784,6 +25926,360 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Report"> | Date | string
   }
 
+  export type DestinationWhereInput = {
+    AND?: DestinationWhereInput | DestinationWhereInput[]
+    OR?: DestinationWhereInput[]
+    NOT?: DestinationWhereInput | DestinationWhereInput[]
+    id?: StringFilter<"Destination"> | string
+    title?: StringFilter<"Destination"> | string
+    description?: StringNullableFilter<"Destination"> | string | null
+    location?: StringFilter<"Destination"> | string
+    city?: StringFilter<"Destination"> | string
+    country?: StringFilter<"Destination"> | string
+    latitude?: FloatNullableFilter<"Destination"> | number | null
+    longitude?: FloatNullableFilter<"Destination"> | number | null
+    category?: StringNullableListFilter<"Destination">
+    imageUrl?: StringNullableListFilter<"Destination">
+    tags?: StringNullableListFilter<"Destination">
+    visitCount?: IntFilter<"Destination"> | number
+    likeCount?: IntFilter<"Destination"> | number
+    commentCount?: IntFilter<"Destination"> | number
+    reviewCount?: IntFilter<"Destination"> | number
+    rating?: FloatFilter<"Destination"> | number
+    bestTimeToVisit?: StringNullableFilter<"Destination"> | string | null
+    entryFee?: JsonNullableFilter<"Destination">
+    openingHours?: StringNullableFilter<"Destination"> | string | null
+    facilities?: StringNullableListFilter<"Destination">
+    activities?: StringNullableListFilter<"Destination">
+    travelTips?: StringNullableListFilter<"Destination">
+    isPublic?: BoolFilter<"Destination"> | boolean
+    parentId?: StringNullableFilter<"Destination"> | string | null
+    userId?: StringFilter<"Destination"> | string
+    createdAt?: DateTimeFilter<"Destination"> | Date | string
+    updatedAt?: DateTimeFilter<"Destination"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
+    subLocations?: DestinationListRelationFilter
+    likes?: LikeListRelationFilter
+    comments?: DestinationCommentListRelationFilter
+    reviews?: DestinationReviewListRelationFilter
+  }
+
+  export type DestinationOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrder
+    tags?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+    bestTimeToVisit?: SortOrder
+    entryFee?: SortOrder
+    openingHours?: SortOrder
+    facilities?: SortOrder
+    activities?: SortOrder
+    travelTips?: SortOrder
+    isPublic?: SortOrder
+    parentId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    parent?: DestinationOrderByWithRelationInput
+    subLocations?: DestinationOrderByRelationAggregateInput
+    likes?: LikeOrderByRelationAggregateInput
+    comments?: DestinationCommentOrderByRelationAggregateInput
+    reviews?: DestinationReviewOrderByRelationAggregateInput
+  }
+
+  export type DestinationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DestinationWhereInput | DestinationWhereInput[]
+    OR?: DestinationWhereInput[]
+    NOT?: DestinationWhereInput | DestinationWhereInput[]
+    title?: StringFilter<"Destination"> | string
+    description?: StringNullableFilter<"Destination"> | string | null
+    location?: StringFilter<"Destination"> | string
+    city?: StringFilter<"Destination"> | string
+    country?: StringFilter<"Destination"> | string
+    latitude?: FloatNullableFilter<"Destination"> | number | null
+    longitude?: FloatNullableFilter<"Destination"> | number | null
+    category?: StringNullableListFilter<"Destination">
+    imageUrl?: StringNullableListFilter<"Destination">
+    tags?: StringNullableListFilter<"Destination">
+    visitCount?: IntFilter<"Destination"> | number
+    likeCount?: IntFilter<"Destination"> | number
+    commentCount?: IntFilter<"Destination"> | number
+    reviewCount?: IntFilter<"Destination"> | number
+    rating?: FloatFilter<"Destination"> | number
+    bestTimeToVisit?: StringNullableFilter<"Destination"> | string | null
+    entryFee?: JsonNullableFilter<"Destination">
+    openingHours?: StringNullableFilter<"Destination"> | string | null
+    facilities?: StringNullableListFilter<"Destination">
+    activities?: StringNullableListFilter<"Destination">
+    travelTips?: StringNullableListFilter<"Destination">
+    isPublic?: BoolFilter<"Destination"> | boolean
+    parentId?: StringNullableFilter<"Destination"> | string | null
+    userId?: StringFilter<"Destination"> | string
+    createdAt?: DateTimeFilter<"Destination"> | Date | string
+    updatedAt?: DateTimeFilter<"Destination"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
+    subLocations?: DestinationListRelationFilter
+    likes?: LikeListRelationFilter
+    comments?: DestinationCommentListRelationFilter
+    reviews?: DestinationReviewListRelationFilter
+  }, "id">
+
+  export type DestinationOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrder
+    tags?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+    bestTimeToVisit?: SortOrder
+    entryFee?: SortOrder
+    openingHours?: SortOrder
+    facilities?: SortOrder
+    activities?: SortOrder
+    travelTips?: SortOrder
+    isPublic?: SortOrder
+    parentId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DestinationCountOrderByAggregateInput
+    _avg?: DestinationAvgOrderByAggregateInput
+    _max?: DestinationMaxOrderByAggregateInput
+    _min?: DestinationMinOrderByAggregateInput
+    _sum?: DestinationSumOrderByAggregateInput
+  }
+
+  export type DestinationScalarWhereWithAggregatesInput = {
+    AND?: DestinationScalarWhereWithAggregatesInput | DestinationScalarWhereWithAggregatesInput[]
+    OR?: DestinationScalarWhereWithAggregatesInput[]
+    NOT?: DestinationScalarWhereWithAggregatesInput | DestinationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Destination"> | string
+    title?: StringWithAggregatesFilter<"Destination"> | string
+    description?: StringNullableWithAggregatesFilter<"Destination"> | string | null
+    location?: StringWithAggregatesFilter<"Destination"> | string
+    city?: StringWithAggregatesFilter<"Destination"> | string
+    country?: StringWithAggregatesFilter<"Destination"> | string
+    latitude?: FloatNullableWithAggregatesFilter<"Destination"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Destination"> | number | null
+    category?: StringNullableListFilter<"Destination">
+    imageUrl?: StringNullableListFilter<"Destination">
+    tags?: StringNullableListFilter<"Destination">
+    visitCount?: IntWithAggregatesFilter<"Destination"> | number
+    likeCount?: IntWithAggregatesFilter<"Destination"> | number
+    commentCount?: IntWithAggregatesFilter<"Destination"> | number
+    reviewCount?: IntWithAggregatesFilter<"Destination"> | number
+    rating?: FloatWithAggregatesFilter<"Destination"> | number
+    bestTimeToVisit?: StringNullableWithAggregatesFilter<"Destination"> | string | null
+    entryFee?: JsonNullableWithAggregatesFilter<"Destination">
+    openingHours?: StringNullableWithAggregatesFilter<"Destination"> | string | null
+    facilities?: StringNullableListFilter<"Destination">
+    activities?: StringNullableListFilter<"Destination">
+    travelTips?: StringNullableListFilter<"Destination">
+    isPublic?: BoolWithAggregatesFilter<"Destination"> | boolean
+    parentId?: StringNullableWithAggregatesFilter<"Destination"> | string | null
+    userId?: StringWithAggregatesFilter<"Destination"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Destination"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Destination"> | Date | string
+  }
+
+  export type DestinationCommentWhereInput = {
+    AND?: DestinationCommentWhereInput | DestinationCommentWhereInput[]
+    OR?: DestinationCommentWhereInput[]
+    NOT?: DestinationCommentWhereInput | DestinationCommentWhereInput[]
+    id?: StringFilter<"DestinationComment"> | string
+    destinationId?: StringFilter<"DestinationComment"> | string
+    authorId?: StringFilter<"DestinationComment"> | string
+    content?: StringFilter<"DestinationComment"> | string
+    parentId?: StringNullableFilter<"DestinationComment"> | string | null
+    likeCount?: IntFilter<"DestinationComment"> | number
+    isEdited?: BoolFilter<"DestinationComment"> | boolean
+    createdAt?: DateTimeFilter<"DestinationComment"> | Date | string
+    updatedAt?: DateTimeFilter<"DestinationComment"> | Date | string
+    destination?: XOR<DestinationScalarRelationFilter, DestinationWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<DestinationCommentNullableScalarRelationFilter, DestinationCommentWhereInput> | null
+    replies?: DestinationCommentListRelationFilter
+  }
+
+  export type DestinationCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    authorId?: SortOrder
+    content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    destination?: DestinationOrderByWithRelationInput
+    author?: UserOrderByWithRelationInput
+    parent?: DestinationCommentOrderByWithRelationInput
+    replies?: DestinationCommentOrderByRelationAggregateInput
+  }
+
+  export type DestinationCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DestinationCommentWhereInput | DestinationCommentWhereInput[]
+    OR?: DestinationCommentWhereInput[]
+    NOT?: DestinationCommentWhereInput | DestinationCommentWhereInput[]
+    destinationId?: StringFilter<"DestinationComment"> | string
+    authorId?: StringFilter<"DestinationComment"> | string
+    content?: StringFilter<"DestinationComment"> | string
+    parentId?: StringNullableFilter<"DestinationComment"> | string | null
+    likeCount?: IntFilter<"DestinationComment"> | number
+    isEdited?: BoolFilter<"DestinationComment"> | boolean
+    createdAt?: DateTimeFilter<"DestinationComment"> | Date | string
+    updatedAt?: DateTimeFilter<"DestinationComment"> | Date | string
+    destination?: XOR<DestinationScalarRelationFilter, DestinationWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<DestinationCommentNullableScalarRelationFilter, DestinationCommentWhereInput> | null
+    replies?: DestinationCommentListRelationFilter
+  }, "id">
+
+  export type DestinationCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    authorId?: SortOrder
+    content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DestinationCommentCountOrderByAggregateInput
+    _avg?: DestinationCommentAvgOrderByAggregateInput
+    _max?: DestinationCommentMaxOrderByAggregateInput
+    _min?: DestinationCommentMinOrderByAggregateInput
+    _sum?: DestinationCommentSumOrderByAggregateInput
+  }
+
+  export type DestinationCommentScalarWhereWithAggregatesInput = {
+    AND?: DestinationCommentScalarWhereWithAggregatesInput | DestinationCommentScalarWhereWithAggregatesInput[]
+    OR?: DestinationCommentScalarWhereWithAggregatesInput[]
+    NOT?: DestinationCommentScalarWhereWithAggregatesInput | DestinationCommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DestinationComment"> | string
+    destinationId?: StringWithAggregatesFilter<"DestinationComment"> | string
+    authorId?: StringWithAggregatesFilter<"DestinationComment"> | string
+    content?: StringWithAggregatesFilter<"DestinationComment"> | string
+    parentId?: StringNullableWithAggregatesFilter<"DestinationComment"> | string | null
+    likeCount?: IntWithAggregatesFilter<"DestinationComment"> | number
+    isEdited?: BoolWithAggregatesFilter<"DestinationComment"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DestinationComment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DestinationComment"> | Date | string
+  }
+
+  export type DestinationReviewWhereInput = {
+    AND?: DestinationReviewWhereInput | DestinationReviewWhereInput[]
+    OR?: DestinationReviewWhereInput[]
+    NOT?: DestinationReviewWhereInput | DestinationReviewWhereInput[]
+    id?: StringFilter<"DestinationReview"> | string
+    destinationId?: StringFilter<"DestinationReview"> | string
+    userId?: StringFilter<"DestinationReview"> | string
+    rating?: FloatFilter<"DestinationReview"> | number
+    comment?: StringNullableFilter<"DestinationReview"> | string | null
+    imageUrl?: StringNullableListFilter<"DestinationReview">
+    visitDate?: DateTimeNullableFilter<"DestinationReview"> | Date | string | null
+    isVerified?: BoolFilter<"DestinationReview"> | boolean
+    createdAt?: DateTimeFilter<"DestinationReview"> | Date | string
+    updatedAt?: DateTimeFilter<"DestinationReview"> | Date | string
+    destination?: XOR<DestinationScalarRelationFilter, DestinationWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DestinationReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    imageUrl?: SortOrder
+    visitDate?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    destination?: DestinationOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DestinationReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    destinationId_userId?: DestinationReviewDestinationIdUserIdCompoundUniqueInput
+    AND?: DestinationReviewWhereInput | DestinationReviewWhereInput[]
+    OR?: DestinationReviewWhereInput[]
+    NOT?: DestinationReviewWhereInput | DestinationReviewWhereInput[]
+    destinationId?: StringFilter<"DestinationReview"> | string
+    userId?: StringFilter<"DestinationReview"> | string
+    rating?: FloatFilter<"DestinationReview"> | number
+    comment?: StringNullableFilter<"DestinationReview"> | string | null
+    imageUrl?: StringNullableListFilter<"DestinationReview">
+    visitDate?: DateTimeNullableFilter<"DestinationReview"> | Date | string | null
+    isVerified?: BoolFilter<"DestinationReview"> | boolean
+    createdAt?: DateTimeFilter<"DestinationReview"> | Date | string
+    updatedAt?: DateTimeFilter<"DestinationReview"> | Date | string
+    destination?: XOR<DestinationScalarRelationFilter, DestinationWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "destinationId_userId">
+
+  export type DestinationReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    imageUrl?: SortOrder
+    visitDate?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DestinationReviewCountOrderByAggregateInput
+    _avg?: DestinationReviewAvgOrderByAggregateInput
+    _max?: DestinationReviewMaxOrderByAggregateInput
+    _min?: DestinationReviewMinOrderByAggregateInput
+    _sum?: DestinationReviewSumOrderByAggregateInput
+  }
+
+  export type DestinationReviewScalarWhereWithAggregatesInput = {
+    AND?: DestinationReviewScalarWhereWithAggregatesInput | DestinationReviewScalarWhereWithAggregatesInput[]
+    OR?: DestinationReviewScalarWhereWithAggregatesInput[]
+    NOT?: DestinationReviewScalarWhereWithAggregatesInput | DestinationReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DestinationReview"> | string
+    destinationId?: StringWithAggregatesFilter<"DestinationReview"> | string
+    userId?: StringWithAggregatesFilter<"DestinationReview"> | string
+    rating?: FloatWithAggregatesFilter<"DestinationReview"> | number
+    comment?: StringNullableWithAggregatesFilter<"DestinationReview"> | string | null
+    imageUrl?: StringNullableListFilter<"DestinationReview">
+    visitDate?: DateTimeNullableWithAggregatesFilter<"DestinationReview"> | Date | string | null
+    isVerified?: BoolWithAggregatesFilter<"DestinationReview"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DestinationReview"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DestinationReview"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -21823,6 +26319,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -21864,6 +26363,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -21904,6 +26406,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -21944,6 +26449,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22401,6 +26909,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutLikesInput
     post?: PostCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
+    destination?: DestinationCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateInput = {
@@ -22417,6 +26926,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
     post?: PostUpdateOneWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
+    destination?: DestinationUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateInput = {
@@ -23079,6 +27589,392 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DestinationCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationUncheckedUpdateManyInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCommentCreateInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination: DestinationCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutDestinationCommentsInput
+    parent?: DestinationCommentCreateNestedOneWithoutRepliesInput
+    replies?: DestinationCommentCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentUncheckedCreateInput = {
+    id?: string
+    destinationId: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: DestinationCommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutDestinationCommentsNestedInput
+    parent?: DestinationCommentUpdateOneWithoutRepliesNestedInput
+    replies?: DestinationCommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: DestinationCommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentCreateManyInput = {
+    id?: string
+    destinationId: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationCommentUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCommentUncheckedUpdateManyInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewCreateInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination: DestinationCreateNestedOneWithoutReviewsInput
+    user: UserCreateNestedOneWithoutDestinationReviewsInput
+  }
+
+  export type DestinationReviewUncheckedCreateInput = {
+    id?: string
+    destinationId: string
+    userId: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationReviewUpdateInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneRequiredWithoutReviewsNestedInput
+    user?: UserUpdateOneRequiredWithoutDestinationReviewsNestedInput
+  }
+
+  export type DestinationReviewUncheckedUpdateInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewCreateManyInput = {
+    id?: string
+    destinationId: string
+    userId: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationReviewUpdateManyMutationInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewUncheckedUpdateManyInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23239,6 +28135,24 @@ export namespace Prisma {
     none?: MessageWhereInput
   }
 
+  export type DestinationListRelationFilter = {
+    every?: DestinationWhereInput
+    some?: DestinationWhereInput
+    none?: DestinationWhereInput
+  }
+
+  export type DestinationCommentListRelationFilter = {
+    every?: DestinationCommentWhereInput
+    some?: DestinationCommentWhereInput
+    none?: DestinationCommentWhereInput
+  }
+
+  export type DestinationReviewListRelationFilter = {
+    every?: DestinationReviewWhereInput
+    some?: DestinationReviewWhereInput
+    none?: DestinationReviewWhereInput
+  }
+
   export type PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -23296,6 +28210,18 @@ export namespace Prisma {
   }
 
   export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DestinationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DestinationCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DestinationReviewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -23697,6 +28623,11 @@ export namespace Prisma {
     isNot?: PostWhereInput | null
   }
 
+  export type DestinationNullableScalarRelationFilter = {
+    is?: DestinationWhereInput | null
+    isNot?: DestinationWhereInput | null
+  }
+
   export type LikeUserIdTargetIdTypeCompoundUniqueInput = {
     userId: string
     targetId: string
@@ -24085,6 +29016,262 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type DestinationCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrder
+    tags?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+    bestTimeToVisit?: SortOrder
+    entryFee?: SortOrder
+    openingHours?: SortOrder
+    facilities?: SortOrder
+    activities?: SortOrder
+    travelTips?: SortOrder
+    isPublic?: SortOrder
+    parentId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type DestinationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+    bestTimeToVisit?: SortOrder
+    openingHours?: SortOrder
+    isPublic?: SortOrder
+    parentId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+    bestTimeToVisit?: SortOrder
+    openingHours?: SortOrder
+    isPublic?: SortOrder
+    parentId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    visitCount?: SortOrder
+    likeCount?: SortOrder
+    commentCount?: SortOrder
+    reviewCount?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type DestinationScalarRelationFilter = {
+    is?: DestinationWhereInput
+    isNot?: DestinationWhereInput
+  }
+
+  export type DestinationCommentNullableScalarRelationFilter = {
+    is?: DestinationCommentWhereInput | null
+    isNot?: DestinationCommentWhereInput | null
+  }
+
+  export type DestinationCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    authorId?: SortOrder
+    content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationCommentAvgOrderByAggregateInput = {
+    likeCount?: SortOrder
+  }
+
+  export type DestinationCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    authorId?: SortOrder
+    content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    authorId?: SortOrder
+    content?: SortOrder
+    parentId?: SortOrder
+    likeCount?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationCommentSumOrderByAggregateInput = {
+    likeCount?: SortOrder
+  }
+
+  export type DestinationReviewDestinationIdUserIdCompoundUniqueInput = {
+    destinationId: string
+    userId: string
+  }
+
+  export type DestinationReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    imageUrl?: SortOrder
+    visitDate?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationReviewAvgOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type DestinationReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    visitDate?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    destinationId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    visitDate?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DestinationReviewSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
   export type PostCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -24211,6 +29398,27 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
+  export type DestinationCreateNestedManyWithoutUserInput = {
+    create?: XOR<DestinationCreateWithoutUserInput, DestinationUncheckedCreateWithoutUserInput> | DestinationCreateWithoutUserInput[] | DestinationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutUserInput | DestinationCreateOrConnectWithoutUserInput[]
+    createMany?: DestinationCreateManyUserInputEnvelope
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type DestinationCommentCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<DestinationCommentCreateWithoutAuthorInput, DestinationCommentUncheckedCreateWithoutAuthorInput> | DestinationCommentCreateWithoutAuthorInput[] | DestinationCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutAuthorInput | DestinationCommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: DestinationCommentCreateManyAuthorInputEnvelope
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+  }
+
+  export type DestinationReviewCreateNestedManyWithoutUserInput = {
+    create?: XOR<DestinationReviewCreateWithoutUserInput, DestinationReviewUncheckedCreateWithoutUserInput> | DestinationReviewCreateWithoutUserInput[] | DestinationReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutUserInput | DestinationReviewCreateOrConnectWithoutUserInput[]
+    createMany?: DestinationReviewCreateManyUserInputEnvelope
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+  }
+
   export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -24335,6 +29543,27 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
     createMany?: MessageCreateManySenderInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type DestinationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DestinationCreateWithoutUserInput, DestinationUncheckedCreateWithoutUserInput> | DestinationCreateWithoutUserInput[] | DestinationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutUserInput | DestinationCreateOrConnectWithoutUserInput[]
+    createMany?: DestinationCreateManyUserInputEnvelope
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<DestinationCommentCreateWithoutAuthorInput, DestinationCommentUncheckedCreateWithoutAuthorInput> | DestinationCommentCreateWithoutAuthorInput[] | DestinationCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutAuthorInput | DestinationCommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: DestinationCommentCreateManyAuthorInputEnvelope
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+  }
+
+  export type DestinationReviewUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DestinationReviewCreateWithoutUserInput, DestinationReviewUncheckedCreateWithoutUserInput> | DestinationReviewCreateWithoutUserInput[] | DestinationReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutUserInput | DestinationReviewCreateOrConnectWithoutUserInput[]
+    createMany?: DestinationReviewCreateManyUserInputEnvelope
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -24619,6 +29848,48 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type DestinationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DestinationCreateWithoutUserInput, DestinationUncheckedCreateWithoutUserInput> | DestinationCreateWithoutUserInput[] | DestinationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutUserInput | DestinationCreateOrConnectWithoutUserInput[]
+    upsert?: DestinationUpsertWithWhereUniqueWithoutUserInput | DestinationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DestinationCreateManyUserInputEnvelope
+    set?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    disconnect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    delete?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    update?: DestinationUpdateWithWhereUniqueWithoutUserInput | DestinationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DestinationUpdateManyWithWhereWithoutUserInput | DestinationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type DestinationCommentUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutAuthorInput, DestinationCommentUncheckedCreateWithoutAuthorInput> | DestinationCommentCreateWithoutAuthorInput[] | DestinationCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutAuthorInput | DestinationCommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: DestinationCommentUpsertWithWhereUniqueWithoutAuthorInput | DestinationCommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: DestinationCommentCreateManyAuthorInputEnvelope
+    set?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    disconnect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    delete?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    update?: DestinationCommentUpdateWithWhereUniqueWithoutAuthorInput | DestinationCommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: DestinationCommentUpdateManyWithWhereWithoutAuthorInput | DestinationCommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+  }
+
+  export type DestinationReviewUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DestinationReviewCreateWithoutUserInput, DestinationReviewUncheckedCreateWithoutUserInput> | DestinationReviewCreateWithoutUserInput[] | DestinationReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutUserInput | DestinationReviewCreateOrConnectWithoutUserInput[]
+    upsert?: DestinationReviewUpsertWithWhereUniqueWithoutUserInput | DestinationReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DestinationReviewCreateManyUserInputEnvelope
+    set?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    disconnect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    delete?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    update?: DestinationReviewUpdateWithWhereUniqueWithoutUserInput | DestinationReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DestinationReviewUpdateManyWithWhereWithoutUserInput | DestinationReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DestinationReviewScalarWhereInput | DestinationReviewScalarWhereInput[]
+  }
+
   export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -24869,6 +30140,48 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type DestinationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DestinationCreateWithoutUserInput, DestinationUncheckedCreateWithoutUserInput> | DestinationCreateWithoutUserInput[] | DestinationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutUserInput | DestinationCreateOrConnectWithoutUserInput[]
+    upsert?: DestinationUpsertWithWhereUniqueWithoutUserInput | DestinationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DestinationCreateManyUserInputEnvelope
+    set?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    disconnect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    delete?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    update?: DestinationUpdateWithWhereUniqueWithoutUserInput | DestinationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DestinationUpdateManyWithWhereWithoutUserInput | DestinationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutAuthorInput, DestinationCommentUncheckedCreateWithoutAuthorInput> | DestinationCommentCreateWithoutAuthorInput[] | DestinationCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutAuthorInput | DestinationCommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: DestinationCommentUpsertWithWhereUniqueWithoutAuthorInput | DestinationCommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: DestinationCommentCreateManyAuthorInputEnvelope
+    set?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    disconnect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    delete?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    update?: DestinationCommentUpdateWithWhereUniqueWithoutAuthorInput | DestinationCommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: DestinationCommentUpdateManyWithWhereWithoutAuthorInput | DestinationCommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+  }
+
+  export type DestinationReviewUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DestinationReviewCreateWithoutUserInput, DestinationReviewUncheckedCreateWithoutUserInput> | DestinationReviewCreateWithoutUserInput[] | DestinationReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutUserInput | DestinationReviewCreateOrConnectWithoutUserInput[]
+    upsert?: DestinationReviewUpsertWithWhereUniqueWithoutUserInput | DestinationReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DestinationReviewCreateManyUserInputEnvelope
+    set?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    disconnect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    delete?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    update?: DestinationReviewUpdateWithWhereUniqueWithoutUserInput | DestinationReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DestinationReviewUpdateManyWithWhereWithoutUserInput | DestinationReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DestinationReviewScalarWhereInput | DestinationReviewScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutFollowersInput = {
@@ -25475,6 +30788,12 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput
   }
 
+  export type DestinationCreateNestedOneWithoutLikesInput = {
+    create?: XOR<DestinationCreateWithoutLikesInput, DestinationUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutLikesInput
+    connect?: DestinationWhereUniqueInput
+  }
+
   export type UserUpdateOneRequiredWithoutLikesNestedInput = {
     create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
     connectOrCreate?: UserCreateOrConnectWithoutLikesInput
@@ -25501,6 +30820,16 @@ export namespace Prisma {
     delete?: CommentWhereInput | boolean
     connect?: CommentWhereUniqueInput
     update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutLikesInput, CommentUpdateWithoutLikesInput>, CommentUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type DestinationUpdateOneWithoutLikesNestedInput = {
+    create?: XOR<DestinationCreateWithoutLikesInput, DestinationUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutLikesInput
+    upsert?: DestinationUpsertWithoutLikesInput
+    disconnect?: boolean
+    delete?: DestinationWhereInput | boolean
+    connect?: DestinationWhereUniqueInput
+    update?: XOR<XOR<DestinationUpdateToOneWithWhereWithoutLikesInput, DestinationUpdateWithoutLikesInput>, DestinationUncheckedUpdateWithoutLikesInput>
   }
 
   export type UserCreateNestedOneWithoutSavedPostsInput = {
@@ -26014,6 +31343,398 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportsInput, UserUpdateWithoutReportsInput>, UserUncheckedUpdateWithoutReportsInput>
   }
 
+  export type DestinationCreatecategoryInput = {
+    set: string[]
+  }
+
+  export type DestinationCreateimageUrlInput = {
+    set: string[]
+  }
+
+  export type DestinationCreatetagsInput = {
+    set: string[]
+  }
+
+  export type DestinationCreatefacilitiesInput = {
+    set: string[]
+  }
+
+  export type DestinationCreateactivitiesInput = {
+    set: string[]
+  }
+
+  export type DestinationCreatetravelTipsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutDestinationsInput = {
+    create?: XOR<UserCreateWithoutDestinationsInput, UserUncheckedCreateWithoutDestinationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDestinationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DestinationCreateNestedOneWithoutSubLocationsInput = {
+    create?: XOR<DestinationCreateWithoutSubLocationsInput, DestinationUncheckedCreateWithoutSubLocationsInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutSubLocationsInput
+    connect?: DestinationWhereUniqueInput
+  }
+
+  export type DestinationCreateNestedManyWithoutParentInput = {
+    create?: XOR<DestinationCreateWithoutParentInput, DestinationUncheckedCreateWithoutParentInput> | DestinationCreateWithoutParentInput[] | DestinationUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutParentInput | DestinationCreateOrConnectWithoutParentInput[]
+    createMany?: DestinationCreateManyParentInputEnvelope
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type LikeCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput> | LikeCreateWithoutDestinationInput[] | LikeUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutDestinationInput | LikeCreateOrConnectWithoutDestinationInput[]
+    createMany?: LikeCreateManyDestinationInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type DestinationCommentCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<DestinationCommentCreateWithoutDestinationInput, DestinationCommentUncheckedCreateWithoutDestinationInput> | DestinationCommentCreateWithoutDestinationInput[] | DestinationCommentUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutDestinationInput | DestinationCommentCreateOrConnectWithoutDestinationInput[]
+    createMany?: DestinationCommentCreateManyDestinationInputEnvelope
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+  }
+
+  export type DestinationReviewCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<DestinationReviewCreateWithoutDestinationInput, DestinationReviewUncheckedCreateWithoutDestinationInput> | DestinationReviewCreateWithoutDestinationInput[] | DestinationReviewUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutDestinationInput | DestinationReviewCreateOrConnectWithoutDestinationInput[]
+    createMany?: DestinationReviewCreateManyDestinationInputEnvelope
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+  }
+
+  export type DestinationUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<DestinationCreateWithoutParentInput, DestinationUncheckedCreateWithoutParentInput> | DestinationCreateWithoutParentInput[] | DestinationUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutParentInput | DestinationCreateOrConnectWithoutParentInput[]
+    createMany?: DestinationCreateManyParentInputEnvelope
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type LikeUncheckedCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput> | LikeCreateWithoutDestinationInput[] | LikeUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutDestinationInput | LikeCreateOrConnectWithoutDestinationInput[]
+    createMany?: LikeCreateManyDestinationInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<DestinationCommentCreateWithoutDestinationInput, DestinationCommentUncheckedCreateWithoutDestinationInput> | DestinationCommentCreateWithoutDestinationInput[] | DestinationCommentUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutDestinationInput | DestinationCommentCreateOrConnectWithoutDestinationInput[]
+    createMany?: DestinationCommentCreateManyDestinationInputEnvelope
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+  }
+
+  export type DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<DestinationReviewCreateWithoutDestinationInput, DestinationReviewUncheckedCreateWithoutDestinationInput> | DestinationReviewCreateWithoutDestinationInput[] | DestinationReviewUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutDestinationInput | DestinationReviewCreateOrConnectWithoutDestinationInput[]
+    createMany?: DestinationReviewCreateManyDestinationInputEnvelope
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type DestinationUpdatecategoryInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DestinationUpdateimageUrlInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DestinationUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type DestinationUpdatefacilitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DestinationUpdateactivitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DestinationUpdatetravelTipsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutDestinationsNestedInput = {
+    create?: XOR<UserCreateWithoutDestinationsInput, UserUncheckedCreateWithoutDestinationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDestinationsInput
+    upsert?: UserUpsertWithoutDestinationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDestinationsInput, UserUpdateWithoutDestinationsInput>, UserUncheckedUpdateWithoutDestinationsInput>
+  }
+
+  export type DestinationUpdateOneWithoutSubLocationsNestedInput = {
+    create?: XOR<DestinationCreateWithoutSubLocationsInput, DestinationUncheckedCreateWithoutSubLocationsInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutSubLocationsInput
+    upsert?: DestinationUpsertWithoutSubLocationsInput
+    disconnect?: boolean
+    delete?: DestinationWhereInput | boolean
+    connect?: DestinationWhereUniqueInput
+    update?: XOR<XOR<DestinationUpdateToOneWithWhereWithoutSubLocationsInput, DestinationUpdateWithoutSubLocationsInput>, DestinationUncheckedUpdateWithoutSubLocationsInput>
+  }
+
+  export type DestinationUpdateManyWithoutParentNestedInput = {
+    create?: XOR<DestinationCreateWithoutParentInput, DestinationUncheckedCreateWithoutParentInput> | DestinationCreateWithoutParentInput[] | DestinationUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutParentInput | DestinationCreateOrConnectWithoutParentInput[]
+    upsert?: DestinationUpsertWithWhereUniqueWithoutParentInput | DestinationUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: DestinationCreateManyParentInputEnvelope
+    set?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    disconnect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    delete?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    update?: DestinationUpdateWithWhereUniqueWithoutParentInput | DestinationUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: DestinationUpdateManyWithWhereWithoutParentInput | DestinationUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type LikeUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput> | LikeCreateWithoutDestinationInput[] | LikeUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutDestinationInput | LikeCreateOrConnectWithoutDestinationInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutDestinationInput | LikeUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: LikeCreateManyDestinationInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutDestinationInput | LikeUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutDestinationInput | LikeUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type DestinationCommentUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutDestinationInput, DestinationCommentUncheckedCreateWithoutDestinationInput> | DestinationCommentCreateWithoutDestinationInput[] | DestinationCommentUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutDestinationInput | DestinationCommentCreateOrConnectWithoutDestinationInput[]
+    upsert?: DestinationCommentUpsertWithWhereUniqueWithoutDestinationInput | DestinationCommentUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: DestinationCommentCreateManyDestinationInputEnvelope
+    set?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    disconnect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    delete?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    update?: DestinationCommentUpdateWithWhereUniqueWithoutDestinationInput | DestinationCommentUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: DestinationCommentUpdateManyWithWhereWithoutDestinationInput | DestinationCommentUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+  }
+
+  export type DestinationReviewUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<DestinationReviewCreateWithoutDestinationInput, DestinationReviewUncheckedCreateWithoutDestinationInput> | DestinationReviewCreateWithoutDestinationInput[] | DestinationReviewUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutDestinationInput | DestinationReviewCreateOrConnectWithoutDestinationInput[]
+    upsert?: DestinationReviewUpsertWithWhereUniqueWithoutDestinationInput | DestinationReviewUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: DestinationReviewCreateManyDestinationInputEnvelope
+    set?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    disconnect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    delete?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    update?: DestinationReviewUpdateWithWhereUniqueWithoutDestinationInput | DestinationReviewUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: DestinationReviewUpdateManyWithWhereWithoutDestinationInput | DestinationReviewUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: DestinationReviewScalarWhereInput | DestinationReviewScalarWhereInput[]
+  }
+
+  export type DestinationUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<DestinationCreateWithoutParentInput, DestinationUncheckedCreateWithoutParentInput> | DestinationCreateWithoutParentInput[] | DestinationUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCreateOrConnectWithoutParentInput | DestinationCreateOrConnectWithoutParentInput[]
+    upsert?: DestinationUpsertWithWhereUniqueWithoutParentInput | DestinationUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: DestinationCreateManyParentInputEnvelope
+    set?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    disconnect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    delete?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+    update?: DestinationUpdateWithWhereUniqueWithoutParentInput | DestinationUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: DestinationUpdateManyWithWhereWithoutParentInput | DestinationUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type LikeUncheckedUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput> | LikeCreateWithoutDestinationInput[] | LikeUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutDestinationInput | LikeCreateOrConnectWithoutDestinationInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutDestinationInput | LikeUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: LikeCreateManyDestinationInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutDestinationInput | LikeUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutDestinationInput | LikeUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutDestinationInput, DestinationCommentUncheckedCreateWithoutDestinationInput> | DestinationCommentCreateWithoutDestinationInput[] | DestinationCommentUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutDestinationInput | DestinationCommentCreateOrConnectWithoutDestinationInput[]
+    upsert?: DestinationCommentUpsertWithWhereUniqueWithoutDestinationInput | DestinationCommentUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: DestinationCommentCreateManyDestinationInputEnvelope
+    set?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    disconnect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    delete?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    update?: DestinationCommentUpdateWithWhereUniqueWithoutDestinationInput | DestinationCommentUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: DestinationCommentUpdateManyWithWhereWithoutDestinationInput | DestinationCommentUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+  }
+
+  export type DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<DestinationReviewCreateWithoutDestinationInput, DestinationReviewUncheckedCreateWithoutDestinationInput> | DestinationReviewCreateWithoutDestinationInput[] | DestinationReviewUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: DestinationReviewCreateOrConnectWithoutDestinationInput | DestinationReviewCreateOrConnectWithoutDestinationInput[]
+    upsert?: DestinationReviewUpsertWithWhereUniqueWithoutDestinationInput | DestinationReviewUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: DestinationReviewCreateManyDestinationInputEnvelope
+    set?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    disconnect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    delete?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    connect?: DestinationReviewWhereUniqueInput | DestinationReviewWhereUniqueInput[]
+    update?: DestinationReviewUpdateWithWhereUniqueWithoutDestinationInput | DestinationReviewUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: DestinationReviewUpdateManyWithWhereWithoutDestinationInput | DestinationReviewUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: DestinationReviewScalarWhereInput | DestinationReviewScalarWhereInput[]
+  }
+
+  export type DestinationCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<DestinationCreateWithoutCommentsInput, DestinationUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutCommentsInput
+    connect?: DestinationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDestinationCommentsInput = {
+    create?: XOR<UserCreateWithoutDestinationCommentsInput, UserUncheckedCreateWithoutDestinationCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDestinationCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DestinationCommentCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<DestinationCommentCreateWithoutRepliesInput, DestinationCommentUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutRepliesInput
+    connect?: DestinationCommentWhereUniqueInput
+  }
+
+  export type DestinationCommentCreateNestedManyWithoutParentInput = {
+    create?: XOR<DestinationCommentCreateWithoutParentInput, DestinationCommentUncheckedCreateWithoutParentInput> | DestinationCommentCreateWithoutParentInput[] | DestinationCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutParentInput | DestinationCommentCreateOrConnectWithoutParentInput[]
+    createMany?: DestinationCommentCreateManyParentInputEnvelope
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+  }
+
+  export type DestinationCommentUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<DestinationCommentCreateWithoutParentInput, DestinationCommentUncheckedCreateWithoutParentInput> | DestinationCommentCreateWithoutParentInput[] | DestinationCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutParentInput | DestinationCommentCreateOrConnectWithoutParentInput[]
+    createMany?: DestinationCommentCreateManyParentInputEnvelope
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+  }
+
+  export type DestinationUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<DestinationCreateWithoutCommentsInput, DestinationUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutCommentsInput
+    upsert?: DestinationUpsertWithoutCommentsInput
+    connect?: DestinationWhereUniqueInput
+    update?: XOR<XOR<DestinationUpdateToOneWithWhereWithoutCommentsInput, DestinationUpdateWithoutCommentsInput>, DestinationUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDestinationCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutDestinationCommentsInput, UserUncheckedCreateWithoutDestinationCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDestinationCommentsInput
+    upsert?: UserUpsertWithoutDestinationCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDestinationCommentsInput, UserUpdateWithoutDestinationCommentsInput>, UserUncheckedUpdateWithoutDestinationCommentsInput>
+  }
+
+  export type DestinationCommentUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutRepliesInput, DestinationCommentUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutRepliesInput
+    upsert?: DestinationCommentUpsertWithoutRepliesInput
+    disconnect?: boolean
+    delete?: DestinationCommentWhereInput | boolean
+    connect?: DestinationCommentWhereUniqueInput
+    update?: XOR<XOR<DestinationCommentUpdateToOneWithWhereWithoutRepliesInput, DestinationCommentUpdateWithoutRepliesInput>, DestinationCommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type DestinationCommentUpdateManyWithoutParentNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutParentInput, DestinationCommentUncheckedCreateWithoutParentInput> | DestinationCommentCreateWithoutParentInput[] | DestinationCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutParentInput | DestinationCommentCreateOrConnectWithoutParentInput[]
+    upsert?: DestinationCommentUpsertWithWhereUniqueWithoutParentInput | DestinationCommentUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: DestinationCommentCreateManyParentInputEnvelope
+    set?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    disconnect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    delete?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    update?: DestinationCommentUpdateWithWhereUniqueWithoutParentInput | DestinationCommentUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: DestinationCommentUpdateManyWithWhereWithoutParentInput | DestinationCommentUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+  }
+
+  export type DestinationCommentUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<DestinationCommentCreateWithoutParentInput, DestinationCommentUncheckedCreateWithoutParentInput> | DestinationCommentCreateWithoutParentInput[] | DestinationCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: DestinationCommentCreateOrConnectWithoutParentInput | DestinationCommentCreateOrConnectWithoutParentInput[]
+    upsert?: DestinationCommentUpsertWithWhereUniqueWithoutParentInput | DestinationCommentUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: DestinationCommentCreateManyParentInputEnvelope
+    set?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    disconnect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    delete?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    connect?: DestinationCommentWhereUniqueInput | DestinationCommentWhereUniqueInput[]
+    update?: DestinationCommentUpdateWithWhereUniqueWithoutParentInput | DestinationCommentUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: DestinationCommentUpdateManyWithWhereWithoutParentInput | DestinationCommentUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+  }
+
+  export type DestinationReviewCreateimageUrlInput = {
+    set: string[]
+  }
+
+  export type DestinationCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<DestinationCreateWithoutReviewsInput, DestinationUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutReviewsInput
+    connect?: DestinationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDestinationReviewsInput = {
+    create?: XOR<UserCreateWithoutDestinationReviewsInput, UserUncheckedCreateWithoutDestinationReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDestinationReviewsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DestinationReviewUpdateimageUrlInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DestinationUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<DestinationCreateWithoutReviewsInput, DestinationUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutReviewsInput
+    upsert?: DestinationUpsertWithoutReviewsInput
+    connect?: DestinationWhereUniqueInput
+    update?: XOR<XOR<DestinationUpdateToOneWithWhereWithoutReviewsInput, DestinationUpdateWithoutReviewsInput>, DestinationUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDestinationReviewsNestedInput = {
+    create?: XOR<UserCreateWithoutDestinationReviewsInput, UserUncheckedCreateWithoutDestinationReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDestinationReviewsInput
+    upsert?: UserUpsertWithoutDestinationReviewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDestinationReviewsInput, UserUpdateWithoutDestinationReviewsInput>, UserUncheckedUpdateWithoutDestinationReviewsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -26239,6 +31960,51 @@ export namespace Prisma {
     _max?: NestedEnumMediaTypeFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type PostCreateWithoutAuthorInput = {
     id?: string
     imageUrl?: PostCreateimageUrlInput | string[]
@@ -26329,6 +32095,7 @@ export namespace Prisma {
     createdAt?: Date | string
     post?: PostCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
+    destination?: DestinationCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutUserInput = {
@@ -26774,6 +32541,147 @@ export namespace Prisma {
 
   export type MessageCreateManySenderInputEnvelope = {
     data: MessageCreateManySenderInput | MessageCreateManySenderInput[]
+  }
+
+  export type DestinationCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutUserInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutUserInput, DestinationUncheckedCreateWithoutUserInput>
+  }
+
+  export type DestinationCreateManyUserInputEnvelope = {
+    data: DestinationCreateManyUserInput | DestinationCreateManyUserInput[]
+  }
+
+  export type DestinationCommentCreateWithoutAuthorInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination: DestinationCreateNestedOneWithoutCommentsInput
+    parent?: DestinationCommentCreateNestedOneWithoutRepliesInput
+    replies?: DestinationCommentCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    destinationId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: DestinationCommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentCreateOrConnectWithoutAuthorInput = {
+    where: DestinationCommentWhereUniqueInput
+    create: XOR<DestinationCommentCreateWithoutAuthorInput, DestinationCommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type DestinationCommentCreateManyAuthorInputEnvelope = {
+    data: DestinationCommentCreateManyAuthorInput | DestinationCommentCreateManyAuthorInput[]
+  }
+
+  export type DestinationReviewCreateWithoutUserInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination: DestinationCreateNestedOneWithoutReviewsInput
+  }
+
+  export type DestinationReviewUncheckedCreateWithoutUserInput = {
+    id?: string
+    destinationId: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationReviewCreateOrConnectWithoutUserInput = {
+    where: DestinationReviewWhereUniqueInput
+    create: XOR<DestinationReviewCreateWithoutUserInput, DestinationReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type DestinationReviewCreateManyUserInputEnvelope = {
+    data: DestinationReviewCreateManyUserInput | DestinationReviewCreateManyUserInput[]
   }
 
   export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -27266,6 +33174,118 @@ export namespace Prisma {
     pinned?: BoolFilter<"Message"> | boolean
   }
 
+  export type DestinationUpsertWithWhereUniqueWithoutUserInput = {
+    where: DestinationWhereUniqueInput
+    update: XOR<DestinationUpdateWithoutUserInput, DestinationUncheckedUpdateWithoutUserInput>
+    create: XOR<DestinationCreateWithoutUserInput, DestinationUncheckedCreateWithoutUserInput>
+  }
+
+  export type DestinationUpdateWithWhereUniqueWithoutUserInput = {
+    where: DestinationWhereUniqueInput
+    data: XOR<DestinationUpdateWithoutUserInput, DestinationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DestinationUpdateManyWithWhereWithoutUserInput = {
+    where: DestinationScalarWhereInput
+    data: XOR<DestinationUpdateManyMutationInput, DestinationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DestinationScalarWhereInput = {
+    AND?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+    OR?: DestinationScalarWhereInput[]
+    NOT?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+    id?: StringFilter<"Destination"> | string
+    title?: StringFilter<"Destination"> | string
+    description?: StringNullableFilter<"Destination"> | string | null
+    location?: StringFilter<"Destination"> | string
+    city?: StringFilter<"Destination"> | string
+    country?: StringFilter<"Destination"> | string
+    latitude?: FloatNullableFilter<"Destination"> | number | null
+    longitude?: FloatNullableFilter<"Destination"> | number | null
+    category?: StringNullableListFilter<"Destination">
+    imageUrl?: StringNullableListFilter<"Destination">
+    tags?: StringNullableListFilter<"Destination">
+    visitCount?: IntFilter<"Destination"> | number
+    likeCount?: IntFilter<"Destination"> | number
+    commentCount?: IntFilter<"Destination"> | number
+    reviewCount?: IntFilter<"Destination"> | number
+    rating?: FloatFilter<"Destination"> | number
+    bestTimeToVisit?: StringNullableFilter<"Destination"> | string | null
+    entryFee?: JsonNullableFilter<"Destination">
+    openingHours?: StringNullableFilter<"Destination"> | string | null
+    facilities?: StringNullableListFilter<"Destination">
+    activities?: StringNullableListFilter<"Destination">
+    travelTips?: StringNullableListFilter<"Destination">
+    isPublic?: BoolFilter<"Destination"> | boolean
+    parentId?: StringNullableFilter<"Destination"> | string | null
+    userId?: StringFilter<"Destination"> | string
+    createdAt?: DateTimeFilter<"Destination"> | Date | string
+    updatedAt?: DateTimeFilter<"Destination"> | Date | string
+  }
+
+  export type DestinationCommentUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: DestinationCommentWhereUniqueInput
+    update: XOR<DestinationCommentUpdateWithoutAuthorInput, DestinationCommentUncheckedUpdateWithoutAuthorInput>
+    create: XOR<DestinationCommentCreateWithoutAuthorInput, DestinationCommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type DestinationCommentUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: DestinationCommentWhereUniqueInput
+    data: XOR<DestinationCommentUpdateWithoutAuthorInput, DestinationCommentUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type DestinationCommentUpdateManyWithWhereWithoutAuthorInput = {
+    where: DestinationCommentScalarWhereInput
+    data: XOR<DestinationCommentUpdateManyMutationInput, DestinationCommentUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type DestinationCommentScalarWhereInput = {
+    AND?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+    OR?: DestinationCommentScalarWhereInput[]
+    NOT?: DestinationCommentScalarWhereInput | DestinationCommentScalarWhereInput[]
+    id?: StringFilter<"DestinationComment"> | string
+    destinationId?: StringFilter<"DestinationComment"> | string
+    authorId?: StringFilter<"DestinationComment"> | string
+    content?: StringFilter<"DestinationComment"> | string
+    parentId?: StringNullableFilter<"DestinationComment"> | string | null
+    likeCount?: IntFilter<"DestinationComment"> | number
+    isEdited?: BoolFilter<"DestinationComment"> | boolean
+    createdAt?: DateTimeFilter<"DestinationComment"> | Date | string
+    updatedAt?: DateTimeFilter<"DestinationComment"> | Date | string
+  }
+
+  export type DestinationReviewUpsertWithWhereUniqueWithoutUserInput = {
+    where: DestinationReviewWhereUniqueInput
+    update: XOR<DestinationReviewUpdateWithoutUserInput, DestinationReviewUncheckedUpdateWithoutUserInput>
+    create: XOR<DestinationReviewCreateWithoutUserInput, DestinationReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type DestinationReviewUpdateWithWhereUniqueWithoutUserInput = {
+    where: DestinationReviewWhereUniqueInput
+    data: XOR<DestinationReviewUpdateWithoutUserInput, DestinationReviewUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DestinationReviewUpdateManyWithWhereWithoutUserInput = {
+    where: DestinationReviewScalarWhereInput
+    data: XOR<DestinationReviewUpdateManyMutationInput, DestinationReviewUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DestinationReviewScalarWhereInput = {
+    AND?: DestinationReviewScalarWhereInput | DestinationReviewScalarWhereInput[]
+    OR?: DestinationReviewScalarWhereInput[]
+    NOT?: DestinationReviewScalarWhereInput | DestinationReviewScalarWhereInput[]
+    id?: StringFilter<"DestinationReview"> | string
+    destinationId?: StringFilter<"DestinationReview"> | string
+    userId?: StringFilter<"DestinationReview"> | string
+    rating?: FloatFilter<"DestinationReview"> | number
+    comment?: StringNullableFilter<"DestinationReview"> | string | null
+    imageUrl?: StringNullableListFilter<"DestinationReview">
+    visitDate?: DateTimeNullableFilter<"DestinationReview"> | Date | string | null
+    isVerified?: BoolFilter<"DestinationReview"> | boolean
+    createdAt?: DateTimeFilter<"DestinationReview"> | Date | string
+    updatedAt?: DateTimeFilter<"DestinationReview"> | Date | string
+  }
+
   export type UserCreateWithoutFollowersInput = {
     id?: string
     email: string
@@ -27304,6 +33324,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -27344,6 +33367,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -27389,6 +33415,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -27429,6 +33458,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -27484,6 +33516,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -27523,6 +33558,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutFollowingInput = {
@@ -27573,6 +33611,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -27612,6 +33653,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -27652,6 +33696,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -27692,6 +33739,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -27848,6 +33898,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
+    destination?: DestinationCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutPostInput = {
@@ -27914,6 +33965,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -27953,6 +34007,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostTagUpsertWithWhereUniqueWithoutPostInput = {
@@ -28089,6 +34146,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSharedPostsSentInput = {
@@ -28129,6 +34189,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSharedPostsSentInput = {
@@ -28174,6 +34237,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSharedPostsReceivedInput = {
@@ -28214,6 +34280,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSharedPostsReceivedInput = {
@@ -28415,6 +34484,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedPostsSentInput = {
@@ -28454,6 +34526,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSharedPostsReceivedInput = {
@@ -28504,6 +34579,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedPostsReceivedInput = {
@@ -28543,6 +34621,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StoryUpsertWithoutSharedPostsInput = {
@@ -28769,6 +34850,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTaggedInPostsInput = {
@@ -28809,6 +34893,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTaggedInPostsInput = {
@@ -28913,6 +35000,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaggedInPostsInput = {
@@ -28952,6 +35042,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostCreateWithoutCommentsInput = {
@@ -29037,6 +35130,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -29077,6 +35173,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -29156,6 +35255,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLikesInput
     post?: PostCreateNestedOneWithoutLikesInput
+    destination?: DestinationCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutCommentInput = {
@@ -29271,6 +35371,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -29310,6 +35413,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CommentUpsertWithoutRepliesInput = {
@@ -29417,6 +35523,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikesInput = {
@@ -29457,6 +35566,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikesInput = {
@@ -29540,6 +35652,77 @@ export namespace Prisma {
     create: XOR<CommentCreateWithoutLikesInput, CommentUncheckedCreateWithoutLikesInput>
   }
 
+  export type DestinationCreateWithoutLikesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    comments?: DestinationCommentCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutLikesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    comments?: DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutLikesInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutLikesInput, DestinationUncheckedCreateWithoutLikesInput>
+  }
+
   export type UserUpsertWithoutLikesInput = {
     update: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
     create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
@@ -29588,6 +35771,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesInput = {
@@ -29627,6 +35813,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutLikesInput = {
@@ -29713,6 +35902,81 @@ export namespace Prisma {
     replies?: CommentUncheckedUpdateManyWithoutParentNestedInput
   }
 
+  export type DestinationUpsertWithoutLikesInput = {
+    update: XOR<DestinationUpdateWithoutLikesInput, DestinationUncheckedUpdateWithoutLikesInput>
+    create: XOR<DestinationCreateWithoutLikesInput, DestinationUncheckedCreateWithoutLikesInput>
+    where?: DestinationWhereInput
+  }
+
+  export type DestinationUpdateToOneWithWhereWithoutLikesInput = {
+    where?: DestinationWhereInput
+    data: XOR<DestinationUpdateWithoutLikesInput, DestinationUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type DestinationUpdateWithoutLikesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    comments?: DestinationCommentUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutLikesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    comments?: DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
   export type UserCreateWithoutSavedPostsInput = {
     id?: string
     email: string
@@ -29751,6 +36015,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSavedPostsInput = {
@@ -29791,6 +36058,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSavedPostsInput = {
@@ -29891,6 +36161,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedPostsInput = {
@@ -29930,6 +36203,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutSavedByInput = {
@@ -30044,6 +36320,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -30084,6 +36363,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -30189,6 +36471,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -30228,6 +36513,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageReactionUpsertWithWhereUniqueWithoutMessageInput = {
@@ -30284,6 +36572,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -30324,6 +36615,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -30412,6 +36706,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -30451,6 +36748,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -30528,6 +36828,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsCreatedInput = {
@@ -30568,6 +36871,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsCreatedInput = {
@@ -30681,6 +36987,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsCreatedInput = {
@@ -30720,6 +37029,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ConversationParticipantUpsertWithWhereUniqueWithoutConversationInput = {
@@ -30817,6 +37129,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipantsInput = {
@@ -30857,6 +37172,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipantsInput = {
@@ -30941,6 +37259,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipantsInput = {
@@ -30980,6 +37301,9 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsSentInput = {
@@ -31020,6 +37344,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsSentInput = {
@@ -31060,6 +37387,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsSentInput = {
@@ -31105,6 +37435,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsRecvInput = {
@@ -31145,6 +37478,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsRecvInput = {
@@ -31274,6 +37610,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsSentInput = {
@@ -31313,6 +37652,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutNotificationsRecvInput = {
@@ -31363,6 +37705,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsRecvInput = {
@@ -31402,6 +37747,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutNotificationsInput = {
@@ -31524,6 +37872,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTripsInput = {
@@ -31564,6 +37915,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTripsInput = {
@@ -31652,6 +38006,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTripsInput = {
@@ -31691,6 +38048,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SharedPostUpsertWithWhereUniqueWithoutTripInput = {
@@ -31747,6 +38107,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStoriesInput = {
@@ -31787,6 +38150,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStoriesInput = {
@@ -31875,6 +38241,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStoriesInput = {
@@ -31914,6 +38283,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SharedPostUpsertWithWhereUniqueWithoutStoryInput = {
@@ -31970,6 +38342,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportsInput = {
@@ -32010,6 +38385,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
     messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportsInput = {
@@ -32065,6 +38443,9 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsInput = {
@@ -32104,6 +38485,1346 @@ export namespace Prisma {
     conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
     messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutDestinationsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDestinationsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDestinationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDestinationsInput, UserUncheckedCreateWithoutDestinationsInput>
+  }
+
+  export type DestinationCreateWithoutSubLocationsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutSubLocationsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutSubLocationsInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutSubLocationsInput, DestinationUncheckedCreateWithoutSubLocationsInput>
+  }
+
+  export type DestinationCreateWithoutParentInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutParentInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutParentInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutParentInput, DestinationUncheckedCreateWithoutParentInput>
+  }
+
+  export type DestinationCreateManyParentInputEnvelope = {
+    data: DestinationCreateManyParentInput | DestinationCreateManyParentInput[]
+  }
+
+  export type LikeCreateWithoutDestinationInput = {
+    id?: string
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLikesInput
+    post?: PostCreateNestedOneWithoutLikesInput
+    comment?: CommentCreateNestedOneWithoutLikesInput
+  }
+
+  export type LikeUncheckedCreateWithoutDestinationInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type LikeCreateOrConnectWithoutDestinationInput = {
+    where: LikeWhereUniqueInput
+    create: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type LikeCreateManyDestinationInputEnvelope = {
+    data: LikeCreateManyDestinationInput | LikeCreateManyDestinationInput[]
+  }
+
+  export type DestinationCommentCreateWithoutDestinationInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutDestinationCommentsInput
+    parent?: DestinationCommentCreateNestedOneWithoutRepliesInput
+    replies?: DestinationCommentCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentUncheckedCreateWithoutDestinationInput = {
+    id?: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: DestinationCommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentCreateOrConnectWithoutDestinationInput = {
+    where: DestinationCommentWhereUniqueInput
+    create: XOR<DestinationCommentCreateWithoutDestinationInput, DestinationCommentUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type DestinationCommentCreateManyDestinationInputEnvelope = {
+    data: DestinationCommentCreateManyDestinationInput | DestinationCommentCreateManyDestinationInput[]
+  }
+
+  export type DestinationReviewCreateWithoutDestinationInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationReviewsInput
+  }
+
+  export type DestinationReviewUncheckedCreateWithoutDestinationInput = {
+    id?: string
+    userId: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationReviewCreateOrConnectWithoutDestinationInput = {
+    where: DestinationReviewWhereUniqueInput
+    create: XOR<DestinationReviewCreateWithoutDestinationInput, DestinationReviewUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type DestinationReviewCreateManyDestinationInputEnvelope = {
+    data: DestinationReviewCreateManyDestinationInput | DestinationReviewCreateManyDestinationInput[]
+  }
+
+  export type UserUpsertWithoutDestinationsInput = {
+    update: XOR<UserUpdateWithoutDestinationsInput, UserUncheckedUpdateWithoutDestinationsInput>
+    create: XOR<UserCreateWithoutDestinationsInput, UserUncheckedCreateWithoutDestinationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDestinationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDestinationsInput, UserUncheckedUpdateWithoutDestinationsInput>
+  }
+
+  export type UserUpdateWithoutDestinationsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDestinationsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DestinationUpsertWithoutSubLocationsInput = {
+    update: XOR<DestinationUpdateWithoutSubLocationsInput, DestinationUncheckedUpdateWithoutSubLocationsInput>
+    create: XOR<DestinationCreateWithoutSubLocationsInput, DestinationUncheckedCreateWithoutSubLocationsInput>
+    where?: DestinationWhereInput
+  }
+
+  export type DestinationUpdateToOneWithWhereWithoutSubLocationsInput = {
+    where?: DestinationWhereInput
+    data: XOR<DestinationUpdateWithoutSubLocationsInput, DestinationUncheckedUpdateWithoutSubLocationsInput>
+  }
+
+  export type DestinationUpdateWithoutSubLocationsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutSubLocationsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUpsertWithWhereUniqueWithoutParentInput = {
+    where: DestinationWhereUniqueInput
+    update: XOR<DestinationUpdateWithoutParentInput, DestinationUncheckedUpdateWithoutParentInput>
+    create: XOR<DestinationCreateWithoutParentInput, DestinationUncheckedCreateWithoutParentInput>
+  }
+
+  export type DestinationUpdateWithWhereUniqueWithoutParentInput = {
+    where: DestinationWhereUniqueInput
+    data: XOR<DestinationUpdateWithoutParentInput, DestinationUncheckedUpdateWithoutParentInput>
+  }
+
+  export type DestinationUpdateManyWithWhereWithoutParentInput = {
+    where: DestinationScalarWhereInput
+    data: XOR<DestinationUpdateManyMutationInput, DestinationUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type LikeUpsertWithWhereUniqueWithoutDestinationInput = {
+    where: LikeWhereUniqueInput
+    update: XOR<LikeUpdateWithoutDestinationInput, LikeUncheckedUpdateWithoutDestinationInput>
+    create: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type LikeUpdateWithWhereUniqueWithoutDestinationInput = {
+    where: LikeWhereUniqueInput
+    data: XOR<LikeUpdateWithoutDestinationInput, LikeUncheckedUpdateWithoutDestinationInput>
+  }
+
+  export type LikeUpdateManyWithWhereWithoutDestinationInput = {
+    where: LikeScalarWhereInput
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyWithoutDestinationInput>
+  }
+
+  export type DestinationCommentUpsertWithWhereUniqueWithoutDestinationInput = {
+    where: DestinationCommentWhereUniqueInput
+    update: XOR<DestinationCommentUpdateWithoutDestinationInput, DestinationCommentUncheckedUpdateWithoutDestinationInput>
+    create: XOR<DestinationCommentCreateWithoutDestinationInput, DestinationCommentUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type DestinationCommentUpdateWithWhereUniqueWithoutDestinationInput = {
+    where: DestinationCommentWhereUniqueInput
+    data: XOR<DestinationCommentUpdateWithoutDestinationInput, DestinationCommentUncheckedUpdateWithoutDestinationInput>
+  }
+
+  export type DestinationCommentUpdateManyWithWhereWithoutDestinationInput = {
+    where: DestinationCommentScalarWhereInput
+    data: XOR<DestinationCommentUpdateManyMutationInput, DestinationCommentUncheckedUpdateManyWithoutDestinationInput>
+  }
+
+  export type DestinationReviewUpsertWithWhereUniqueWithoutDestinationInput = {
+    where: DestinationReviewWhereUniqueInput
+    update: XOR<DestinationReviewUpdateWithoutDestinationInput, DestinationReviewUncheckedUpdateWithoutDestinationInput>
+    create: XOR<DestinationReviewCreateWithoutDestinationInput, DestinationReviewUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type DestinationReviewUpdateWithWhereUniqueWithoutDestinationInput = {
+    where: DestinationReviewWhereUniqueInput
+    data: XOR<DestinationReviewUpdateWithoutDestinationInput, DestinationReviewUncheckedUpdateWithoutDestinationInput>
+  }
+
+  export type DestinationReviewUpdateManyWithWhereWithoutDestinationInput = {
+    where: DestinationReviewScalarWhereInput
+    data: XOR<DestinationReviewUpdateManyMutationInput, DestinationReviewUncheckedUpdateManyWithoutDestinationInput>
+  }
+
+  export type DestinationCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutCommentsInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutCommentsInput, DestinationUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserCreateWithoutDestinationCommentsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDestinationCommentsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDestinationCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDestinationCommentsInput, UserUncheckedCreateWithoutDestinationCommentsInput>
+  }
+
+  export type DestinationCommentCreateWithoutRepliesInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination: DestinationCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutDestinationCommentsInput
+    parent?: DestinationCommentCreateNestedOneWithoutRepliesInput
+  }
+
+  export type DestinationCommentUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    destinationId: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationCommentCreateOrConnectWithoutRepliesInput = {
+    where: DestinationCommentWhereUniqueInput
+    create: XOR<DestinationCommentCreateWithoutRepliesInput, DestinationCommentUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type DestinationCommentCreateWithoutParentInput = {
+    id?: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination: DestinationCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutDestinationCommentsInput
+    replies?: DestinationCommentCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentUncheckedCreateWithoutParentInput = {
+    id?: string
+    destinationId: string
+    authorId: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: DestinationCommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type DestinationCommentCreateOrConnectWithoutParentInput = {
+    where: DestinationCommentWhereUniqueInput
+    create: XOR<DestinationCommentCreateWithoutParentInput, DestinationCommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type DestinationCommentCreateManyParentInputEnvelope = {
+    data: DestinationCommentCreateManyParentInput | DestinationCommentCreateManyParentInput[]
+  }
+
+  export type DestinationUpsertWithoutCommentsInput = {
+    update: XOR<DestinationUpdateWithoutCommentsInput, DestinationUncheckedUpdateWithoutCommentsInput>
+    create: XOR<DestinationCreateWithoutCommentsInput, DestinationUncheckedCreateWithoutCommentsInput>
+    where?: DestinationWhereInput
+  }
+
+  export type DestinationUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: DestinationWhereInput
+    data: XOR<DestinationUpdateWithoutCommentsInput, DestinationUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type DestinationUpdateWithoutCommentsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutCommentsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type UserUpsertWithoutDestinationCommentsInput = {
+    update: XOR<UserUpdateWithoutDestinationCommentsInput, UserUncheckedUpdateWithoutDestinationCommentsInput>
+    create: XOR<UserCreateWithoutDestinationCommentsInput, UserUncheckedCreateWithoutDestinationCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDestinationCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDestinationCommentsInput, UserUncheckedUpdateWithoutDestinationCommentsInput>
+  }
+
+  export type UserUpdateWithoutDestinationCommentsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDestinationCommentsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DestinationCommentUpsertWithoutRepliesInput = {
+    update: XOR<DestinationCommentUpdateWithoutRepliesInput, DestinationCommentUncheckedUpdateWithoutRepliesInput>
+    create: XOR<DestinationCommentCreateWithoutRepliesInput, DestinationCommentUncheckedCreateWithoutRepliesInput>
+    where?: DestinationCommentWhereInput
+  }
+
+  export type DestinationCommentUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: DestinationCommentWhereInput
+    data: XOR<DestinationCommentUpdateWithoutRepliesInput, DestinationCommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type DestinationCommentUpdateWithoutRepliesInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutDestinationCommentsNestedInput
+    parent?: DestinationCommentUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateWithoutRepliesInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCommentUpsertWithWhereUniqueWithoutParentInput = {
+    where: DestinationCommentWhereUniqueInput
+    update: XOR<DestinationCommentUpdateWithoutParentInput, DestinationCommentUncheckedUpdateWithoutParentInput>
+    create: XOR<DestinationCommentCreateWithoutParentInput, DestinationCommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type DestinationCommentUpdateWithWhereUniqueWithoutParentInput = {
+    where: DestinationCommentWhereUniqueInput
+    data: XOR<DestinationCommentUpdateWithoutParentInput, DestinationCommentUncheckedUpdateWithoutParentInput>
+  }
+
+  export type DestinationCommentUpdateManyWithWhereWithoutParentInput = {
+    where: DestinationCommentScalarWhereInput
+    data: XOR<DestinationCommentUpdateManyMutationInput, DestinationCommentUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type DestinationCreateWithoutReviewsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    comments?: DestinationCommentUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutReviewsInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutReviewsInput, DestinationUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type UserCreateWithoutDestinationReviewsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutDestinationReviewsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationComments?: DestinationCommentUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutDestinationReviewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDestinationReviewsInput, UserUncheckedCreateWithoutDestinationReviewsInput>
+  }
+
+  export type DestinationUpsertWithoutReviewsInput = {
+    update: XOR<DestinationUpdateWithoutReviewsInput, DestinationUncheckedUpdateWithoutReviewsInput>
+    create: XOR<DestinationCreateWithoutReviewsInput, DestinationUncheckedCreateWithoutReviewsInput>
+    where?: DestinationWhereInput
+  }
+
+  export type DestinationUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: DestinationWhereInput
+    data: XOR<DestinationUpdateWithoutReviewsInput, DestinationUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type DestinationUpdateWithoutReviewsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutReviewsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type UserUpsertWithoutDestinationReviewsInput = {
+    update: XOR<UserUpdateWithoutDestinationReviewsInput, UserUncheckedUpdateWithoutDestinationReviewsInput>
+    create: XOR<UserCreateWithoutDestinationReviewsInput, UserUncheckedCreateWithoutDestinationReviewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDestinationReviewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDestinationReviewsInput, UserUncheckedUpdateWithoutDestinationReviewsInput>
+  }
+
+  export type UserUpdateWithoutDestinationReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDestinationReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationComments?: DestinationCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type PostCreateManyAuthorInput = {
@@ -32278,6 +39999,58 @@ export namespace Prisma {
     pinned?: boolean
   }
 
+  export type DestinationCreateManyUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationCommentCreateManyAuthorInput = {
+    id?: string
+    destinationId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationReviewCreateManyUserInput = {
+    id?: string
+    destinationId: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type PostUpdateWithoutAuthorInput = {
     imageUrl?: PostUpdateimageUrlInput | string[]
     caption?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32368,6 +40141,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostUpdateOneWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
+    destination?: DestinationUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutUserInput = {
@@ -32771,6 +40545,163 @@ export namespace Prisma {
     pinned?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type DestinationUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateManyWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCommentUpdateWithoutAuthorInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneRequiredWithoutCommentsNestedInput
+    parent?: DestinationCommentUpdateOneWithoutRepliesNestedInput
+    replies?: DestinationCommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateWithoutAuthorInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: DestinationCommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateManyWithoutAuthorInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewUpdateWithoutUserInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type DestinationReviewUncheckedUpdateWithoutUserInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewUncheckedUpdateManyWithoutUserInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PostTagCreateManyPostInput = {
     id?: string
     userId: string
@@ -32958,6 +40889,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
+    destination?: DestinationUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutPostInput = {
@@ -33074,6 +41006,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
     post?: PostUpdateOneWithoutLikesNestedInput
+    destination?: DestinationUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutCommentInput = {
@@ -33265,6 +41198,285 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCreateManyParentInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    commentCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LikeCreateManyDestinationInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type DestinationCommentCreateManyDestinationInput = {
+    id?: string
+    authorId: string
+    content: string
+    parentId?: string | null
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationReviewCreateManyDestinationInput = {
+    id?: string
+    userId: string
+    rating: number
+    comment?: string | null
+    imageUrl?: DestinationReviewCreateimageUrlInput | string[]
+    visitDate?: Date | string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationUpdateWithoutParentInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutParentInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    comments?: DestinationCommentUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateManyWithoutParentInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUpdateWithoutDestinationInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
+    post?: PostUpdateOneWithoutLikesNestedInput
+    comment?: CommentUpdateOneWithoutLikesNestedInput
+  }
+
+  export type LikeUncheckedUpdateWithoutDestinationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUncheckedUpdateManyWithoutDestinationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCommentUpdateWithoutDestinationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutDestinationCommentsNestedInput
+    parent?: DestinationCommentUpdateOneWithoutRepliesNestedInput
+    replies?: DestinationCommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateWithoutDestinationInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: DestinationCommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateManyWithoutDestinationInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewUpdateWithoutDestinationInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationReviewsNestedInput
+  }
+
+  export type DestinationReviewUncheckedUpdateWithoutDestinationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationReviewUncheckedUpdateManyWithoutDestinationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: DestinationReviewUpdateimageUrlInput | string[]
+    visitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DestinationCommentCreateManyParentInput = {
+    id?: string
+    destinationId: string
+    authorId: string
+    content: string
+    likeCount?: number
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DestinationCommentUpdateWithoutParentInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutDestinationCommentsNestedInput
+    replies?: DestinationCommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateWithoutParentInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: DestinationCommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type DestinationCommentUncheckedUpdateManyWithoutParentInput = {
+    destinationId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

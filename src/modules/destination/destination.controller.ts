@@ -1,0 +1,546 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UploadedFiles,
+  UseInterceptors,
+  Req,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiParam,
+  ApiBody,
+} from '@nestjs/swagger';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { DestinationService } from './destination.service';
+import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
+import { RolesGuard } from 'src/common/guard/roles.guard';
+import { CreateDestinationDto } from './dto/create-destination.dto';
+import { UpdateDestinationDto } from './dto/update-destination.dto';
+import { SearchDestinationDto } from './dto/search-destination.dto';
+import { CreateDestinationCommentDto } from './dto/create-comment.dto';
+import { CreateDestinationReviewDto } from './dto/create-review.dto';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/common/enums/role.enum';
+import { DestinationValidationPipe } from './pipes/destination-validation.pipe';
+
+@ApiTags('🗺️ Destinations')
+@Controller('destinations')
+@UsePipes(new DestinationValidationPipe())
+export class DestinationController {
+  constructor(private readonly destinationService: DestinationService) {}
+
+  private groupFormData(body: any, dtoClass: any) {
+    const dtoKeys = Object.keys(new dtoClass());
+    const arrayKeys = [
+      'category',
+      'tags',
+      'facilities',
+      'activities',
+      'travelTips',
+    ];
+    const numberKeys = ['latitude', 'longitude'];
+    const booleanKeys = ['isPublic'];
+    const grouped: Record<string, unknown> = {};
+
+    for (const key of Object.keys(body)) {
+      if (dtoKeys.includes(key)) {
+        let value = body[key];
+
+        // Skip empty strings for optional fields
+        if (value === '' && key !== 'description') {
+          continue;
+        }
+
+        // Parse JSON fields
+        if (key === 'entryFee' && typeof value === 'string') {
+          try {
+            value = JSON.parse(value);
+          } catch (e) {
+            // Keep original if parse fails
+          }
+        }
+
+        // Convert to number
+        if (numberKeys.includes(key) && typeof value === 'string') {
+          value = parseFloat(value);
+        }
+
+        // Convert to boolean
+        if (booleanKeys.includes(key) && typeof value === 'string') {
+          value = value === 'true';
+        }
+
+        // Handle array fields - split by comma
+        if (arrayKeys.includes(key) && typeof value === 'string') {
+          value = value.split(',').map((v) => v.trim());
+        }
+
+        if (grouped[key]) {
+          if (Array.isArray(grouped[key])) {
+            if (Array.isArray(value)) {
+              grouped[key] = [...(grouped[key] as any[]), ...value];
+            } else {
+              (grouped[key] as any[]).push(value);
+            }
+          } else {
+            grouped[key] = [grouped[key], value];
+          }
+        } else {
+          grouped[key] = value;
+        }
+      }
+    }
+
+    // Ensure array fields are arrays
+    for (const key of arrayKeys) {
+      if (grouped[key] !== undefined && !Array.isArray(grouped[key])) {
+        grouped[key] = [grouped[key]];
+      }
+    }
+
+    return grouped;
+  }
+
+  @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseInterceptors(FilesInterceptor('images'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Tạo địa điểm mới',
+    description: `
+    Tạo địa điểm du lịch mới với đầy đủ thông tin và hình ảnh.
+    
+    **Ví dụ:**
+    - Tạo địa điểm cha: Ninh Bình (parentId = null)
+    - Tạo địa điểm con: Tràng An (parentId = id của Ninh Bình)
+    
+    **Lưu ý:**
+    - entryFee phải là JSON: {"adult": 120000, "child": 60000, "currency": "VND"}
+    - category, tags, facilities, activities, travelTips là mảng string
+    `,
+  })
+  @ApiBody({ type: CreateDestinationDto })
+  @ApiResponse({
+    status: 201,
+    description: 'Địa điểm được tạo thành công',
+    schema: {
+      example: {
+        message: 'Destination created successfully',
+        statusCode: 201,
+        status: 'success',
+        data: {
+          id: 'uuid',
+          title: 'Hoi An Ancient Town',
+          location: 'Hoi An, Quang Nam',
+          city: 'Hoi An',
+          country: 'Vietnam',
+          imageUrl: ['https://cloudinary.com/image1.jpg'],
+          rating: 0,
+          visitCount: 0,
+          likeCount: 0,
+          commentCount: 0,
+          reviewCount: 0,
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized - Chưa đăng nhập' })
+  @Roles(Role.User, Role.Admin)
+  createDestination(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body() dto: any,
+    @Req() req: any,
+  ) {
+    const userId = req.user.id;
+    const groupedData = this.groupFormData(dto, CreateDestinationDto);
+    const createDto = Object.assign(new CreateDestinationDto(), groupedData);
+    return this.destinationService.createDestination(userId, files, createDto);
+  }
+
+  @Get()
+  @ApiOperation({
+    summary: 'Lấy danh sách địa điểm',
+    description:
+      'Tìm kiếm và lọc địa điểm theo keyword, city, country, category, tags',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Danh sách địa điểm',
+    schema: {
+      example: {
+        message: 'Destinations retrieved successfully',
+        statusCode: 200,
+        status: 'success',
+        data: {
+          destinations: [],
+          pagination: {
+            total: 100,
+            page: 1,
+            limit: 20,
+            totalPages: 5,
+          },
+        },
+      },
+    },
+  })
+  getDestinations(@Query() searchDto: SearchDestinationDto) {
+    return this.destinationService.getDestinations(searchDto);
+  }
+
+  @Get('popular')
+  @ApiOperation({
+    summary: 'Lấy địa điểm phổ biến',
+    description:
+      'Lấy danh sách địa điểm phổ biến nhất dựa trên lượt xem, like, comment',
+  })
+  @ApiResponse({ status: 200, description: 'Địa điểm phổ biến' })
+  getPopular(@Query('limit') limit?: string) {
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+    return this.destinationService.getPopularDestinations(limitNum);
+  }
+
+  @Get('my-destinations')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Lấy địa điểm của tôi' })
+  @ApiResponse({ status: 200, description: 'Địa điểm của user hiện tại' })
+  @Roles(Role.User, Role.Admin)
+  getMyDestinations(@Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.getUserDestinations(userId);
+  }
+
+  @Get('user/:userId')
+  @ApiOperation({ summary: 'Lấy địa điểm theo user ID' })
+  @ApiParam({ name: 'userId', description: 'ID của user' })
+  @ApiResponse({ status: 200, description: 'Địa điểm của user' })
+  getUserDestinations(@Param('userId') userId: string) {
+    return this.destinationService.getUserDestinations(userId);
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Xem chi tiết địa điểm',
+    description: 'Lấy thông tin chi tiết địa điểm, tự động tăng visitCount',
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({
+    status: 200,
+    description: 'Chi tiết địa điểm',
+  })
+  @ApiResponse({ status: 404, description: 'Không tìm thấy địa điểm' })
+  getDestinationById(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user?.id;
+    return this.destinationService.getDestinationById(id, userId);
+  }
+
+  @Get(':id/hierarchy')
+  @ApiOperation({
+    summary: 'Xem phân cấp địa điểm',
+    description: `
+    Xem cấu trúc cha-con của địa điểm.
+    
+    **Ví dụ:**
+    - Ninh Bình (cha)
+      - Tràng An (con)
+      - Bái Đính (con)
+      - Tam Cốc (con)
+    `,
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({ status: 200, description: 'Cấu trúc phân cấp' })
+  getHierarchy(@Param('id') id: string) {
+    return this.destinationService.getDestinationHierarchy(id);
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseInterceptors(FilesInterceptor('images'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Cập nhật địa điểm',
+    description: 'Cập nhật thông tin địa điểm (chỉ người tạo mới được sửa)',
+  })
+  @ApiBody({ type: UpdateDestinationDto })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({ status: 200, description: 'Cập nhật thành công' })
+  @ApiResponse({ status: 404, description: 'Không tìm thấy địa điểm' })
+  @ApiResponse({ status: 403, description: 'Không có quyền sửa' })
+  @Roles(Role.User, Role.Admin)
+  updateDestination(
+    @Param('id') id: string,
+    @Body() dto: any,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Req() req: any,
+  ) {
+    const userId = req.user.id;
+    const groupedData = this.groupFormData(dto, UpdateDestinationDto);
+    const updateDto = Object.assign(new UpdateDestinationDto(), groupedData);
+    return this.destinationService.updateDestination(
+      id,
+      userId,
+      updateDto,
+      files,
+    );
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Xóa địa điểm',
+    description: 'Xóa địa điểm (không thể xóa nếu còn địa điểm con)',
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({ status: 200, description: 'Xóa thành công' })
+  @ApiResponse({ status: 404, description: 'Không tìm thấy địa điểm' })
+  @ApiResponse({
+    status: 400,
+    description: 'Không thể xóa địa điểm có sub-locations',
+  })
+  @Roles(Role.User, Role.Admin)
+  deleteDestination(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.deleteDestination(id, userId);
+  }
+
+  // ========== LIKE ENDPOINTS ==========
+
+  @Post(':id/like')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Like/Unlike địa điểm',
+    description:
+      'Toggle like cho địa điểm. Nếu đã like thì unlike, chưa like thì like',
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({
+    status: 200,
+    description: 'Like/Unlike thành công',
+    schema: {
+      example: {
+        message: 'Liked destination',
+        statusCode: 201,
+        status: 'success',
+        data: null,
+      },
+    },
+  })
+  @Roles(Role.User, Role.Admin)
+  toggleLike(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.toggleLike(id, userId);
+  }
+
+  // ========== COMMENT ENDPOINTS ==========
+
+  @Post(':id/comments')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Comment địa điểm',
+    description: `
+    Thêm comment cho địa điểm.
+    
+    **Lưu ý:**
+    - parentId: để trống nếu comment gốc, điền ID comment cha nếu là reply
+    `,
+  })
+  @ApiBody({ type: CreateDestinationCommentDto })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({
+    status: 201,
+    description: 'Comment thành công',
+    schema: {
+      example: {
+        message: 'Comment created successfully',
+        statusCode: 201,
+        status: 'success',
+        data: {
+          id: 'uuid',
+          content: 'This place is amazing!',
+          author: {
+            id: 'uuid',
+            username: 'user123',
+            name: 'John Doe',
+            profilePic: 'url',
+          },
+          createdAt: '2025-10-01T00:00:00Z',
+        },
+      },
+    },
+  })
+  @Roles(Role.User, Role.Admin)
+  createComment(
+    @Param('id') id: string,
+    @Body() dto: CreateDestinationCommentDto,
+    @Req() req: any,
+  ) {
+    const userId = req.user.id;
+    return this.destinationService.createComment(
+      id,
+      userId,
+      dto.content,
+      dto.parentId,
+    );
+  }
+
+  @Get(':id/comments')
+  @ApiOperation({
+    summary: 'Xem comment địa điểm',
+    description: 'Lấy tất cả comment và reply của địa điểm',
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({ status: 200, description: 'Danh sách comment' })
+  getComments(@Param('id') id: string) {
+    return this.destinationService.getComments(id);
+  }
+
+  @Delete('comments/:commentId')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Xóa comment',
+    description: 'Xóa comment của mình',
+  })
+  @ApiParam({ name: 'commentId', description: 'ID của comment' })
+  @ApiResponse({ status: 200, description: 'Xóa comment thành công' })
+  @ApiResponse({ status: 403, description: 'Không có quyền xóa comment' })
+  @Roles(Role.User, Role.Admin)
+  deleteComment(@Param('commentId') commentId: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.deleteComment(commentId, userId);
+  }
+
+  // ========== REVIEW ENDPOINTS ==========
+
+  @Post(':id/reviews')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseInterceptors(FilesInterceptor('images'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Đánh giá địa điểm',
+    description: `
+    Tạo hoặc cập nhật review cho địa điểm (mỗi user chỉ 1 review).
+    
+    **Lưu ý:**
+    - rating: từ 1 đến 5 sao
+    - comment: nội dung đánh giá (optional)
+    - visitDate: ngày đến thăm (optional, format: YYYY-MM-DD)
+    - images: ảnh kèm theo review (optional)
+    `,
+  })
+  @ApiBody({ type: CreateDestinationReviewDto })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({
+    status: 201,
+    description: 'Review thành công',
+    schema: {
+      example: {
+        message: 'Review created successfully',
+        statusCode: 201,
+        status: 'success',
+        data: {
+          id: 'uuid',
+          rating: 4.5,
+          comment: 'Beautiful place!',
+          visitDate: '2025-09-15',
+          imageUrl: ['url1', 'url2'],
+          user: {
+            id: 'uuid',
+            username: 'user123',
+            name: 'John Doe',
+          },
+        },
+      },
+    },
+  })
+  @Roles(Role.User, Role.Admin)
+  createReview(
+    @Param('id') id: string,
+    @Body() dto: CreateDestinationReviewDto,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Req() req: any,
+  ) {
+    const userId = req.user.id;
+    return this.destinationService.createOrUpdateReview(
+      id,
+      userId,
+      dto.rating,
+      dto.comment,
+      dto.visitDate,
+      files,
+    );
+  }
+
+  @Get(':id/reviews')
+  @ApiOperation({
+    summary: 'Xem review địa điểm',
+    description: 'Lấy tất cả review của địa điểm',
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({
+    status: 200,
+    description: 'Danh sách review',
+    schema: {
+      example: {
+        message: 'Reviews retrieved successfully',
+        statusCode: 200,
+        status: 'success',
+        data: [
+          {
+            id: 'uuid',
+            rating: 4.5,
+            comment: 'Amazing place!',
+            visitDate: '2025-09-15',
+            imageUrl: [],
+            user: {
+              id: 'uuid',
+              username: 'user123',
+              name: 'John Doe',
+            },
+          },
+        ],
+      },
+    },
+  })
+  getReviews(@Param('id') id: string) {
+    return this.destinationService.getReviews(id);
+  }
+
+  @Delete(':id/reviews')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Xóa review',
+    description: 'Xóa review của mình cho địa điểm này',
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
+  @ApiResponse({ status: 200, description: 'Xóa review thành công' })
+  @ApiResponse({ status: 404, description: 'Không tìm thấy review' })
+  @Roles(Role.User, Role.Admin)
+  deleteReview(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.deleteReview(id, userId);
+  }
+}

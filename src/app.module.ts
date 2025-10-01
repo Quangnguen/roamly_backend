@@ -11,6 +11,7 @@ import { CommentModule } from './modules/comment/comment.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { TripModule } from './modules/trip/trip.module';
+import { DestinationModule } from './modules/destination/destination.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 import { SocketGateway } from './modules/socket/socket.gateway';
 
@@ -21,6 +22,7 @@ import { SocketGateway } from './modules/socket/socket.gateway';
     PostModule,
     FollowModule,
     TripModule,
+    DestinationModule,
     CloudinaryModule,
     LikeModule,
     NotificationModule,

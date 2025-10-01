@@ -293,6 +293,61 @@ exports.Prisma.ReportScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.DestinationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  location: 'location',
+  city: 'city',
+  country: 'country',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  category: 'category',
+  imageUrl: 'imageUrl',
+  tags: 'tags',
+  visitCount: 'visitCount',
+  likeCount: 'likeCount',
+  commentCount: 'commentCount',
+  reviewCount: 'reviewCount',
+  rating: 'rating',
+  bestTimeToVisit: 'bestTimeToVisit',
+  entryFee: 'entryFee',
+  openingHours: 'openingHours',
+  facilities: 'facilities',
+  activities: 'activities',
+  travelTips: 'travelTips',
+  isPublic: 'isPublic',
+  parentId: 'parentId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DestinationCommentScalarFieldEnum = {
+  id: 'id',
+  destinationId: 'destinationId',
+  authorId: 'authorId',
+  content: 'content',
+  parentId: 'parentId',
+  likeCount: 'likeCount',
+  isEdited: 'isEdited',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DestinationReviewScalarFieldEnum = {
+  id: 'id',
+  destinationId: 'destinationId',
+  userId: 'userId',
+  rating: 'rating',
+  comment: 'comment',
+  imageUrl: 'imageUrl',
+  visitDate: 'visitDate',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -333,7 +388,10 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   Trip: 'Trip',
   Story: 'Story',
-  Report: 'Report'
+  Report: 'Report',
+  Destination: 'Destination',
+  DestinationComment: 'DestinationComment',
+  DestinationReview: 'DestinationReview'
 };
 
 /**

@@ -58,6 +58,9 @@ model User {
   conversationParticipants ConversationParticipant[]
   messageReactions         MessageReaction[]
   sentMessages             Message[]
+  destinations             Destination[]             @relation("UserDestinations")
+  destinationComments      DestinationComment[]      @relation("DestinationComments")
+  destinationReviews       DestinationReview[]       @relation("DestinationReviews")
 
   @@map("users")
 }
@@ -163,9 +166,10 @@ model Like {
   type      String
   createdAt DateTime @default(now())
 
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post    Post?    @relation("PostLikes", fields: [targetId], references: [id], onDelete: Cascade)
-  comment Comment? @relation("CommentLikes", fields: [targetId], references: [id], onDelete: Cascade)
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post        Post?        @relation("PostLikes", fields: [targetId], references: [id], onDelete: Cascade)
+  comment     Comment?     @relation("CommentLikes", fields: [targetId], references: [id], onDelete: Cascade)
+  destination Destination? @relation("DestinationLikes", fields: [targetId], references: [id], onDelete: Cascade)
 
   @@unique([userId, targetId, type])
   @@map("likes")
@@ -316,4 +320,81 @@ model Report {
   reporter User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
 
   @@map("reports")
+}
+
+model Destination {
+  id              String   @id @default(uuid()) @map("_id")
+  title           String
+  description     String?
+  location        String
+  city            String
+  country         String
+  latitude        Float?
+  longitude       Float?
+  category        String[] @default([])
+  imageUrl        String[] @default([])
+  tags            String[] @default([])
+  visitCount      Int      @default(0)
+  likeCount       Int      @default(0)
+  commentCount    Int      @default(0)
+  reviewCount     Int      @default(0)
+  rating          Float    @default(0)
+  bestTimeToVisit String?
+  entryFee        Json?
+  openingHours    String?
+  facilities      String[] @default([])
+  activities      String[] @default([])
+  travelTips      String[] @default([])
+  isPublic        Boolean  @default(true)
+  parentId        String?
+  userId          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user         User                 @relation("UserDestinations", fields: [userId], references: [id], onDelete: Cascade)
+  parent       Destination?         @relation("DestinationHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subLocations Destination[]        @relation("DestinationHierarchy")
+  likes        Like[]               @relation("DestinationLikes")
+  comments     DestinationComment[]
+  reviews      DestinationReview[]
+
+  @@map("destinations")
+}
+
+model DestinationComment {
+  id            String   @id @default(uuid()) @map("_id")
+  destinationId String
+  authorId      String
+  content       String
+  parentId      String?
+  likeCount     Int      @default(0)
+  isEdited      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  destination Destination          @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  author      User                 @relation("DestinationComments", fields: [authorId], references: [id], onDelete: Cascade)
+  parent      DestinationComment?  @relation("DestinationCommentReply", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies     DestinationComment[] @relation("DestinationCommentReply")
+
+  @@map("destination_comments")
+}
+
+model DestinationReview {
+  id            String    @id @default(uuid()) @map("_id")
+  destinationId String
+  userId        String
+  rating        Float
+  comment       String?
+  imageUrl      String[]  @default([])
+  visitDate     DateTime?
+  isVerified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  user        User        @relation("DestinationReviews", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([destinationId, userId])
+  @@map("destination_reviews")
 }

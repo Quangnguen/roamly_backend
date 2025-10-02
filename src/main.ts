@@ -18,12 +18,12 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document, swaggerOptions);
 
-  await app.listen(process.env.PORT ?? 8686);
+  await app.listen(process.env.PORT ?? 8686, process.env.HOST ?? '0.0.0.0');
   console.log(
-    `🚀 Server running on: http://0.0.0.0:${process.env.PORT ?? 8686}`,
+    `🚀 Server running on: http://${process.env.HOST ?? 'localhost'}:${process.env.PORT ?? 8686}`,
   );
   console.log(
-    `📚 Swagger UI: http://0.0.0.0:${process.env.PORT ?? 8686}/api`,
+    `📚 Swagger UI: http://localhost:${process.env.PORT ?? 8686}/api`,
   );
 }
 bootstrap().catch((error) => {

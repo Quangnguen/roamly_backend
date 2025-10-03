@@ -214,14 +214,18 @@ export class DestinationController {
   }
 
   @Get('popular')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Roles(Role.User, Role.Admin)
   @ApiOperation({
     summary: 'Lấy địa điểm phổ biến',
     description: 'Lấy danh sách địa điểm phổ biến nhất dựa trên like và review',
   })
   @ApiResponse({ status: 200, description: 'Địa điểm phổ biến' })
-  getPopular(@Query('limit') limit?: string) {
+  getPopular(@Req() req: any, @Query('limit') limit?: string) {
     const limitNum = limit ? parseInt(limit, 10) : 10;
-    return this.destinationService.getPopularDestinations(limitNum);
+    const userId = req.user.id;
+    return this.destinationService.getPopularDestinations(limitNum, userId);
   }
 
   @Get('my-destinations')
@@ -232,15 +236,19 @@ export class DestinationController {
   @Roles(Role.User, Role.Admin)
   getMyDestinations(@Req() req: any) {
     const userId = req.user.id;
-    return this.destinationService.getUserDestinations(userId);
+    return this.destinationService.getUserDestinations(userId, userId);
   }
 
   @Get('user/:userId')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Roles(Role.User, Role.Admin)
   @ApiOperation({ summary: 'Lấy địa điểm theo user ID' })
   @ApiParam({ name: 'userId', description: 'ID của user' })
   @ApiResponse({ status: 200, description: 'Địa điểm của user' })
-  getUserDestinations(@Param('userId') userId: string) {
-    return this.destinationService.getUserDestinations(userId);
+  getUserDestinations(@Param('userId') ownerId: string, @Req() req: any) {
+    const currentUserId = req.user.id;
+    return this.destinationService.getUserDestinations(ownerId, currentUserId);
   }
 
   @Get(':id')
@@ -264,6 +272,9 @@ export class DestinationController {
   }
 
   @Get(':id/hierarchy')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Roles(Role.User, Role.Admin)
   @ApiOperation({
     summary: 'Xem phân cấp địa điểm',
     description: `
@@ -278,8 +289,9 @@ export class DestinationController {
   })
   @ApiParam({ name: 'id', description: 'ID của địa điểm' })
   @ApiResponse({ status: 200, description: 'Cấu trúc phân cấp' })
-  getHierarchy(@Param('id') id: string) {
-    return this.destinationService.getDestinationHierarchy(id);
+  getHierarchy(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.getDestinationHierarchy(id, userId);
   }
 
   @Patch(':id')

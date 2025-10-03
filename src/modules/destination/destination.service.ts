@@ -391,10 +391,10 @@ export class DestinationService {
     }
   }
 
-  async getUserDestinations(userId: string) {
+  async getUserDestinations(ownerId: string, currentUserId: string) {
     try {
       const destinations = await this.prisma.destination.findMany({
-        where: { userId },
+        where: { userId: ownerId },
         include: {
           parent: {
             select: {
@@ -414,18 +414,36 @@ export class DestinationService {
         orderBy: { createdAt: 'desc' },
       });
 
+      // Add isLiked field
+      const destinationIds = destinations.map((dest) => dest.id);
+      const userLikes = await this.prisma.like.findMany({
+        where: {
+          userId: currentUserId,
+          targetId: { in: destinationIds },
+          type: 'destination',
+        },
+      });
+
+      const likedDestinationIds = new Set(
+        userLikes.map((like) => like.targetId),
+      );
+      const destinationsWithLikes = destinations.map((dest) => ({
+        ...dest,
+        isLiked: likedDestinationIds.has(dest.id),
+      }));
+
       return response(
         'User destinations retrieved successfully',
         200,
         'success',
-        destinations,
+        destinationsWithLikes,
       );
     } catch (error: any) {
       throw new BadRequestException(error.message);
     }
   }
 
-  async getPopularDestinations(limit: number = 10) {
+  async getPopularDestinations(limit: number = 10, userId: string) {
     try {
       const destinations = await this.prisma.destination.findMany({
         where: { isPublic: true },
@@ -456,18 +474,36 @@ export class DestinationService {
         take: limit,
       });
 
+      // Add isLiked field
+      const destinationIds = destinations.map((dest) => dest.id);
+      const userLikes = await this.prisma.like.findMany({
+        where: {
+          userId,
+          targetId: { in: destinationIds },
+          type: 'destination',
+        },
+      });
+
+      const likedDestinationIds = new Set(
+        userLikes.map((like) => like.targetId),
+      );
+      const destinationsWithLikes = destinations.map((dest) => ({
+        ...dest,
+        isLiked: likedDestinationIds.has(dest.id),
+      }));
+
       return response(
         'Popular destinations retrieved successfully',
         200,
         'success',
-        destinations,
+        destinationsWithLikes,
       );
     } catch (error: any) {
       throw new BadRequestException(error.message);
     }
   }
 
-  async getDestinationHierarchy(id: string) {
+  async getDestinationHierarchy(id: string, userId: string) {
     try {
       const destination = await this.prisma.destination.findUnique({
         where: { id },
@@ -493,11 +529,25 @@ export class DestinationService {
         throw new NotFoundException('Destination not found');
       }
 
+      // Add isLiked for main destination
+      const userLike = await this.prisma.like.findUnique({
+        where: {
+          userId_targetId_type: {
+            userId,
+            targetId: id,
+            type: 'destination',
+          },
+        },
+      });
+
       return response(
         'Destination hierarchy retrieved successfully',
         200,
         'success',
-        destination,
+        {
+          ...destination,
+          isLiked: !!userLike,
+        },
       );
     } catch (error: any) {
       throw error;

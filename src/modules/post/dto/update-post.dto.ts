@@ -30,4 +30,9 @@ export class UpdatePostDto {
     return [];
   })
   removedImages?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  taggedDestinations?: string[]; // Array of destination IDs to update
 }

@@ -106,6 +106,45 @@ export class LikeService {
           username: sender?.username,
         });
       }
+    } else if (type === 'destination') {
+      const destination = await this.prisma.destination.findUnique({
+        where: { id: targetId },
+      });
+
+      if (!destination) {
+        throw new NotFoundException('Không tìm thấy địa điểm');
+      }
+
+      // Tăng likeCount
+      await this.prisma.destination.update({
+        where: { id: targetId },
+        data: { likeCount: { increment: 1 } },
+      });
+
+      // Nếu người like khác tác giả destination, gửi thông báo
+      if (destination.userId !== userId) {
+        await this.notificationService.createNotification({
+          type: NotificationType.LIKE,
+          message: 'Ai đó đã thích địa điểm của bạn',
+          senderId: userId,
+          recipientId: destination.userId,
+          data: { destinationId: destination.id },
+        });
+        const sender = await this.prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, username: true },
+        });
+        this.socketGateway.emitToUser(destination.userId, 'destination_liked', {
+          destinationId: destination.id,
+          userId,
+        });
+
+        this.socketGateway.emitToUser(destination.userId, 'new_notification', {
+          type: NotificationType.LIKE,
+          destinationId: destination.id,
+          username: sender?.username,
+        });
+      }
     }
 
     return response('Đã yêu thích', 201, 'success', like);
@@ -168,6 +207,31 @@ export class LikeService {
 
       this.socketGateway.emitToUser(userId, 'comment_unliked', {
         commentId: targetId,
+        userId,
+      });
+    } else if (type === 'destination') {
+      const destination = await this.prisma.destination.findUnique({
+        where: { id: targetId },
+      });
+
+      if (!destination) {
+        throw new NotFoundException('Không tìm thấy địa điểm');
+      }
+
+      // Giảm likeCount
+      await this.prisma.destination.update({
+        where: { id: targetId },
+        data: { likeCount: { decrement: 1 } },
+      });
+
+      // Gửi realtime
+      this.socketGateway.emitToUser(destination.userId, 'destination_unliked', {
+        destinationId: targetId,
+        userId,
+      });
+
+      this.socketGateway.emitToUser(userId, 'destination_unliked', {
+        destinationId: targetId,
         userId,
       });
     }

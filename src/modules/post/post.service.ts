@@ -26,11 +26,36 @@ export class PostService {
     dto: CreatePostDto,
   ) {
     const imageUrls = await this.cloudinary.uploadMultiple(files);
+
+    // Create post with tagged destinations
     const post = await this.prisma.post.create({
       data: {
         authorId,
         caption: dto.caption,
         imageUrl: imageUrls,
+        taggedDestinations: dto.taggedDestinations
+          ? {
+              create: dto.taggedDestinations.map((destinationId) => ({
+                destinationId,
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -50,6 +75,20 @@ export class PostService {
           select: {
             username: true,
             profilePic: true,
+          },
+        },
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
           },
         },
       },
@@ -203,6 +242,20 @@ export class PostService {
       include: {
         author: { select: { username: true, profilePic: true } },
         _count: { select: { likes: true, comments: true } },
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
       },
       orderBy: { createdAt: 'desc' },
       take: 200, // tăng nếu muốn nguồn đa dạng hơn
@@ -287,6 +340,20 @@ export class PostService {
             profilePic: true,
           },
         },
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -323,6 +390,20 @@ export class PostService {
           select: {
             name: true,
             profilePic: true,
+          },
+        },
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
           },
         },
       },
@@ -505,11 +586,45 @@ export class PostService {
       const newImageUrls = await this.cloudinary.uploadMultiple(files);
       currentImages = [...currentImages, ...newImageUrls];
     }
+    // Update tagged destinations if provided
+    if (dto.taggedDestinations !== undefined) {
+      // Delete existing tags
+      await this.prisma.postDestination.deleteMany({
+        where: { postId },
+      });
+
+      // Create new tags
+      if (dto.taggedDestinations.length > 0) {
+        await this.prisma.postDestination.createMany({
+          data: dto.taggedDestinations.map((destinationId) => ({
+            postId,
+            destinationId,
+          })),
+        });
+      }
+    }
+
     const updatedPost = await this.prisma.post.update({
       where: { id: postId },
       data: {
         caption: dto.caption,
         imageUrl: currentImages,
+      },
+      include: {
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
       },
     });
 

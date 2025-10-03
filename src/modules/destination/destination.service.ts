@@ -113,7 +113,7 @@ export class DestinationService {
     }
   }
 
-  async getDestinations(searchDto: SearchDestinationDto) {
+  async getDestinations(searchDto: SearchDestinationDto, userId?: string) {
     try {
       const { keyword, page = 1, limit = 20 } = searchDto;
 
@@ -152,8 +152,26 @@ export class DestinationService {
         this.prisma.destination.count({ where }),
       ]);
 
+      // Add isLiked field for current user (like post module)
+      const destinationIds = destinations.map((dest) => dest.id);
+      const userLikes = await this.prisma.like.findMany({
+        where: {
+          userId,
+          targetId: { in: destinationIds },
+          type: 'destination',
+        },
+      });
+
+      const likedDestinationIds = new Set(
+        userLikes.map((like) => like.targetId),
+      );
+      const destinationsWithLikes = destinations.map((dest) => ({
+        ...dest,
+        isLiked: likedDestinationIds.has(dest.id),
+      }));
+
       return response('Destinations retrieved successfully', 200, 'success', {
-        destinations,
+        destinations: destinationsWithLikes,
         pagination: {
           total,
           page,
@@ -166,7 +184,7 @@ export class DestinationService {
     }
   }
 
-  async getDestinationById(id: string, userId?: string) {
+  async getDestinationById(id: string, userId: string) {
     try {
       const destination = await this.prisma.destination.findUnique({
         where: { id },
@@ -204,18 +222,53 @@ export class DestinationService {
         throw new NotFoundException('Destination not found');
       }
 
-      // Increment visit count
-      await this.prisma.destination.update({
-        where: { id },
-        data: { visitCount: { increment: 1 } },
+      // Track unique view with upsert (mỗi user chỉ tính 1 lần)
+      await this.prisma.destinationView.upsert({
+        where: {
+          destinationId_userId: {
+            destinationId: id,
+            userId: userId,
+          },
+        },
+        update: {
+          viewedAt: new Date(), // Update thời gian xem gần nhất
+        },
+        create: {
+          destinationId: id,
+          userId: userId,
+        },
       });
 
-      return response(
-        'Destination retrieved successfully',
-        200,
-        'success',
-        destination,
-      );
+      // Sync visitCount từ unique views (chạy async, không chờ)
+      this.prisma.destination
+        .update({
+          where: { id },
+          data: {
+            visitCount: await this.prisma.destinationView.count({
+              where: { destinationId: id },
+            }),
+          },
+        })
+        .catch(() => {
+          // Silent fail - không ảnh hưởng response
+        });
+
+      // Add isLiked field for current user (like post module - always has userId)
+      const userLike = await this.prisma.like.findUnique({
+        where: {
+          userId_targetId_type: {
+            userId,
+            targetId: id,
+            type: 'destination',
+          },
+        },
+      });
+      const isLiked = !!userLike;
+
+      return response('Destination retrieved successfully', 200, 'success', {
+        ...destination,
+        isLiked,
+      });
     } catch (error: any) {
       throw error;
     }
@@ -398,7 +451,7 @@ export class DestinationService {
         orderBy: [
           { visitCount: 'desc' },
           { likeCount: 'desc' },
-          { commentCount: 'desc' },
+          { reviewCount: 'desc' },
         ],
         take: limit,
       });
@@ -495,134 +548,6 @@ export class DestinationService {
         });
         return response('Liked destination', 201, 'success', null);
       }
-    } catch (error: any) {
-      throw error;
-    }
-  }
-
-  // Create comment
-  async createComment(
-    destinationId: string,
-    userId: string,
-    content: string,
-    parentId?: string,
-  ) {
-    try {
-      const destination = await this.prisma.destination.findUnique({
-        where: { id: destinationId },
-      });
-
-      if (!destination) {
-        throw new NotFoundException('Destination not found');
-      }
-
-      if (parentId) {
-        const parentComment = await this.prisma.destinationComment.findUnique({
-          where: { id: parentId },
-        });
-        if (!parentComment) {
-          throw new NotFoundException('Parent comment not found');
-        }
-      }
-
-      const comment = await this.prisma.destinationComment.create({
-        data: {
-          destinationId,
-          authorId: userId,
-          content,
-          parentId,
-        },
-        include: {
-          author: {
-            select: {
-              id: true,
-              username: true,
-              name: true,
-              profilePic: true,
-            },
-          },
-        },
-      });
-
-      await this.prisma.destination.update({
-        where: { id: destinationId },
-        data: { commentCount: { increment: 1 } },
-      });
-
-      return response('Comment created successfully', 201, 'success', comment);
-    } catch (error: any) {
-      throw error;
-    }
-  }
-
-  // Get comments
-  async getComments(destinationId: string) {
-    try {
-      const comments = await this.prisma.destinationComment.findMany({
-        where: {
-          destinationId,
-          parentId: null, // Only get top-level comments
-        },
-        include: {
-          author: {
-            select: {
-              id: true,
-              username: true,
-              name: true,
-              profilePic: true,
-            },
-          },
-          replies: {
-            include: {
-              author: {
-                select: {
-                  id: true,
-                  username: true,
-                  name: true,
-                  profilePic: true,
-                },
-              },
-            },
-            orderBy: { createdAt: 'asc' },
-          },
-        },
-        orderBy: { createdAt: 'desc' },
-      });
-
-      return response(
-        'Comments retrieved successfully',
-        200,
-        'success',
-        comments,
-      );
-    } catch (error: any) {
-      throw new BadRequestException(error.message);
-    }
-  }
-
-  // Delete comment
-  async deleteComment(commentId: string, userId: string) {
-    try {
-      const comment = await this.prisma.destinationComment.findUnique({
-        where: { id: commentId },
-      });
-
-      if (!comment) {
-        throw new NotFoundException('Comment not found');
-      }
-
-      if (comment.authorId !== userId) {
-        throw new BadRequestException('You can only delete your own comments');
-      }
-
-      await this.prisma.destinationComment.delete({ where: { id: commentId } });
-
-      await this.prisma.destination.update({
-        where: { id: comment.destinationId },
-        data: { commentCount: { decrement: 1 } },
-      });
-
-      return response('Comment deleted successfully', 200, 'success', null);
     } catch (error: any) {
       throw error;
     }

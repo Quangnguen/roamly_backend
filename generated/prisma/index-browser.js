@@ -178,6 +178,13 @@ exports.Prisma.PostTagScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PostDestinationScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  destinationId: 'destinationId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   postId: 'postId',
@@ -307,7 +314,6 @@ exports.Prisma.DestinationScalarFieldEnum = {
   tags: 'tags',
   visitCount: 'visitCount',
   likeCount: 'likeCount',
-  commentCount: 'commentCount',
   reviewCount: 'reviewCount',
   rating: 'rating',
   bestTimeToVisit: 'bestTimeToVisit',
@@ -323,16 +329,11 @@ exports.Prisma.DestinationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.DestinationCommentScalarFieldEnum = {
+exports.Prisma.DestinationViewScalarFieldEnum = {
   id: 'id',
   destinationId: 'destinationId',
-  authorId: 'authorId',
-  content: 'content',
-  parentId: 'parentId',
-  likeCount: 'likeCount',
-  isEdited: 'isEdited',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  userId: 'userId',
+  viewedAt: 'viewedAt'
 };
 
 exports.Prisma.DestinationReviewScalarFieldEnum = {
@@ -378,6 +379,7 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   SharedPost: 'SharedPost',
   PostTag: 'PostTag',
+  PostDestination: 'PostDestination',
   Comment: 'Comment',
   Like: 'Like',
   SavedPost: 'SavedPost',
@@ -390,7 +392,7 @@ exports.Prisma.ModelName = {
   Story: 'Story',
   Report: 'Report',
   Destination: 'Destination',
-  DestinationComment: 'DestinationComment',
+  DestinationView: 'DestinationView',
   DestinationReview: 'DestinationReview'
 };
 

@@ -59,8 +59,8 @@ model User {
   messageReactions         MessageReaction[]
   sentMessages             Message[]
   destinations             Destination[]             @relation("UserDestinations")
-  destinationComments      DestinationComment[]      @relation("DestinationComments")
   destinationReviews       DestinationReview[]       @relation("DestinationReviews")
+  destinationViews         DestinationView[]         @relation("UserDestinationViews")
 
   @@map("users")
 }
@@ -93,12 +93,13 @@ model Post {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  author        User           @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
-  taggedUsers   PostTag[]
-  sharedPosts   SharedPost[]
-  comments      Comment[]
-  savedBy       SavedPost[]
-  notifications Notification[]
+  author              User              @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+  taggedUsers         PostTag[]
+  taggedDestinations  PostDestination[]
+  sharedPosts         SharedPost[]
+  comments            Comment[]
+  savedBy             SavedPost[]
+  notifications       Notification[]
 
   likes Like[] @relation("PostLikes")
 
@@ -137,6 +138,19 @@ model PostTag {
 
   @@unique([postId, userId])
   @@map("post_tags")
+}
+
+model PostDestination {
+  id            String   @id @default(uuid()) @map("_id")
+  postId        String
+  destinationId String
+  createdAt     DateTime @default(now())
+
+  post        Post        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  destination Destination @relation("PostDestinations", fields: [destinationId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, destinationId])
+  @@map("post_destinations")
 }
 
 model Comment {
@@ -336,7 +350,6 @@ model Destination {
   tags            String[] @default([])
   visitCount      Int      @default(0)
   likeCount       Int      @default(0)
-  commentCount    Int      @default(0)
   reviewCount     Int      @default(0)
   rating          Float    @default(0)
   bestTimeToVisit String?
@@ -351,33 +364,29 @@ model Destination {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  user         User                  @relation("UserDestinations", fields: [userId], references: [id], onDelete: Cascade)
-  parent       Destination?          @relation("DestinationHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  subLocations Destination[]         @relation("DestinationHierarchy")
-  likes        Like[]                @relation("DestinationLikes")
-  comments     DestinationComment[]
-  reviews      DestinationReview[]
+  user          User                  @relation("UserDestinations", fields: [userId], references: [id], onDelete: Cascade)
+  parent        Destination?          @relation("DestinationHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subLocations  Destination[]         @relation("DestinationHierarchy")
+  likes         Like[]                @relation("DestinationLikes")
+  reviews       DestinationReview[]
+  taggedInPosts PostDestination[]     @relation("PostDestinations")
+  views         DestinationView[]     @relation("DestinationViews")
 
   @@map("destinations")
 }
 
-model DestinationComment {
+model DestinationView {
   id            String   @id @default(uuid()) @map("_id")
   destinationId String
-  authorId      String
-  content       String
-  parentId      String?
-  likeCount     Int      @default(0)
-  isEdited      Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  userId        String
+  viewedAt      DateTime @default(now())
 
-  destination Destination         @relation(fields: [destinationId], references: [id], onDelete: Cascade)
-  author      User                @relation("DestinationComments", fields: [authorId], references: [id], onDelete: Cascade)
-  parent      DestinationComment? @relation("DestinationCommentReply", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies     DestinationComment[] @relation("DestinationCommentReply")
+  destination Destination @relation("DestinationViews", fields: [destinationId], references: [id], onDelete: Cascade)
+  user        User        @relation("UserDestinationViews", fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("destination_comments")
+  @@unique([destinationId, userId])
+  @@index([destinationId])
+  @@map("destination_views")
 }
 
 model DestinationReview {

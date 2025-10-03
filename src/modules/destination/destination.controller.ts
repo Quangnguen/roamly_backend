@@ -33,7 +33,6 @@ import { RolesGuard } from 'src/common/guard/roles.guard';
 import { CreateDestinationDto } from './dto/create-destination.dto';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
 import { SearchDestinationDto } from './dto/search-destination.dto';
-import { CreateDestinationCommentDto } from './dto/create-comment.dto';
 import { CreateDestinationReviewDto } from './dto/create-review.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/common/enums/role.enum';
@@ -123,9 +122,13 @@ export class DestinationController {
   @ApiConsumes('multipart/form-data')
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
-    summary: 'Tạo địa điểm mới',
+    summary: 'Tạo địa điểm mới (Chỉ Admin)',
     description: `
     Tạo địa điểm du lịch mới với đầy đủ thông tin và hình ảnh.
+    
+    **⚠️ Yêu cầu:**
+    - Chỉ user có **role = 1 (Admin)** mới được tạo destination
+    - User thường (role = 0) sẽ nhận lỗi 403 Forbidden
     
     **Ví dụ:**
     - Tạo địa điểm cha: Ninh Bình (parentId = null)
@@ -153,16 +156,18 @@ export class DestinationController {
           country: 'Vietnam',
           imageUrl: ['https://cloudinary.com/image1.jpg'],
           rating: 0,
-          visitCount: 0,
           likeCount: 0,
-          commentCount: 0,
           reviewCount: 0,
         },
       },
     },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized - Chưa đăng nhập' })
-  @Roles(Role.User, Role.Admin)
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - Chỉ Admin (role = 1) mới được tạo destination',
+  })
+  @Roles(Role.Admin)
   createDestination(
     @UploadedFiles() files: Express.Multer.File[],
     @Body() dto: any,
@@ -175,10 +180,13 @@ export class DestinationController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Roles(Role.User, Role.Admin)
   @ApiOperation({
     summary: 'Lấy danh sách địa điểm',
     description:
-      'Tìm kiếm và lọc địa điểm theo keyword, city, country, category, tags',
+      'Tìm kiếm và lọc địa điểm theo keyword, city, country, category, tags. Trả về isLiked=true nếu user đã like destination đó.',
   })
   @ApiResponse({
     status: 200,
@@ -200,15 +208,15 @@ export class DestinationController {
       },
     },
   })
-  getDestinations(@Query() searchDto: SearchDestinationDto) {
-    return this.destinationService.getDestinations(searchDto);
+  getDestinations(@Query() searchDto: SearchDestinationDto, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.getDestinations(searchDto, userId);
   }
 
   @Get('popular')
   @ApiOperation({
     summary: 'Lấy địa điểm phổ biến',
-    description:
-      'Lấy danh sách địa điểm phổ biến nhất dựa trên lượt xem, like, comment',
+    description: 'Lấy danh sách địa điểm phổ biến nhất dựa trên like và review',
   })
   @ApiResponse({ status: 200, description: 'Địa điểm phổ biến' })
   getPopular(@Query('limit') limit?: string) {
@@ -236,9 +244,13 @@ export class DestinationController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Roles(Role.User, Role.Admin)
   @ApiOperation({
     summary: 'Xem chi tiết địa điểm',
-    description: 'Lấy thông tin chi tiết địa điểm, tự động tăng visitCount',
+    description:
+      'Lấy thông tin chi tiết địa điểm, tự động tăng visitCount. Trả về isLiked=true nếu user đã like destination.',
   })
   @ApiParam({ name: 'id', description: 'ID của địa điểm' })
   @ApiResponse({
@@ -247,7 +259,7 @@ export class DestinationController {
   })
   @ApiResponse({ status: 404, description: 'Không tìm thấy địa điểm' })
   getDestinationById(@Param('id') id: string, @Req() req: any) {
-    const userId = req.user?.id;
+    const userId = req.user.id;
     return this.destinationService.getDestinationById(id, userId);
   }
 
@@ -276,15 +288,19 @@ export class DestinationController {
   @ApiConsumes('multipart/form-data')
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
-    summary: 'Cập nhật địa điểm',
-    description: 'Cập nhật thông tin địa điểm (chỉ người tạo mới được sửa)',
+    summary: 'Cập nhật địa điểm (Chỉ Admin)',
+    description:
+      'Cập nhật thông tin địa điểm (chỉ Admin có role = 1 mới được sửa)',
   })
   @ApiBody({ type: UpdateDestinationDto })
   @ApiParam({ name: 'id', description: 'ID của địa điểm' })
   @ApiResponse({ status: 200, description: 'Cập nhật thành công' })
   @ApiResponse({ status: 404, description: 'Không tìm thấy địa điểm' })
-  @ApiResponse({ status: 403, description: 'Không có quyền sửa' })
-  @Roles(Role.User, Role.Admin)
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - Chỉ Admin (role = 1) mới được sửa destination',
+  })
+  @Roles(Role.Admin)
   updateDestination(
     @Param('id') id: string,
     @Body() dto: any,
@@ -306,8 +322,9 @@ export class DestinationController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
-    summary: 'Xóa địa điểm',
-    description: 'Xóa địa điểm (không thể xóa nếu còn địa điểm con)',
+    summary: 'Xóa địa điểm (Chỉ Admin)',
+    description:
+      'Xóa địa điểm (chỉ Admin có role = 1 mới được xóa. Không thể xóa nếu còn địa điểm con)',
   })
   @ApiParam({ name: 'id', description: 'ID của địa điểm' })
   @ApiResponse({ status: 200, description: 'Xóa thành công' })
@@ -316,7 +333,11 @@ export class DestinationController {
     status: 400,
     description: 'Không thể xóa địa điểm có sub-locations',
   })
-  @Roles(Role.User, Role.Admin)
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - Chỉ Admin (role = 1) mới được xóa destination',
+  })
+  @Roles(Role.Admin)
   deleteDestination(@Param('id') id: string, @Req() req: any) {
     const userId = req.user.id;
     return this.destinationService.deleteDestination(id, userId);
@@ -349,86 +370,6 @@ export class DestinationController {
   toggleLike(@Param('id') id: string, @Req() req: any) {
     const userId = req.user.id;
     return this.destinationService.toggleLike(id, userId);
-  }
-
-  // ========== COMMENT ENDPOINTS ==========
-
-  @Post(':id/comments')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @ApiBearerAuth('JWT-auth')
-  @ApiOperation({
-    summary: 'Comment địa điểm',
-    description: `
-    Thêm comment cho địa điểm.
-    
-    **Lưu ý:**
-    - parentId: để trống nếu comment gốc, điền ID comment cha nếu là reply
-    `,
-  })
-  @ApiBody({ type: CreateDestinationCommentDto })
-  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
-  @ApiResponse({
-    status: 201,
-    description: 'Comment thành công',
-    schema: {
-      example: {
-        message: 'Comment created successfully',
-        statusCode: 201,
-        status: 'success',
-        data: {
-          id: 'uuid',
-          content: 'This place is amazing!',
-          author: {
-            id: 'uuid',
-            username: 'user123',
-            name: 'John Doe',
-            profilePic: 'url',
-          },
-          createdAt: '2025-10-01T00:00:00Z',
-        },
-      },
-    },
-  })
-  @Roles(Role.User, Role.Admin)
-  createComment(
-    @Param('id') id: string,
-    @Body() dto: CreateDestinationCommentDto,
-    @Req() req: any,
-  ) {
-    const userId = req.user.id;
-    return this.destinationService.createComment(
-      id,
-      userId,
-      dto.content,
-      dto.parentId,
-    );
-  }
-
-  @Get(':id/comments')
-  @ApiOperation({
-    summary: 'Xem comment địa điểm',
-    description: 'Lấy tất cả comment và reply của địa điểm',
-  })
-  @ApiParam({ name: 'id', description: 'ID của địa điểm' })
-  @ApiResponse({ status: 200, description: 'Danh sách comment' })
-  getComments(@Param('id') id: string) {
-    return this.destinationService.getComments(id);
-  }
-
-  @Delete('comments/:commentId')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @ApiBearerAuth('JWT-auth')
-  @ApiOperation({
-    summary: 'Xóa comment',
-    description: 'Xóa comment của mình',
-  })
-  @ApiParam({ name: 'commentId', description: 'ID của comment' })
-  @ApiResponse({ status: 200, description: 'Xóa comment thành công' })
-  @ApiResponse({ status: 403, description: 'Không có quyền xóa comment' })
-  @Roles(Role.User, Role.Admin)
-  deleteComment(@Param('commentId') commentId: string, @Req() req: any) {
-    const userId = req.user.id;
-    return this.destinationService.deleteComment(commentId, userId);
   }
 
   // ========== REVIEW ENDPOINTS ==========

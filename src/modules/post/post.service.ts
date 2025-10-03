@@ -239,6 +239,9 @@ export class PostService {
     const visibleIds = [...followingIds, userId];
 
     const posts = await this.prisma.post.findMany({
+      where: {
+        authorId: { in: visibleIds }, // Chỉ lấy posts từ user đang follow + chính mình
+      },
       include: {
         author: { select: { username: true, profilePic: true } },
         _count: { select: { likes: true, comments: true } },

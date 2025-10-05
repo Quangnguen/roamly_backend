@@ -28,6 +28,7 @@ import {
 } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { DestinationService } from './destination.service';
+import { MLDataExportService } from './ml-data-export.service';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guard/roles.guard';
 import { CreateDestinationDto } from './dto/create-destination.dto';
@@ -42,7 +43,10 @@ import { DestinationValidationPipe } from './pipes/destination-validation.pipe';
 @Controller('destinations')
 @UsePipes(new DestinationValidationPipe())
 export class DestinationController {
-  constructor(private readonly destinationService: DestinationService) {}
+  constructor(
+    private readonly destinationService: DestinationService,
+    private readonly mlDataExportService: MLDataExportService,
+  ) {}
 
   private groupFormData(body: any, dtoClass: any) {
     const dtoKeys = Object.keys(new dtoClass());
@@ -231,12 +235,18 @@ export class DestinationController {
   @Get('my-destinations')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth('JWT-auth')
-  @ApiOperation({ summary: 'Lấy địa điểm của tôi' })
-  @ApiResponse({ status: 200, description: 'Địa điểm của user hiện tại' })
+  @ApiOperation({
+    summary: 'Lấy địa điểm đã thích',
+    description: 'Lấy danh sách các địa điểm mà user hiện tại đã like',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Danh sách địa điểm đã like bởi user hiện tại',
+  })
   @Roles(Role.User, Role.Admin)
-  getMyDestinations(@Req() req: any) {
+  getMyLikedDestinations(@Req() req: any) {
     const userId = req.user.id;
-    return this.destinationService.getUserDestinations(userId, userId);
+    return this.destinationService.getLikedDestinations(userId);
   }
 
   @Get('user/:userId')
@@ -495,5 +505,70 @@ export class DestinationController {
   deleteReview(@Param('id') id: string, @Req() req: any) {
     const userId = req.user.id;
     return this.destinationService.deleteReview(id, userId);
+  }
+
+  // ========== ML/AI ENDPOINTS ==========
+
+  @Post('ml/export-data')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Export dữ liệu để train ML model (Admin only)',
+    description: `
+    Export tất cả data từ MongoDB ra file JSON để train ML model:
+    - User features (sở thích, hành vi)
+    - Destination features
+    - User-Destination interactions (view, like, post, review)
+    
+    **Files được tạo trong folder ml-exports/**
+    `,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Export thành công',
+    schema: {
+      example: {
+        message: 'Data exported successfully',
+        data: {
+          userCount: 150,
+          destinationCount: 500,
+          interactionCount: 5000,
+          exportDir: '/path/to/ml-exports',
+          timestamp: '2025-10-03T15-30-00',
+        },
+      },
+    },
+  })
+  @Roles(Role.Admin)
+  async exportMLData() {
+    const result = await this.mlDataExportService.exportTrainingData();
+    return {
+      message: 'Data exported successfully',
+      data: {
+        userCount: result.users.length,
+        destinationCount: result.destinations.length,
+        interactionCount: result.interactions.length,
+        exportDir: result.exportDir,
+        timestamp: result.timestamp,
+      },
+    };
+  }
+
+  @Get('ml/user-profile/:userId')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Lấy user profile cho ML recommendation',
+    description: 'Lấy toàn bộ thông tin sở thích và hành vi của user',
+  })
+  @ApiParam({ name: 'userId', description: 'ID của user' })
+  @ApiResponse({ status: 200, description: 'User profile' })
+  @Roles(Role.User, Role.Admin)
+  async getUserMLProfile(@Param('userId') userId: string) {
+    const profile = await this.mlDataExportService.getUserProfile(userId);
+    return {
+      message: 'User profile retrieved successfully',
+      data: profile,
+    };
   }
 }

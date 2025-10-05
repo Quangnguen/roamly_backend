@@ -443,6 +443,81 @@ export class DestinationService {
     }
   }
 
+  async getLikedDestinations(userId: string) {
+    try {
+      // Get all destination likes for the user
+      const likes = await this.prisma.like.findMany({
+        where: {
+          userId,
+          type: 'destination',
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      if (likes.length === 0) {
+        return response('No liked destinations found', 200, 'success', []);
+      }
+
+      // Get destination IDs from likes
+      const destinationIds = likes.map((like) => like.targetId);
+
+      // Fetch full destination data
+      const destinations = await this.prisma.destination.findMany({
+        where: {
+          id: { in: destinationIds },
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              username: true,
+              name: true,
+              profilePic: true,
+            },
+          },
+          parent: {
+            select: {
+              id: true,
+              title: true,
+              location: true,
+            },
+          },
+          subLocations: {
+            select: {
+              id: true,
+              title: true,
+              location: true,
+            },
+          },
+        },
+      });
+
+      // Sort destinations by like order and add isLiked field (always true)
+      const likeOrderMap = new Map(
+        likes.map((like, index) => [like.targetId, index]),
+      );
+      const sortedDestinations = destinations
+        .sort((a, b) => {
+          const orderA = likeOrderMap.get(a.id) ?? Number.MAX_VALUE;
+          const orderB = likeOrderMap.get(b.id) ?? Number.MAX_VALUE;
+          return orderA - orderB;
+        })
+        .map((dest) => ({
+          ...dest,
+          isLiked: true,
+        }));
+
+      return response(
+        'Liked destinations retrieved successfully',
+        200,
+        'success',
+        sortedDestinations,
+      );
+    } catch (error: any) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
   async getPopularDestinations(limit: number = 10, userId: string) {
     try {
       const destinations = await this.prisma.destination.findMany({

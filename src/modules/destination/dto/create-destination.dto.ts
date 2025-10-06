@@ -138,12 +138,13 @@ export class CreateDestinationDto {
   travelTips?: string[];
 
   @ApiPropertyOptional({
-    description: 'Parent destination ID (for sub-locations)',
+    description:
+      'Parent destination ID (for sub-locations). Send empty string to remove parent.',
     example: 'uuid-of-ninh-binh',
   })
   @IsOptional()
   @IsString()
-  parentId?: string;
+  parentId?: string | null;
 
   @ApiPropertyOptional({
     description: 'Is public',

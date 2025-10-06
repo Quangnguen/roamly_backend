@@ -49,7 +49,11 @@ export class DestinationController {
   ) {}
 
   private groupFormData(body: any, dtoClass: any) {
-    const dtoKeys = Object.keys(new dtoClass());
+    // Get keys from CreateDestinationDto since UpdateDestinationDto extends PartialType
+    const baseDto =
+      dtoClass === UpdateDestinationDto ? CreateDestinationDto : dtoClass;
+    const dtoKeys = Object.keys(new baseDto());
+
     const arrayKeys = [
       'category',
       'tags',
@@ -59,13 +63,20 @@ export class DestinationController {
     ];
     const numberKeys = ['latitude', 'longitude'];
     const booleanKeys = ['isPublic'];
+    const nullableKeys = ['parentId']; // Fields that can be explicitly set to null
     const grouped: Record<string, unknown> = {};
 
     for (const key of Object.keys(body)) {
       if (dtoKeys.includes(key)) {
         let value = body[key];
 
-        // Skip empty strings for optional fields
+        // Convert empty string to null for nullable fields
+        if (value === '' && nullableKeys.includes(key)) {
+          grouped[key] = null;
+          continue;
+        }
+
+        // Skip empty strings for optional fields (except description and nullable fields)
         if (value === '' && key !== 'description') {
           continue;
         }
@@ -361,6 +372,9 @@ export class DestinationController {
   ) {
     const userId = req.user.id;
     const groupedData = this.groupFormData(dto, UpdateDestinationDto);
+    console.log('✅ Final grouped data with parentId:', {
+      parentId: groupedData['parentId'],
+    });
     const updateDto = Object.assign(new UpdateDestinationDto(), groupedData);
     return this.destinationService.updateDestination(
       id,

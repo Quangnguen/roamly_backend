@@ -59,6 +59,13 @@ export class PostService {
       },
     });
 
+    // Filter out null destinations
+    if (post.taggedDestinations) {
+      post.taggedDestinations = post.taggedDestinations.filter(
+        (td) => td.destination !== null,
+      );
+    }
+
     const followers = await this.followService.getFollowers(authorId);
     for (const follower of followers.data ?? []) {
       this.socketGateway.emitToUser(follower.id, 'new_post', post);
@@ -92,6 +99,15 @@ export class PostService {
           },
         },
       },
+    });
+
+    // Filter out null destinations
+    posts.forEach((post) => {
+      if (post.taggedDestinations) {
+        post.taggedDestinations = post.taggedDestinations.filter(
+          (td) => td.destination !== null,
+        );
+      }
     });
 
     const postIds = posts.map((post) => post.id);
@@ -264,6 +280,15 @@ export class PostService {
       take: 200, // tăng nếu muốn nguồn đa dạng hơn
     });
 
+    // Filter out null destinations from all posts
+    posts.forEach((post) => {
+      if (post.taggedDestinations) {
+        post.taggedDestinations = post.taggedDestinations.filter(
+          (td) => td.destination !== null,
+        );
+      }
+    });
+
     const postIds = posts.map((p) => p.id);
 
     const userLikes = await this.prisma.like.findMany({
@@ -362,6 +387,13 @@ export class PostService {
 
     if (!post) throw new NotFoundException('Không tìm thấy bài viết');
 
+    // Filter out null destinations
+    if (post.taggedDestinations) {
+      post.taggedDestinations = post.taggedDestinations.filter(
+        (td) => td.destination !== null,
+      );
+    }
+
     const likeCount = await this.prisma.like.count({
       where: {
         targetId: id,
@@ -410,6 +442,15 @@ export class PostService {
           },
         },
       },
+    });
+
+    // Filter out null destinations
+    posts.forEach((post) => {
+      if (post.taggedDestinations) {
+        post.taggedDestinations = post.taggedDestinations.filter(
+          (td) => td.destination !== null,
+        );
+      }
     });
 
     const postIds = posts.map((post) => post.id);
@@ -630,6 +671,13 @@ export class PostService {
         },
       },
     });
+
+    // Filter out null destinations
+    if (updatedPost.taggedDestinations) {
+      updatedPost.taggedDestinations = updatedPost.taggedDestinations.filter(
+        (td) => td.destination !== null,
+      );
+    }
 
     return response(
       'Cập nhật bài viết thành công',

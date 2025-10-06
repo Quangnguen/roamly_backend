@@ -296,17 +296,24 @@ export class DestinationService {
       }
 
       // Validate parent if changing
-      if (dto.parentId && dto.parentId !== destination.parentId) {
-        const parent = await this.prisma.destination.findUnique({
-          where: { id: dto.parentId },
-        });
-        if (!parent) {
-          throw new NotFoundException('Parent destination not found');
+      // Check if parentId is being updated (including setting to null)
+      if ('parentId' in dto && dto.parentId !== destination.parentId) {
+        // If setting a new parent (not null)
+        if (dto.parentId !== null) {
+          const parent = await this.prisma.destination.findUnique({
+            where: { id: dto.parentId },
+          });
+          if (!parent) {
+            throw new NotFoundException('Parent destination not found');
+          }
+          // Prevent circular reference
+          if (dto.parentId === id) {
+            throw new BadRequestException(
+              'Destination cannot be its own parent',
+            );
+          }
         }
-        // Prevent circular reference
-        if (dto.parentId === id) {
-          throw new BadRequestException('Destination cannot be its own parent');
-        }
+        // If setting to null, just allow it (removing parent)
       }
 
       // Upload new images if provided

@@ -12,6 +12,7 @@ import { SocketGateway } from '../socket/socket.gateway';
 import { NotificationService } from '../notification/notification.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { response } from '../../common/utils/response.utils';
+import { EncryptionUtil } from '../../common/utils/encryption.utils';
 
 @Injectable()
 export class ChatService {
@@ -215,11 +216,14 @@ export class ChatService {
       mediaType = files[0].mimetype.startsWith('video') ? 'video' : 'image';
     }
 
+    // 🔒 Mã hóa nội dung tin nhắn trước khi lưu vào DB
+    const encryptedContent = content ? EncryptionUtil.encrypt(content) : '';
+
     const message = await this.prisma.message.create({
       data: {
         senderId,
         conversationId,
-        content,
+        content: encryptedContent, // Lưu nội dung đã mã hóa
         mediaUrls,
         mediaType,
       },
@@ -228,11 +232,18 @@ export class ChatService {
       },
     });
 
+    // 🔓 Giải mã nội dung trước khi trả về cho client
+    const decryptedMessage = {
+      ...message,
+      content: message.content ? EncryptionUtil.decrypt(message.content) : '',
+    };
+
     for (const participant of conversation.participants) {
       if (participant.userId !== senderId) {
+        // Gửi tin nhắn đã giải mã qua socket
         this.socketGateway.emitToUser(participant.userId, 'new_message', {
           conversationId,
-          message,
+          message: decryptedMessage, // Gửi message đã giải mã
         });
 
         await this.notificationService.createNotification({
@@ -256,7 +267,13 @@ export class ChatService {
       }
     }
 
-    return response('Gửi tin nhắn thành công', 201, 'success', message);
+    // Trả về tin nhắn đã giải mã cho người gửi
+    return response(
+      'Gửi tin nhắn thành công',
+      201,
+      'success',
+      decryptedMessage,
+    );
   }
 
   async getMessages(
@@ -315,7 +332,18 @@ export class ChatService {
       take: limit,
     });
 
-    return response('Danh sách tin nhắn', 200, 'success', messages.reverse());
+    // 🔓 Giải mã nội dung tất cả tin nhắn trước khi trả về
+    const decryptedMessages = messages.map((msg) => ({
+      ...msg,
+      content: msg.content ? EncryptionUtil.decrypt(msg.content) : '',
+    }));
+
+    return response(
+      'Danh sách tin nhắn',
+      200,
+      'success',
+      decryptedMessages.reverse(),
+    );
   }
 
   async deleteMessage(userId: string, messageId: string) {
@@ -338,16 +366,26 @@ export class ChatService {
         }
       }
 
+      // 🔒 Mã hóa thông báo thu hồi
+      const recalledMessageText = '[Tin nhắn đã được thu hồi]';
+      const encryptedRecalledText = EncryptionUtil.encrypt(recalledMessageText);
+
       const updated = await this.prisma.message.update({
         where: { id: messageId },
-        data: { content: '[Tin nhắn đã được thu hồi]', deletedForAll: true },
+        data: { content: encryptedRecalledText, deletedForAll: true },
       });
 
       this.socketGateway.emitToUser(message.conversationId, 'message_deleted', {
         messageId,
       });
 
-      return response('Đã thu hồi tin nhắn', 200, 'success', updated);
+      // 🔓 Giải mã trước khi trả về
+      const decryptedUpdated = {
+        ...updated,
+        content: EncryptionUtil.decrypt(updated.content),
+      };
+
+      return response('Đã thu hồi tin nhắn', 200, 'success', decryptedUpdated);
     }
 
     throw new ForbiddenException('Không thể xoá tin nhắn này');
@@ -433,6 +471,11 @@ export class ChatService {
     const formatted = conversations.map(({ messages, ...rest }) => {
       const msg = messages[0];
 
+      // 🔓 Giải mã nội dung tin nhắn cuối
+      const decryptedContent = msg?.content
+        ? EncryptionUtil.decrypt(msg.content)
+        : null;
+
       const preview =
         msg?.mediaUrls?.length > 0
           ? msg.mediaType === 'image'
@@ -440,11 +483,17 @@ export class ChatService {
             : msg.mediaType === 'video'
               ? 'Video'
               : 'Tệp đa phương tiện'
-          : msg?.content || null;
+          : decryptedContent || null;
 
       return {
         ...rest,
-        lastMessage: msg ? { ...msg, preview } : null,
+        lastMessage: msg
+          ? {
+              ...msg,
+              content: decryptedContent, // Trả về nội dung đã giải mã
+              preview,
+            }
+          : null,
       };
     });
 

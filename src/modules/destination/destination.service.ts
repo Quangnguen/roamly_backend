@@ -629,6 +629,89 @@ export class DestinationService {
     }
   }
 
+  async getSubLocations(parentId: string, userId: string) {
+    try {
+      // Check if parent destination exists
+      const parent = await this.prisma.destination.findUnique({
+        where: { id: parentId },
+        select: {
+          id: true,
+          title: true,
+          location: true,
+        },
+      });
+
+      if (!parent) {
+        throw new NotFoundException('Parent destination not found');
+      }
+
+      // Get all sub-locations of the parent
+      const subLocations = await this.prisma.destination.findMany({
+        where: { parentId },
+        include: {
+          user: {
+            select: {
+              id: true,
+              username: true,
+              name: true,
+              profilePic: true,
+            },
+          },
+          parent: {
+            select: {
+              id: true,
+              title: true,
+              location: true,
+            },
+          },
+          subLocations: {
+            select: {
+              id: true,
+              title: true,
+              location: true,
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      // Add isLiked field for parent and each sub-location
+      const allDestinationIds = [
+        parentId,
+        ...subLocations.map((loc) => loc.id),
+      ];
+      const userLikes = await this.prisma.like.findMany({
+        where: {
+          userId,
+          targetId: { in: allDestinationIds },
+          type: 'destination',
+        },
+      });
+
+      const likedLocationIds = new Set(userLikes.map((like) => like.targetId));
+
+      // Add isLiked to parent
+      const parentWithLike = {
+        ...parent,
+        isLiked: likedLocationIds.has(parentId),
+      };
+
+      // Add isLiked to sub-locations
+      const subLocationsWithLikes = subLocations.map((loc) => ({
+        ...loc,
+        isLiked: likedLocationIds.has(loc.id),
+      }));
+
+      return response('Sub-locations retrieved successfully', 200, 'success', {
+        parent: parentWithLike,
+        subLocations: subLocationsWithLikes,
+        total: subLocationsWithLikes.length,
+      });
+    } catch (error: any) {
+      throw error;
+    }
+  }
+
   // Like/Unlike destination
   async toggleLike(destinationId: string, userId: string) {
     try {

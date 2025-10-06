@@ -304,6 +304,36 @@ export class DestinationController {
     return this.destinationService.getDestinationHierarchy(id, userId);
   }
 
+  @Get(':id/sub-locations')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Roles(Role.User, Role.Admin)
+  @ApiOperation({
+    summary: 'Lấy các địa điểm con',
+    description: `
+    Lấy danh sách tất cả các địa điểm con nằm trong địa điểm cha.
+    
+    **Ví dụ:**
+    - Địa điểm cha: Ninh Bình
+    - Các địa điểm con: Tràng An, Bái Đính, Tam Cốc, Hang Múa, ...
+    
+    Mỗi địa điểm con sẽ có thông tin chi tiết và trường isLiked.
+    `,
+  })
+  @ApiParam({ name: 'id', description: 'ID của địa điểm cha' })
+  @ApiResponse({
+    status: 200,
+    description: 'Danh sách địa điểm con với thông tin chi tiết',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Không tìm thấy địa điểm cha',
+  })
+  getSubLocations(@Param('id') id: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.destinationService.getSubLocations(id, userId);
+  }
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @UseInterceptors(FilesInterceptor('images'))

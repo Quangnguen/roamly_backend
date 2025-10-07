@@ -263,6 +263,7 @@ export class ChatService {
           messageId: message.id,
           username: sender?.username,
           conversationName: conversation?.name,
+          content: decryptedMessage.content,
         });
       }
     }

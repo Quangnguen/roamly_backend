@@ -27,7 +27,7 @@ export class PostService {
   ) {
     const imageUrls = await this.cloudinary.uploadMultiple(files);
 
-    // Create post with tagged destinations
+    // Create post with tagged destinations and homestays
     const post = await this.prisma.post.create({
       data: {
         authorId,
@@ -37,6 +37,13 @@ export class PostService {
           ? {
               create: dto.taggedDestinations.map((destinationId) => ({
                 destinationId,
+              })),
+            }
+          : undefined,
+        taggedHomestays: dto.taggedHomestays
+          ? {
+              create: dto.taggedHomestays.map((homestayId) => ({
+                homestayId,
               })),
             }
           : undefined,
@@ -56,6 +63,23 @@ export class PostService {
             },
           },
         },
+        taggedHomestays: {
+          include: {
+            homestay: {
+              select: {
+                id: true,
+                name: true,
+                address: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+                pricePerNight: true,
+                currency: true,
+                rating: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -63,6 +87,13 @@ export class PostService {
     if (post.taggedDestinations) {
       post.taggedDestinations = post.taggedDestinations.filter(
         (td) => td.destination !== null,
+      );
+    }
+
+    // Filter out null homestays
+    if (post.taggedHomestays) {
+      post.taggedHomestays = post.taggedHomestays.filter(
+        (th) => th.homestay !== null,
       );
     }
 
@@ -265,6 +296,147 @@ export class PostService {
 
     return response(
       `Lấy danh sách bài viết tại ${destination.title} thành công`,
+      200,
+      'success',
+      postsWithLikes,
+    );
+  }
+
+  async findByHomestay(userId: string, homestayId: string) {
+    if (!homestayId) {
+      return response('Vui lòng cung cấp homestayId', 400, 'error', null);
+    }
+
+    // Kiểm tra homestay có tồn tại không
+    const homestay = await this.prisma.homestay.findUnique({
+      where: { id: homestayId },
+      select: { id: true, name: true, city: true },
+    });
+
+    if (!homestay) {
+      return response('Không tìm thấy homestay này', 404, 'error', null);
+    }
+
+    // Lấy tất cả postId có tag homestay này
+    const postHomestays = await this.prisma.postHomestay.findMany({
+      where: {
+        homestayId: homestayId,
+      },
+      select: { postId: true },
+    });
+
+    const postIds = postHomestays.map((ph) => ph.postId);
+
+    // Nếu không có post nào tag homestay này
+    if (postIds.length === 0) {
+      return response(
+        `Không có bài viết nào tag ${homestay.name}`,
+        200,
+        'success',
+        [],
+      );
+    }
+
+    // Lấy chi tiết các posts
+    const posts = await this.prisma.post.findMany({
+      where: {
+        id: { in: postIds },
+      },
+      include: {
+        author: {
+          select: {
+            username: true,
+            profilePic: true,
+          },
+        },
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
+        taggedHomestays: {
+          include: {
+            homestay: {
+              select: {
+                id: true,
+                name: true,
+                address: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+                pricePerNight: true,
+                currency: true,
+                rating: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc', // Sắp xếp mới nhất trước
+      },
+    });
+
+    // Filter out null destinations and homestays
+    posts.forEach((post) => {
+      if (post.taggedDestinations) {
+        post.taggedDestinations = post.taggedDestinations.filter(
+          (td) => td.destination !== null,
+        );
+      }
+      if (post.taggedHomestays) {
+        post.taggedHomestays = post.taggedHomestays.filter(
+          (th) => th.homestay !== null,
+        );
+      }
+    });
+
+    // Đếm số lượt like
+    const likeCounts = await this.prisma.like.groupBy({
+      by: ['targetId'],
+      where: {
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      _count: {
+        targetId: true,
+      },
+    });
+
+    const likeCountMap = new Map(
+      likeCounts.map((item) => [item.targetId, item._count.targetId]),
+    );
+
+    // Kiểm tra user đã like post nào
+    const userLikes = await this.prisma.like.findMany({
+      where: {
+        userId: userId,
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      select: { targetId: true },
+    });
+
+    const likedPostIds = new Set(userLikes.map((like) => like.targetId));
+
+    // Gắn thông tin like
+    const postsWithLikes = posts.map((post) => ({
+      ...post,
+      likeCount: likeCountMap.get(post.id) || 0,
+      isLike: likedPostIds.has(post.id),
+    }));
+
+    return response(
+      `Lấy danh sách bài viết tag ${homestay.name} thành công`,
       200,
       'success',
       postsWithLikes,

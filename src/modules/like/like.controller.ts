@@ -20,14 +20,15 @@ export class LikeController {
 
   @Post()
   @ApiOperation({
-    summary: 'Like một post/comment/destination',
+    summary: 'Like một post/comment/destination/homestay',
     description: `
-    Thích một đối tượng (post, comment, hoặc destination).
+    Thích một đối tượng (post, comment, destination, hoặc homestay).
     
     **Type values:**
     - \`post\` - Like một bài viết
     - \`comment\` - Like một comment
     - \`destination\` - Like một địa điểm du lịch
+    - \`homestay\` - Like một homestay
     
     **UserId:**
     - Mặc định lấy từ JWT token của user đang login
@@ -77,7 +78,7 @@ export class LikeController {
 
   @Delete()
   @ApiOperation({
-    summary: 'Unlike một post/comment/destination',
+    summary: 'Unlike một post/comment/destination/homestay',
     description: `
     Bỏ thích một đối tượng (post, comment, hoặc destination).
     

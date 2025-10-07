@@ -145,6 +145,45 @@ export class LikeService {
           username: sender?.username,
         });
       }
+    } else if (type === 'homestay') {
+      const homestay = await this.prisma.homestay.findUnique({
+        where: { id: targetId },
+      });
+
+      if (!homestay) {
+        throw new NotFoundException('Không tìm thấy homestay');
+      }
+
+      // Tăng likeCount
+      await this.prisma.homestay.update({
+        where: { id: targetId },
+        data: { likeCount: { increment: 1 } },
+      });
+
+      // Nếu người like khác chủ homestay, gửi thông báo
+      if (homestay.ownerId !== userId) {
+        await this.notificationService.createNotification({
+          type: NotificationType.LIKE,
+          message: 'Ai đó đã thích homestay của bạn',
+          senderId: userId,
+          recipientId: homestay.ownerId,
+          data: { homestayId: homestay.id },
+        });
+        const sender = await this.prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, username: true },
+        });
+        this.socketGateway.emitToUser(homestay.ownerId, 'homestay_liked', {
+          homestayId: homestay.id,
+          userId,
+        });
+
+        this.socketGateway.emitToUser(homestay.ownerId, 'new_notification', {
+          type: NotificationType.LIKE,
+          homestayId: homestay.id,
+          username: sender?.username,
+        });
+      }
     }
 
     return response('Đã yêu thích', 201, 'success', like);
@@ -232,6 +271,31 @@ export class LikeService {
 
       this.socketGateway.emitToUser(userId, 'destination_unliked', {
         destinationId: targetId,
+        userId,
+      });
+    } else if (type === 'homestay') {
+      const homestay = await this.prisma.homestay.findUnique({
+        where: { id: targetId },
+      });
+
+      if (!homestay) {
+        throw new NotFoundException('Không tìm thấy homestay');
+      }
+
+      // Giảm likeCount
+      await this.prisma.homestay.update({
+        where: { id: targetId },
+        data: { likeCount: { decrement: 1 } },
+      });
+
+      // Gửi realtime
+      this.socketGateway.emitToUser(homestay.ownerId, 'homestay_unliked', {
+        homestayId: targetId,
+        userId,
+      });
+
+      this.socketGateway.emitToUser(userId, 'homestay_unliked', {
+        homestayId: targetId,
         userId,
       });
     }

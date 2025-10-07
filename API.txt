@@ -63,42 +63,565 @@ API Post:
      ]
    }
 
-3. Lấy feed bài viết:
+3. Lấy danh sách bài viết theo homestay (homestayId):
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/by-homestay?homestayId=<homestay_id>
+   query params:
+   - homestayId: string (required) - ID của homestay muốn lọc
+   
+   Ví dụ: GET http://localhost:3000/posts/by-homestay?homestayId=xyz-456-abc
+   
+   Response: Danh sách bài viết có tag homestay đó
+   {
+     "message": "Lấy danh sách bài viết tag Sunset Villa thành công",
+     "statusCode": 200,
+     "status": "success",
+     "data": [
+       {
+         "id": "...",
+         "caption": "...",
+         "imageUrl": [...],
+         "author": {
+           "username": "...",
+           "profilePic": "..."
+         },
+         "taggedHomestays": [
+           {
+             "homestay": {
+               "id": "xyz-456-abc",
+               "name": "Sunset Villa",
+               "address": "123 Beach Road",
+               "city": "Đà Nẵng",
+               "country": "Việt Nam",
+               "imageUrl": [...],
+               "pricePerNight": 500000,
+               "currency": "VND",
+               "rating": 4.8
+             }
+           }
+         ],
+         "taggedDestinations": [...],
+         "likeCount": 25,
+         "isLike": false,
+         "createdAt": "2024-..."
+       }
+     ]
+   }
+
+4. Lấy feed bài viết:
    truyền access_token
    end_point: GET http://localhost:3000/posts/feed?page=1&limit=10
 
-4. Lấy bài viết của tôi:
+5. Lấy bài viết của tôi:
    truyền access_token
    end_point: GET http://localhost:3000/posts/my-posts
 
-5. Lấy bài viết theo userId:
+6. Lấy bài viết theo userId:
    truyền access_token
    end_point: GET http://localhost:3000/posts/get-posts/:userId
 
-6. Tìm kiếm bài viết:
+7. Tìm kiếm bài viết:
    truyền access_token
    end_point: GET http://localhost:3000/posts/search?q=keyword&page=1&limit=20
 
-7. Lấy chi tiết bài viết:
+8. Lấy chi tiết bài viết:
    truyền access_token
    end_point: GET http://localhost:3000/posts/:id
 
-8. Tạo bài viết mới:
+9. Tạo bài viết mới:
    truyền access_token
    end_point: POST http://localhost:3000/posts
    body: form-data
    - images: file[] (multiple files)
    - caption: string
    - taggedDestinations: string[] (array of destination IDs)
+   - taggedHomestays: string[] (array of homestay IDs)
+   
+   Response sẽ bao gồm:
+   {
+     "message": "Tạo bài viết thành công",
+     "statusCode": 201,
+     "status": "success",
+     "data": {
+       "id": "...",
+       "caption": "...",
+       "imageUrl": [...],
+       "taggedDestinations": [
+         {
+           "destination": {
+             "id": "...",
+             "title": "Ninh Bình",
+             "location": "...",
+             "city": "Ninh Bình",
+             "country": "Việt Nam",
+             "imageUrl": [...]
+           }
+         }
+       ],
+       "taggedHomestays": [
+         {
+           "homestay": {
+             "id": "...",
+             "name": "Homestay Ninh Bình View",
+             "address": "...",
+             "city": "Ninh Bình",
+             "country": "Việt Nam",
+             "imageUrl": [...],
+             "pricePerNight": 500000,
+             "currency": "VND",
+             "rating": 4.8
+           }
+         }
+       ]
+     }
+   }
 
-9. Cập nhật bài viết:
-   truyền access_token
-   end_point: PATCH http://localhost:3000/posts/:id
-   body: form-data
-   - images: file[] (optional)
-   - caption: string (optional)
-   - removedImages: string[] (optional)
+10. Cập nhật bài viết:
+    truyền access_token
+    end_point: PATCH http://localhost:3000/posts/:id
+    body: form-data
+    - images: file[] (optional)
+    - caption: string (optional)
+    - removedImages: string[] (optional)
 
-10. Xóa bài viết:
+11. Xóa bài viết:
     truyền access_token
     end_point: DELETE http://localhost:3000/posts/:id
+
+API Homestay:
+1. Tạo homestay mới:
+   truyền access_token
+   end_point: POST http://localhost:3000/homestays
+   body: form-data
+   - name: string (required) - Tên homestay
+   - description: string (optional) - Mô tả homestay
+   - address: string (required) - Địa chỉ cụ thể
+   - city: string (required) - Thành phố
+   - country: string (required) - Quốc gia
+   - latitude: number (optional) - Vĩ độ
+   - longitude: number (optional) - Kinh độ
+   - phoneNumber: string (optional) - Số điện thoại liên hệ
+   - email: string (optional) - Email liên hệ
+   - website: string (optional) - Website
+   - pricePerNight: number (required) - Giá mỗi đêm (phải >= 0)
+   - currency: string (optional) - Loại tiền tệ (default: VND)
+   - maxGuests: number (optional) - Số khách tối đa (default: 2)
+   - bedrooms: number (optional) - Số phòng ngủ (default: 1)
+   - beds: number (optional) - Số giường (default: 1)
+   - bathrooms: number (optional) - Số phòng tắm (default: 1)
+   - amenities: string[] (optional) - Tiện nghi (WiFi, Parking, Pool, Kitchen, etc.)
+   - houseRules: string[] (optional) - Nội quy nhà
+   - checkInTime: string (optional) - Giờ nhận phòng (default: 14:00)
+   - checkOutTime: string (optional) - Giờ trả phòng (default: 12:00)
+   - destinationId: string (optional) - ID địa điểm liên kết
+   - isActive: boolean (optional) - Trạng thái hoạt động (default: true)
+   - images: file[] (optional) - Ảnh homestay
+
+   Response:
+   {
+     "message": "Tạo homestay thành công",
+     "statusCode": 201,
+     "status": "success",
+     "data": {
+       "id": "...",
+       "name": "Homestay Ninh Bình View",
+       "description": "...",
+       "address": "...",
+       "city": "Ninh Bình",
+       "country": "Việt Nam",
+       "imageUrl": ["https://cloudinary.com/..."],
+       "pricePerNight": 500000,
+       "currency": "VND",
+       "maxGuests": 4,
+       "bedrooms": 2,
+       "beds": 2,
+       "bathrooms": 1,
+       "amenities": ["WiFi", "Parking", "Kitchen"],
+       "rating": 0,
+       "reviewCount": 0,
+       "viewCount": 0,
+       "isActive": true,
+       "createdAt": "2024-01-01T00:00:00.000Z"
+     }
+   }
+
+2. Lấy tất cả homestay:
+   truyền access_token (optional)
+   end_point: GET http://localhost:3000/homestays
+   
+   Response: Danh sách tất cả homestay đang hoạt động
+   {
+     "message": "Lấy danh sách homestay thành công",
+     "statusCode": 200,
+     "status": "success",
+     "data": [
+       {
+         "id": "...",
+         "name": "...",
+         "address": "...",
+         "city": "Ninh Bình",
+         "imageUrl": [...],
+         "pricePerNight": 500000,
+         "currency": "VND",
+         "rating": 4.8,
+         "reviewCount": 24,
+         "viewCount": 150,
+         "destination": {
+           "id": "...",
+           "title": "Ninh Bình"
+         },
+         "isLiked": true  // nếu có access_token
+       }
+     ]
+   }
+
+3. Tìm kiếm homestay:
+   truyền access_token (optional)
+   end_point: GET http://localhost:3000/homestays/search
+   query params:
+   - q: string (optional) - Từ khóa tìm kiếm (tên, địa chỉ, mô tả)
+   - city: string (optional) - Lọc theo thành phố
+   - minPrice: number (optional) - Giá tối thiểu
+   - maxPrice: number (optional) - Giá tối đa
+   - minRating: number (optional) - Đánh giá tối thiểu (0-5)
+   
+   Ví dụ: GET http://localhost:3000/homestays/search?q=Ninh%20Bình&minPrice=300000&maxPrice=1000000&minRating=4
+   
+   Response: Danh sách homestay phù hợp với tiêu chí
+
+4. Lấy danh sách homestay theo địa điểm:
+   truyền access_token (optional)
+   end_point: GET http://localhost:3000/homestays/by-destination/:destinationId
+   params:
+   - destinationId: string (required) - ID của địa điểm
+   
+   Ví dụ: GET http://localhost:3000/homestays/by-destination/abc-123-xyz
+   
+   Response: Danh sách homestay tại địa điểm đó (sắp xếp theo rating)
+   {
+     "message": "Lấy danh sách homestay tại Ninh Bình thành công",
+     "statusCode": 200,
+     "status": "success",
+     "data": [
+       {
+         "id": "...",
+         "name": "Homestay Ninh Bình View",
+         "address": "...",
+         "city": "Ninh Bình",
+         "imageUrl": [...],
+         "pricePerNight": 500000,
+         "currency": "VND",
+         "rating": 4.9,
+         "reviewCount": 30,
+         "destination": {
+           "id": "abc-123-xyz",
+           "title": "Ninh Bình"
+         }
+       }
+     ]
+   }
+
+5. Lấy danh sách homestays của tôi (owner):
+   truyền access_token (owner)
+   end_point: GET http://localhost:3000/homestays/my-homestays
+   query params:
+   - status: string (optional) - active | inactive | all (default: all)
+   
+   Ví dụ: GET http://localhost:3000/homestays/my-homestays?status=active
+   
+   Response: Danh sách homestays của owner với statistics
+   {
+     "message": "Lấy danh sách homestay của tôi thành công",
+     "statusCode": 200,
+     "status": "success",
+     "data": [
+       {
+         "id": "...",
+         "name": "Homestay Ninh Bình View",
+         "address": "...",
+         "city": "Ninh Bình",
+         "country": "Việt Nam",
+         "imageUrl": [...],
+         "pricePerNight": 500000,
+         "currency": "VND",
+         "maxGuests": 4,
+         "bedrooms": 2,
+         "rating": 4.8,
+         "reviewCount": 24,
+         "viewCount": 150,
+         "isActive": true,
+         "isVerified": true,
+         "destination": {
+           "id": "...",
+           "title": "Ninh Bình",
+           "city": "Ninh Bình"
+         },
+         "bookings": [
+           {
+             "id": "...",
+             "status": "confirmed",
+             "checkInDate": "2025-10-15T14:00:00.000Z",
+             "checkOutDate": "2025-10-18T12:00:00.000Z"
+           }
+         ],
+         "reviews": [...],
+         "statistics": {
+           "totalBookings": 15,
+           "pendingBookings": 2,
+           "confirmedBookings": 3,
+           "totalReviews": 24,
+           "totalLikes": 45
+         },
+         "createdAt": "2024-01-01T00:00:00.000Z"
+       }
+     ]
+   }
+
+6. Lấy chi tiết homestay:
+   truyền access_token (optional)
+   end_point: GET http://localhost:3000/homestays/:id
+   params:
+   - id: string (required) - ID của homestay
+   
+   Response: Chi tiết đầy đủ của homestay (tự động tăng view count)
+   {
+     "message": "Lấy thông tin homestay thành công",
+     "statusCode": 200,
+     "status": "success",
+     "data": {
+       "id": "...",
+       "name": "Homestay Ninh Bình View",
+       "description": "...",
+       "address": "...",
+       "city": "Ninh Bình",
+       "country": "Việt Nam",
+       "latitude": 20.2546,
+       "longitude": 105.9745,
+       "phoneNumber": "+84901234567",
+       "email": "contact@homestay.com",
+       "website": "https://homestay.com",
+       "imageUrl": [...],
+       "pricePerNight": 500000,
+       "currency": "VND",
+       "maxGuests": 4,
+       "bedrooms": 2,
+       "beds": 2,
+       "bathrooms": 1,
+       "amenities": ["WiFi", "Parking", "Kitchen", "Air Conditioning"],
+       "houseRules": ["No smoking", "No pets"],
+       "checkInTime": "14:00",
+       "checkOutTime": "12:00",
+       "rating": 4.8,
+       "reviewCount": 24,
+       "viewCount": 151,
+       "isActive": true,
+       "isVerified": true,
+       "destination": {
+         "id": "...",
+         "title": "Ninh Bình",
+         "location": "..."
+       },
+       "owner": {
+         "id": "...",
+         "username": "owner123",
+         "fullName": "Nguyễn Văn A",
+         "profilePic": "..."
+       },
+       "reviews": [
+         {
+           "id": "...",
+           "rating": 5,
+           "comment": "Homestay tuyệt vời!",
+           "cleanliness": 5,
+           "accuracy": 5,
+           "checkIn": 5,
+           "communication": 5,
+           "location": 5,
+           "value": 5,
+           "user": {
+             "username": "user123",
+             "profilePic": "..."
+           },
+           "createdAt": "2024-01-01T00:00:00.000Z"
+         }
+       ],
+       "isLiked": false,  // nếu có access_token
+       "createdAt": "2024-01-01T00:00:00.000Z",
+       "updatedAt": "2024-01-02T00:00:00.000Z"
+     }
+   }
+
+7. Cập nhật homestay:
+   truyền access_token (chỉ owner mới được cập nhật)
+   end_point: PATCH http://localhost:3000/homestays/:id
+   params:
+   - id: string (required) - ID của homestay
+   body: form-data (tất cả các trường đều optional)
+   - name: string
+   - description: string
+   - address: string
+   - city: string
+   - country: string
+   - pricePerNight: number
+   - currency: string
+   - maxGuests: number
+   - bedrooms: number
+   - beds: number
+   - bathrooms: number
+   - amenities: string[]
+   - houseRules: string[]
+   - checkInTime: string
+   - checkOutTime: string
+   - destinationId: string
+   - isActive: boolean
+   - images: file[] (ảnh mới)
+   - removedImages: string[] (URL các ảnh cần xóa)
+   
+   Response: Homestay đã được cập nhật
+
+8. Xóa homestay:
+   truyền access_token (chỉ owner mới được xóa)
+   end_point: DELETE http://localhost:3000/homestays/:id
+   params:
+   - id: string (required) - ID của homestay
+   
+   Response:
+   {
+     "message": "Xóa homestay thành công",
+     "statusCode": 200,
+     "status": "success"
+   }
+
+API Booking:
+1. Tạo booking mới:
+   truyền access_token
+   end_point: POST http://localhost:3000/bookings
+   body: raw JSON
+   {
+     "homestayId": "string (required)",
+     "checkInDate": "2025-10-15T14:00:00.000Z (required)",
+     "checkOutDate": "2025-10-18T12:00:00.000Z (required)",
+     "numberOfGuests": 2,
+     "specialRequests": "Early check-in please"
+   }
+
+   Response:
+   {
+     "message": "Tạo booking thành công",
+     "statusCode": 201,
+     "status": "success",
+     "data": {
+       "id": "...",
+       "homestayId": "...",
+       "guestId": "...",
+       "checkInDate": "2025-10-15T14:00:00.000Z",
+       "checkOutDate": "2025-10-18T12:00:00.000Z",
+       "numberOfGuests": 2,
+       "numberOfNights": 3,
+       "totalPrice": 1500000,
+       "status": "pending",
+       "specialRequests": "Early check-in please",
+       "homestay": {
+         "id": "...",
+         "name": "Homestay Ninh Bình View",
+         "address": "...",
+         "city": "Ninh Bình",
+         "imageUrl": [...],
+         "pricePerNight": 500000,
+         "currency": "VND",
+         "owner": {
+           "id": "...",
+           "username": "owner123",
+           "name": "...",
+           "email": "...",
+           "phoneNumber": "..."
+         }
+       },
+       "guest": {
+         "id": "...",
+         "username": "guest123",
+         "name": "...",
+         "email": "...",
+         "phoneNumber": "..."
+       },
+       "createdAt": "2025-10-07T00:00:00.000Z"
+     }
+   }
+
+2. Lấy danh sách bookings của tôi:
+   truyền access_token
+   end_point: GET http://localhost:3000/bookings/my-bookings
+   query params:
+   - status: string (optional) - pending | confirmed | cancelled | completed
+   
+   Ví dụ: GET http://localhost:3000/bookings/my-bookings?status=confirmed
+
+   Response: Danh sách tất cả bookings mà user đã tạo
+
+3. Lấy bookings theo homestay (owner only):
+   truyền access_token (chỉ owner của homestay)
+   end_point: GET http://localhost:3000/bookings/homestay/:homestayId
+   params:
+   - homestayId: string (required)
+   query params:
+   - status: string (optional) - pending | confirmed | cancelled | completed
+   
+   Ví dụ: GET http://localhost:3000/bookings/homestay/abc-123?status=pending
+
+   Response: Danh sách bookings của homestay
+
+4. Lấy chi tiết booking:
+   truyền access_token (chỉ guest hoặc owner)
+   end_point: GET http://localhost:3000/bookings/:id
+   params:
+   - id: string (required) - ID của booking
+   
+   Response: Chi tiết đầy đủ của booking bao gồm homestay info, guest info, number of nights
+
+5. Cập nhật booking:
+   truyền access_token
+   end_point: PATCH http://localhost:3000/bookings/:id
+   params:
+   - id: string (required)
+   body: raw JSON (tất cả fields đều optional)
+   
+   Guest có thể update (nếu status=pending và chưa đến ngày check-in):
+   {
+     "checkInDate": "2025-10-16T14:00:00.000Z",
+     "checkOutDate": "2025-10-19T12:00:00.000Z",
+     "numberOfGuests": 3,
+     "specialRequests": "..."
+   }
+
+   Owner có thể update status:
+   {
+     "status": "confirmed" // confirmed | cancelled | completed
+   }
+
+   Response: Booking đã được cập nhật
+
+6. Hủy booking:
+   truyền access_token (guest hoặc owner)
+   end_point: PATCH http://localhost:3000/bookings/:id/cancel
+   params:
+   - id: string (required)
+   
+   Response:
+   {
+     "message": "Hủy booking thành công",
+     "statusCode": 200,
+     "status": "success"
+   }
+
+7. Xóa booking:
+   truyền access_token (chỉ guest, và booking phải đã hủy)
+   end_point: DELETE http://localhost:3000/bookings/:id
+   params:
+   - id: string (required)
+   
+   Response:
+   {
+     "message": "Xóa booking thành công",
+     "statusCode": 200,
+     "status": "success"
+   }

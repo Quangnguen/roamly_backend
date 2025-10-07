@@ -9,4 +9,9 @@ export class CreatePostDto {
   @IsArray()
   @IsString({ each: true })
   taggedDestinations?: string[]; // Array of destination IDs
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  taggedHomestays?: string[]; // Array of homestay IDs
 }

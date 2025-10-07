@@ -113,6 +113,31 @@ export type DestinationView = $Result.DefaultSelection<Prisma.$DestinationViewPa
  * 
  */
 export type DestinationReview = $Result.DefaultSelection<Prisma.$DestinationReviewPayload>
+/**
+ * Model Homestay
+ * 
+ */
+export type Homestay = $Result.DefaultSelection<Prisma.$HomestayPayload>
+/**
+ * Model Booking
+ * 
+ */
+export type Booking = $Result.DefaultSelection<Prisma.$BookingPayload>
+/**
+ * Model HomestayReview
+ * 
+ */
+export type HomestayReview = $Result.DefaultSelection<Prisma.$HomestayReviewPayload>
+/**
+ * Model HomestayView
+ * 
+ */
+export type HomestayView = $Result.DefaultSelection<Prisma.$HomestayViewPayload>
+/**
+ * Model PostHomestay
+ * 
+ */
+export type PostHomestay = $Result.DefaultSelection<Prisma.$PostHomestayPayload>
 
 /**
  * Enums
@@ -125,6 +150,7 @@ export namespace $Enums {
   MESSAGE: 'MESSAGE',
   TAG: 'TAG',
   TRIP_SHARED: 'TRIP_SHARED',
+  BOOKING: 'BOOKING',
   SYSTEM: 'SYSTEM'
 };
 
@@ -439,6 +465,56 @@ export class PrismaClient<
     * ```
     */
   get destinationReview(): Prisma.DestinationReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.homestay`: Exposes CRUD operations for the **Homestay** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Homestays
+    * const homestays = await prisma.homestay.findMany()
+    * ```
+    */
+  get homestay(): Prisma.HomestayDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.booking`: Exposes CRUD operations for the **Booking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Bookings
+    * const bookings = await prisma.booking.findMany()
+    * ```
+    */
+  get booking(): Prisma.BookingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.homestayReview`: Exposes CRUD operations for the **HomestayReview** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HomestayReviews
+    * const homestayReviews = await prisma.homestayReview.findMany()
+    * ```
+    */
+  get homestayReview(): Prisma.HomestayReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.homestayView`: Exposes CRUD operations for the **HomestayView** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HomestayViews
+    * const homestayViews = await prisma.homestayView.findMany()
+    * ```
+    */
+  get homestayView(): Prisma.HomestayViewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postHomestay`: Exposes CRUD operations for the **PostHomestay** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostHomestays
+    * const postHomestays = await prisma.postHomestay.findMany()
+    * ```
+    */
+  get postHomestay(): Prisma.PostHomestayDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -898,7 +974,12 @@ export namespace Prisma {
     Report: 'Report',
     Destination: 'Destination',
     DestinationView: 'DestinationView',
-    DestinationReview: 'DestinationReview'
+    DestinationReview: 'DestinationReview',
+    Homestay: 'Homestay',
+    Booking: 'Booking',
+    HomestayReview: 'HomestayReview',
+    HomestayView: 'HomestayView',
+    PostHomestay: 'PostHomestay'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -917,7 +998,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "postDestination" | "comment" | "like" | "savedPost" | "message" | "messageReaction" | "conversation" | "conversationParticipant" | "notification" | "trip" | "story" | "report" | "destination" | "destinationView" | "destinationReview"
+      modelProps: "user" | "follow" | "post" | "sharedPost" | "postTag" | "postDestination" | "comment" | "like" | "savedPost" | "message" | "messageReaction" | "conversation" | "conversationParticipant" | "notification" | "trip" | "story" | "report" | "destination" | "destinationView" | "destinationReview" | "homestay" | "booking" | "homestayReview" | "homestayView" | "postHomestay"
       txIsolationLevel: never
     }
     model: {
@@ -2401,6 +2482,376 @@ export namespace Prisma {
           }
         }
       }
+      Homestay: {
+        payload: Prisma.$HomestayPayload<ExtArgs>
+        fields: Prisma.HomestayFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HomestayFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HomestayFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>
+          }
+          findFirst: {
+            args: Prisma.HomestayFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HomestayFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>
+          }
+          findMany: {
+            args: Prisma.HomestayFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>[]
+          }
+          create: {
+            args: Prisma.HomestayCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>
+          }
+          createMany: {
+            args: Prisma.HomestayCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.HomestayDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>
+          }
+          update: {
+            args: Prisma.HomestayUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>
+          }
+          deleteMany: {
+            args: Prisma.HomestayDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HomestayUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HomestayUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayPayload>
+          }
+          aggregate: {
+            args: Prisma.HomestayAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHomestay>
+          }
+          groupBy: {
+            args: Prisma.HomestayGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HomestayGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.HomestayFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.HomestayAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.HomestayCountArgs<ExtArgs>
+            result: $Utils.Optional<HomestayCountAggregateOutputType> | number
+          }
+        }
+      }
+      Booking: {
+        payload: Prisma.$BookingPayload<ExtArgs>
+        fields: Prisma.BookingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          findFirst: {
+            args: Prisma.BookingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          findMany: {
+            args: Prisma.BookingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>[]
+          }
+          create: {
+            args: Prisma.BookingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          createMany: {
+            args: Prisma.BookingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.BookingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          update: {
+            args: Prisma.BookingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BookingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          aggregate: {
+            args: Prisma.BookingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBooking>
+          }
+          groupBy: {
+            args: Prisma.BookingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookingGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.BookingFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.BookingAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.BookingCountArgs<ExtArgs>
+            result: $Utils.Optional<BookingCountAggregateOutputType> | number
+          }
+        }
+      }
+      HomestayReview: {
+        payload: Prisma.$HomestayReviewPayload<ExtArgs>
+        fields: Prisma.HomestayReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HomestayReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HomestayReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.HomestayReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HomestayReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>
+          }
+          findMany: {
+            args: Prisma.HomestayReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>[]
+          }
+          create: {
+            args: Prisma.HomestayReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>
+          }
+          createMany: {
+            args: Prisma.HomestayReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.HomestayReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>
+          }
+          update: {
+            args: Prisma.HomestayReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.HomestayReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HomestayReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HomestayReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.HomestayReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHomestayReview>
+          }
+          groupBy: {
+            args: Prisma.HomestayReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HomestayReviewGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.HomestayReviewFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.HomestayReviewAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.HomestayReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<HomestayReviewCountAggregateOutputType> | number
+          }
+        }
+      }
+      HomestayView: {
+        payload: Prisma.$HomestayViewPayload<ExtArgs>
+        fields: Prisma.HomestayViewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HomestayViewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HomestayViewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>
+          }
+          findFirst: {
+            args: Prisma.HomestayViewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HomestayViewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>
+          }
+          findMany: {
+            args: Prisma.HomestayViewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>[]
+          }
+          create: {
+            args: Prisma.HomestayViewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>
+          }
+          createMany: {
+            args: Prisma.HomestayViewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.HomestayViewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>
+          }
+          update: {
+            args: Prisma.HomestayViewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>
+          }
+          deleteMany: {
+            args: Prisma.HomestayViewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HomestayViewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HomestayViewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomestayViewPayload>
+          }
+          aggregate: {
+            args: Prisma.HomestayViewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHomestayView>
+          }
+          groupBy: {
+            args: Prisma.HomestayViewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HomestayViewGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.HomestayViewFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.HomestayViewAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.HomestayViewCountArgs<ExtArgs>
+            result: $Utils.Optional<HomestayViewCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostHomestay: {
+        payload: Prisma.$PostHomestayPayload<ExtArgs>
+        fields: Prisma.PostHomestayFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostHomestayFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostHomestayFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>
+          }
+          findFirst: {
+            args: Prisma.PostHomestayFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostHomestayFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>
+          }
+          findMany: {
+            args: Prisma.PostHomestayFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>[]
+          }
+          create: {
+            args: Prisma.PostHomestayCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>
+          }
+          createMany: {
+            args: Prisma.PostHomestayCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PostHomestayDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>
+          }
+          update: {
+            args: Prisma.PostHomestayUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostHomestayDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostHomestayUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PostHomestayUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHomestayPayload>
+          }
+          aggregate: {
+            args: Prisma.PostHomestayAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostHomestay>
+          }
+          groupBy: {
+            args: Prisma.PostHomestayGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostHomestayGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.PostHomestayFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.PostHomestayAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.PostHomestayCountArgs<ExtArgs>
+            result: $Utils.Optional<PostHomestayCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2492,6 +2943,11 @@ export namespace Prisma {
     destination?: DestinationOmit
     destinationView?: DestinationViewOmit
     destinationReview?: DestinationReviewOmit
+    homestay?: HomestayOmit
+    booking?: BookingOmit
+    homestayReview?: HomestayReviewOmit
+    homestayView?: HomestayViewOmit
+    postHomestay?: PostHomestayOmit
   }
 
   /* Types for Logging */
@@ -2607,6 +3063,10 @@ export namespace Prisma {
     destinations: number
     destinationReviews: number
     destinationViews: number
+    ownedHomestays: number
+    bookings: number
+    homestayReviews: number
+    homestayViews: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2631,6 +3091,10 @@ export namespace Prisma {
     destinations?: boolean | UserCountOutputTypeCountDestinationsArgs
     destinationReviews?: boolean | UserCountOutputTypeCountDestinationReviewsArgs
     destinationViews?: boolean | UserCountOutputTypeCountDestinationViewsArgs
+    ownedHomestays?: boolean | UserCountOutputTypeCountOwnedHomestaysArgs
+    bookings?: boolean | UserCountOutputTypeCountBookingsArgs
+    homestayReviews?: boolean | UserCountOutputTypeCountHomestayReviewsArgs
+    homestayViews?: boolean | UserCountOutputTypeCountHomestayViewsArgs
   }
 
   // Custom InputTypes
@@ -2791,6 +3255,34 @@ export namespace Prisma {
     where?: DestinationViewWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOwnedHomestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountHomestayReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayReviewWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountHomestayViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayViewWhereInput
+  }
+
 
   /**
    * Count Type PostCountOutputType
@@ -2799,6 +3291,7 @@ export namespace Prisma {
   export type PostCountOutputType = {
     taggedUsers: number
     taggedDestinations: number
+    taggedHomestays: number
     sharedPosts: number
     comments: number
     savedBy: number
@@ -2809,6 +3302,7 @@ export namespace Prisma {
   export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     taggedUsers?: boolean | PostCountOutputTypeCountTaggedUsersArgs
     taggedDestinations?: boolean | PostCountOutputTypeCountTaggedDestinationsArgs
+    taggedHomestays?: boolean | PostCountOutputTypeCountTaggedHomestaysArgs
     sharedPosts?: boolean | PostCountOutputTypeCountSharedPostsArgs
     comments?: boolean | PostCountOutputTypeCountCommentsArgs
     savedBy?: boolean | PostCountOutputTypeCountSavedByArgs
@@ -2839,6 +3333,13 @@ export namespace Prisma {
    */
   export type PostCountOutputTypeCountTaggedDestinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostDestinationWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountTaggedHomestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHomestayWhereInput
   }
 
   /**
@@ -3087,6 +3588,7 @@ export namespace Prisma {
 
   export type DestinationCountOutputType = {
     subLocations: number
+    homestays: number
     likes: number
     reviews: number
     taggedInPosts: number
@@ -3095,6 +3597,7 @@ export namespace Prisma {
 
   export type DestinationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subLocations?: boolean | DestinationCountOutputTypeCountSubLocationsArgs
+    homestays?: boolean | DestinationCountOutputTypeCountHomestaysArgs
     likes?: boolean | DestinationCountOutputTypeCountLikesArgs
     reviews?: boolean | DestinationCountOutputTypeCountReviewsArgs
     taggedInPosts?: boolean | DestinationCountOutputTypeCountTaggedInPostsArgs
@@ -3117,6 +3620,13 @@ export namespace Prisma {
    */
   export type DestinationCountOutputTypeCountSubLocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DestinationWhereInput
+  }
+
+  /**
+   * DestinationCountOutputType without action
+   */
+  export type DestinationCountOutputTypeCountHomestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayWhereInput
   }
 
   /**
@@ -3145,6 +3655,73 @@ export namespace Prisma {
    */
   export type DestinationCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DestinationViewWhereInput
+  }
+
+
+  /**
+   * Count Type HomestayCountOutputType
+   */
+
+  export type HomestayCountOutputType = {
+    bookings: number
+    reviews: number
+    views: number
+    taggedInPosts: number
+    likes: number
+  }
+
+  export type HomestayCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bookings?: boolean | HomestayCountOutputTypeCountBookingsArgs
+    reviews?: boolean | HomestayCountOutputTypeCountReviewsArgs
+    views?: boolean | HomestayCountOutputTypeCountViewsArgs
+    taggedInPosts?: boolean | HomestayCountOutputTypeCountTaggedInPostsArgs
+    likes?: boolean | HomestayCountOutputTypeCountLikesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HomestayCountOutputType without action
+   */
+  export type HomestayCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayCountOutputType
+     */
+    select?: HomestayCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HomestayCountOutputType without action
+   */
+  export type HomestayCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+  }
+
+  /**
+   * HomestayCountOutputType without action
+   */
+  export type HomestayCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayReviewWhereInput
+  }
+
+  /**
+   * HomestayCountOutputType without action
+   */
+  export type HomestayCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayViewWhereInput
+  }
+
+  /**
+   * HomestayCountOutputType without action
+   */
+  export type HomestayCountOutputTypeCountTaggedInPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHomestayWhereInput
+  }
+
+  /**
+   * HomestayCountOutputType without action
+   */
+  export type HomestayCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LikeWhereInput
   }
 
 
@@ -3491,6 +4068,10 @@ export namespace Prisma {
     destinations?: boolean | User$destinationsArgs<ExtArgs>
     destinationReviews?: boolean | User$destinationReviewsArgs<ExtArgs>
     destinationViews?: boolean | User$destinationViewsArgs<ExtArgs>
+    ownedHomestays?: boolean | User$ownedHomestaysArgs<ExtArgs>
+    bookings?: boolean | User$bookingsArgs<ExtArgs>
+    homestayReviews?: boolean | User$homestayReviewsArgs<ExtArgs>
+    homestayViews?: boolean | User$homestayViewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3542,6 +4123,10 @@ export namespace Prisma {
     destinations?: boolean | User$destinationsArgs<ExtArgs>
     destinationReviews?: boolean | User$destinationReviewsArgs<ExtArgs>
     destinationViews?: boolean | User$destinationViewsArgs<ExtArgs>
+    ownedHomestays?: boolean | User$ownedHomestaysArgs<ExtArgs>
+    bookings?: boolean | User$bookingsArgs<ExtArgs>
+    homestayReviews?: boolean | User$homestayReviewsArgs<ExtArgs>
+    homestayViews?: boolean | User$homestayViewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3569,6 +4154,10 @@ export namespace Prisma {
       destinations: Prisma.$DestinationPayload<ExtArgs>[]
       destinationReviews: Prisma.$DestinationReviewPayload<ExtArgs>[]
       destinationViews: Prisma.$DestinationViewPayload<ExtArgs>[]
+      ownedHomestays: Prisma.$HomestayPayload<ExtArgs>[]
+      bookings: Prisma.$BookingPayload<ExtArgs>[]
+      homestayReviews: Prisma.$HomestayReviewPayload<ExtArgs>[]
+      homestayViews: Prisma.$HomestayViewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3975,6 +4564,10 @@ export namespace Prisma {
     destinations<T extends User$destinationsArgs<ExtArgs> = {}>(args?: Subset<T, User$destinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     destinationReviews<T extends User$destinationReviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$destinationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     destinationViews<T extends User$destinationViewsArgs<ExtArgs> = {}>(args?: Subset<T, User$destinationViewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ownedHomestays<T extends User$ownedHomestaysArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedHomestaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    homestayReviews<T extends User$homestayReviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$homestayReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    homestayViews<T extends User$homestayViewsArgs<ExtArgs> = {}>(args?: Subset<T, User$homestayViewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4895,6 +5488,102 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DestinationViewScalarFieldEnum | DestinationViewScalarFieldEnum[]
+  }
+
+  /**
+   * User.ownedHomestays
+   */
+  export type User$ownedHomestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    where?: HomestayWhereInput
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    cursor?: HomestayWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayScalarFieldEnum | HomestayScalarFieldEnum[]
+  }
+
+  /**
+   * User.bookings
+   */
+  export type User$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    cursor?: BookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * User.homestayReviews
+   */
+  export type User$homestayReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    where?: HomestayReviewWhereInput
+    orderBy?: HomestayReviewOrderByWithRelationInput | HomestayReviewOrderByWithRelationInput[]
+    cursor?: HomestayReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayReviewScalarFieldEnum | HomestayReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.homestayViews
+   */
+  export type User$homestayViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    where?: HomestayViewWhereInput
+    orderBy?: HomestayViewOrderByWithRelationInput | HomestayViewOrderByWithRelationInput[]
+    cursor?: HomestayViewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayViewScalarFieldEnum | HomestayViewScalarFieldEnum[]
   }
 
   /**
@@ -6156,6 +6845,7 @@ export namespace Prisma {
     author?: boolean | UserDefaultArgs<ExtArgs>
     taggedUsers?: boolean | Post$taggedUsersArgs<ExtArgs>
     taggedDestinations?: boolean | Post$taggedDestinationsArgs<ExtArgs>
+    taggedHomestays?: boolean | Post$taggedHomestaysArgs<ExtArgs>
     sharedPosts?: boolean | Post$sharedPostsArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
     savedBy?: boolean | Post$savedByArgs<ExtArgs>
@@ -6186,6 +6876,7 @@ export namespace Prisma {
     author?: boolean | UserDefaultArgs<ExtArgs>
     taggedUsers?: boolean | Post$taggedUsersArgs<ExtArgs>
     taggedDestinations?: boolean | Post$taggedDestinationsArgs<ExtArgs>
+    taggedHomestays?: boolean | Post$taggedHomestaysArgs<ExtArgs>
     sharedPosts?: boolean | Post$sharedPostsArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
     savedBy?: boolean | Post$savedByArgs<ExtArgs>
@@ -6200,6 +6891,7 @@ export namespace Prisma {
       author: Prisma.$UserPayload<ExtArgs>
       taggedUsers: Prisma.$PostTagPayload<ExtArgs>[]
       taggedDestinations: Prisma.$PostDestinationPayload<ExtArgs>[]
+      taggedHomestays: Prisma.$PostHomestayPayload<ExtArgs>[]
       sharedPosts: Prisma.$SharedPostPayload<ExtArgs>[]
       comments: Prisma.$CommentPayload<ExtArgs>[]
       savedBy: Prisma.$SavedPostPayload<ExtArgs>[]
@@ -6585,6 +7277,7 @@ export namespace Prisma {
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     taggedUsers<T extends Post$taggedUsersArgs<ExtArgs> = {}>(args?: Subset<T, Post$taggedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     taggedDestinations<T extends Post$taggedDestinationsArgs<ExtArgs> = {}>(args?: Subset<T, Post$taggedDestinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostDestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    taggedHomestays<T extends Post$taggedHomestaysArgs<ExtArgs> = {}>(args?: Subset<T, Post$taggedHomestaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sharedPosts<T extends Post$sharedPostsArgs<ExtArgs> = {}>(args?: Subset<T, Post$sharedPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     comments<T extends Post$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     savedBy<T extends Post$savedByArgs<ExtArgs> = {}>(args?: Subset<T, Post$savedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7046,6 +7739,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PostDestinationScalarFieldEnum | PostDestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Post.taggedHomestays
+   */
+  export type Post$taggedHomestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    where?: PostHomestayWhereInput
+    orderBy?: PostHomestayOrderByWithRelationInput | PostHomestayOrderByWithRelationInput[]
+    cursor?: PostHomestayWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostHomestayScalarFieldEnum | PostHomestayScalarFieldEnum[]
   }
 
   /**
@@ -11567,6 +12284,7 @@ export namespace Prisma {
     post?: boolean | Like$postArgs<ExtArgs>
     comment?: boolean | Like$commentArgs<ExtArgs>
     destination?: boolean | Like$destinationArgs<ExtArgs>
+    homestay?: boolean | Like$homestayArgs<ExtArgs>
   }, ExtArgs["result"]["like"]>
 
 
@@ -11585,6 +12303,7 @@ export namespace Prisma {
     post?: boolean | Like$postArgs<ExtArgs>
     comment?: boolean | Like$commentArgs<ExtArgs>
     destination?: boolean | Like$destinationArgs<ExtArgs>
+    homestay?: boolean | Like$homestayArgs<ExtArgs>
   }
 
   export type $LikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11594,6 +12313,7 @@ export namespace Prisma {
       post: Prisma.$PostPayload<ExtArgs> | null
       comment: Prisma.$CommentPayload<ExtArgs> | null
       destination: Prisma.$DestinationPayload<ExtArgs> | null
+      homestay: Prisma.$HomestayPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11968,6 +12688,7 @@ export namespace Prisma {
     post<T extends Like$postArgs<ExtArgs> = {}>(args?: Subset<T, Like$postArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     comment<T extends Like$commentArgs<ExtArgs> = {}>(args?: Subset<T, Like$commentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     destination<T extends Like$destinationArgs<ExtArgs> = {}>(args?: Subset<T, Like$destinationArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    homestay<T extends Like$homestayArgs<ExtArgs> = {}>(args?: Subset<T, Like$homestayArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12426,6 +13147,25 @@ export namespace Prisma {
      */
     include?: DestinationInclude<ExtArgs> | null
     where?: DestinationWhereInput
+  }
+
+  /**
+   * Like.homestay
+   */
+  export type Like$homestayArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    where?: HomestayWhereInput
   }
 
   /**
@@ -22069,6 +22809,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Destination$parentArgs<ExtArgs>
     subLocations?: boolean | Destination$subLocationsArgs<ExtArgs>
+    homestays?: boolean | Destination$homestaysArgs<ExtArgs>
     likes?: boolean | Destination$likesArgs<ExtArgs>
     reviews?: boolean | Destination$reviewsArgs<ExtArgs>
     taggedInPosts?: boolean | Destination$taggedInPostsArgs<ExtArgs>
@@ -22112,6 +22853,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Destination$parentArgs<ExtArgs>
     subLocations?: boolean | Destination$subLocationsArgs<ExtArgs>
+    homestays?: boolean | Destination$homestaysArgs<ExtArgs>
     likes?: boolean | Destination$likesArgs<ExtArgs>
     reviews?: boolean | Destination$reviewsArgs<ExtArgs>
     taggedInPosts?: boolean | Destination$taggedInPostsArgs<ExtArgs>
@@ -22125,6 +22867,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       parent: Prisma.$DestinationPayload<ExtArgs> | null
       subLocations: Prisma.$DestinationPayload<ExtArgs>[]
+      homestays: Prisma.$HomestayPayload<ExtArgs>[]
       likes: Prisma.$LikePayload<ExtArgs>[]
       reviews: Prisma.$DestinationReviewPayload<ExtArgs>[]
       taggedInPosts: Prisma.$PostDestinationPayload<ExtArgs>[]
@@ -22523,6 +23266,7 @@ export namespace Prisma {
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     parent<T extends Destination$parentArgs<ExtArgs> = {}>(args?: Subset<T, Destination$parentArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     subLocations<T extends Destination$subLocationsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$subLocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    homestays<T extends Destination$homestaysArgs<ExtArgs> = {}>(args?: Subset<T, Destination$homestaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     likes<T extends Destination$likesArgs<ExtArgs> = {}>(args?: Subset<T, Destination$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends Destination$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     taggedInPosts<T extends Destination$taggedInPostsArgs<ExtArgs> = {}>(args?: Subset<T, Destination$taggedInPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostDestinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -22992,6 +23736,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DestinationScalarFieldEnum | DestinationScalarFieldEnum[]
+  }
+
+  /**
+   * Destination.homestays
+   */
+  export type Destination$homestaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    where?: HomestayWhereInput
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    cursor?: HomestayWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayScalarFieldEnum | HomestayScalarFieldEnum[]
   }
 
   /**
@@ -25150,6 +25918,5669 @@ export namespace Prisma {
 
 
   /**
+   * Model Homestay
+   */
+
+  export type AggregateHomestay = {
+    _count: HomestayCountAggregateOutputType | null
+    _avg: HomestayAvgAggregateOutputType | null
+    _sum: HomestaySumAggregateOutputType | null
+    _min: HomestayMinAggregateOutputType | null
+    _max: HomestayMaxAggregateOutputType | null
+  }
+
+  export type HomestayAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    pricePerNight: number | null
+    maxGuests: number | null
+    bedrooms: number | null
+    beds: number | null
+    bathrooms: number | null
+    rating: number | null
+    reviewCount: number | null
+    viewCount: number | null
+    likeCount: number | null
+  }
+
+  export type HomestaySumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    pricePerNight: number | null
+    maxGuests: number | null
+    bedrooms: number | null
+    beds: number | null
+    bathrooms: number | null
+    rating: number | null
+    reviewCount: number | null
+    viewCount: number | null
+    likeCount: number | null
+  }
+
+  export type HomestayMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    address: string | null
+    city: string | null
+    country: string | null
+    latitude: number | null
+    longitude: number | null
+    phoneNumber: string | null
+    email: string | null
+    website: string | null
+    pricePerNight: number | null
+    currency: string | null
+    maxGuests: number | null
+    bedrooms: number | null
+    beds: number | null
+    bathrooms: number | null
+    checkInTime: string | null
+    checkOutTime: string | null
+    rating: number | null
+    reviewCount: number | null
+    viewCount: number | null
+    likeCount: number | null
+    isActive: boolean | null
+    isVerified: boolean | null
+    destinationId: string | null
+    ownerId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HomestayMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    address: string | null
+    city: string | null
+    country: string | null
+    latitude: number | null
+    longitude: number | null
+    phoneNumber: string | null
+    email: string | null
+    website: string | null
+    pricePerNight: number | null
+    currency: string | null
+    maxGuests: number | null
+    bedrooms: number | null
+    beds: number | null
+    bathrooms: number | null
+    checkInTime: string | null
+    checkOutTime: string | null
+    rating: number | null
+    reviewCount: number | null
+    viewCount: number | null
+    likeCount: number | null
+    isActive: boolean | null
+    isVerified: boolean | null
+    destinationId: string | null
+    ownerId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HomestayCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    address: number
+    city: number
+    country: number
+    latitude: number
+    longitude: number
+    imageUrl: number
+    phoneNumber: number
+    email: number
+    website: number
+    pricePerNight: number
+    currency: number
+    maxGuests: number
+    bedrooms: number
+    beds: number
+    bathrooms: number
+    amenities: number
+    houseRules: number
+    checkInTime: number
+    checkOutTime: number
+    rating: number
+    reviewCount: number
+    viewCount: number
+    likeCount: number
+    isActive: number
+    isVerified: number
+    destinationId: number
+    ownerId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HomestayAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    pricePerNight?: true
+    maxGuests?: true
+    bedrooms?: true
+    beds?: true
+    bathrooms?: true
+    rating?: true
+    reviewCount?: true
+    viewCount?: true
+    likeCount?: true
+  }
+
+  export type HomestaySumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    pricePerNight?: true
+    maxGuests?: true
+    bedrooms?: true
+    beds?: true
+    bathrooms?: true
+    rating?: true
+    reviewCount?: true
+    viewCount?: true
+    likeCount?: true
+  }
+
+  export type HomestayMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    address?: true
+    city?: true
+    country?: true
+    latitude?: true
+    longitude?: true
+    phoneNumber?: true
+    email?: true
+    website?: true
+    pricePerNight?: true
+    currency?: true
+    maxGuests?: true
+    bedrooms?: true
+    beds?: true
+    bathrooms?: true
+    checkInTime?: true
+    checkOutTime?: true
+    rating?: true
+    reviewCount?: true
+    viewCount?: true
+    likeCount?: true
+    isActive?: true
+    isVerified?: true
+    destinationId?: true
+    ownerId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HomestayMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    address?: true
+    city?: true
+    country?: true
+    latitude?: true
+    longitude?: true
+    phoneNumber?: true
+    email?: true
+    website?: true
+    pricePerNight?: true
+    currency?: true
+    maxGuests?: true
+    bedrooms?: true
+    beds?: true
+    bathrooms?: true
+    checkInTime?: true
+    checkOutTime?: true
+    rating?: true
+    reviewCount?: true
+    viewCount?: true
+    likeCount?: true
+    isActive?: true
+    isVerified?: true
+    destinationId?: true
+    ownerId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HomestayCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    address?: true
+    city?: true
+    country?: true
+    latitude?: true
+    longitude?: true
+    imageUrl?: true
+    phoneNumber?: true
+    email?: true
+    website?: true
+    pricePerNight?: true
+    currency?: true
+    maxGuests?: true
+    bedrooms?: true
+    beds?: true
+    bathrooms?: true
+    amenities?: true
+    houseRules?: true
+    checkInTime?: true
+    checkOutTime?: true
+    rating?: true
+    reviewCount?: true
+    viewCount?: true
+    likeCount?: true
+    isActive?: true
+    isVerified?: true
+    destinationId?: true
+    ownerId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HomestayAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Homestay to aggregate.
+     */
+    where?: HomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Homestays to fetch.
+     */
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Homestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Homestays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Homestays
+    **/
+    _count?: true | HomestayCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HomestayAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HomestaySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HomestayMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HomestayMaxAggregateInputType
+  }
+
+  export type GetHomestayAggregateType<T extends HomestayAggregateArgs> = {
+        [P in keyof T & keyof AggregateHomestay]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHomestay[P]>
+      : GetScalarType<T[P], AggregateHomestay[P]>
+  }
+
+
+
+
+  export type HomestayGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayWhereInput
+    orderBy?: HomestayOrderByWithAggregationInput | HomestayOrderByWithAggregationInput[]
+    by: HomestayScalarFieldEnum[] | HomestayScalarFieldEnum
+    having?: HomestayScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HomestayCountAggregateInputType | true
+    _avg?: HomestayAvgAggregateInputType
+    _sum?: HomestaySumAggregateInputType
+    _min?: HomestayMinAggregateInputType
+    _max?: HomestayMaxAggregateInputType
+  }
+
+  export type HomestayGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    address: string
+    city: string
+    country: string
+    latitude: number | null
+    longitude: number | null
+    imageUrl: string[]
+    phoneNumber: string | null
+    email: string | null
+    website: string | null
+    pricePerNight: number
+    currency: string
+    maxGuests: number
+    bedrooms: number
+    beds: number
+    bathrooms: number
+    amenities: string[]
+    houseRules: string[]
+    checkInTime: string | null
+    checkOutTime: string | null
+    rating: number
+    reviewCount: number
+    viewCount: number
+    likeCount: number
+    isActive: boolean
+    isVerified: boolean
+    destinationId: string | null
+    ownerId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: HomestayCountAggregateOutputType | null
+    _avg: HomestayAvgAggregateOutputType | null
+    _sum: HomestaySumAggregateOutputType | null
+    _min: HomestayMinAggregateOutputType | null
+    _max: HomestayMaxAggregateOutputType | null
+  }
+
+  type GetHomestayGroupByPayload<T extends HomestayGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HomestayGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HomestayGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HomestayGroupByOutputType[P]>
+            : GetScalarType<T[P], HomestayGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HomestaySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    address?: boolean
+    city?: boolean
+    country?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    imageUrl?: boolean
+    phoneNumber?: boolean
+    email?: boolean
+    website?: boolean
+    pricePerNight?: boolean
+    currency?: boolean
+    maxGuests?: boolean
+    bedrooms?: boolean
+    beds?: boolean
+    bathrooms?: boolean
+    amenities?: boolean
+    houseRules?: boolean
+    checkInTime?: boolean
+    checkOutTime?: boolean
+    rating?: boolean
+    reviewCount?: boolean
+    viewCount?: boolean
+    likeCount?: boolean
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: boolean
+    ownerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    destination?: boolean | Homestay$destinationArgs<ExtArgs>
+    bookings?: boolean | Homestay$bookingsArgs<ExtArgs>
+    reviews?: boolean | Homestay$reviewsArgs<ExtArgs>
+    views?: boolean | Homestay$viewsArgs<ExtArgs>
+    taggedInPosts?: boolean | Homestay$taggedInPostsArgs<ExtArgs>
+    likes?: boolean | Homestay$likesArgs<ExtArgs>
+    _count?: boolean | HomestayCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["homestay"]>
+
+
+
+  export type HomestaySelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    address?: boolean
+    city?: boolean
+    country?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    imageUrl?: boolean
+    phoneNumber?: boolean
+    email?: boolean
+    website?: boolean
+    pricePerNight?: boolean
+    currency?: boolean
+    maxGuests?: boolean
+    bedrooms?: boolean
+    beds?: boolean
+    bathrooms?: boolean
+    amenities?: boolean
+    houseRules?: boolean
+    checkInTime?: boolean
+    checkOutTime?: boolean
+    rating?: boolean
+    reviewCount?: boolean
+    viewCount?: boolean
+    likeCount?: boolean
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: boolean
+    ownerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HomestayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "address" | "city" | "country" | "latitude" | "longitude" | "imageUrl" | "phoneNumber" | "email" | "website" | "pricePerNight" | "currency" | "maxGuests" | "bedrooms" | "beds" | "bathrooms" | "amenities" | "houseRules" | "checkInTime" | "checkOutTime" | "rating" | "reviewCount" | "viewCount" | "likeCount" | "isActive" | "isVerified" | "destinationId" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["homestay"]>
+  export type HomestayInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    destination?: boolean | Homestay$destinationArgs<ExtArgs>
+    bookings?: boolean | Homestay$bookingsArgs<ExtArgs>
+    reviews?: boolean | Homestay$reviewsArgs<ExtArgs>
+    views?: boolean | Homestay$viewsArgs<ExtArgs>
+    taggedInPosts?: boolean | Homestay$taggedInPostsArgs<ExtArgs>
+    likes?: boolean | Homestay$likesArgs<ExtArgs>
+    _count?: boolean | HomestayCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $HomestayPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Homestay"
+    objects: {
+      owner: Prisma.$UserPayload<ExtArgs>
+      destination: Prisma.$DestinationPayload<ExtArgs> | null
+      bookings: Prisma.$BookingPayload<ExtArgs>[]
+      reviews: Prisma.$HomestayReviewPayload<ExtArgs>[]
+      views: Prisma.$HomestayViewPayload<ExtArgs>[]
+      taggedInPosts: Prisma.$PostHomestayPayload<ExtArgs>[]
+      likes: Prisma.$LikePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      address: string
+      city: string
+      country: string
+      latitude: number | null
+      longitude: number | null
+      imageUrl: string[]
+      phoneNumber: string | null
+      email: string | null
+      website: string | null
+      pricePerNight: number
+      currency: string
+      maxGuests: number
+      bedrooms: number
+      beds: number
+      bathrooms: number
+      amenities: string[]
+      houseRules: string[]
+      checkInTime: string | null
+      checkOutTime: string | null
+      rating: number
+      reviewCount: number
+      viewCount: number
+      likeCount: number
+      isActive: boolean
+      isVerified: boolean
+      destinationId: string | null
+      ownerId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["homestay"]>
+    composites: {}
+  }
+
+  type HomestayGetPayload<S extends boolean | null | undefined | HomestayDefaultArgs> = $Result.GetResult<Prisma.$HomestayPayload, S>
+
+  type HomestayCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HomestayFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HomestayCountAggregateInputType | true
+    }
+
+  export interface HomestayDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Homestay'], meta: { name: 'Homestay' } }
+    /**
+     * Find zero or one Homestay that matches the filter.
+     * @param {HomestayFindUniqueArgs} args - Arguments to find a Homestay
+     * @example
+     * // Get one Homestay
+     * const homestay = await prisma.homestay.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HomestayFindUniqueArgs>(args: SelectSubset<T, HomestayFindUniqueArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Homestay that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HomestayFindUniqueOrThrowArgs} args - Arguments to find a Homestay
+     * @example
+     * // Get one Homestay
+     * const homestay = await prisma.homestay.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HomestayFindUniqueOrThrowArgs>(args: SelectSubset<T, HomestayFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Homestay that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayFindFirstArgs} args - Arguments to find a Homestay
+     * @example
+     * // Get one Homestay
+     * const homestay = await prisma.homestay.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HomestayFindFirstArgs>(args?: SelectSubset<T, HomestayFindFirstArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Homestay that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayFindFirstOrThrowArgs} args - Arguments to find a Homestay
+     * @example
+     * // Get one Homestay
+     * const homestay = await prisma.homestay.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HomestayFindFirstOrThrowArgs>(args?: SelectSubset<T, HomestayFindFirstOrThrowArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Homestays that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Homestays
+     * const homestays = await prisma.homestay.findMany()
+     * 
+     * // Get first 10 Homestays
+     * const homestays = await prisma.homestay.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const homestayWithIdOnly = await prisma.homestay.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HomestayFindManyArgs>(args?: SelectSubset<T, HomestayFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Homestay.
+     * @param {HomestayCreateArgs} args - Arguments to create a Homestay.
+     * @example
+     * // Create one Homestay
+     * const Homestay = await prisma.homestay.create({
+     *   data: {
+     *     // ... data to create a Homestay
+     *   }
+     * })
+     * 
+     */
+    create<T extends HomestayCreateArgs>(args: SelectSubset<T, HomestayCreateArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Homestays.
+     * @param {HomestayCreateManyArgs} args - Arguments to create many Homestays.
+     * @example
+     * // Create many Homestays
+     * const homestay = await prisma.homestay.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HomestayCreateManyArgs>(args?: SelectSubset<T, HomestayCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Homestay.
+     * @param {HomestayDeleteArgs} args - Arguments to delete one Homestay.
+     * @example
+     * // Delete one Homestay
+     * const Homestay = await prisma.homestay.delete({
+     *   where: {
+     *     // ... filter to delete one Homestay
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HomestayDeleteArgs>(args: SelectSubset<T, HomestayDeleteArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Homestay.
+     * @param {HomestayUpdateArgs} args - Arguments to update one Homestay.
+     * @example
+     * // Update one Homestay
+     * const homestay = await prisma.homestay.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HomestayUpdateArgs>(args: SelectSubset<T, HomestayUpdateArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Homestays.
+     * @param {HomestayDeleteManyArgs} args - Arguments to filter Homestays to delete.
+     * @example
+     * // Delete a few Homestays
+     * const { count } = await prisma.homestay.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HomestayDeleteManyArgs>(args?: SelectSubset<T, HomestayDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Homestays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Homestays
+     * const homestay = await prisma.homestay.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HomestayUpdateManyArgs>(args: SelectSubset<T, HomestayUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Homestay.
+     * @param {HomestayUpsertArgs} args - Arguments to update or create a Homestay.
+     * @example
+     * // Update or create a Homestay
+     * const homestay = await prisma.homestay.upsert({
+     *   create: {
+     *     // ... data to create a Homestay
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Homestay we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HomestayUpsertArgs>(args: SelectSubset<T, HomestayUpsertArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Homestays that matches the filter.
+     * @param {HomestayFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const homestay = await prisma.homestay.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: HomestayFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Homestay.
+     * @param {HomestayAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const homestay = await prisma.homestay.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: HomestayAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Homestays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayCountArgs} args - Arguments to filter Homestays to count.
+     * @example
+     * // Count the number of Homestays
+     * const count = await prisma.homestay.count({
+     *   where: {
+     *     // ... the filter for the Homestays we want to count
+     *   }
+     * })
+    **/
+    count<T extends HomestayCountArgs>(
+      args?: Subset<T, HomestayCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HomestayCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Homestay.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HomestayAggregateArgs>(args: Subset<T, HomestayAggregateArgs>): Prisma.PrismaPromise<GetHomestayAggregateType<T>>
+
+    /**
+     * Group by Homestay.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HomestayGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HomestayGroupByArgs['orderBy'] }
+        : { orderBy?: HomestayGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HomestayGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHomestayGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Homestay model
+   */
+  readonly fields: HomestayFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Homestay.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HomestayClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    destination<T extends Homestay$destinationArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$destinationArgs<ExtArgs>>): Prisma__DestinationClient<$Result.GetResult<Prisma.$DestinationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    bookings<T extends Homestay$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends Homestay$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    views<T extends Homestay$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    taggedInPosts<T extends Homestay$taggedInPostsArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$taggedInPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends Homestay$likesArgs<ExtArgs> = {}>(args?: Subset<T, Homestay$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Homestay model
+   */
+  interface HomestayFieldRefs {
+    readonly id: FieldRef<"Homestay", 'String'>
+    readonly name: FieldRef<"Homestay", 'String'>
+    readonly description: FieldRef<"Homestay", 'String'>
+    readonly address: FieldRef<"Homestay", 'String'>
+    readonly city: FieldRef<"Homestay", 'String'>
+    readonly country: FieldRef<"Homestay", 'String'>
+    readonly latitude: FieldRef<"Homestay", 'Float'>
+    readonly longitude: FieldRef<"Homestay", 'Float'>
+    readonly imageUrl: FieldRef<"Homestay", 'String[]'>
+    readonly phoneNumber: FieldRef<"Homestay", 'String'>
+    readonly email: FieldRef<"Homestay", 'String'>
+    readonly website: FieldRef<"Homestay", 'String'>
+    readonly pricePerNight: FieldRef<"Homestay", 'Float'>
+    readonly currency: FieldRef<"Homestay", 'String'>
+    readonly maxGuests: FieldRef<"Homestay", 'Int'>
+    readonly bedrooms: FieldRef<"Homestay", 'Int'>
+    readonly beds: FieldRef<"Homestay", 'Int'>
+    readonly bathrooms: FieldRef<"Homestay", 'Int'>
+    readonly amenities: FieldRef<"Homestay", 'String[]'>
+    readonly houseRules: FieldRef<"Homestay", 'String[]'>
+    readonly checkInTime: FieldRef<"Homestay", 'String'>
+    readonly checkOutTime: FieldRef<"Homestay", 'String'>
+    readonly rating: FieldRef<"Homestay", 'Float'>
+    readonly reviewCount: FieldRef<"Homestay", 'Int'>
+    readonly viewCount: FieldRef<"Homestay", 'Int'>
+    readonly likeCount: FieldRef<"Homestay", 'Int'>
+    readonly isActive: FieldRef<"Homestay", 'Boolean'>
+    readonly isVerified: FieldRef<"Homestay", 'Boolean'>
+    readonly destinationId: FieldRef<"Homestay", 'String'>
+    readonly ownerId: FieldRef<"Homestay", 'String'>
+    readonly createdAt: FieldRef<"Homestay", 'DateTime'>
+    readonly updatedAt: FieldRef<"Homestay", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Homestay findUnique
+   */
+  export type HomestayFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which Homestay to fetch.
+     */
+    where: HomestayWhereUniqueInput
+  }
+
+  /**
+   * Homestay findUniqueOrThrow
+   */
+  export type HomestayFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which Homestay to fetch.
+     */
+    where: HomestayWhereUniqueInput
+  }
+
+  /**
+   * Homestay findFirst
+   */
+  export type HomestayFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which Homestay to fetch.
+     */
+    where?: HomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Homestays to fetch.
+     */
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Homestays.
+     */
+    cursor?: HomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Homestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Homestays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Homestays.
+     */
+    distinct?: HomestayScalarFieldEnum | HomestayScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay findFirstOrThrow
+   */
+  export type HomestayFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which Homestay to fetch.
+     */
+    where?: HomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Homestays to fetch.
+     */
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Homestays.
+     */
+    cursor?: HomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Homestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Homestays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Homestays.
+     */
+    distinct?: HomestayScalarFieldEnum | HomestayScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay findMany
+   */
+  export type HomestayFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which Homestays to fetch.
+     */
+    where?: HomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Homestays to fetch.
+     */
+    orderBy?: HomestayOrderByWithRelationInput | HomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Homestays.
+     */
+    cursor?: HomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Homestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Homestays.
+     */
+    skip?: number
+    distinct?: HomestayScalarFieldEnum | HomestayScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay create
+   */
+  export type HomestayCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Homestay.
+     */
+    data: XOR<HomestayCreateInput, HomestayUncheckedCreateInput>
+  }
+
+  /**
+   * Homestay createMany
+   */
+  export type HomestayCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Homestays.
+     */
+    data: HomestayCreateManyInput | HomestayCreateManyInput[]
+  }
+
+  /**
+   * Homestay update
+   */
+  export type HomestayUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Homestay.
+     */
+    data: XOR<HomestayUpdateInput, HomestayUncheckedUpdateInput>
+    /**
+     * Choose, which Homestay to update.
+     */
+    where: HomestayWhereUniqueInput
+  }
+
+  /**
+   * Homestay updateMany
+   */
+  export type HomestayUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Homestays.
+     */
+    data: XOR<HomestayUpdateManyMutationInput, HomestayUncheckedUpdateManyInput>
+    /**
+     * Filter which Homestays to update
+     */
+    where?: HomestayWhereInput
+    /**
+     * Limit how many Homestays to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Homestay upsert
+   */
+  export type HomestayUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Homestay to update in case it exists.
+     */
+    where: HomestayWhereUniqueInput
+    /**
+     * In case the Homestay found by the `where` argument doesn't exist, create a new Homestay with this data.
+     */
+    create: XOR<HomestayCreateInput, HomestayUncheckedCreateInput>
+    /**
+     * In case the Homestay was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HomestayUpdateInput, HomestayUncheckedUpdateInput>
+  }
+
+  /**
+   * Homestay delete
+   */
+  export type HomestayDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+    /**
+     * Filter which Homestay to delete.
+     */
+    where: HomestayWhereUniqueInput
+  }
+
+  /**
+   * Homestay deleteMany
+   */
+  export type HomestayDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Homestays to delete
+     */
+    where?: HomestayWhereInput
+    /**
+     * Limit how many Homestays to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Homestay findRaw
+   */
+  export type HomestayFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Homestay aggregateRaw
+   */
+  export type HomestayAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Homestay.destination
+   */
+  export type Homestay$destinationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Destination
+     */
+    select?: DestinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Destination
+     */
+    omit?: DestinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinationInclude<ExtArgs> | null
+    where?: DestinationWhereInput
+  }
+
+  /**
+   * Homestay.bookings
+   */
+  export type Homestay$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    cursor?: BookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay.reviews
+   */
+  export type Homestay$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    where?: HomestayReviewWhereInput
+    orderBy?: HomestayReviewOrderByWithRelationInput | HomestayReviewOrderByWithRelationInput[]
+    cursor?: HomestayReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayReviewScalarFieldEnum | HomestayReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay.views
+   */
+  export type Homestay$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    where?: HomestayViewWhereInput
+    orderBy?: HomestayViewOrderByWithRelationInput | HomestayViewOrderByWithRelationInput[]
+    cursor?: HomestayViewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomestayViewScalarFieldEnum | HomestayViewScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay.taggedInPosts
+   */
+  export type Homestay$taggedInPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    where?: PostHomestayWhereInput
+    orderBy?: PostHomestayOrderByWithRelationInput | PostHomestayOrderByWithRelationInput[]
+    cursor?: PostHomestayWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostHomestayScalarFieldEnum | PostHomestayScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay.likes
+   */
+  export type Homestay$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    where?: LikeWhereInput
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    cursor?: LikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Homestay without action
+   */
+  export type HomestayDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Homestay
+     */
+    select?: HomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Homestay
+     */
+    omit?: HomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Booking
+   */
+
+  export type AggregateBooking = {
+    _count: BookingCountAggregateOutputType | null
+    _avg: BookingAvgAggregateOutputType | null
+    _sum: BookingSumAggregateOutputType | null
+    _min: BookingMinAggregateOutputType | null
+    _max: BookingMaxAggregateOutputType | null
+  }
+
+  export type BookingAvgAggregateOutputType = {
+    numberOfGuests: number | null
+    totalPrice: number | null
+  }
+
+  export type BookingSumAggregateOutputType = {
+    numberOfGuests: number | null
+    totalPrice: number | null
+  }
+
+  export type BookingMinAggregateOutputType = {
+    id: string | null
+    homestayId: string | null
+    guestId: string | null
+    checkInDate: Date | null
+    checkOutDate: Date | null
+    numberOfGuests: number | null
+    totalPrice: number | null
+    status: string | null
+    specialRequests: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookingMaxAggregateOutputType = {
+    id: string | null
+    homestayId: string | null
+    guestId: string | null
+    checkInDate: Date | null
+    checkOutDate: Date | null
+    numberOfGuests: number | null
+    totalPrice: number | null
+    status: string | null
+    specialRequests: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookingCountAggregateOutputType = {
+    id: number
+    homestayId: number
+    guestId: number
+    checkInDate: number
+    checkOutDate: number
+    numberOfGuests: number
+    totalPrice: number
+    status: number
+    specialRequests: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BookingAvgAggregateInputType = {
+    numberOfGuests?: true
+    totalPrice?: true
+  }
+
+  export type BookingSumAggregateInputType = {
+    numberOfGuests?: true
+    totalPrice?: true
+  }
+
+  export type BookingMinAggregateInputType = {
+    id?: true
+    homestayId?: true
+    guestId?: true
+    checkInDate?: true
+    checkOutDate?: true
+    numberOfGuests?: true
+    totalPrice?: true
+    status?: true
+    specialRequests?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookingMaxAggregateInputType = {
+    id?: true
+    homestayId?: true
+    guestId?: true
+    checkInDate?: true
+    checkOutDate?: true
+    numberOfGuests?: true
+    totalPrice?: true
+    status?: true
+    specialRequests?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookingCountAggregateInputType = {
+    id?: true
+    homestayId?: true
+    guestId?: true
+    checkInDate?: true
+    checkOutDate?: true
+    numberOfGuests?: true
+    totalPrice?: true
+    status?: true
+    specialRequests?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BookingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Booking to aggregate.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Bookings
+    **/
+    _count?: true | BookingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BookingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BookingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookingMaxAggregateInputType
+  }
+
+  export type GetBookingAggregateType<T extends BookingAggregateArgs> = {
+        [P in keyof T & keyof AggregateBooking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBooking[P]>
+      : GetScalarType<T[P], AggregateBooking[P]>
+  }
+
+
+
+
+  export type BookingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithAggregationInput | BookingOrderByWithAggregationInput[]
+    by: BookingScalarFieldEnum[] | BookingScalarFieldEnum
+    having?: BookingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookingCountAggregateInputType | true
+    _avg?: BookingAvgAggregateInputType
+    _sum?: BookingSumAggregateInputType
+    _min?: BookingMinAggregateInputType
+    _max?: BookingMaxAggregateInputType
+  }
+
+  export type BookingGroupByOutputType = {
+    id: string
+    homestayId: string
+    guestId: string
+    checkInDate: Date
+    checkOutDate: Date
+    numberOfGuests: number
+    totalPrice: number
+    status: string
+    specialRequests: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: BookingCountAggregateOutputType | null
+    _avg: BookingAvgAggregateOutputType | null
+    _sum: BookingSumAggregateOutputType | null
+    _min: BookingMinAggregateOutputType | null
+    _max: BookingMaxAggregateOutputType | null
+  }
+
+  type GetBookingGroupByPayload<T extends BookingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookingGroupByOutputType[P]>
+            : GetScalarType<T[P], BookingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    homestayId?: boolean
+    guestId?: boolean
+    checkInDate?: boolean
+    checkOutDate?: boolean
+    numberOfGuests?: boolean
+    totalPrice?: boolean
+    status?: boolean
+    specialRequests?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+    guest?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking"]>
+
+
+
+  export type BookingSelectScalar = {
+    id?: boolean
+    homestayId?: boolean
+    guestId?: boolean
+    checkInDate?: boolean
+    checkOutDate?: boolean
+    numberOfGuests?: boolean
+    totalPrice?: boolean
+    status?: boolean
+    specialRequests?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "homestayId" | "guestId" | "checkInDate" | "checkOutDate" | "numberOfGuests" | "totalPrice" | "status" | "specialRequests" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+  export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+    guest?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BookingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Booking"
+    objects: {
+      homestay: Prisma.$HomestayPayload<ExtArgs>
+      guest: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      homestayId: string
+      guestId: string
+      checkInDate: Date
+      checkOutDate: Date
+      numberOfGuests: number
+      totalPrice: number
+      status: string
+      specialRequests: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["booking"]>
+    composites: {}
+  }
+
+  type BookingGetPayload<S extends boolean | null | undefined | BookingDefaultArgs> = $Result.GetResult<Prisma.$BookingPayload, S>
+
+  type BookingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BookingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BookingCountAggregateInputType | true
+    }
+
+  export interface BookingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Booking'], meta: { name: 'Booking' } }
+    /**
+     * Find zero or one Booking that matches the filter.
+     * @param {BookingFindUniqueArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookingFindUniqueArgs>(args: SelectSubset<T, BookingFindUniqueArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Booking that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BookingFindUniqueOrThrowArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookingFindUniqueOrThrowArgs>(args: SelectSubset<T, BookingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Booking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindFirstArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookingFindFirstArgs>(args?: SelectSubset<T, BookingFindFirstArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Booking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindFirstOrThrowArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookingFindFirstOrThrowArgs>(args?: SelectSubset<T, BookingFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Bookings
+     * const bookings = await prisma.booking.findMany()
+     * 
+     * // Get first 10 Bookings
+     * const bookings = await prisma.booking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookingWithIdOnly = await prisma.booking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookingFindManyArgs>(args?: SelectSubset<T, BookingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Booking.
+     * @param {BookingCreateArgs} args - Arguments to create a Booking.
+     * @example
+     * // Create one Booking
+     * const Booking = await prisma.booking.create({
+     *   data: {
+     *     // ... data to create a Booking
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookingCreateArgs>(args: SelectSubset<T, BookingCreateArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Bookings.
+     * @param {BookingCreateManyArgs} args - Arguments to create many Bookings.
+     * @example
+     * // Create many Bookings
+     * const booking = await prisma.booking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookingCreateManyArgs>(args?: SelectSubset<T, BookingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Booking.
+     * @param {BookingDeleteArgs} args - Arguments to delete one Booking.
+     * @example
+     * // Delete one Booking
+     * const Booking = await prisma.booking.delete({
+     *   where: {
+     *     // ... filter to delete one Booking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookingDeleteArgs>(args: SelectSubset<T, BookingDeleteArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Booking.
+     * @param {BookingUpdateArgs} args - Arguments to update one Booking.
+     * @example
+     * // Update one Booking
+     * const booking = await prisma.booking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookingUpdateArgs>(args: SelectSubset<T, BookingUpdateArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Bookings.
+     * @param {BookingDeleteManyArgs} args - Arguments to filter Bookings to delete.
+     * @example
+     * // Delete a few Bookings
+     * const { count } = await prisma.booking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookingDeleteManyArgs>(args?: SelectSubset<T, BookingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Bookings
+     * const booking = await prisma.booking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookingUpdateManyArgs>(args: SelectSubset<T, BookingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Booking.
+     * @param {BookingUpsertArgs} args - Arguments to update or create a Booking.
+     * @example
+     * // Update or create a Booking
+     * const booking = await prisma.booking.upsert({
+     *   create: {
+     *     // ... data to create a Booking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Booking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookingUpsertArgs>(args: SelectSubset<T, BookingUpsertArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Bookings that matches the filter.
+     * @param {BookingFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const booking = await prisma.booking.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: BookingFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Booking.
+     * @param {BookingAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const booking = await prisma.booking.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: BookingAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingCountArgs} args - Arguments to filter Bookings to count.
+     * @example
+     * // Count the number of Bookings
+     * const count = await prisma.booking.count({
+     *   where: {
+     *     // ... the filter for the Bookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookingCountArgs>(
+      args?: Subset<T, BookingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Booking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookingAggregateArgs>(args: Subset<T, BookingAggregateArgs>): Prisma.PrismaPromise<GetBookingAggregateType<T>>
+
+    /**
+     * Group by Booking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookingGroupByArgs['orderBy'] }
+        : { orderBy?: BookingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Booking model
+   */
+  readonly fields: BookingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Booking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    homestay<T extends HomestayDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HomestayDefaultArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    guest<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Booking model
+   */
+  interface BookingFieldRefs {
+    readonly id: FieldRef<"Booking", 'String'>
+    readonly homestayId: FieldRef<"Booking", 'String'>
+    readonly guestId: FieldRef<"Booking", 'String'>
+    readonly checkInDate: FieldRef<"Booking", 'DateTime'>
+    readonly checkOutDate: FieldRef<"Booking", 'DateTime'>
+    readonly numberOfGuests: FieldRef<"Booking", 'Int'>
+    readonly totalPrice: FieldRef<"Booking", 'Float'>
+    readonly status: FieldRef<"Booking", 'String'>
+    readonly specialRequests: FieldRef<"Booking", 'String'>
+    readonly createdAt: FieldRef<"Booking", 'DateTime'>
+    readonly updatedAt: FieldRef<"Booking", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Booking findUnique
+   */
+  export type BookingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking findUniqueOrThrow
+   */
+  export type BookingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking findFirst
+   */
+  export type BookingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookings.
+     */
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking findFirstOrThrow
+   */
+  export type BookingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookings.
+     */
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking findMany
+   */
+  export type BookingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookings to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking create
+   */
+  export type BookingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Booking.
+     */
+    data: XOR<BookingCreateInput, BookingUncheckedCreateInput>
+  }
+
+  /**
+   * Booking createMany
+   */
+  export type BookingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Bookings.
+     */
+    data: BookingCreateManyInput | BookingCreateManyInput[]
+  }
+
+  /**
+   * Booking update
+   */
+  export type BookingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Booking.
+     */
+    data: XOR<BookingUpdateInput, BookingUncheckedUpdateInput>
+    /**
+     * Choose, which Booking to update.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking updateMany
+   */
+  export type BookingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Bookings.
+     */
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyInput>
+    /**
+     * Filter which Bookings to update
+     */
+    where?: BookingWhereInput
+    /**
+     * Limit how many Bookings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Booking upsert
+   */
+  export type BookingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Booking to update in case it exists.
+     */
+    where: BookingWhereUniqueInput
+    /**
+     * In case the Booking found by the `where` argument doesn't exist, create a new Booking with this data.
+     */
+    create: XOR<BookingCreateInput, BookingUncheckedCreateInput>
+    /**
+     * In case the Booking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookingUpdateInput, BookingUncheckedUpdateInput>
+  }
+
+  /**
+   * Booking delete
+   */
+  export type BookingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter which Booking to delete.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking deleteMany
+   */
+  export type BookingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bookings to delete
+     */
+    where?: BookingWhereInput
+    /**
+     * Limit how many Bookings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Booking findRaw
+   */
+  export type BookingFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Booking aggregateRaw
+   */
+  export type BookingAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Booking without action
+   */
+  export type BookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HomestayReview
+   */
+
+  export type AggregateHomestayReview = {
+    _count: HomestayReviewCountAggregateOutputType | null
+    _avg: HomestayReviewAvgAggregateOutputType | null
+    _sum: HomestayReviewSumAggregateOutputType | null
+    _min: HomestayReviewMinAggregateOutputType | null
+    _max: HomestayReviewMaxAggregateOutputType | null
+  }
+
+  export type HomestayReviewAvgAggregateOutputType = {
+    rating: number | null
+    cleanliness: number | null
+    accuracy: number | null
+    checkIn: number | null
+    communication: number | null
+    location: number | null
+    value: number | null
+  }
+
+  export type HomestayReviewSumAggregateOutputType = {
+    rating: number | null
+    cleanliness: number | null
+    accuracy: number | null
+    checkIn: number | null
+    communication: number | null
+    location: number | null
+    value: number | null
+  }
+
+  export type HomestayReviewMinAggregateOutputType = {
+    id: string | null
+    homestayId: string | null
+    userId: string | null
+    rating: number | null
+    comment: string | null
+    cleanliness: number | null
+    accuracy: number | null
+    checkIn: number | null
+    communication: number | null
+    location: number | null
+    value: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HomestayReviewMaxAggregateOutputType = {
+    id: string | null
+    homestayId: string | null
+    userId: string | null
+    rating: number | null
+    comment: string | null
+    cleanliness: number | null
+    accuracy: number | null
+    checkIn: number | null
+    communication: number | null
+    location: number | null
+    value: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HomestayReviewCountAggregateOutputType = {
+    id: number
+    homestayId: number
+    userId: number
+    rating: number
+    comment: number
+    cleanliness: number
+    accuracy: number
+    checkIn: number
+    communication: number
+    location: number
+    value: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HomestayReviewAvgAggregateInputType = {
+    rating?: true
+    cleanliness?: true
+    accuracy?: true
+    checkIn?: true
+    communication?: true
+    location?: true
+    value?: true
+  }
+
+  export type HomestayReviewSumAggregateInputType = {
+    rating?: true
+    cleanliness?: true
+    accuracy?: true
+    checkIn?: true
+    communication?: true
+    location?: true
+    value?: true
+  }
+
+  export type HomestayReviewMinAggregateInputType = {
+    id?: true
+    homestayId?: true
+    userId?: true
+    rating?: true
+    comment?: true
+    cleanliness?: true
+    accuracy?: true
+    checkIn?: true
+    communication?: true
+    location?: true
+    value?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HomestayReviewMaxAggregateInputType = {
+    id?: true
+    homestayId?: true
+    userId?: true
+    rating?: true
+    comment?: true
+    cleanliness?: true
+    accuracy?: true
+    checkIn?: true
+    communication?: true
+    location?: true
+    value?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HomestayReviewCountAggregateInputType = {
+    id?: true
+    homestayId?: true
+    userId?: true
+    rating?: true
+    comment?: true
+    cleanliness?: true
+    accuracy?: true
+    checkIn?: true
+    communication?: true
+    location?: true
+    value?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HomestayReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HomestayReview to aggregate.
+     */
+    where?: HomestayReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayReviews to fetch.
+     */
+    orderBy?: HomestayReviewOrderByWithRelationInput | HomestayReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HomestayReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HomestayReviews
+    **/
+    _count?: true | HomestayReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HomestayReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HomestayReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HomestayReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HomestayReviewMaxAggregateInputType
+  }
+
+  export type GetHomestayReviewAggregateType<T extends HomestayReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateHomestayReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHomestayReview[P]>
+      : GetScalarType<T[P], AggregateHomestayReview[P]>
+  }
+
+
+
+
+  export type HomestayReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayReviewWhereInput
+    orderBy?: HomestayReviewOrderByWithAggregationInput | HomestayReviewOrderByWithAggregationInput[]
+    by: HomestayReviewScalarFieldEnum[] | HomestayReviewScalarFieldEnum
+    having?: HomestayReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HomestayReviewCountAggregateInputType | true
+    _avg?: HomestayReviewAvgAggregateInputType
+    _sum?: HomestayReviewSumAggregateInputType
+    _min?: HomestayReviewMinAggregateInputType
+    _max?: HomestayReviewMaxAggregateInputType
+  }
+
+  export type HomestayReviewGroupByOutputType = {
+    id: string
+    homestayId: string
+    userId: string
+    rating: number
+    comment: string | null
+    cleanliness: number | null
+    accuracy: number | null
+    checkIn: number | null
+    communication: number | null
+    location: number | null
+    value: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: HomestayReviewCountAggregateOutputType | null
+    _avg: HomestayReviewAvgAggregateOutputType | null
+    _sum: HomestayReviewSumAggregateOutputType | null
+    _min: HomestayReviewMinAggregateOutputType | null
+    _max: HomestayReviewMaxAggregateOutputType | null
+  }
+
+  type GetHomestayReviewGroupByPayload<T extends HomestayReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HomestayReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HomestayReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HomestayReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], HomestayReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HomestayReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    homestayId?: boolean
+    userId?: boolean
+    rating?: boolean
+    comment?: boolean
+    cleanliness?: boolean
+    accuracy?: boolean
+    checkIn?: boolean
+    communication?: boolean
+    location?: boolean
+    value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["homestayReview"]>
+
+
+
+  export type HomestayReviewSelectScalar = {
+    id?: boolean
+    homestayId?: boolean
+    userId?: boolean
+    rating?: boolean
+    comment?: boolean
+    cleanliness?: boolean
+    accuracy?: boolean
+    checkIn?: boolean
+    communication?: boolean
+    location?: boolean
+    value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HomestayReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "homestayId" | "userId" | "rating" | "comment" | "cleanliness" | "accuracy" | "checkIn" | "communication" | "location" | "value" | "createdAt" | "updatedAt", ExtArgs["result"]["homestayReview"]>
+  export type HomestayReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $HomestayReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HomestayReview"
+    objects: {
+      homestay: Prisma.$HomestayPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      homestayId: string
+      userId: string
+      rating: number
+      comment: string | null
+      cleanliness: number | null
+      accuracy: number | null
+      checkIn: number | null
+      communication: number | null
+      location: number | null
+      value: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["homestayReview"]>
+    composites: {}
+  }
+
+  type HomestayReviewGetPayload<S extends boolean | null | undefined | HomestayReviewDefaultArgs> = $Result.GetResult<Prisma.$HomestayReviewPayload, S>
+
+  type HomestayReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HomestayReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HomestayReviewCountAggregateInputType | true
+    }
+
+  export interface HomestayReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HomestayReview'], meta: { name: 'HomestayReview' } }
+    /**
+     * Find zero or one HomestayReview that matches the filter.
+     * @param {HomestayReviewFindUniqueArgs} args - Arguments to find a HomestayReview
+     * @example
+     * // Get one HomestayReview
+     * const homestayReview = await prisma.homestayReview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HomestayReviewFindUniqueArgs>(args: SelectSubset<T, HomestayReviewFindUniqueArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HomestayReview that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HomestayReviewFindUniqueOrThrowArgs} args - Arguments to find a HomestayReview
+     * @example
+     * // Get one HomestayReview
+     * const homestayReview = await prisma.homestayReview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HomestayReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, HomestayReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HomestayReview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewFindFirstArgs} args - Arguments to find a HomestayReview
+     * @example
+     * // Get one HomestayReview
+     * const homestayReview = await prisma.homestayReview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HomestayReviewFindFirstArgs>(args?: SelectSubset<T, HomestayReviewFindFirstArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HomestayReview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewFindFirstOrThrowArgs} args - Arguments to find a HomestayReview
+     * @example
+     * // Get one HomestayReview
+     * const homestayReview = await prisma.homestayReview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HomestayReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, HomestayReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HomestayReviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HomestayReviews
+     * const homestayReviews = await prisma.homestayReview.findMany()
+     * 
+     * // Get first 10 HomestayReviews
+     * const homestayReviews = await prisma.homestayReview.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const homestayReviewWithIdOnly = await prisma.homestayReview.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HomestayReviewFindManyArgs>(args?: SelectSubset<T, HomestayReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HomestayReview.
+     * @param {HomestayReviewCreateArgs} args - Arguments to create a HomestayReview.
+     * @example
+     * // Create one HomestayReview
+     * const HomestayReview = await prisma.homestayReview.create({
+     *   data: {
+     *     // ... data to create a HomestayReview
+     *   }
+     * })
+     * 
+     */
+    create<T extends HomestayReviewCreateArgs>(args: SelectSubset<T, HomestayReviewCreateArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HomestayReviews.
+     * @param {HomestayReviewCreateManyArgs} args - Arguments to create many HomestayReviews.
+     * @example
+     * // Create many HomestayReviews
+     * const homestayReview = await prisma.homestayReview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HomestayReviewCreateManyArgs>(args?: SelectSubset<T, HomestayReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a HomestayReview.
+     * @param {HomestayReviewDeleteArgs} args - Arguments to delete one HomestayReview.
+     * @example
+     * // Delete one HomestayReview
+     * const HomestayReview = await prisma.homestayReview.delete({
+     *   where: {
+     *     // ... filter to delete one HomestayReview
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HomestayReviewDeleteArgs>(args: SelectSubset<T, HomestayReviewDeleteArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HomestayReview.
+     * @param {HomestayReviewUpdateArgs} args - Arguments to update one HomestayReview.
+     * @example
+     * // Update one HomestayReview
+     * const homestayReview = await prisma.homestayReview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HomestayReviewUpdateArgs>(args: SelectSubset<T, HomestayReviewUpdateArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HomestayReviews.
+     * @param {HomestayReviewDeleteManyArgs} args - Arguments to filter HomestayReviews to delete.
+     * @example
+     * // Delete a few HomestayReviews
+     * const { count } = await prisma.homestayReview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HomestayReviewDeleteManyArgs>(args?: SelectSubset<T, HomestayReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HomestayReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HomestayReviews
+     * const homestayReview = await prisma.homestayReview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HomestayReviewUpdateManyArgs>(args: SelectSubset<T, HomestayReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HomestayReview.
+     * @param {HomestayReviewUpsertArgs} args - Arguments to update or create a HomestayReview.
+     * @example
+     * // Update or create a HomestayReview
+     * const homestayReview = await prisma.homestayReview.upsert({
+     *   create: {
+     *     // ... data to create a HomestayReview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HomestayReview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HomestayReviewUpsertArgs>(args: SelectSubset<T, HomestayReviewUpsertArgs<ExtArgs>>): Prisma__HomestayReviewClient<$Result.GetResult<Prisma.$HomestayReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HomestayReviews that matches the filter.
+     * @param {HomestayReviewFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const homestayReview = await prisma.homestayReview.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: HomestayReviewFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a HomestayReview.
+     * @param {HomestayReviewAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const homestayReview = await prisma.homestayReview.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: HomestayReviewAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of HomestayReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewCountArgs} args - Arguments to filter HomestayReviews to count.
+     * @example
+     * // Count the number of HomestayReviews
+     * const count = await prisma.homestayReview.count({
+     *   where: {
+     *     // ... the filter for the HomestayReviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends HomestayReviewCountArgs>(
+      args?: Subset<T, HomestayReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HomestayReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HomestayReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HomestayReviewAggregateArgs>(args: Subset<T, HomestayReviewAggregateArgs>): Prisma.PrismaPromise<GetHomestayReviewAggregateType<T>>
+
+    /**
+     * Group by HomestayReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HomestayReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HomestayReviewGroupByArgs['orderBy'] }
+        : { orderBy?: HomestayReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HomestayReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHomestayReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HomestayReview model
+   */
+  readonly fields: HomestayReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HomestayReview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HomestayReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    homestay<T extends HomestayDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HomestayDefaultArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HomestayReview model
+   */
+  interface HomestayReviewFieldRefs {
+    readonly id: FieldRef<"HomestayReview", 'String'>
+    readonly homestayId: FieldRef<"HomestayReview", 'String'>
+    readonly userId: FieldRef<"HomestayReview", 'String'>
+    readonly rating: FieldRef<"HomestayReview", 'Float'>
+    readonly comment: FieldRef<"HomestayReview", 'String'>
+    readonly cleanliness: FieldRef<"HomestayReview", 'Float'>
+    readonly accuracy: FieldRef<"HomestayReview", 'Float'>
+    readonly checkIn: FieldRef<"HomestayReview", 'Float'>
+    readonly communication: FieldRef<"HomestayReview", 'Float'>
+    readonly location: FieldRef<"HomestayReview", 'Float'>
+    readonly value: FieldRef<"HomestayReview", 'Float'>
+    readonly createdAt: FieldRef<"HomestayReview", 'DateTime'>
+    readonly updatedAt: FieldRef<"HomestayReview", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HomestayReview findUnique
+   */
+  export type HomestayReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayReview to fetch.
+     */
+    where: HomestayReviewWhereUniqueInput
+  }
+
+  /**
+   * HomestayReview findUniqueOrThrow
+   */
+  export type HomestayReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayReview to fetch.
+     */
+    where: HomestayReviewWhereUniqueInput
+  }
+
+  /**
+   * HomestayReview findFirst
+   */
+  export type HomestayReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayReview to fetch.
+     */
+    where?: HomestayReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayReviews to fetch.
+     */
+    orderBy?: HomestayReviewOrderByWithRelationInput | HomestayReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HomestayReviews.
+     */
+    cursor?: HomestayReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HomestayReviews.
+     */
+    distinct?: HomestayReviewScalarFieldEnum | HomestayReviewScalarFieldEnum[]
+  }
+
+  /**
+   * HomestayReview findFirstOrThrow
+   */
+  export type HomestayReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayReview to fetch.
+     */
+    where?: HomestayReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayReviews to fetch.
+     */
+    orderBy?: HomestayReviewOrderByWithRelationInput | HomestayReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HomestayReviews.
+     */
+    cursor?: HomestayReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HomestayReviews.
+     */
+    distinct?: HomestayReviewScalarFieldEnum | HomestayReviewScalarFieldEnum[]
+  }
+
+  /**
+   * HomestayReview findMany
+   */
+  export type HomestayReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayReviews to fetch.
+     */
+    where?: HomestayReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayReviews to fetch.
+     */
+    orderBy?: HomestayReviewOrderByWithRelationInput | HomestayReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HomestayReviews.
+     */
+    cursor?: HomestayReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayReviews.
+     */
+    skip?: number
+    distinct?: HomestayReviewScalarFieldEnum | HomestayReviewScalarFieldEnum[]
+  }
+
+  /**
+   * HomestayReview create
+   */
+  export type HomestayReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HomestayReview.
+     */
+    data: XOR<HomestayReviewCreateInput, HomestayReviewUncheckedCreateInput>
+  }
+
+  /**
+   * HomestayReview createMany
+   */
+  export type HomestayReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HomestayReviews.
+     */
+    data: HomestayReviewCreateManyInput | HomestayReviewCreateManyInput[]
+  }
+
+  /**
+   * HomestayReview update
+   */
+  export type HomestayReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HomestayReview.
+     */
+    data: XOR<HomestayReviewUpdateInput, HomestayReviewUncheckedUpdateInput>
+    /**
+     * Choose, which HomestayReview to update.
+     */
+    where: HomestayReviewWhereUniqueInput
+  }
+
+  /**
+   * HomestayReview updateMany
+   */
+  export type HomestayReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HomestayReviews.
+     */
+    data: XOR<HomestayReviewUpdateManyMutationInput, HomestayReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which HomestayReviews to update
+     */
+    where?: HomestayReviewWhereInput
+    /**
+     * Limit how many HomestayReviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomestayReview upsert
+   */
+  export type HomestayReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HomestayReview to update in case it exists.
+     */
+    where: HomestayReviewWhereUniqueInput
+    /**
+     * In case the HomestayReview found by the `where` argument doesn't exist, create a new HomestayReview with this data.
+     */
+    create: XOR<HomestayReviewCreateInput, HomestayReviewUncheckedCreateInput>
+    /**
+     * In case the HomestayReview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HomestayReviewUpdateInput, HomestayReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * HomestayReview delete
+   */
+  export type HomestayReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+    /**
+     * Filter which HomestayReview to delete.
+     */
+    where: HomestayReviewWhereUniqueInput
+  }
+
+  /**
+   * HomestayReview deleteMany
+   */
+  export type HomestayReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HomestayReviews to delete
+     */
+    where?: HomestayReviewWhereInput
+    /**
+     * Limit how many HomestayReviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomestayReview findRaw
+   */
+  export type HomestayReviewFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * HomestayReview aggregateRaw
+   */
+  export type HomestayReviewAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * HomestayReview without action
+   */
+  export type HomestayReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayReview
+     */
+    select?: HomestayReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayReview
+     */
+    omit?: HomestayReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayReviewInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HomestayView
+   */
+
+  export type AggregateHomestayView = {
+    _count: HomestayViewCountAggregateOutputType | null
+    _min: HomestayViewMinAggregateOutputType | null
+    _max: HomestayViewMaxAggregateOutputType | null
+  }
+
+  export type HomestayViewMinAggregateOutputType = {
+    id: string | null
+    homestayId: string | null
+    userId: string | null
+    viewedAt: Date | null
+  }
+
+  export type HomestayViewMaxAggregateOutputType = {
+    id: string | null
+    homestayId: string | null
+    userId: string | null
+    viewedAt: Date | null
+  }
+
+  export type HomestayViewCountAggregateOutputType = {
+    id: number
+    homestayId: number
+    userId: number
+    viewedAt: number
+    _all: number
+  }
+
+
+  export type HomestayViewMinAggregateInputType = {
+    id?: true
+    homestayId?: true
+    userId?: true
+    viewedAt?: true
+  }
+
+  export type HomestayViewMaxAggregateInputType = {
+    id?: true
+    homestayId?: true
+    userId?: true
+    viewedAt?: true
+  }
+
+  export type HomestayViewCountAggregateInputType = {
+    id?: true
+    homestayId?: true
+    userId?: true
+    viewedAt?: true
+    _all?: true
+  }
+
+  export type HomestayViewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HomestayView to aggregate.
+     */
+    where?: HomestayViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayViews to fetch.
+     */
+    orderBy?: HomestayViewOrderByWithRelationInput | HomestayViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HomestayViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HomestayViews
+    **/
+    _count?: true | HomestayViewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HomestayViewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HomestayViewMaxAggregateInputType
+  }
+
+  export type GetHomestayViewAggregateType<T extends HomestayViewAggregateArgs> = {
+        [P in keyof T & keyof AggregateHomestayView]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHomestayView[P]>
+      : GetScalarType<T[P], AggregateHomestayView[P]>
+  }
+
+
+
+
+  export type HomestayViewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomestayViewWhereInput
+    orderBy?: HomestayViewOrderByWithAggregationInput | HomestayViewOrderByWithAggregationInput[]
+    by: HomestayViewScalarFieldEnum[] | HomestayViewScalarFieldEnum
+    having?: HomestayViewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HomestayViewCountAggregateInputType | true
+    _min?: HomestayViewMinAggregateInputType
+    _max?: HomestayViewMaxAggregateInputType
+  }
+
+  export type HomestayViewGroupByOutputType = {
+    id: string
+    homestayId: string
+    userId: string
+    viewedAt: Date
+    _count: HomestayViewCountAggregateOutputType | null
+    _min: HomestayViewMinAggregateOutputType | null
+    _max: HomestayViewMaxAggregateOutputType | null
+  }
+
+  type GetHomestayViewGroupByPayload<T extends HomestayViewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HomestayViewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HomestayViewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HomestayViewGroupByOutputType[P]>
+            : GetScalarType<T[P], HomestayViewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HomestayViewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    homestayId?: boolean
+    userId?: boolean
+    viewedAt?: boolean
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["homestayView"]>
+
+
+
+  export type HomestayViewSelectScalar = {
+    id?: boolean
+    homestayId?: boolean
+    userId?: boolean
+    viewedAt?: boolean
+  }
+
+  export type HomestayViewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "homestayId" | "userId" | "viewedAt", ExtArgs["result"]["homestayView"]>
+  export type HomestayViewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $HomestayViewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HomestayView"
+    objects: {
+      homestay: Prisma.$HomestayPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      homestayId: string
+      userId: string
+      viewedAt: Date
+    }, ExtArgs["result"]["homestayView"]>
+    composites: {}
+  }
+
+  type HomestayViewGetPayload<S extends boolean | null | undefined | HomestayViewDefaultArgs> = $Result.GetResult<Prisma.$HomestayViewPayload, S>
+
+  type HomestayViewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HomestayViewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HomestayViewCountAggregateInputType | true
+    }
+
+  export interface HomestayViewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HomestayView'], meta: { name: 'HomestayView' } }
+    /**
+     * Find zero or one HomestayView that matches the filter.
+     * @param {HomestayViewFindUniqueArgs} args - Arguments to find a HomestayView
+     * @example
+     * // Get one HomestayView
+     * const homestayView = await prisma.homestayView.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HomestayViewFindUniqueArgs>(args: SelectSubset<T, HomestayViewFindUniqueArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HomestayView that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HomestayViewFindUniqueOrThrowArgs} args - Arguments to find a HomestayView
+     * @example
+     * // Get one HomestayView
+     * const homestayView = await prisma.homestayView.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HomestayViewFindUniqueOrThrowArgs>(args: SelectSubset<T, HomestayViewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HomestayView that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewFindFirstArgs} args - Arguments to find a HomestayView
+     * @example
+     * // Get one HomestayView
+     * const homestayView = await prisma.homestayView.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HomestayViewFindFirstArgs>(args?: SelectSubset<T, HomestayViewFindFirstArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HomestayView that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewFindFirstOrThrowArgs} args - Arguments to find a HomestayView
+     * @example
+     * // Get one HomestayView
+     * const homestayView = await prisma.homestayView.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HomestayViewFindFirstOrThrowArgs>(args?: SelectSubset<T, HomestayViewFindFirstOrThrowArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HomestayViews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HomestayViews
+     * const homestayViews = await prisma.homestayView.findMany()
+     * 
+     * // Get first 10 HomestayViews
+     * const homestayViews = await prisma.homestayView.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const homestayViewWithIdOnly = await prisma.homestayView.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HomestayViewFindManyArgs>(args?: SelectSubset<T, HomestayViewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HomestayView.
+     * @param {HomestayViewCreateArgs} args - Arguments to create a HomestayView.
+     * @example
+     * // Create one HomestayView
+     * const HomestayView = await prisma.homestayView.create({
+     *   data: {
+     *     // ... data to create a HomestayView
+     *   }
+     * })
+     * 
+     */
+    create<T extends HomestayViewCreateArgs>(args: SelectSubset<T, HomestayViewCreateArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HomestayViews.
+     * @param {HomestayViewCreateManyArgs} args - Arguments to create many HomestayViews.
+     * @example
+     * // Create many HomestayViews
+     * const homestayView = await prisma.homestayView.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HomestayViewCreateManyArgs>(args?: SelectSubset<T, HomestayViewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a HomestayView.
+     * @param {HomestayViewDeleteArgs} args - Arguments to delete one HomestayView.
+     * @example
+     * // Delete one HomestayView
+     * const HomestayView = await prisma.homestayView.delete({
+     *   where: {
+     *     // ... filter to delete one HomestayView
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HomestayViewDeleteArgs>(args: SelectSubset<T, HomestayViewDeleteArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HomestayView.
+     * @param {HomestayViewUpdateArgs} args - Arguments to update one HomestayView.
+     * @example
+     * // Update one HomestayView
+     * const homestayView = await prisma.homestayView.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HomestayViewUpdateArgs>(args: SelectSubset<T, HomestayViewUpdateArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HomestayViews.
+     * @param {HomestayViewDeleteManyArgs} args - Arguments to filter HomestayViews to delete.
+     * @example
+     * // Delete a few HomestayViews
+     * const { count } = await prisma.homestayView.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HomestayViewDeleteManyArgs>(args?: SelectSubset<T, HomestayViewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HomestayViews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HomestayViews
+     * const homestayView = await prisma.homestayView.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HomestayViewUpdateManyArgs>(args: SelectSubset<T, HomestayViewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HomestayView.
+     * @param {HomestayViewUpsertArgs} args - Arguments to update or create a HomestayView.
+     * @example
+     * // Update or create a HomestayView
+     * const homestayView = await prisma.homestayView.upsert({
+     *   create: {
+     *     // ... data to create a HomestayView
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HomestayView we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HomestayViewUpsertArgs>(args: SelectSubset<T, HomestayViewUpsertArgs<ExtArgs>>): Prisma__HomestayViewClient<$Result.GetResult<Prisma.$HomestayViewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HomestayViews that matches the filter.
+     * @param {HomestayViewFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const homestayView = await prisma.homestayView.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: HomestayViewFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a HomestayView.
+     * @param {HomestayViewAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const homestayView = await prisma.homestayView.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: HomestayViewAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of HomestayViews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewCountArgs} args - Arguments to filter HomestayViews to count.
+     * @example
+     * // Count the number of HomestayViews
+     * const count = await prisma.homestayView.count({
+     *   where: {
+     *     // ... the filter for the HomestayViews we want to count
+     *   }
+     * })
+    **/
+    count<T extends HomestayViewCountArgs>(
+      args?: Subset<T, HomestayViewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HomestayViewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HomestayView.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HomestayViewAggregateArgs>(args: Subset<T, HomestayViewAggregateArgs>): Prisma.PrismaPromise<GetHomestayViewAggregateType<T>>
+
+    /**
+     * Group by HomestayView.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomestayViewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HomestayViewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HomestayViewGroupByArgs['orderBy'] }
+        : { orderBy?: HomestayViewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HomestayViewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHomestayViewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HomestayView model
+   */
+  readonly fields: HomestayViewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HomestayView.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HomestayViewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    homestay<T extends HomestayDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HomestayDefaultArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HomestayView model
+   */
+  interface HomestayViewFieldRefs {
+    readonly id: FieldRef<"HomestayView", 'String'>
+    readonly homestayId: FieldRef<"HomestayView", 'String'>
+    readonly userId: FieldRef<"HomestayView", 'String'>
+    readonly viewedAt: FieldRef<"HomestayView", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HomestayView findUnique
+   */
+  export type HomestayViewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayView to fetch.
+     */
+    where: HomestayViewWhereUniqueInput
+  }
+
+  /**
+   * HomestayView findUniqueOrThrow
+   */
+  export type HomestayViewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayView to fetch.
+     */
+    where: HomestayViewWhereUniqueInput
+  }
+
+  /**
+   * HomestayView findFirst
+   */
+  export type HomestayViewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayView to fetch.
+     */
+    where?: HomestayViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayViews to fetch.
+     */
+    orderBy?: HomestayViewOrderByWithRelationInput | HomestayViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HomestayViews.
+     */
+    cursor?: HomestayViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HomestayViews.
+     */
+    distinct?: HomestayViewScalarFieldEnum | HomestayViewScalarFieldEnum[]
+  }
+
+  /**
+   * HomestayView findFirstOrThrow
+   */
+  export type HomestayViewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayView to fetch.
+     */
+    where?: HomestayViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayViews to fetch.
+     */
+    orderBy?: HomestayViewOrderByWithRelationInput | HomestayViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HomestayViews.
+     */
+    cursor?: HomestayViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HomestayViews.
+     */
+    distinct?: HomestayViewScalarFieldEnum | HomestayViewScalarFieldEnum[]
+  }
+
+  /**
+   * HomestayView findMany
+   */
+  export type HomestayViewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * Filter, which HomestayViews to fetch.
+     */
+    where?: HomestayViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomestayViews to fetch.
+     */
+    orderBy?: HomestayViewOrderByWithRelationInput | HomestayViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HomestayViews.
+     */
+    cursor?: HomestayViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomestayViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomestayViews.
+     */
+    skip?: number
+    distinct?: HomestayViewScalarFieldEnum | HomestayViewScalarFieldEnum[]
+  }
+
+  /**
+   * HomestayView create
+   */
+  export type HomestayViewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HomestayView.
+     */
+    data: XOR<HomestayViewCreateInput, HomestayViewUncheckedCreateInput>
+  }
+
+  /**
+   * HomestayView createMany
+   */
+  export type HomestayViewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HomestayViews.
+     */
+    data: HomestayViewCreateManyInput | HomestayViewCreateManyInput[]
+  }
+
+  /**
+   * HomestayView update
+   */
+  export type HomestayViewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HomestayView.
+     */
+    data: XOR<HomestayViewUpdateInput, HomestayViewUncheckedUpdateInput>
+    /**
+     * Choose, which HomestayView to update.
+     */
+    where: HomestayViewWhereUniqueInput
+  }
+
+  /**
+   * HomestayView updateMany
+   */
+  export type HomestayViewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HomestayViews.
+     */
+    data: XOR<HomestayViewUpdateManyMutationInput, HomestayViewUncheckedUpdateManyInput>
+    /**
+     * Filter which HomestayViews to update
+     */
+    where?: HomestayViewWhereInput
+    /**
+     * Limit how many HomestayViews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomestayView upsert
+   */
+  export type HomestayViewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HomestayView to update in case it exists.
+     */
+    where: HomestayViewWhereUniqueInput
+    /**
+     * In case the HomestayView found by the `where` argument doesn't exist, create a new HomestayView with this data.
+     */
+    create: XOR<HomestayViewCreateInput, HomestayViewUncheckedCreateInput>
+    /**
+     * In case the HomestayView was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HomestayViewUpdateInput, HomestayViewUncheckedUpdateInput>
+  }
+
+  /**
+   * HomestayView delete
+   */
+  export type HomestayViewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+    /**
+     * Filter which HomestayView to delete.
+     */
+    where: HomestayViewWhereUniqueInput
+  }
+
+  /**
+   * HomestayView deleteMany
+   */
+  export type HomestayViewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HomestayViews to delete
+     */
+    where?: HomestayViewWhereInput
+    /**
+     * Limit how many HomestayViews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomestayView findRaw
+   */
+  export type HomestayViewFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * HomestayView aggregateRaw
+   */
+  export type HomestayViewAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * HomestayView without action
+   */
+  export type HomestayViewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomestayView
+     */
+    select?: HomestayViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomestayView
+     */
+    omit?: HomestayViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HomestayViewInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostHomestay
+   */
+
+  export type AggregatePostHomestay = {
+    _count: PostHomestayCountAggregateOutputType | null
+    _min: PostHomestayMinAggregateOutputType | null
+    _max: PostHomestayMaxAggregateOutputType | null
+  }
+
+  export type PostHomestayMinAggregateOutputType = {
+    id: string | null
+    postId: string | null
+    homestayId: string | null
+    createdAt: Date | null
+  }
+
+  export type PostHomestayMaxAggregateOutputType = {
+    id: string | null
+    postId: string | null
+    homestayId: string | null
+    createdAt: Date | null
+  }
+
+  export type PostHomestayCountAggregateOutputType = {
+    id: number
+    postId: number
+    homestayId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PostHomestayMinAggregateInputType = {
+    id?: true
+    postId?: true
+    homestayId?: true
+    createdAt?: true
+  }
+
+  export type PostHomestayMaxAggregateInputType = {
+    id?: true
+    postId?: true
+    homestayId?: true
+    createdAt?: true
+  }
+
+  export type PostHomestayCountAggregateInputType = {
+    id?: true
+    postId?: true
+    homestayId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PostHomestayAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostHomestay to aggregate.
+     */
+    where?: PostHomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHomestays to fetch.
+     */
+    orderBy?: PostHomestayOrderByWithRelationInput | PostHomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostHomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHomestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHomestays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostHomestays
+    **/
+    _count?: true | PostHomestayCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostHomestayMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostHomestayMaxAggregateInputType
+  }
+
+  export type GetPostHomestayAggregateType<T extends PostHomestayAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostHomestay]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostHomestay[P]>
+      : GetScalarType<T[P], AggregatePostHomestay[P]>
+  }
+
+
+
+
+  export type PostHomestayGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHomestayWhereInput
+    orderBy?: PostHomestayOrderByWithAggregationInput | PostHomestayOrderByWithAggregationInput[]
+    by: PostHomestayScalarFieldEnum[] | PostHomestayScalarFieldEnum
+    having?: PostHomestayScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostHomestayCountAggregateInputType | true
+    _min?: PostHomestayMinAggregateInputType
+    _max?: PostHomestayMaxAggregateInputType
+  }
+
+  export type PostHomestayGroupByOutputType = {
+    id: string
+    postId: string
+    homestayId: string
+    createdAt: Date
+    _count: PostHomestayCountAggregateOutputType | null
+    _min: PostHomestayMinAggregateOutputType | null
+    _max: PostHomestayMaxAggregateOutputType | null
+  }
+
+  type GetPostHomestayGroupByPayload<T extends PostHomestayGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostHomestayGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostHomestayGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostHomestayGroupByOutputType[P]>
+            : GetScalarType<T[P], PostHomestayGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostHomestaySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    homestayId?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postHomestay"]>
+
+
+
+  export type PostHomestaySelectScalar = {
+    id?: boolean
+    postId?: boolean
+    homestayId?: boolean
+    createdAt?: boolean
+  }
+
+  export type PostHomestayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "homestayId" | "createdAt", ExtArgs["result"]["postHomestay"]>
+  export type PostHomestayInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    homestay?: boolean | HomestayDefaultArgs<ExtArgs>
+  }
+
+  export type $PostHomestayPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostHomestay"
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>
+      homestay: Prisma.$HomestayPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      postId: string
+      homestayId: string
+      createdAt: Date
+    }, ExtArgs["result"]["postHomestay"]>
+    composites: {}
+  }
+
+  type PostHomestayGetPayload<S extends boolean | null | undefined | PostHomestayDefaultArgs> = $Result.GetResult<Prisma.$PostHomestayPayload, S>
+
+  type PostHomestayCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostHomestayFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostHomestayCountAggregateInputType | true
+    }
+
+  export interface PostHomestayDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostHomestay'], meta: { name: 'PostHomestay' } }
+    /**
+     * Find zero or one PostHomestay that matches the filter.
+     * @param {PostHomestayFindUniqueArgs} args - Arguments to find a PostHomestay
+     * @example
+     * // Get one PostHomestay
+     * const postHomestay = await prisma.postHomestay.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostHomestayFindUniqueArgs>(args: SelectSubset<T, PostHomestayFindUniqueArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostHomestay that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostHomestayFindUniqueOrThrowArgs} args - Arguments to find a PostHomestay
+     * @example
+     * // Get one PostHomestay
+     * const postHomestay = await prisma.postHomestay.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostHomestayFindUniqueOrThrowArgs>(args: SelectSubset<T, PostHomestayFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostHomestay that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayFindFirstArgs} args - Arguments to find a PostHomestay
+     * @example
+     * // Get one PostHomestay
+     * const postHomestay = await prisma.postHomestay.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostHomestayFindFirstArgs>(args?: SelectSubset<T, PostHomestayFindFirstArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostHomestay that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayFindFirstOrThrowArgs} args - Arguments to find a PostHomestay
+     * @example
+     * // Get one PostHomestay
+     * const postHomestay = await prisma.postHomestay.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostHomestayFindFirstOrThrowArgs>(args?: SelectSubset<T, PostHomestayFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostHomestays that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostHomestays
+     * const postHomestays = await prisma.postHomestay.findMany()
+     * 
+     * // Get first 10 PostHomestays
+     * const postHomestays = await prisma.postHomestay.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postHomestayWithIdOnly = await prisma.postHomestay.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostHomestayFindManyArgs>(args?: SelectSubset<T, PostHomestayFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostHomestay.
+     * @param {PostHomestayCreateArgs} args - Arguments to create a PostHomestay.
+     * @example
+     * // Create one PostHomestay
+     * const PostHomestay = await prisma.postHomestay.create({
+     *   data: {
+     *     // ... data to create a PostHomestay
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostHomestayCreateArgs>(args: SelectSubset<T, PostHomestayCreateArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostHomestays.
+     * @param {PostHomestayCreateManyArgs} args - Arguments to create many PostHomestays.
+     * @example
+     * // Create many PostHomestays
+     * const postHomestay = await prisma.postHomestay.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostHomestayCreateManyArgs>(args?: SelectSubset<T, PostHomestayCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PostHomestay.
+     * @param {PostHomestayDeleteArgs} args - Arguments to delete one PostHomestay.
+     * @example
+     * // Delete one PostHomestay
+     * const PostHomestay = await prisma.postHomestay.delete({
+     *   where: {
+     *     // ... filter to delete one PostHomestay
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostHomestayDeleteArgs>(args: SelectSubset<T, PostHomestayDeleteArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostHomestay.
+     * @param {PostHomestayUpdateArgs} args - Arguments to update one PostHomestay.
+     * @example
+     * // Update one PostHomestay
+     * const postHomestay = await prisma.postHomestay.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostHomestayUpdateArgs>(args: SelectSubset<T, PostHomestayUpdateArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostHomestays.
+     * @param {PostHomestayDeleteManyArgs} args - Arguments to filter PostHomestays to delete.
+     * @example
+     * // Delete a few PostHomestays
+     * const { count } = await prisma.postHomestay.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostHomestayDeleteManyArgs>(args?: SelectSubset<T, PostHomestayDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostHomestays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostHomestays
+     * const postHomestay = await prisma.postHomestay.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostHomestayUpdateManyArgs>(args: SelectSubset<T, PostHomestayUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PostHomestay.
+     * @param {PostHomestayUpsertArgs} args - Arguments to update or create a PostHomestay.
+     * @example
+     * // Update or create a PostHomestay
+     * const postHomestay = await prisma.postHomestay.upsert({
+     *   create: {
+     *     // ... data to create a PostHomestay
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostHomestay we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostHomestayUpsertArgs>(args: SelectSubset<T, PostHomestayUpsertArgs<ExtArgs>>): Prisma__PostHomestayClient<$Result.GetResult<Prisma.$PostHomestayPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostHomestays that matches the filter.
+     * @param {PostHomestayFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const postHomestay = await prisma.postHomestay.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: PostHomestayFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a PostHomestay.
+     * @param {PostHomestayAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const postHomestay = await prisma.postHomestay.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: PostHomestayAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of PostHomestays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayCountArgs} args - Arguments to filter PostHomestays to count.
+     * @example
+     * // Count the number of PostHomestays
+     * const count = await prisma.postHomestay.count({
+     *   where: {
+     *     // ... the filter for the PostHomestays we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostHomestayCountArgs>(
+      args?: Subset<T, PostHomestayCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostHomestayCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostHomestay.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostHomestayAggregateArgs>(args: Subset<T, PostHomestayAggregateArgs>): Prisma.PrismaPromise<GetPostHomestayAggregateType<T>>
+
+    /**
+     * Group by PostHomestay.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHomestayGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostHomestayGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostHomestayGroupByArgs['orderBy'] }
+        : { orderBy?: PostHomestayGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostHomestayGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostHomestayGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostHomestay model
+   */
+  readonly fields: PostHomestayFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostHomestay.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostHomestayClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    homestay<T extends HomestayDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HomestayDefaultArgs<ExtArgs>>): Prisma__HomestayClient<$Result.GetResult<Prisma.$HomestayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostHomestay model
+   */
+  interface PostHomestayFieldRefs {
+    readonly id: FieldRef<"PostHomestay", 'String'>
+    readonly postId: FieldRef<"PostHomestay", 'String'>
+    readonly homestayId: FieldRef<"PostHomestay", 'String'>
+    readonly createdAt: FieldRef<"PostHomestay", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostHomestay findUnique
+   */
+  export type PostHomestayFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHomestay to fetch.
+     */
+    where: PostHomestayWhereUniqueInput
+  }
+
+  /**
+   * PostHomestay findUniqueOrThrow
+   */
+  export type PostHomestayFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHomestay to fetch.
+     */
+    where: PostHomestayWhereUniqueInput
+  }
+
+  /**
+   * PostHomestay findFirst
+   */
+  export type PostHomestayFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHomestay to fetch.
+     */
+    where?: PostHomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHomestays to fetch.
+     */
+    orderBy?: PostHomestayOrderByWithRelationInput | PostHomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostHomestays.
+     */
+    cursor?: PostHomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHomestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHomestays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostHomestays.
+     */
+    distinct?: PostHomestayScalarFieldEnum | PostHomestayScalarFieldEnum[]
+  }
+
+  /**
+   * PostHomestay findFirstOrThrow
+   */
+  export type PostHomestayFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHomestay to fetch.
+     */
+    where?: PostHomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHomestays to fetch.
+     */
+    orderBy?: PostHomestayOrderByWithRelationInput | PostHomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostHomestays.
+     */
+    cursor?: PostHomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHomestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHomestays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostHomestays.
+     */
+    distinct?: PostHomestayScalarFieldEnum | PostHomestayScalarFieldEnum[]
+  }
+
+  /**
+   * PostHomestay findMany
+   */
+  export type PostHomestayFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHomestays to fetch.
+     */
+    where?: PostHomestayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHomestays to fetch.
+     */
+    orderBy?: PostHomestayOrderByWithRelationInput | PostHomestayOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostHomestays.
+     */
+    cursor?: PostHomestayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHomestays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHomestays.
+     */
+    skip?: number
+    distinct?: PostHomestayScalarFieldEnum | PostHomestayScalarFieldEnum[]
+  }
+
+  /**
+   * PostHomestay create
+   */
+  export type PostHomestayCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostHomestay.
+     */
+    data: XOR<PostHomestayCreateInput, PostHomestayUncheckedCreateInput>
+  }
+
+  /**
+   * PostHomestay createMany
+   */
+  export type PostHomestayCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostHomestays.
+     */
+    data: PostHomestayCreateManyInput | PostHomestayCreateManyInput[]
+  }
+
+  /**
+   * PostHomestay update
+   */
+  export type PostHomestayUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostHomestay.
+     */
+    data: XOR<PostHomestayUpdateInput, PostHomestayUncheckedUpdateInput>
+    /**
+     * Choose, which PostHomestay to update.
+     */
+    where: PostHomestayWhereUniqueInput
+  }
+
+  /**
+   * PostHomestay updateMany
+   */
+  export type PostHomestayUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostHomestays.
+     */
+    data: XOR<PostHomestayUpdateManyMutationInput, PostHomestayUncheckedUpdateManyInput>
+    /**
+     * Filter which PostHomestays to update
+     */
+    where?: PostHomestayWhereInput
+    /**
+     * Limit how many PostHomestays to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostHomestay upsert
+   */
+  export type PostHomestayUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostHomestay to update in case it exists.
+     */
+    where: PostHomestayWhereUniqueInput
+    /**
+     * In case the PostHomestay found by the `where` argument doesn't exist, create a new PostHomestay with this data.
+     */
+    create: XOR<PostHomestayCreateInput, PostHomestayUncheckedCreateInput>
+    /**
+     * In case the PostHomestay was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostHomestayUpdateInput, PostHomestayUncheckedUpdateInput>
+  }
+
+  /**
+   * PostHomestay delete
+   */
+  export type PostHomestayDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+    /**
+     * Filter which PostHomestay to delete.
+     */
+    where: PostHomestayWhereUniqueInput
+  }
+
+  /**
+   * PostHomestay deleteMany
+   */
+  export type PostHomestayDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostHomestays to delete
+     */
+    where?: PostHomestayWhereInput
+    /**
+     * Limit how many PostHomestays to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostHomestay findRaw
+   */
+  export type PostHomestayFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * PostHomestay aggregateRaw
+   */
+  export type PostHomestayAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * PostHomestay without action
+   */
+  export type PostHomestayDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHomestay
+     */
+    select?: PostHomestaySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHomestay
+     */
+    omit?: PostHomestayOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHomestayInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -25449,6 +31880,100 @@ export namespace Prisma {
   export type DestinationReviewScalarFieldEnum = (typeof DestinationReviewScalarFieldEnum)[keyof typeof DestinationReviewScalarFieldEnum]
 
 
+  export const HomestayScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    address: 'address',
+    city: 'city',
+    country: 'country',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    imageUrl: 'imageUrl',
+    phoneNumber: 'phoneNumber',
+    email: 'email',
+    website: 'website',
+    pricePerNight: 'pricePerNight',
+    currency: 'currency',
+    maxGuests: 'maxGuests',
+    bedrooms: 'bedrooms',
+    beds: 'beds',
+    bathrooms: 'bathrooms',
+    amenities: 'amenities',
+    houseRules: 'houseRules',
+    checkInTime: 'checkInTime',
+    checkOutTime: 'checkOutTime',
+    rating: 'rating',
+    reviewCount: 'reviewCount',
+    viewCount: 'viewCount',
+    likeCount: 'likeCount',
+    isActive: 'isActive',
+    isVerified: 'isVerified',
+    destinationId: 'destinationId',
+    ownerId: 'ownerId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HomestayScalarFieldEnum = (typeof HomestayScalarFieldEnum)[keyof typeof HomestayScalarFieldEnum]
+
+
+  export const BookingScalarFieldEnum: {
+    id: 'id',
+    homestayId: 'homestayId',
+    guestId: 'guestId',
+    checkInDate: 'checkInDate',
+    checkOutDate: 'checkOutDate',
+    numberOfGuests: 'numberOfGuests',
+    totalPrice: 'totalPrice',
+    status: 'status',
+    specialRequests: 'specialRequests',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+  export const HomestayReviewScalarFieldEnum: {
+    id: 'id',
+    homestayId: 'homestayId',
+    userId: 'userId',
+    rating: 'rating',
+    comment: 'comment',
+    cleanliness: 'cleanliness',
+    accuracy: 'accuracy',
+    checkIn: 'checkIn',
+    communication: 'communication',
+    location: 'location',
+    value: 'value',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HomestayReviewScalarFieldEnum = (typeof HomestayReviewScalarFieldEnum)[keyof typeof HomestayReviewScalarFieldEnum]
+
+
+  export const HomestayViewScalarFieldEnum: {
+    id: 'id',
+    homestayId: 'homestayId',
+    userId: 'userId',
+    viewedAt: 'viewedAt'
+  };
+
+  export type HomestayViewScalarFieldEnum = (typeof HomestayViewScalarFieldEnum)[keyof typeof HomestayViewScalarFieldEnum]
+
+
+  export const PostHomestayScalarFieldEnum: {
+    id: 'id',
+    postId: 'postId',
+    homestayId: 'homestayId',
+    createdAt: 'createdAt'
+  };
+
+  export type PostHomestayScalarFieldEnum = (typeof PostHomestayScalarFieldEnum)[keyof typeof PostHomestayScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -25616,6 +32141,10 @@ export namespace Prisma {
     destinations?: DestinationListRelationFilter
     destinationReviews?: DestinationReviewListRelationFilter
     destinationViews?: DestinationViewListRelationFilter
+    ownedHomestays?: HomestayListRelationFilter
+    bookings?: BookingListRelationFilter
+    homestayReviews?: HomestayReviewListRelationFilter
+    homestayViews?: HomestayViewListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -25660,6 +32189,10 @@ export namespace Prisma {
     destinations?: DestinationOrderByRelationAggregateInput
     destinationReviews?: DestinationReviewOrderByRelationAggregateInput
     destinationViews?: DestinationViewOrderByRelationAggregateInput
+    ownedHomestays?: HomestayOrderByRelationAggregateInput
+    bookings?: BookingOrderByRelationAggregateInput
+    homestayReviews?: HomestayReviewOrderByRelationAggregateInput
+    homestayViews?: HomestayViewOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -25707,6 +32240,10 @@ export namespace Prisma {
     destinations?: DestinationListRelationFilter
     destinationReviews?: DestinationReviewListRelationFilter
     destinationViews?: DestinationViewListRelationFilter
+    ownedHomestays?: HomestayListRelationFilter
+    bookings?: BookingListRelationFilter
+    homestayReviews?: HomestayReviewListRelationFilter
+    homestayViews?: HomestayViewListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -25841,6 +32378,7 @@ export namespace Prisma {
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     taggedUsers?: PostTagListRelationFilter
     taggedDestinations?: PostDestinationListRelationFilter
+    taggedHomestays?: PostHomestayListRelationFilter
     sharedPosts?: SharedPostListRelationFilter
     comments?: CommentListRelationFilter
     savedBy?: SavedPostListRelationFilter
@@ -25864,6 +32402,7 @@ export namespace Prisma {
     author?: UserOrderByWithRelationInput
     taggedUsers?: PostTagOrderByRelationAggregateInput
     taggedDestinations?: PostDestinationOrderByRelationAggregateInput
+    taggedHomestays?: PostHomestayOrderByRelationAggregateInput
     sharedPosts?: SharedPostOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
     savedBy?: SavedPostOrderByRelationAggregateInput
@@ -25890,6 +32429,7 @@ export namespace Prisma {
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     taggedUsers?: PostTagListRelationFilter
     taggedDestinations?: PostDestinationListRelationFilter
+    taggedHomestays?: PostHomestayListRelationFilter
     sharedPosts?: SharedPostListRelationFilter
     comments?: CommentListRelationFilter
     savedBy?: SavedPostListRelationFilter
@@ -26235,6 +32775,7 @@ export namespace Prisma {
     post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null
     comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
     destination?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
+    homestay?: XOR<HomestayNullableScalarRelationFilter, HomestayWhereInput> | null
   }
 
   export type LikeOrderByWithRelationInput = {
@@ -26247,6 +32788,7 @@ export namespace Prisma {
     post?: PostOrderByWithRelationInput
     comment?: CommentOrderByWithRelationInput
     destination?: DestinationOrderByWithRelationInput
+    homestay?: HomestayOrderByWithRelationInput
   }
 
   export type LikeWhereUniqueInput = Prisma.AtLeast<{
@@ -26263,6 +32805,7 @@ export namespace Prisma {
     post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null
     comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
     destination?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
+    homestay?: XOR<HomestayNullableScalarRelationFilter, HomestayWhereInput> | null
   }, "id" | "userId_targetId_type">
 
   export type LikeOrderByWithAggregationInput = {
@@ -26969,6 +33512,7 @@ export namespace Prisma {
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     parent?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
     subLocations?: DestinationListRelationFilter
+    homestays?: HomestayListRelationFilter
     likes?: LikeListRelationFilter
     reviews?: DestinationReviewListRelationFilter
     taggedInPosts?: PostDestinationListRelationFilter
@@ -27005,6 +33549,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     parent?: DestinationOrderByWithRelationInput
     subLocations?: DestinationOrderByRelationAggregateInput
+    homestays?: HomestayOrderByRelationAggregateInput
     likes?: LikeOrderByRelationAggregateInput
     reviews?: DestinationReviewOrderByRelationAggregateInput
     taggedInPosts?: PostDestinationOrderByRelationAggregateInput
@@ -27044,6 +33589,7 @@ export namespace Prisma {
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     parent?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
     subLocations?: DestinationListRelationFilter
+    homestays?: HomestayListRelationFilter
     likes?: LikeListRelationFilter
     reviews?: DestinationReviewListRelationFilter
     taggedInPosts?: PostDestinationListRelationFilter
@@ -27256,6 +33802,515 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"DestinationReview"> | Date | string
   }
 
+  export type HomestayWhereInput = {
+    AND?: HomestayWhereInput | HomestayWhereInput[]
+    OR?: HomestayWhereInput[]
+    NOT?: HomestayWhereInput | HomestayWhereInput[]
+    id?: StringFilter<"Homestay"> | string
+    name?: StringFilter<"Homestay"> | string
+    description?: StringNullableFilter<"Homestay"> | string | null
+    address?: StringFilter<"Homestay"> | string
+    city?: StringFilter<"Homestay"> | string
+    country?: StringFilter<"Homestay"> | string
+    latitude?: FloatNullableFilter<"Homestay"> | number | null
+    longitude?: FloatNullableFilter<"Homestay"> | number | null
+    imageUrl?: StringNullableListFilter<"Homestay">
+    phoneNumber?: StringNullableFilter<"Homestay"> | string | null
+    email?: StringNullableFilter<"Homestay"> | string | null
+    website?: StringNullableFilter<"Homestay"> | string | null
+    pricePerNight?: FloatFilter<"Homestay"> | number
+    currency?: StringFilter<"Homestay"> | string
+    maxGuests?: IntFilter<"Homestay"> | number
+    bedrooms?: IntFilter<"Homestay"> | number
+    beds?: IntFilter<"Homestay"> | number
+    bathrooms?: IntFilter<"Homestay"> | number
+    amenities?: StringNullableListFilter<"Homestay">
+    houseRules?: StringNullableListFilter<"Homestay">
+    checkInTime?: StringNullableFilter<"Homestay"> | string | null
+    checkOutTime?: StringNullableFilter<"Homestay"> | string | null
+    rating?: FloatFilter<"Homestay"> | number
+    reviewCount?: IntFilter<"Homestay"> | number
+    viewCount?: IntFilter<"Homestay"> | number
+    likeCount?: IntFilter<"Homestay"> | number
+    isActive?: BoolFilter<"Homestay"> | boolean
+    isVerified?: BoolFilter<"Homestay"> | boolean
+    destinationId?: StringNullableFilter<"Homestay"> | string | null
+    ownerId?: StringFilter<"Homestay"> | string
+    createdAt?: DateTimeFilter<"Homestay"> | Date | string
+    updatedAt?: DateTimeFilter<"Homestay"> | Date | string
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    destination?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
+    bookings?: BookingListRelationFilter
+    reviews?: HomestayReviewListRelationFilter
+    views?: HomestayViewListRelationFilter
+    taggedInPosts?: PostHomestayListRelationFilter
+    likes?: LikeListRelationFilter
+  }
+
+  export type HomestayOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    imageUrl?: SortOrder
+    phoneNumber?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    pricePerNight?: SortOrder
+    currency?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrder
+    houseRules?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    destinationId?: SortOrder
+    ownerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    owner?: UserOrderByWithRelationInput
+    destination?: DestinationOrderByWithRelationInput
+    bookings?: BookingOrderByRelationAggregateInput
+    reviews?: HomestayReviewOrderByRelationAggregateInput
+    views?: HomestayViewOrderByRelationAggregateInput
+    taggedInPosts?: PostHomestayOrderByRelationAggregateInput
+    likes?: LikeOrderByRelationAggregateInput
+  }
+
+  export type HomestayWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HomestayWhereInput | HomestayWhereInput[]
+    OR?: HomestayWhereInput[]
+    NOT?: HomestayWhereInput | HomestayWhereInput[]
+    name?: StringFilter<"Homestay"> | string
+    description?: StringNullableFilter<"Homestay"> | string | null
+    address?: StringFilter<"Homestay"> | string
+    city?: StringFilter<"Homestay"> | string
+    country?: StringFilter<"Homestay"> | string
+    latitude?: FloatNullableFilter<"Homestay"> | number | null
+    longitude?: FloatNullableFilter<"Homestay"> | number | null
+    imageUrl?: StringNullableListFilter<"Homestay">
+    phoneNumber?: StringNullableFilter<"Homestay"> | string | null
+    email?: StringNullableFilter<"Homestay"> | string | null
+    website?: StringNullableFilter<"Homestay"> | string | null
+    pricePerNight?: FloatFilter<"Homestay"> | number
+    currency?: StringFilter<"Homestay"> | string
+    maxGuests?: IntFilter<"Homestay"> | number
+    bedrooms?: IntFilter<"Homestay"> | number
+    beds?: IntFilter<"Homestay"> | number
+    bathrooms?: IntFilter<"Homestay"> | number
+    amenities?: StringNullableListFilter<"Homestay">
+    houseRules?: StringNullableListFilter<"Homestay">
+    checkInTime?: StringNullableFilter<"Homestay"> | string | null
+    checkOutTime?: StringNullableFilter<"Homestay"> | string | null
+    rating?: FloatFilter<"Homestay"> | number
+    reviewCount?: IntFilter<"Homestay"> | number
+    viewCount?: IntFilter<"Homestay"> | number
+    likeCount?: IntFilter<"Homestay"> | number
+    isActive?: BoolFilter<"Homestay"> | boolean
+    isVerified?: BoolFilter<"Homestay"> | boolean
+    destinationId?: StringNullableFilter<"Homestay"> | string | null
+    ownerId?: StringFilter<"Homestay"> | string
+    createdAt?: DateTimeFilter<"Homestay"> | Date | string
+    updatedAt?: DateTimeFilter<"Homestay"> | Date | string
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    destination?: XOR<DestinationNullableScalarRelationFilter, DestinationWhereInput> | null
+    bookings?: BookingListRelationFilter
+    reviews?: HomestayReviewListRelationFilter
+    views?: HomestayViewListRelationFilter
+    taggedInPosts?: PostHomestayListRelationFilter
+    likes?: LikeListRelationFilter
+  }, "id">
+
+  export type HomestayOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    imageUrl?: SortOrder
+    phoneNumber?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    pricePerNight?: SortOrder
+    currency?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrder
+    houseRules?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    destinationId?: SortOrder
+    ownerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HomestayCountOrderByAggregateInput
+    _avg?: HomestayAvgOrderByAggregateInput
+    _max?: HomestayMaxOrderByAggregateInput
+    _min?: HomestayMinOrderByAggregateInput
+    _sum?: HomestaySumOrderByAggregateInput
+  }
+
+  export type HomestayScalarWhereWithAggregatesInput = {
+    AND?: HomestayScalarWhereWithAggregatesInput | HomestayScalarWhereWithAggregatesInput[]
+    OR?: HomestayScalarWhereWithAggregatesInput[]
+    NOT?: HomestayScalarWhereWithAggregatesInput | HomestayScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Homestay"> | string
+    name?: StringWithAggregatesFilter<"Homestay"> | string
+    description?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    address?: StringWithAggregatesFilter<"Homestay"> | string
+    city?: StringWithAggregatesFilter<"Homestay"> | string
+    country?: StringWithAggregatesFilter<"Homestay"> | string
+    latitude?: FloatNullableWithAggregatesFilter<"Homestay"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Homestay"> | number | null
+    imageUrl?: StringNullableListFilter<"Homestay">
+    phoneNumber?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    website?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    pricePerNight?: FloatWithAggregatesFilter<"Homestay"> | number
+    currency?: StringWithAggregatesFilter<"Homestay"> | string
+    maxGuests?: IntWithAggregatesFilter<"Homestay"> | number
+    bedrooms?: IntWithAggregatesFilter<"Homestay"> | number
+    beds?: IntWithAggregatesFilter<"Homestay"> | number
+    bathrooms?: IntWithAggregatesFilter<"Homestay"> | number
+    amenities?: StringNullableListFilter<"Homestay">
+    houseRules?: StringNullableListFilter<"Homestay">
+    checkInTime?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    checkOutTime?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    rating?: FloatWithAggregatesFilter<"Homestay"> | number
+    reviewCount?: IntWithAggregatesFilter<"Homestay"> | number
+    viewCount?: IntWithAggregatesFilter<"Homestay"> | number
+    likeCount?: IntWithAggregatesFilter<"Homestay"> | number
+    isActive?: BoolWithAggregatesFilter<"Homestay"> | boolean
+    isVerified?: BoolWithAggregatesFilter<"Homestay"> | boolean
+    destinationId?: StringNullableWithAggregatesFilter<"Homestay"> | string | null
+    ownerId?: StringWithAggregatesFilter<"Homestay"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Homestay"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Homestay"> | Date | string
+  }
+
+  export type BookingWhereInput = {
+    AND?: BookingWhereInput | BookingWhereInput[]
+    OR?: BookingWhereInput[]
+    NOT?: BookingWhereInput | BookingWhereInput[]
+    id?: StringFilter<"Booking"> | string
+    homestayId?: StringFilter<"Booking"> | string
+    guestId?: StringFilter<"Booking"> | string
+    checkInDate?: DateTimeFilter<"Booking"> | Date | string
+    checkOutDate?: DateTimeFilter<"Booking"> | Date | string
+    numberOfGuests?: IntFilter<"Booking"> | number
+    totalPrice?: FloatFilter<"Booking"> | number
+    status?: StringFilter<"Booking"> | string
+    specialRequests?: StringNullableFilter<"Booking"> | string | null
+    createdAt?: DateTimeFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+    guest?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BookingOrderByWithRelationInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    guestId?: SortOrder
+    checkInDate?: SortOrder
+    checkOutDate?: SortOrder
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+    status?: SortOrder
+    specialRequests?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    homestay?: HomestayOrderByWithRelationInput
+    guest?: UserOrderByWithRelationInput
+  }
+
+  export type BookingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BookingWhereInput | BookingWhereInput[]
+    OR?: BookingWhereInput[]
+    NOT?: BookingWhereInput | BookingWhereInput[]
+    homestayId?: StringFilter<"Booking"> | string
+    guestId?: StringFilter<"Booking"> | string
+    checkInDate?: DateTimeFilter<"Booking"> | Date | string
+    checkOutDate?: DateTimeFilter<"Booking"> | Date | string
+    numberOfGuests?: IntFilter<"Booking"> | number
+    totalPrice?: FloatFilter<"Booking"> | number
+    status?: StringFilter<"Booking"> | string
+    specialRequests?: StringNullableFilter<"Booking"> | string | null
+    createdAt?: DateTimeFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+    guest?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type BookingOrderByWithAggregationInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    guestId?: SortOrder
+    checkInDate?: SortOrder
+    checkOutDate?: SortOrder
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+    status?: SortOrder
+    specialRequests?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BookingCountOrderByAggregateInput
+    _avg?: BookingAvgOrderByAggregateInput
+    _max?: BookingMaxOrderByAggregateInput
+    _min?: BookingMinOrderByAggregateInput
+    _sum?: BookingSumOrderByAggregateInput
+  }
+
+  export type BookingScalarWhereWithAggregatesInput = {
+    AND?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
+    OR?: BookingScalarWhereWithAggregatesInput[]
+    NOT?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Booking"> | string
+    homestayId?: StringWithAggregatesFilter<"Booking"> | string
+    guestId?: StringWithAggregatesFilter<"Booking"> | string
+    checkInDate?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    checkOutDate?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    numberOfGuests?: IntWithAggregatesFilter<"Booking"> | number
+    totalPrice?: FloatWithAggregatesFilter<"Booking"> | number
+    status?: StringWithAggregatesFilter<"Booking"> | string
+    specialRequests?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  }
+
+  export type HomestayReviewWhereInput = {
+    AND?: HomestayReviewWhereInput | HomestayReviewWhereInput[]
+    OR?: HomestayReviewWhereInput[]
+    NOT?: HomestayReviewWhereInput | HomestayReviewWhereInput[]
+    id?: StringFilter<"HomestayReview"> | string
+    homestayId?: StringFilter<"HomestayReview"> | string
+    userId?: StringFilter<"HomestayReview"> | string
+    rating?: FloatFilter<"HomestayReview"> | number
+    comment?: StringNullableFilter<"HomestayReview"> | string | null
+    cleanliness?: FloatNullableFilter<"HomestayReview"> | number | null
+    accuracy?: FloatNullableFilter<"HomestayReview"> | number | null
+    checkIn?: FloatNullableFilter<"HomestayReview"> | number | null
+    communication?: FloatNullableFilter<"HomestayReview"> | number | null
+    location?: FloatNullableFilter<"HomestayReview"> | number | null
+    value?: FloatNullableFilter<"HomestayReview"> | number | null
+    createdAt?: DateTimeFilter<"HomestayReview"> | Date | string
+    updatedAt?: DateTimeFilter<"HomestayReview"> | Date | string
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type HomestayReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    homestay?: HomestayOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type HomestayReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    homestayId_userId?: HomestayReviewHomestayIdUserIdCompoundUniqueInput
+    AND?: HomestayReviewWhereInput | HomestayReviewWhereInput[]
+    OR?: HomestayReviewWhereInput[]
+    NOT?: HomestayReviewWhereInput | HomestayReviewWhereInput[]
+    homestayId?: StringFilter<"HomestayReview"> | string
+    userId?: StringFilter<"HomestayReview"> | string
+    rating?: FloatFilter<"HomestayReview"> | number
+    comment?: StringNullableFilter<"HomestayReview"> | string | null
+    cleanliness?: FloatNullableFilter<"HomestayReview"> | number | null
+    accuracy?: FloatNullableFilter<"HomestayReview"> | number | null
+    checkIn?: FloatNullableFilter<"HomestayReview"> | number | null
+    communication?: FloatNullableFilter<"HomestayReview"> | number | null
+    location?: FloatNullableFilter<"HomestayReview"> | number | null
+    value?: FloatNullableFilter<"HomestayReview"> | number | null
+    createdAt?: DateTimeFilter<"HomestayReview"> | Date | string
+    updatedAt?: DateTimeFilter<"HomestayReview"> | Date | string
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "homestayId_userId">
+
+  export type HomestayReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HomestayReviewCountOrderByAggregateInput
+    _avg?: HomestayReviewAvgOrderByAggregateInput
+    _max?: HomestayReviewMaxOrderByAggregateInput
+    _min?: HomestayReviewMinOrderByAggregateInput
+    _sum?: HomestayReviewSumOrderByAggregateInput
+  }
+
+  export type HomestayReviewScalarWhereWithAggregatesInput = {
+    AND?: HomestayReviewScalarWhereWithAggregatesInput | HomestayReviewScalarWhereWithAggregatesInput[]
+    OR?: HomestayReviewScalarWhereWithAggregatesInput[]
+    NOT?: HomestayReviewScalarWhereWithAggregatesInput | HomestayReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HomestayReview"> | string
+    homestayId?: StringWithAggregatesFilter<"HomestayReview"> | string
+    userId?: StringWithAggregatesFilter<"HomestayReview"> | string
+    rating?: FloatWithAggregatesFilter<"HomestayReview"> | number
+    comment?: StringNullableWithAggregatesFilter<"HomestayReview"> | string | null
+    cleanliness?: FloatNullableWithAggregatesFilter<"HomestayReview"> | number | null
+    accuracy?: FloatNullableWithAggregatesFilter<"HomestayReview"> | number | null
+    checkIn?: FloatNullableWithAggregatesFilter<"HomestayReview"> | number | null
+    communication?: FloatNullableWithAggregatesFilter<"HomestayReview"> | number | null
+    location?: FloatNullableWithAggregatesFilter<"HomestayReview"> | number | null
+    value?: FloatNullableWithAggregatesFilter<"HomestayReview"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"HomestayReview"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HomestayReview"> | Date | string
+  }
+
+  export type HomestayViewWhereInput = {
+    AND?: HomestayViewWhereInput | HomestayViewWhereInput[]
+    OR?: HomestayViewWhereInput[]
+    NOT?: HomestayViewWhereInput | HomestayViewWhereInput[]
+    id?: StringFilter<"HomestayView"> | string
+    homestayId?: StringFilter<"HomestayView"> | string
+    userId?: StringFilter<"HomestayView"> | string
+    viewedAt?: DateTimeFilter<"HomestayView"> | Date | string
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type HomestayViewOrderByWithRelationInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    viewedAt?: SortOrder
+    homestay?: HomestayOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type HomestayViewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    homestayId_userId?: HomestayViewHomestayIdUserIdCompoundUniqueInput
+    AND?: HomestayViewWhereInput | HomestayViewWhereInput[]
+    OR?: HomestayViewWhereInput[]
+    NOT?: HomestayViewWhereInput | HomestayViewWhereInput[]
+    homestayId?: StringFilter<"HomestayView"> | string
+    userId?: StringFilter<"HomestayView"> | string
+    viewedAt?: DateTimeFilter<"HomestayView"> | Date | string
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "homestayId_userId">
+
+  export type HomestayViewOrderByWithAggregationInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    viewedAt?: SortOrder
+    _count?: HomestayViewCountOrderByAggregateInput
+    _max?: HomestayViewMaxOrderByAggregateInput
+    _min?: HomestayViewMinOrderByAggregateInput
+  }
+
+  export type HomestayViewScalarWhereWithAggregatesInput = {
+    AND?: HomestayViewScalarWhereWithAggregatesInput | HomestayViewScalarWhereWithAggregatesInput[]
+    OR?: HomestayViewScalarWhereWithAggregatesInput[]
+    NOT?: HomestayViewScalarWhereWithAggregatesInput | HomestayViewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HomestayView"> | string
+    homestayId?: StringWithAggregatesFilter<"HomestayView"> | string
+    userId?: StringWithAggregatesFilter<"HomestayView"> | string
+    viewedAt?: DateTimeWithAggregatesFilter<"HomestayView"> | Date | string
+  }
+
+  export type PostHomestayWhereInput = {
+    AND?: PostHomestayWhereInput | PostHomestayWhereInput[]
+    OR?: PostHomestayWhereInput[]
+    NOT?: PostHomestayWhereInput | PostHomestayWhereInput[]
+    id?: StringFilter<"PostHomestay"> | string
+    postId?: StringFilter<"PostHomestay"> | string
+    homestayId?: StringFilter<"PostHomestay"> | string
+    createdAt?: DateTimeFilter<"PostHomestay"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+  }
+
+  export type PostHomestayOrderByWithRelationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    homestayId?: SortOrder
+    createdAt?: SortOrder
+    post?: PostOrderByWithRelationInput
+    homestay?: HomestayOrderByWithRelationInput
+  }
+
+  export type PostHomestayWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    postId_homestayId?: PostHomestayPostIdHomestayIdCompoundUniqueInput
+    AND?: PostHomestayWhereInput | PostHomestayWhereInput[]
+    OR?: PostHomestayWhereInput[]
+    NOT?: PostHomestayWhereInput | PostHomestayWhereInput[]
+    postId?: StringFilter<"PostHomestay"> | string
+    homestayId?: StringFilter<"PostHomestay"> | string
+    createdAt?: DateTimeFilter<"PostHomestay"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    homestay?: XOR<HomestayScalarRelationFilter, HomestayWhereInput>
+  }, "id" | "postId_homestayId">
+
+  export type PostHomestayOrderByWithAggregationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    homestayId?: SortOrder
+    createdAt?: SortOrder
+    _count?: PostHomestayCountOrderByAggregateInput
+    _max?: PostHomestayMaxOrderByAggregateInput
+    _min?: PostHomestayMinOrderByAggregateInput
+  }
+
+  export type PostHomestayScalarWhereWithAggregatesInput = {
+    AND?: PostHomestayScalarWhereWithAggregatesInput | PostHomestayScalarWhereWithAggregatesInput[]
+    OR?: PostHomestayScalarWhereWithAggregatesInput[]
+    NOT?: PostHomestayScalarWhereWithAggregatesInput | PostHomestayScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PostHomestay"> | string
+    postId?: StringWithAggregatesFilter<"PostHomestay"> | string
+    homestayId?: StringWithAggregatesFilter<"PostHomestay"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PostHomestay"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -27298,6 +34353,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -27342,6 +34401,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -27385,6 +34448,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -27428,6 +34495,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -27562,6 +34633,7 @@ export namespace Prisma {
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
@@ -27584,6 +34656,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
@@ -27605,6 +34678,7 @@ export namespace Prisma {
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
@@ -27626,6 +34700,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
@@ -27933,6 +35008,7 @@ export namespace Prisma {
     post?: PostCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
     destination?: DestinationCreateNestedOneWithoutLikesInput
+    homestay?: HomestayCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateInput = {
@@ -27950,6 +35026,7 @@ export namespace Prisma {
     post?: PostUpdateOneWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
     destination?: DestinationUpdateOneWithoutLikesNestedInput
+    homestay?: HomestayUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateInput = {
@@ -28640,6 +35717,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutDestinationsInput
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
@@ -28674,6 +35752,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
@@ -28707,6 +35786,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
@@ -28740,6 +35820,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
@@ -28957,6 +36038,549 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HomestayCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateInput = {
+    id?: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutBookingsInput
+    guest: UserCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateInput = {
+    id?: string
+    homestayId: string
+    guestId: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingUpdateInput = {
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutBookingsNestedInput
+    guest?: UserUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    guestId?: StringFieldUpdateOperationsInput | string
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateManyInput = {
+    id?: string
+    homestayId: string
+    guestId: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingUpdateManyMutationInput = {
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUncheckedUpdateManyInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    guestId?: StringFieldUpdateOperationsInput | string
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewCreateInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutReviewsInput
+    user: UserCreateNestedOneWithoutHomestayReviewsInput
+  }
+
+  export type HomestayReviewUncheckedCreateInput = {
+    id?: string
+    homestayId: string
+    userId: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayReviewUpdateInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutReviewsNestedInput
+    user?: UserUpdateOneRequiredWithoutHomestayReviewsNestedInput
+  }
+
+  export type HomestayReviewUncheckedUpdateInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewCreateManyInput = {
+    id?: string
+    homestayId: string
+    userId: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayReviewUpdateManyMutationInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewUncheckedUpdateManyInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewCreateInput = {
+    id?: string
+    viewedAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutViewsInput
+    user: UserCreateNestedOneWithoutHomestayViewsInput
+  }
+
+  export type HomestayViewUncheckedCreateInput = {
+    id?: string
+    homestayId: string
+    userId: string
+    viewedAt?: Date | string
+  }
+
+  export type HomestayViewUpdateInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutViewsNestedInput
+    user?: UserUpdateOneRequiredWithoutHomestayViewsNestedInput
+  }
+
+  export type HomestayViewUncheckedUpdateInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewCreateManyInput = {
+    id?: string
+    homestayId: string
+    userId: string
+    viewedAt?: Date | string
+  }
+
+  export type HomestayViewUpdateManyMutationInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewUncheckedUpdateManyInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutTaggedHomestaysInput
+    homestay: HomestayCreateNestedOneWithoutTaggedInPostsInput
+  }
+
+  export type PostHomestayUncheckedCreateInput = {
+    id?: string
+    postId: string
+    homestayId: string
+    createdAt?: Date | string
+  }
+
+  export type PostHomestayUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutTaggedHomestaysNestedInput
+    homestay?: HomestayUpdateOneRequiredWithoutTaggedInPostsNestedInput
+  }
+
+  export type PostHomestayUncheckedUpdateInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    homestayId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayCreateManyInput = {
+    id?: string
+    postId: string
+    homestayId: string
+    createdAt?: Date | string
+  }
+
+  export type PostHomestayUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayUncheckedUpdateManyInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    homestayId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -29135,6 +36759,30 @@ export namespace Prisma {
     none?: DestinationViewWhereInput
   }
 
+  export type HomestayListRelationFilter = {
+    every?: HomestayWhereInput
+    some?: HomestayWhereInput
+    none?: HomestayWhereInput
+  }
+
+  export type BookingListRelationFilter = {
+    every?: BookingWhereInput
+    some?: BookingWhereInput
+    none?: BookingWhereInput
+  }
+
+  export type HomestayReviewListRelationFilter = {
+    every?: HomestayReviewWhereInput
+    some?: HomestayReviewWhereInput
+    none?: HomestayReviewWhereInput
+  }
+
+  export type HomestayViewListRelationFilter = {
+    every?: HomestayViewWhereInput
+    some?: HomestayViewWhereInput
+    none?: HomestayViewWhereInput
+  }
+
   export type PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -29204,6 +36852,22 @@ export namespace Prisma {
   }
 
   export type DestinationViewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HomestayOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HomestayReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HomestayViewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29422,7 +37086,17 @@ export namespace Prisma {
     none?: PostDestinationWhereInput
   }
 
+  export type PostHomestayListRelationFilter = {
+    every?: PostHomestayWhereInput
+    some?: PostHomestayWhereInput
+    none?: PostHomestayWhereInput
+  }
+
   export type PostDestinationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PostHomestayOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29649,6 +37323,11 @@ export namespace Prisma {
   export type DestinationNullableScalarRelationFilter = {
     is?: DestinationWhereInput | null
     isNot?: DestinationWhereInput | null
+  }
+
+  export type HomestayNullableScalarRelationFilter = {
+    is?: HomestayWhereInput | null
+    isNot?: HomestayWhereInput | null
   }
 
   export type LikeUserIdTargetIdTypeCompoundUniqueInput = {
@@ -30262,6 +37941,315 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
+  export type HomestayCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    imageUrl?: SortOrder
+    phoneNumber?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    pricePerNight?: SortOrder
+    currency?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrder
+    houseRules?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    destinationId?: SortOrder
+    ownerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomestayAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    pricePerNight?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+  }
+
+  export type HomestayMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    phoneNumber?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    pricePerNight?: SortOrder
+    currency?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    destinationId?: SortOrder
+    ownerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomestayMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    phoneNumber?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    pricePerNight?: SortOrder
+    currency?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+    isActive?: SortOrder
+    isVerified?: SortOrder
+    destinationId?: SortOrder
+    ownerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomestaySumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    pricePerNight?: SortOrder
+    maxGuests?: SortOrder
+    bedrooms?: SortOrder
+    beds?: SortOrder
+    bathrooms?: SortOrder
+    rating?: SortOrder
+    reviewCount?: SortOrder
+    viewCount?: SortOrder
+    likeCount?: SortOrder
+  }
+
+  export type HomestayScalarRelationFilter = {
+    is?: HomestayWhereInput
+    isNot?: HomestayWhereInput
+  }
+
+  export type BookingCountOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    guestId?: SortOrder
+    checkInDate?: SortOrder
+    checkOutDate?: SortOrder
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+    status?: SortOrder
+    specialRequests?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingAvgOrderByAggregateInput = {
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+  }
+
+  export type BookingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    guestId?: SortOrder
+    checkInDate?: SortOrder
+    checkOutDate?: SortOrder
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+    status?: SortOrder
+    specialRequests?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingMinOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    guestId?: SortOrder
+    checkInDate?: SortOrder
+    checkOutDate?: SortOrder
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+    status?: SortOrder
+    specialRequests?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingSumOrderByAggregateInput = {
+    numberOfGuests?: SortOrder
+    totalPrice?: SortOrder
+  }
+
+  export type HomestayReviewHomestayIdUserIdCompoundUniqueInput = {
+    homestayId: string
+    userId: string
+  }
+
+  export type HomestayReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomestayReviewAvgOrderByAggregateInput = {
+    rating?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+  }
+
+  export type HomestayReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomestayReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomestayReviewSumOrderByAggregateInput = {
+    rating?: SortOrder
+    cleanliness?: SortOrder
+    accuracy?: SortOrder
+    checkIn?: SortOrder
+    communication?: SortOrder
+    location?: SortOrder
+    value?: SortOrder
+  }
+
+  export type HomestayViewHomestayIdUserIdCompoundUniqueInput = {
+    homestayId: string
+    userId: string
+  }
+
+  export type HomestayViewCountOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type HomestayViewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type HomestayViewMinOrderByAggregateInput = {
+    id?: SortOrder
+    homestayId?: SortOrder
+    userId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type PostHomestayPostIdHomestayIdCompoundUniqueInput = {
+    postId: string
+    homestayId: string
+  }
+
+  export type PostHomestayCountOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    homestayId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostHomestayMaxOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    homestayId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostHomestayMinOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    homestayId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type PostCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -30409,6 +38397,34 @@ export namespace Prisma {
     connect?: DestinationViewWhereUniqueInput | DestinationViewWhereUniqueInput[]
   }
 
+  export type HomestayCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<HomestayCreateWithoutOwnerInput, HomestayUncheckedCreateWithoutOwnerInput> | HomestayCreateWithoutOwnerInput[] | HomestayUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutOwnerInput | HomestayCreateOrConnectWithoutOwnerInput[]
+    createMany?: HomestayCreateManyOwnerInputEnvelope
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+  }
+
+  export type BookingCreateNestedManyWithoutGuestInput = {
+    create?: XOR<BookingCreateWithoutGuestInput, BookingUncheckedCreateWithoutGuestInput> | BookingCreateWithoutGuestInput[] | BookingUncheckedCreateWithoutGuestInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutGuestInput | BookingCreateOrConnectWithoutGuestInput[]
+    createMany?: BookingCreateManyGuestInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type HomestayReviewCreateNestedManyWithoutUserInput = {
+    create?: XOR<HomestayReviewCreateWithoutUserInput, HomestayReviewUncheckedCreateWithoutUserInput> | HomestayReviewCreateWithoutUserInput[] | HomestayReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutUserInput | HomestayReviewCreateOrConnectWithoutUserInput[]
+    createMany?: HomestayReviewCreateManyUserInputEnvelope
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+  }
+
+  export type HomestayViewCreateNestedManyWithoutUserInput = {
+    create?: XOR<HomestayViewCreateWithoutUserInput, HomestayViewUncheckedCreateWithoutUserInput> | HomestayViewCreateWithoutUserInput[] | HomestayViewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutUserInput | HomestayViewCreateOrConnectWithoutUserInput[]
+    createMany?: HomestayViewCreateManyUserInputEnvelope
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+  }
+
   export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -30554,6 +38570,34 @@ export namespace Prisma {
     connectOrCreate?: DestinationViewCreateOrConnectWithoutUserInput | DestinationViewCreateOrConnectWithoutUserInput[]
     createMany?: DestinationViewCreateManyUserInputEnvelope
     connect?: DestinationViewWhereUniqueInput | DestinationViewWhereUniqueInput[]
+  }
+
+  export type HomestayUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<HomestayCreateWithoutOwnerInput, HomestayUncheckedCreateWithoutOwnerInput> | HomestayCreateWithoutOwnerInput[] | HomestayUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutOwnerInput | HomestayCreateOrConnectWithoutOwnerInput[]
+    createMany?: HomestayCreateManyOwnerInputEnvelope
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+  }
+
+  export type BookingUncheckedCreateNestedManyWithoutGuestInput = {
+    create?: XOR<BookingCreateWithoutGuestInput, BookingUncheckedCreateWithoutGuestInput> | BookingCreateWithoutGuestInput[] | BookingUncheckedCreateWithoutGuestInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutGuestInput | BookingCreateOrConnectWithoutGuestInput[]
+    createMany?: BookingCreateManyGuestInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type HomestayReviewUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<HomestayReviewCreateWithoutUserInput, HomestayReviewUncheckedCreateWithoutUserInput> | HomestayReviewCreateWithoutUserInput[] | HomestayReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutUserInput | HomestayReviewCreateOrConnectWithoutUserInput[]
+    createMany?: HomestayReviewCreateManyUserInputEnvelope
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+  }
+
+  export type HomestayViewUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<HomestayViewCreateWithoutUserInput, HomestayViewUncheckedCreateWithoutUserInput> | HomestayViewCreateWithoutUserInput[] | HomestayViewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutUserInput | HomestayViewCreateOrConnectWithoutUserInput[]
+    createMany?: HomestayViewCreateManyUserInputEnvelope
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -30880,6 +38924,62 @@ export namespace Prisma {
     deleteMany?: DestinationViewScalarWhereInput | DestinationViewScalarWhereInput[]
   }
 
+  export type HomestayUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<HomestayCreateWithoutOwnerInput, HomestayUncheckedCreateWithoutOwnerInput> | HomestayCreateWithoutOwnerInput[] | HomestayUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutOwnerInput | HomestayCreateOrConnectWithoutOwnerInput[]
+    upsert?: HomestayUpsertWithWhereUniqueWithoutOwnerInput | HomestayUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: HomestayCreateManyOwnerInputEnvelope
+    set?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    disconnect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    delete?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    update?: HomestayUpdateWithWhereUniqueWithoutOwnerInput | HomestayUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: HomestayUpdateManyWithWhereWithoutOwnerInput | HomestayUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
+  }
+
+  export type BookingUpdateManyWithoutGuestNestedInput = {
+    create?: XOR<BookingCreateWithoutGuestInput, BookingUncheckedCreateWithoutGuestInput> | BookingCreateWithoutGuestInput[] | BookingUncheckedCreateWithoutGuestInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutGuestInput | BookingCreateOrConnectWithoutGuestInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutGuestInput | BookingUpsertWithWhereUniqueWithoutGuestInput[]
+    createMany?: BookingCreateManyGuestInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutGuestInput | BookingUpdateWithWhereUniqueWithoutGuestInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutGuestInput | BookingUpdateManyWithWhereWithoutGuestInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type HomestayReviewUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HomestayReviewCreateWithoutUserInput, HomestayReviewUncheckedCreateWithoutUserInput> | HomestayReviewCreateWithoutUserInput[] | HomestayReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutUserInput | HomestayReviewCreateOrConnectWithoutUserInput[]
+    upsert?: HomestayReviewUpsertWithWhereUniqueWithoutUserInput | HomestayReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HomestayReviewCreateManyUserInputEnvelope
+    set?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    disconnect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    delete?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    update?: HomestayReviewUpdateWithWhereUniqueWithoutUserInput | HomestayReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HomestayReviewUpdateManyWithWhereWithoutUserInput | HomestayReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HomestayReviewScalarWhereInput | HomestayReviewScalarWhereInput[]
+  }
+
+  export type HomestayViewUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HomestayViewCreateWithoutUserInput, HomestayViewUncheckedCreateWithoutUserInput> | HomestayViewCreateWithoutUserInput[] | HomestayViewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutUserInput | HomestayViewCreateOrConnectWithoutUserInput[]
+    upsert?: HomestayViewUpsertWithWhereUniqueWithoutUserInput | HomestayViewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HomestayViewCreateManyUserInputEnvelope
+    set?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    disconnect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    delete?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    update?: HomestayViewUpdateWithWhereUniqueWithoutUserInput | HomestayViewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HomestayViewUpdateManyWithWhereWithoutUserInput | HomestayViewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HomestayViewScalarWhereInput | HomestayViewScalarWhereInput[]
+  }
+
   export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -31174,6 +39274,62 @@ export namespace Prisma {
     deleteMany?: DestinationViewScalarWhereInput | DestinationViewScalarWhereInput[]
   }
 
+  export type HomestayUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<HomestayCreateWithoutOwnerInput, HomestayUncheckedCreateWithoutOwnerInput> | HomestayCreateWithoutOwnerInput[] | HomestayUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutOwnerInput | HomestayCreateOrConnectWithoutOwnerInput[]
+    upsert?: HomestayUpsertWithWhereUniqueWithoutOwnerInput | HomestayUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: HomestayCreateManyOwnerInputEnvelope
+    set?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    disconnect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    delete?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    update?: HomestayUpdateWithWhereUniqueWithoutOwnerInput | HomestayUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: HomestayUpdateManyWithWhereWithoutOwnerInput | HomestayUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
+  }
+
+  export type BookingUncheckedUpdateManyWithoutGuestNestedInput = {
+    create?: XOR<BookingCreateWithoutGuestInput, BookingUncheckedCreateWithoutGuestInput> | BookingCreateWithoutGuestInput[] | BookingUncheckedCreateWithoutGuestInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutGuestInput | BookingCreateOrConnectWithoutGuestInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutGuestInput | BookingUpsertWithWhereUniqueWithoutGuestInput[]
+    createMany?: BookingCreateManyGuestInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutGuestInput | BookingUpdateWithWhereUniqueWithoutGuestInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutGuestInput | BookingUpdateManyWithWhereWithoutGuestInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type HomestayReviewUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HomestayReviewCreateWithoutUserInput, HomestayReviewUncheckedCreateWithoutUserInput> | HomestayReviewCreateWithoutUserInput[] | HomestayReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutUserInput | HomestayReviewCreateOrConnectWithoutUserInput[]
+    upsert?: HomestayReviewUpsertWithWhereUniqueWithoutUserInput | HomestayReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HomestayReviewCreateManyUserInputEnvelope
+    set?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    disconnect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    delete?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    update?: HomestayReviewUpdateWithWhereUniqueWithoutUserInput | HomestayReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HomestayReviewUpdateManyWithWhereWithoutUserInput | HomestayReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HomestayReviewScalarWhereInput | HomestayReviewScalarWhereInput[]
+  }
+
+  export type HomestayViewUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HomestayViewCreateWithoutUserInput, HomestayViewUncheckedCreateWithoutUserInput> | HomestayViewCreateWithoutUserInput[] | HomestayViewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutUserInput | HomestayViewCreateOrConnectWithoutUserInput[]
+    upsert?: HomestayViewUpsertWithWhereUniqueWithoutUserInput | HomestayViewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HomestayViewCreateManyUserInputEnvelope
+    set?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    disconnect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    delete?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    update?: HomestayViewUpdateWithWhereUniqueWithoutUserInput | HomestayViewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HomestayViewUpdateManyWithWhereWithoutUserInput | HomestayViewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HomestayViewScalarWhereInput | HomestayViewScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutFollowersInput = {
     create?: XOR<UserCreateWithoutFollowersInput, UserUncheckedCreateWithoutFollowersInput>
     connectOrCreate?: UserCreateOrConnectWithoutFollowersInput
@@ -31230,6 +39386,13 @@ export namespace Prisma {
     connect?: PostDestinationWhereUniqueInput | PostDestinationWhereUniqueInput[]
   }
 
+  export type PostHomestayCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostHomestayCreateWithoutPostInput, PostHomestayUncheckedCreateWithoutPostInput> | PostHomestayCreateWithoutPostInput[] | PostHomestayUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutPostInput | PostHomestayCreateOrConnectWithoutPostInput[]
+    createMany?: PostHomestayCreateManyPostInputEnvelope
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+  }
+
   export type SharedPostCreateNestedManyWithoutPostInput = {
     create?: XOR<SharedPostCreateWithoutPostInput, SharedPostUncheckedCreateWithoutPostInput> | SharedPostCreateWithoutPostInput[] | SharedPostUncheckedCreateWithoutPostInput[]
     connectOrCreate?: SharedPostCreateOrConnectWithoutPostInput | SharedPostCreateOrConnectWithoutPostInput[]
@@ -31277,6 +39440,13 @@ export namespace Prisma {
     connectOrCreate?: PostDestinationCreateOrConnectWithoutPostInput | PostDestinationCreateOrConnectWithoutPostInput[]
     createMany?: PostDestinationCreateManyPostInputEnvelope
     connect?: PostDestinationWhereUniqueInput | PostDestinationWhereUniqueInput[]
+  }
+
+  export type PostHomestayUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostHomestayCreateWithoutPostInput, PostHomestayUncheckedCreateWithoutPostInput> | PostHomestayCreateWithoutPostInput[] | PostHomestayUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutPostInput | PostHomestayCreateOrConnectWithoutPostInput[]
+    createMany?: PostHomestayCreateManyPostInputEnvelope
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
   }
 
   export type SharedPostUncheckedCreateNestedManyWithoutPostInput = {
@@ -31358,6 +39528,20 @@ export namespace Prisma {
     update?: PostDestinationUpdateWithWhereUniqueWithoutPostInput | PostDestinationUpdateWithWhereUniqueWithoutPostInput[]
     updateMany?: PostDestinationUpdateManyWithWhereWithoutPostInput | PostDestinationUpdateManyWithWhereWithoutPostInput[]
     deleteMany?: PostDestinationScalarWhereInput | PostDestinationScalarWhereInput[]
+  }
+
+  export type PostHomestayUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostHomestayCreateWithoutPostInput, PostHomestayUncheckedCreateWithoutPostInput> | PostHomestayCreateWithoutPostInput[] | PostHomestayUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutPostInput | PostHomestayCreateOrConnectWithoutPostInput[]
+    upsert?: PostHomestayUpsertWithWhereUniqueWithoutPostInput | PostHomestayUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostHomestayCreateManyPostInputEnvelope
+    set?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    disconnect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    delete?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    update?: PostHomestayUpdateWithWhereUniqueWithoutPostInput | PostHomestayUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostHomestayUpdateManyWithWhereWithoutPostInput | PostHomestayUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostHomestayScalarWhereInput | PostHomestayScalarWhereInput[]
   }
 
   export type SharedPostUpdateManyWithoutPostNestedInput = {
@@ -31456,6 +39640,20 @@ export namespace Prisma {
     update?: PostDestinationUpdateWithWhereUniqueWithoutPostInput | PostDestinationUpdateWithWhereUniqueWithoutPostInput[]
     updateMany?: PostDestinationUpdateManyWithWhereWithoutPostInput | PostDestinationUpdateManyWithWhereWithoutPostInput[]
     deleteMany?: PostDestinationScalarWhereInput | PostDestinationScalarWhereInput[]
+  }
+
+  export type PostHomestayUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostHomestayCreateWithoutPostInput, PostHomestayUncheckedCreateWithoutPostInput> | PostHomestayCreateWithoutPostInput[] | PostHomestayUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutPostInput | PostHomestayCreateOrConnectWithoutPostInput[]
+    upsert?: PostHomestayUpsertWithWhereUniqueWithoutPostInput | PostHomestayUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostHomestayCreateManyPostInputEnvelope
+    set?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    disconnect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    delete?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    update?: PostHomestayUpdateWithWhereUniqueWithoutPostInput | PostHomestayUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostHomestayUpdateManyWithWhereWithoutPostInput | PostHomestayUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostHomestayScalarWhereInput | PostHomestayScalarWhereInput[]
   }
 
   export type SharedPostUncheckedUpdateManyWithoutPostNestedInput = {
@@ -31854,6 +40052,12 @@ export namespace Prisma {
     connect?: DestinationWhereUniqueInput
   }
 
+  export type HomestayCreateNestedOneWithoutLikesInput = {
+    create?: XOR<HomestayCreateWithoutLikesInput, HomestayUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutLikesInput
+    connect?: HomestayWhereUniqueInput
+  }
+
   export type UserUpdateOneRequiredWithoutLikesNestedInput = {
     create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
     connectOrCreate?: UserCreateOrConnectWithoutLikesInput
@@ -31890,6 +40094,16 @@ export namespace Prisma {
     delete?: DestinationWhereInput | boolean
     connect?: DestinationWhereUniqueInput
     update?: XOR<XOR<DestinationUpdateToOneWithWhereWithoutLikesInput, DestinationUpdateWithoutLikesInput>, DestinationUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type HomestayUpdateOneWithoutLikesNestedInput = {
+    create?: XOR<HomestayCreateWithoutLikesInput, HomestayUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutLikesInput
+    upsert?: HomestayUpsertWithoutLikesInput
+    disconnect?: boolean
+    delete?: HomestayWhereInput | boolean
+    connect?: HomestayWhereUniqueInput
+    update?: XOR<XOR<HomestayUpdateToOneWithWhereWithoutLikesInput, HomestayUpdateWithoutLikesInput>, HomestayUncheckedUpdateWithoutLikesInput>
   }
 
   export type UserCreateNestedOneWithoutSavedPostsInput = {
@@ -32446,6 +40660,13 @@ export namespace Prisma {
     connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
   }
 
+  export type HomestayCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<HomestayCreateWithoutDestinationInput, HomestayUncheckedCreateWithoutDestinationInput> | HomestayCreateWithoutDestinationInput[] | HomestayUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutDestinationInput | HomestayCreateOrConnectWithoutDestinationInput[]
+    createMany?: HomestayCreateManyDestinationInputEnvelope
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+  }
+
   export type LikeCreateNestedManyWithoutDestinationInput = {
     create?: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput> | LikeCreateWithoutDestinationInput[] | LikeUncheckedCreateWithoutDestinationInput[]
     connectOrCreate?: LikeCreateOrConnectWithoutDestinationInput | LikeCreateOrConnectWithoutDestinationInput[]
@@ -32479,6 +40700,13 @@ export namespace Prisma {
     connectOrCreate?: DestinationCreateOrConnectWithoutParentInput | DestinationCreateOrConnectWithoutParentInput[]
     createMany?: DestinationCreateManyParentInputEnvelope
     connect?: DestinationWhereUniqueInput | DestinationWhereUniqueInput[]
+  }
+
+  export type HomestayUncheckedCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<HomestayCreateWithoutDestinationInput, HomestayUncheckedCreateWithoutDestinationInput> | HomestayCreateWithoutDestinationInput[] | HomestayUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutDestinationInput | HomestayCreateOrConnectWithoutDestinationInput[]
+    createMany?: HomestayCreateManyDestinationInputEnvelope
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
   }
 
   export type LikeUncheckedCreateNestedManyWithoutDestinationInput = {
@@ -32588,6 +40816,20 @@ export namespace Prisma {
     deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
   }
 
+  export type HomestayUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<HomestayCreateWithoutDestinationInput, HomestayUncheckedCreateWithoutDestinationInput> | HomestayCreateWithoutDestinationInput[] | HomestayUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutDestinationInput | HomestayCreateOrConnectWithoutDestinationInput[]
+    upsert?: HomestayUpsertWithWhereUniqueWithoutDestinationInput | HomestayUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: HomestayCreateManyDestinationInputEnvelope
+    set?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    disconnect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    delete?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    update?: HomestayUpdateWithWhereUniqueWithoutDestinationInput | HomestayUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: HomestayUpdateManyWithWhereWithoutDestinationInput | HomestayUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
+  }
+
   export type LikeUpdateManyWithoutDestinationNestedInput = {
     create?: XOR<LikeCreateWithoutDestinationInput, LikeUncheckedCreateWithoutDestinationInput> | LikeCreateWithoutDestinationInput[] | LikeUncheckedCreateWithoutDestinationInput[]
     connectOrCreate?: LikeCreateOrConnectWithoutDestinationInput | LikeCreateOrConnectWithoutDestinationInput[]
@@ -32656,6 +40898,20 @@ export namespace Prisma {
     update?: DestinationUpdateWithWhereUniqueWithoutParentInput | DestinationUpdateWithWhereUniqueWithoutParentInput[]
     updateMany?: DestinationUpdateManyWithWhereWithoutParentInput | DestinationUpdateManyWithWhereWithoutParentInput[]
     deleteMany?: DestinationScalarWhereInput | DestinationScalarWhereInput[]
+  }
+
+  export type HomestayUncheckedUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<HomestayCreateWithoutDestinationInput, HomestayUncheckedCreateWithoutDestinationInput> | HomestayCreateWithoutDestinationInput[] | HomestayUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: HomestayCreateOrConnectWithoutDestinationInput | HomestayCreateOrConnectWithoutDestinationInput[]
+    upsert?: HomestayUpsertWithWhereUniqueWithoutDestinationInput | HomestayUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: HomestayCreateManyDestinationInputEnvelope
+    set?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    disconnect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    delete?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    connect?: HomestayWhereUniqueInput | HomestayWhereUniqueInput[]
+    update?: HomestayUpdateWithWhereUniqueWithoutDestinationInput | HomestayUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: HomestayUpdateManyWithWhereWithoutDestinationInput | HomestayUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
   }
 
   export type LikeUncheckedUpdateManyWithoutDestinationNestedInput = {
@@ -32777,6 +41033,385 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDestinationReviewsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDestinationReviewsInput, UserUpdateWithoutDestinationReviewsInput>, UserUncheckedUpdateWithoutDestinationReviewsInput>
+  }
+
+  export type HomestayCreateimageUrlInput = {
+    set: string[]
+  }
+
+  export type HomestayCreateamenitiesInput = {
+    set: string[]
+  }
+
+  export type HomestayCreatehouseRulesInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutOwnedHomestaysInput = {
+    create?: XOR<UserCreateWithoutOwnedHomestaysInput, UserUncheckedCreateWithoutOwnedHomestaysInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedHomestaysInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DestinationCreateNestedOneWithoutHomestaysInput = {
+    create?: XOR<DestinationCreateWithoutHomestaysInput, DestinationUncheckedCreateWithoutHomestaysInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutHomestaysInput
+    connect?: DestinationWhereUniqueInput
+  }
+
+  export type BookingCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<BookingCreateWithoutHomestayInput, BookingUncheckedCreateWithoutHomestayInput> | BookingCreateWithoutHomestayInput[] | BookingUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutHomestayInput | BookingCreateOrConnectWithoutHomestayInput[]
+    createMany?: BookingCreateManyHomestayInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type HomestayReviewCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<HomestayReviewCreateWithoutHomestayInput, HomestayReviewUncheckedCreateWithoutHomestayInput> | HomestayReviewCreateWithoutHomestayInput[] | HomestayReviewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutHomestayInput | HomestayReviewCreateOrConnectWithoutHomestayInput[]
+    createMany?: HomestayReviewCreateManyHomestayInputEnvelope
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+  }
+
+  export type HomestayViewCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<HomestayViewCreateWithoutHomestayInput, HomestayViewUncheckedCreateWithoutHomestayInput> | HomestayViewCreateWithoutHomestayInput[] | HomestayViewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutHomestayInput | HomestayViewCreateOrConnectWithoutHomestayInput[]
+    createMany?: HomestayViewCreateManyHomestayInputEnvelope
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+  }
+
+  export type PostHomestayCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<PostHomestayCreateWithoutHomestayInput, PostHomestayUncheckedCreateWithoutHomestayInput> | PostHomestayCreateWithoutHomestayInput[] | PostHomestayUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutHomestayInput | PostHomestayCreateOrConnectWithoutHomestayInput[]
+    createMany?: PostHomestayCreateManyHomestayInputEnvelope
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+  }
+
+  export type LikeCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<LikeCreateWithoutHomestayInput, LikeUncheckedCreateWithoutHomestayInput> | LikeCreateWithoutHomestayInput[] | LikeUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutHomestayInput | LikeCreateOrConnectWithoutHomestayInput[]
+    createMany?: LikeCreateManyHomestayInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type BookingUncheckedCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<BookingCreateWithoutHomestayInput, BookingUncheckedCreateWithoutHomestayInput> | BookingCreateWithoutHomestayInput[] | BookingUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutHomestayInput | BookingCreateOrConnectWithoutHomestayInput[]
+    createMany?: BookingCreateManyHomestayInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<HomestayReviewCreateWithoutHomestayInput, HomestayReviewUncheckedCreateWithoutHomestayInput> | HomestayReviewCreateWithoutHomestayInput[] | HomestayReviewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutHomestayInput | HomestayReviewCreateOrConnectWithoutHomestayInput[]
+    createMany?: HomestayReviewCreateManyHomestayInputEnvelope
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+  }
+
+  export type HomestayViewUncheckedCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<HomestayViewCreateWithoutHomestayInput, HomestayViewUncheckedCreateWithoutHomestayInput> | HomestayViewCreateWithoutHomestayInput[] | HomestayViewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutHomestayInput | HomestayViewCreateOrConnectWithoutHomestayInput[]
+    createMany?: HomestayViewCreateManyHomestayInputEnvelope
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+  }
+
+  export type PostHomestayUncheckedCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<PostHomestayCreateWithoutHomestayInput, PostHomestayUncheckedCreateWithoutHomestayInput> | PostHomestayCreateWithoutHomestayInput[] | PostHomestayUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutHomestayInput | PostHomestayCreateOrConnectWithoutHomestayInput[]
+    createMany?: PostHomestayCreateManyHomestayInputEnvelope
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+  }
+
+  export type LikeUncheckedCreateNestedManyWithoutHomestayInput = {
+    create?: XOR<LikeCreateWithoutHomestayInput, LikeUncheckedCreateWithoutHomestayInput> | LikeCreateWithoutHomestayInput[] | LikeUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutHomestayInput | LikeCreateOrConnectWithoutHomestayInput[]
+    createMany?: LikeCreateManyHomestayInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type HomestayUpdateimageUrlInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type HomestayUpdateamenitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type HomestayUpdatehouseRulesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput = {
+    create?: XOR<UserCreateWithoutOwnedHomestaysInput, UserUncheckedCreateWithoutOwnedHomestaysInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedHomestaysInput
+    upsert?: UserUpsertWithoutOwnedHomestaysInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOwnedHomestaysInput, UserUpdateWithoutOwnedHomestaysInput>, UserUncheckedUpdateWithoutOwnedHomestaysInput>
+  }
+
+  export type DestinationUpdateOneWithoutHomestaysNestedInput = {
+    create?: XOR<DestinationCreateWithoutHomestaysInput, DestinationUncheckedCreateWithoutHomestaysInput>
+    connectOrCreate?: DestinationCreateOrConnectWithoutHomestaysInput
+    upsert?: DestinationUpsertWithoutHomestaysInput
+    disconnect?: boolean
+    delete?: DestinationWhereInput | boolean
+    connect?: DestinationWhereUniqueInput
+    update?: XOR<XOR<DestinationUpdateToOneWithWhereWithoutHomestaysInput, DestinationUpdateWithoutHomestaysInput>, DestinationUncheckedUpdateWithoutHomestaysInput>
+  }
+
+  export type BookingUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<BookingCreateWithoutHomestayInput, BookingUncheckedCreateWithoutHomestayInput> | BookingCreateWithoutHomestayInput[] | BookingUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutHomestayInput | BookingCreateOrConnectWithoutHomestayInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutHomestayInput | BookingUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: BookingCreateManyHomestayInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutHomestayInput | BookingUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutHomestayInput | BookingUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type HomestayReviewUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<HomestayReviewCreateWithoutHomestayInput, HomestayReviewUncheckedCreateWithoutHomestayInput> | HomestayReviewCreateWithoutHomestayInput[] | HomestayReviewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutHomestayInput | HomestayReviewCreateOrConnectWithoutHomestayInput[]
+    upsert?: HomestayReviewUpsertWithWhereUniqueWithoutHomestayInput | HomestayReviewUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: HomestayReviewCreateManyHomestayInputEnvelope
+    set?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    disconnect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    delete?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    update?: HomestayReviewUpdateWithWhereUniqueWithoutHomestayInput | HomestayReviewUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: HomestayReviewUpdateManyWithWhereWithoutHomestayInput | HomestayReviewUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: HomestayReviewScalarWhereInput | HomestayReviewScalarWhereInput[]
+  }
+
+  export type HomestayViewUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<HomestayViewCreateWithoutHomestayInput, HomestayViewUncheckedCreateWithoutHomestayInput> | HomestayViewCreateWithoutHomestayInput[] | HomestayViewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutHomestayInput | HomestayViewCreateOrConnectWithoutHomestayInput[]
+    upsert?: HomestayViewUpsertWithWhereUniqueWithoutHomestayInput | HomestayViewUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: HomestayViewCreateManyHomestayInputEnvelope
+    set?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    disconnect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    delete?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    update?: HomestayViewUpdateWithWhereUniqueWithoutHomestayInput | HomestayViewUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: HomestayViewUpdateManyWithWhereWithoutHomestayInput | HomestayViewUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: HomestayViewScalarWhereInput | HomestayViewScalarWhereInput[]
+  }
+
+  export type PostHomestayUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<PostHomestayCreateWithoutHomestayInput, PostHomestayUncheckedCreateWithoutHomestayInput> | PostHomestayCreateWithoutHomestayInput[] | PostHomestayUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutHomestayInput | PostHomestayCreateOrConnectWithoutHomestayInput[]
+    upsert?: PostHomestayUpsertWithWhereUniqueWithoutHomestayInput | PostHomestayUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: PostHomestayCreateManyHomestayInputEnvelope
+    set?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    disconnect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    delete?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    update?: PostHomestayUpdateWithWhereUniqueWithoutHomestayInput | PostHomestayUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: PostHomestayUpdateManyWithWhereWithoutHomestayInput | PostHomestayUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: PostHomestayScalarWhereInput | PostHomestayScalarWhereInput[]
+  }
+
+  export type LikeUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<LikeCreateWithoutHomestayInput, LikeUncheckedCreateWithoutHomestayInput> | LikeCreateWithoutHomestayInput[] | LikeUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutHomestayInput | LikeCreateOrConnectWithoutHomestayInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutHomestayInput | LikeUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: LikeCreateManyHomestayInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutHomestayInput | LikeUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutHomestayInput | LikeUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type BookingUncheckedUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<BookingCreateWithoutHomestayInput, BookingUncheckedCreateWithoutHomestayInput> | BookingCreateWithoutHomestayInput[] | BookingUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutHomestayInput | BookingCreateOrConnectWithoutHomestayInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutHomestayInput | BookingUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: BookingCreateManyHomestayInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutHomestayInput | BookingUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutHomestayInput | BookingUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<HomestayReviewCreateWithoutHomestayInput, HomestayReviewUncheckedCreateWithoutHomestayInput> | HomestayReviewCreateWithoutHomestayInput[] | HomestayReviewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayReviewCreateOrConnectWithoutHomestayInput | HomestayReviewCreateOrConnectWithoutHomestayInput[]
+    upsert?: HomestayReviewUpsertWithWhereUniqueWithoutHomestayInput | HomestayReviewUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: HomestayReviewCreateManyHomestayInputEnvelope
+    set?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    disconnect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    delete?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    connect?: HomestayReviewWhereUniqueInput | HomestayReviewWhereUniqueInput[]
+    update?: HomestayReviewUpdateWithWhereUniqueWithoutHomestayInput | HomestayReviewUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: HomestayReviewUpdateManyWithWhereWithoutHomestayInput | HomestayReviewUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: HomestayReviewScalarWhereInput | HomestayReviewScalarWhereInput[]
+  }
+
+  export type HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<HomestayViewCreateWithoutHomestayInput, HomestayViewUncheckedCreateWithoutHomestayInput> | HomestayViewCreateWithoutHomestayInput[] | HomestayViewUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: HomestayViewCreateOrConnectWithoutHomestayInput | HomestayViewCreateOrConnectWithoutHomestayInput[]
+    upsert?: HomestayViewUpsertWithWhereUniqueWithoutHomestayInput | HomestayViewUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: HomestayViewCreateManyHomestayInputEnvelope
+    set?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    disconnect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    delete?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    connect?: HomestayViewWhereUniqueInput | HomestayViewWhereUniqueInput[]
+    update?: HomestayViewUpdateWithWhereUniqueWithoutHomestayInput | HomestayViewUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: HomestayViewUpdateManyWithWhereWithoutHomestayInput | HomestayViewUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: HomestayViewScalarWhereInput | HomestayViewScalarWhereInput[]
+  }
+
+  export type PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<PostHomestayCreateWithoutHomestayInput, PostHomestayUncheckedCreateWithoutHomestayInput> | PostHomestayCreateWithoutHomestayInput[] | PostHomestayUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: PostHomestayCreateOrConnectWithoutHomestayInput | PostHomestayCreateOrConnectWithoutHomestayInput[]
+    upsert?: PostHomestayUpsertWithWhereUniqueWithoutHomestayInput | PostHomestayUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: PostHomestayCreateManyHomestayInputEnvelope
+    set?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    disconnect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    delete?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    connect?: PostHomestayWhereUniqueInput | PostHomestayWhereUniqueInput[]
+    update?: PostHomestayUpdateWithWhereUniqueWithoutHomestayInput | PostHomestayUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: PostHomestayUpdateManyWithWhereWithoutHomestayInput | PostHomestayUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: PostHomestayScalarWhereInput | PostHomestayScalarWhereInput[]
+  }
+
+  export type LikeUncheckedUpdateManyWithoutHomestayNestedInput = {
+    create?: XOR<LikeCreateWithoutHomestayInput, LikeUncheckedCreateWithoutHomestayInput> | LikeCreateWithoutHomestayInput[] | LikeUncheckedCreateWithoutHomestayInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutHomestayInput | LikeCreateOrConnectWithoutHomestayInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutHomestayInput | LikeUpsertWithWhereUniqueWithoutHomestayInput[]
+    createMany?: LikeCreateManyHomestayInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutHomestayInput | LikeUpdateWithWhereUniqueWithoutHomestayInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutHomestayInput | LikeUpdateManyWithWhereWithoutHomestayInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type HomestayCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<HomestayCreateWithoutBookingsInput, HomestayUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutBookingsInput
+    connect?: HomestayWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type HomestayUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<HomestayCreateWithoutBookingsInput, HomestayUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutBookingsInput
+    upsert?: HomestayUpsertWithoutBookingsInput
+    connect?: HomestayWhereUniqueInput
+    update?: XOR<XOR<HomestayUpdateToOneWithWhereWithoutBookingsInput, HomestayUpdateWithoutBookingsInput>, HomestayUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookingsInput
+    upsert?: UserUpsertWithoutBookingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBookingsInput, UserUpdateWithoutBookingsInput>, UserUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type HomestayCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<HomestayCreateWithoutReviewsInput, HomestayUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutReviewsInput
+    connect?: HomestayWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutHomestayReviewsInput = {
+    create?: XOR<UserCreateWithoutHomestayReviewsInput, UserUncheckedCreateWithoutHomestayReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHomestayReviewsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type HomestayUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<HomestayCreateWithoutReviewsInput, HomestayUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutReviewsInput
+    upsert?: HomestayUpsertWithoutReviewsInput
+    connect?: HomestayWhereUniqueInput
+    update?: XOR<XOR<HomestayUpdateToOneWithWhereWithoutReviewsInput, HomestayUpdateWithoutReviewsInput>, HomestayUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutHomestayReviewsNestedInput = {
+    create?: XOR<UserCreateWithoutHomestayReviewsInput, UserUncheckedCreateWithoutHomestayReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHomestayReviewsInput
+    upsert?: UserUpsertWithoutHomestayReviewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHomestayReviewsInput, UserUpdateWithoutHomestayReviewsInput>, UserUncheckedUpdateWithoutHomestayReviewsInput>
+  }
+
+  export type HomestayCreateNestedOneWithoutViewsInput = {
+    create?: XOR<HomestayCreateWithoutViewsInput, HomestayUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutViewsInput
+    connect?: HomestayWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutHomestayViewsInput = {
+    create?: XOR<UserCreateWithoutHomestayViewsInput, UserUncheckedCreateWithoutHomestayViewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHomestayViewsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type HomestayUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<HomestayCreateWithoutViewsInput, HomestayUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutViewsInput
+    upsert?: HomestayUpsertWithoutViewsInput
+    connect?: HomestayWhereUniqueInput
+    update?: XOR<XOR<HomestayUpdateToOneWithWhereWithoutViewsInput, HomestayUpdateWithoutViewsInput>, HomestayUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutHomestayViewsNestedInput = {
+    create?: XOR<UserCreateWithoutHomestayViewsInput, UserUncheckedCreateWithoutHomestayViewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHomestayViewsInput
+    upsert?: UserUpsertWithoutHomestayViewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHomestayViewsInput, UserUpdateWithoutHomestayViewsInput>, UserUncheckedUpdateWithoutHomestayViewsInput>
+  }
+
+  export type PostCreateNestedOneWithoutTaggedHomestaysInput = {
+    create?: XOR<PostCreateWithoutTaggedHomestaysInput, PostUncheckedCreateWithoutTaggedHomestaysInput>
+    connectOrCreate?: PostCreateOrConnectWithoutTaggedHomestaysInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type HomestayCreateNestedOneWithoutTaggedInPostsInput = {
+    create?: XOR<HomestayCreateWithoutTaggedInPostsInput, HomestayUncheckedCreateWithoutTaggedInPostsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutTaggedInPostsInput
+    connect?: HomestayWhereUniqueInput
+  }
+
+  export type PostUpdateOneRequiredWithoutTaggedHomestaysNestedInput = {
+    create?: XOR<PostCreateWithoutTaggedHomestaysInput, PostUncheckedCreateWithoutTaggedHomestaysInput>
+    connectOrCreate?: PostCreateOrConnectWithoutTaggedHomestaysInput
+    upsert?: PostUpsertWithoutTaggedHomestaysInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutTaggedHomestaysInput, PostUpdateWithoutTaggedHomestaysInput>, PostUncheckedUpdateWithoutTaggedHomestaysInput>
+  }
+
+  export type HomestayUpdateOneRequiredWithoutTaggedInPostsNestedInput = {
+    create?: XOR<HomestayCreateWithoutTaggedInPostsInput, HomestayUncheckedCreateWithoutTaggedInPostsInput>
+    connectOrCreate?: HomestayCreateOrConnectWithoutTaggedInPostsInput
+    upsert?: HomestayUpsertWithoutTaggedInPostsInput
+    connect?: HomestayWhereUniqueInput
+    update?: XOR<XOR<HomestayUpdateToOneWithWhereWithoutTaggedInPostsInput, HomestayUpdateWithoutTaggedInPostsInput>, HomestayUncheckedUpdateWithoutTaggedInPostsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -33063,6 +41698,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
@@ -33084,6 +41720,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
@@ -33142,6 +41779,7 @@ export namespace Prisma {
     post?: PostCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
     destination?: DestinationCreateNestedOneWithoutLikesInput
+    homestay?: HomestayCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutUserInput = {
@@ -33616,6 +42254,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
@@ -33649,6 +42288,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
@@ -33716,6 +42356,188 @@ export namespace Prisma {
 
   export type DestinationViewCreateManyUserInputEnvelope = {
     data: DestinationViewCreateManyUserInput | DestinationViewCreateManyUserInput[]
+  }
+
+  export type HomestayCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutOwnerInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutOwnerInput, HomestayUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type HomestayCreateManyOwnerInputEnvelope = {
+    data: HomestayCreateManyOwnerInput | HomestayCreateManyOwnerInput[]
+  }
+
+  export type BookingCreateWithoutGuestInput = {
+    id?: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutGuestInput = {
+    id?: string
+    homestayId: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateOrConnectWithoutGuestInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutGuestInput, BookingUncheckedCreateWithoutGuestInput>
+  }
+
+  export type BookingCreateManyGuestInputEnvelope = {
+    data: BookingCreateManyGuestInput | BookingCreateManyGuestInput[]
+  }
+
+  export type HomestayReviewCreateWithoutUserInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutReviewsInput
+  }
+
+  export type HomestayReviewUncheckedCreateWithoutUserInput = {
+    id?: string
+    homestayId: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayReviewCreateOrConnectWithoutUserInput = {
+    where: HomestayReviewWhereUniqueInput
+    create: XOR<HomestayReviewCreateWithoutUserInput, HomestayReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type HomestayReviewCreateManyUserInputEnvelope = {
+    data: HomestayReviewCreateManyUserInput | HomestayReviewCreateManyUserInput[]
+  }
+
+  export type HomestayViewCreateWithoutUserInput = {
+    id?: string
+    viewedAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutViewsInput
+  }
+
+  export type HomestayViewUncheckedCreateWithoutUserInput = {
+    id?: string
+    homestayId: string
+    viewedAt?: Date | string
+  }
+
+  export type HomestayViewCreateOrConnectWithoutUserInput = {
+    where: HomestayViewWhereUniqueInput
+    create: XOR<HomestayViewCreateWithoutUserInput, HomestayViewUncheckedCreateWithoutUserInput>
+  }
+
+  export type HomestayViewCreateManyUserInputEnvelope = {
+    data: HomestayViewCreateManyUserInput | HomestayViewCreateManyUserInput[]
   }
 
   export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -34314,6 +43136,154 @@ export namespace Prisma {
     viewedAt?: DateTimeFilter<"DestinationView"> | Date | string
   }
 
+  export type HomestayUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: HomestayWhereUniqueInput
+    update: XOR<HomestayUpdateWithoutOwnerInput, HomestayUncheckedUpdateWithoutOwnerInput>
+    create: XOR<HomestayCreateWithoutOwnerInput, HomestayUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type HomestayUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: HomestayWhereUniqueInput
+    data: XOR<HomestayUpdateWithoutOwnerInput, HomestayUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type HomestayUpdateManyWithWhereWithoutOwnerInput = {
+    where: HomestayScalarWhereInput
+    data: XOR<HomestayUpdateManyMutationInput, HomestayUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type HomestayScalarWhereInput = {
+    AND?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
+    OR?: HomestayScalarWhereInput[]
+    NOT?: HomestayScalarWhereInput | HomestayScalarWhereInput[]
+    id?: StringFilter<"Homestay"> | string
+    name?: StringFilter<"Homestay"> | string
+    description?: StringNullableFilter<"Homestay"> | string | null
+    address?: StringFilter<"Homestay"> | string
+    city?: StringFilter<"Homestay"> | string
+    country?: StringFilter<"Homestay"> | string
+    latitude?: FloatNullableFilter<"Homestay"> | number | null
+    longitude?: FloatNullableFilter<"Homestay"> | number | null
+    imageUrl?: StringNullableListFilter<"Homestay">
+    phoneNumber?: StringNullableFilter<"Homestay"> | string | null
+    email?: StringNullableFilter<"Homestay"> | string | null
+    website?: StringNullableFilter<"Homestay"> | string | null
+    pricePerNight?: FloatFilter<"Homestay"> | number
+    currency?: StringFilter<"Homestay"> | string
+    maxGuests?: IntFilter<"Homestay"> | number
+    bedrooms?: IntFilter<"Homestay"> | number
+    beds?: IntFilter<"Homestay"> | number
+    bathrooms?: IntFilter<"Homestay"> | number
+    amenities?: StringNullableListFilter<"Homestay">
+    houseRules?: StringNullableListFilter<"Homestay">
+    checkInTime?: StringNullableFilter<"Homestay"> | string | null
+    checkOutTime?: StringNullableFilter<"Homestay"> | string | null
+    rating?: FloatFilter<"Homestay"> | number
+    reviewCount?: IntFilter<"Homestay"> | number
+    viewCount?: IntFilter<"Homestay"> | number
+    likeCount?: IntFilter<"Homestay"> | number
+    isActive?: BoolFilter<"Homestay"> | boolean
+    isVerified?: BoolFilter<"Homestay"> | boolean
+    destinationId?: StringNullableFilter<"Homestay"> | string | null
+    ownerId?: StringFilter<"Homestay"> | string
+    createdAt?: DateTimeFilter<"Homestay"> | Date | string
+    updatedAt?: DateTimeFilter<"Homestay"> | Date | string
+  }
+
+  export type BookingUpsertWithWhereUniqueWithoutGuestInput = {
+    where: BookingWhereUniqueInput
+    update: XOR<BookingUpdateWithoutGuestInput, BookingUncheckedUpdateWithoutGuestInput>
+    create: XOR<BookingCreateWithoutGuestInput, BookingUncheckedCreateWithoutGuestInput>
+  }
+
+  export type BookingUpdateWithWhereUniqueWithoutGuestInput = {
+    where: BookingWhereUniqueInput
+    data: XOR<BookingUpdateWithoutGuestInput, BookingUncheckedUpdateWithoutGuestInput>
+  }
+
+  export type BookingUpdateManyWithWhereWithoutGuestInput = {
+    where: BookingScalarWhereInput
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutGuestInput>
+  }
+
+  export type BookingScalarWhereInput = {
+    AND?: BookingScalarWhereInput | BookingScalarWhereInput[]
+    OR?: BookingScalarWhereInput[]
+    NOT?: BookingScalarWhereInput | BookingScalarWhereInput[]
+    id?: StringFilter<"Booking"> | string
+    homestayId?: StringFilter<"Booking"> | string
+    guestId?: StringFilter<"Booking"> | string
+    checkInDate?: DateTimeFilter<"Booking"> | Date | string
+    checkOutDate?: DateTimeFilter<"Booking"> | Date | string
+    numberOfGuests?: IntFilter<"Booking"> | number
+    totalPrice?: FloatFilter<"Booking"> | number
+    status?: StringFilter<"Booking"> | string
+    specialRequests?: StringNullableFilter<"Booking"> | string | null
+    createdAt?: DateTimeFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+  }
+
+  export type HomestayReviewUpsertWithWhereUniqueWithoutUserInput = {
+    where: HomestayReviewWhereUniqueInput
+    update: XOR<HomestayReviewUpdateWithoutUserInput, HomestayReviewUncheckedUpdateWithoutUserInput>
+    create: XOR<HomestayReviewCreateWithoutUserInput, HomestayReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type HomestayReviewUpdateWithWhereUniqueWithoutUserInput = {
+    where: HomestayReviewWhereUniqueInput
+    data: XOR<HomestayReviewUpdateWithoutUserInput, HomestayReviewUncheckedUpdateWithoutUserInput>
+  }
+
+  export type HomestayReviewUpdateManyWithWhereWithoutUserInput = {
+    where: HomestayReviewScalarWhereInput
+    data: XOR<HomestayReviewUpdateManyMutationInput, HomestayReviewUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type HomestayReviewScalarWhereInput = {
+    AND?: HomestayReviewScalarWhereInput | HomestayReviewScalarWhereInput[]
+    OR?: HomestayReviewScalarWhereInput[]
+    NOT?: HomestayReviewScalarWhereInput | HomestayReviewScalarWhereInput[]
+    id?: StringFilter<"HomestayReview"> | string
+    homestayId?: StringFilter<"HomestayReview"> | string
+    userId?: StringFilter<"HomestayReview"> | string
+    rating?: FloatFilter<"HomestayReview"> | number
+    comment?: StringNullableFilter<"HomestayReview"> | string | null
+    cleanliness?: FloatNullableFilter<"HomestayReview"> | number | null
+    accuracy?: FloatNullableFilter<"HomestayReview"> | number | null
+    checkIn?: FloatNullableFilter<"HomestayReview"> | number | null
+    communication?: FloatNullableFilter<"HomestayReview"> | number | null
+    location?: FloatNullableFilter<"HomestayReview"> | number | null
+    value?: FloatNullableFilter<"HomestayReview"> | number | null
+    createdAt?: DateTimeFilter<"HomestayReview"> | Date | string
+    updatedAt?: DateTimeFilter<"HomestayReview"> | Date | string
+  }
+
+  export type HomestayViewUpsertWithWhereUniqueWithoutUserInput = {
+    where: HomestayViewWhereUniqueInput
+    update: XOR<HomestayViewUpdateWithoutUserInput, HomestayViewUncheckedUpdateWithoutUserInput>
+    create: XOR<HomestayViewCreateWithoutUserInput, HomestayViewUncheckedCreateWithoutUserInput>
+  }
+
+  export type HomestayViewUpdateWithWhereUniqueWithoutUserInput = {
+    where: HomestayViewWhereUniqueInput
+    data: XOR<HomestayViewUpdateWithoutUserInput, HomestayViewUncheckedUpdateWithoutUserInput>
+  }
+
+  export type HomestayViewUpdateManyWithWhereWithoutUserInput = {
+    where: HomestayViewScalarWhereInput
+    data: XOR<HomestayViewUpdateManyMutationInput, HomestayViewUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type HomestayViewScalarWhereInput = {
+    AND?: HomestayViewScalarWhereInput | HomestayViewScalarWhereInput[]
+    OR?: HomestayViewScalarWhereInput[]
+    NOT?: HomestayViewScalarWhereInput | HomestayViewScalarWhereInput[]
+    id?: StringFilter<"HomestayView"> | string
+    homestayId?: StringFilter<"HomestayView"> | string
+    userId?: StringFilter<"HomestayView"> | string
+    viewedAt?: DateTimeFilter<"HomestayView"> | Date | string
+  }
+
   export type UserCreateWithoutFollowersInput = {
     id?: string
     email: string
@@ -34355,6 +43325,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -34398,6 +43372,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -34446,6 +43424,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -34489,6 +43471,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -34547,6 +43533,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -34589,6 +43579,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutFollowingInput = {
@@ -34642,6 +43636,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -34684,6 +43682,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -34727,6 +43729,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -34770,6 +43776,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -34817,6 +43827,27 @@ export namespace Prisma {
 
   export type PostDestinationCreateManyPostInputEnvelope = {
     data: PostDestinationCreateManyPostInput | PostDestinationCreateManyPostInput[]
+  }
+
+  export type PostHomestayCreateWithoutPostInput = {
+    id?: string
+    createdAt?: Date | string
+    homestay: HomestayCreateNestedOneWithoutTaggedInPostsInput
+  }
+
+  export type PostHomestayUncheckedCreateWithoutPostInput = {
+    id?: string
+    homestayId: string
+    createdAt?: Date | string
+  }
+
+  export type PostHomestayCreateOrConnectWithoutPostInput = {
+    where: PostHomestayWhereUniqueInput
+    create: XOR<PostHomestayCreateWithoutPostInput, PostHomestayUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostHomestayCreateManyPostInputEnvelope = {
+    data: PostHomestayCreateManyPostInput | PostHomestayCreateManyPostInput[]
   }
 
   export type SharedPostCreateWithoutPostInput = {
@@ -34948,6 +43979,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
     destination?: DestinationCreateNestedOneWithoutLikesInput
+    homestay?: HomestayCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutPostInput = {
@@ -35017,6 +44049,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -35059,6 +44095,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostTagUpsertWithWhereUniqueWithoutPostInput = {
@@ -35101,6 +44141,32 @@ export namespace Prisma {
     postId?: StringFilter<"PostDestination"> | string
     destinationId?: StringFilter<"PostDestination"> | string
     createdAt?: DateTimeFilter<"PostDestination"> | Date | string
+  }
+
+  export type PostHomestayUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostHomestayWhereUniqueInput
+    update: XOR<PostHomestayUpdateWithoutPostInput, PostHomestayUncheckedUpdateWithoutPostInput>
+    create: XOR<PostHomestayCreateWithoutPostInput, PostHomestayUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostHomestayUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostHomestayWhereUniqueInput
+    data: XOR<PostHomestayUpdateWithoutPostInput, PostHomestayUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostHomestayUpdateManyWithWhereWithoutPostInput = {
+    where: PostHomestayScalarWhereInput
+    data: XOR<PostHomestayUpdateManyMutationInput, PostHomestayUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type PostHomestayScalarWhereInput = {
+    AND?: PostHomestayScalarWhereInput | PostHomestayScalarWhereInput[]
+    OR?: PostHomestayScalarWhereInput[]
+    NOT?: PostHomestayScalarWhereInput | PostHomestayScalarWhereInput[]
+    id?: StringFilter<"PostHomestay"> | string
+    postId?: StringFilter<"PostHomestay"> | string
+    homestayId?: StringFilter<"PostHomestay"> | string
+    createdAt?: DateTimeFilter<"PostHomestay"> | Date | string
   }
 
   export type SharedPostUpsertWithWhereUniqueWithoutPostInput = {
@@ -35224,6 +44290,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSharedPostsSentInput = {
@@ -35267,6 +44337,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSharedPostsSentInput = {
@@ -35315,6 +44389,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSharedPostsReceivedInput = {
@@ -35358,6 +44436,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSharedPostsReceivedInput = {
@@ -35448,6 +44530,7 @@ export namespace Prisma {
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
     notifications?: NotificationCreateNestedManyWithoutPostInput
@@ -35469,6 +44552,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
@@ -35564,6 +44648,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedPostsSentInput = {
@@ -35606,6 +44694,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSharedPostsReceivedInput = {
@@ -35659,6 +44751,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedPostsReceivedInput = {
@@ -35701,6 +44797,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StoryUpsertWithoutSharedPostsInput = {
@@ -35804,6 +44904,7 @@ export namespace Prisma {
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
     notifications?: NotificationUpdateManyWithoutPostNestedInput
@@ -35824,6 +44925,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
@@ -35860,6 +44962,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
@@ -35881,6 +44984,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
@@ -35934,6 +45038,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTaggedInPostsInput = {
@@ -35977,6 +45085,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTaggedInPostsInput = {
@@ -36008,6 +45120,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
@@ -36028,6 +45141,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
@@ -36086,6 +45200,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaggedInPostsInput = {
@@ -36128,6 +45246,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostCreateWithoutTaggedDestinationsInput = {
@@ -36144,6 +45266,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
@@ -36165,6 +45288,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
@@ -36205,6 +45329,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutDestinationsInput
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     views?: DestinationViewCreateNestedManyWithoutDestinationInput
@@ -36238,6 +45363,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     views?: DestinationViewUncheckedCreateNestedManyWithoutDestinationInput
@@ -36272,6 +45398,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
@@ -36292,6 +45419,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
@@ -36337,6 +45465,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     views?: DestinationViewUpdateManyWithoutDestinationNestedInput
@@ -36369,6 +45498,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     views?: DestinationViewUncheckedUpdateManyWithoutDestinationNestedInput
@@ -36389,6 +45519,7 @@ export namespace Prisma {
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
     notifications?: NotificationCreateNestedManyWithoutPostInput
@@ -36410,6 +45541,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
@@ -36462,6 +45594,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -36505,6 +45641,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -36585,6 +45725,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutLikesInput
     post?: PostCreateNestedOneWithoutLikesInput
     destination?: DestinationCreateNestedOneWithoutLikesInput
+    homestay?: HomestayCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutCommentInput = {
@@ -36628,6 +45769,7 @@ export namespace Prisma {
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
     notifications?: NotificationUpdateManyWithoutPostNestedInput
@@ -36648,6 +45790,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
@@ -36705,6 +45848,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -36747,6 +45894,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CommentUpsertWithoutRepliesInput = {
@@ -36857,6 +46008,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikesInput = {
@@ -36900,6 +46055,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikesInput = {
@@ -36922,6 +46081,7 @@ export namespace Prisma {
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
@@ -36943,6 +46103,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
@@ -37013,6 +46174,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutDestinationsInput
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
     views?: DestinationViewCreateNestedManyWithoutDestinationInput
@@ -37046,6 +46208,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
     views?: DestinationViewUncheckedCreateNestedManyWithoutDestinationInput
@@ -37054,6 +46217,89 @@ export namespace Prisma {
   export type DestinationCreateOrConnectWithoutLikesInput = {
     where: DestinationWhereUniqueInput
     create: XOR<DestinationCreateWithoutLikesInput, DestinationUncheckedCreateWithoutLikesInput>
+  }
+
+  export type HomestayCreateWithoutLikesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutLikesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutLikesInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutLikesInput, HomestayUncheckedCreateWithoutLikesInput>
   }
 
   export type UserUpsertWithoutLikesInput = {
@@ -37107,6 +46353,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesInput = {
@@ -37149,6 +46399,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutLikesInput = {
@@ -37176,6 +46430,7 @@ export namespace Prisma {
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
@@ -37196,6 +46451,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
@@ -37275,6 +46531,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
     views?: DestinationViewUpdateManyWithoutDestinationNestedInput
@@ -37307,9 +46564,97 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
     views?: DestinationViewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type HomestayUpsertWithoutLikesInput = {
+    update: XOR<HomestayUpdateWithoutLikesInput, HomestayUncheckedUpdateWithoutLikesInput>
+    create: XOR<HomestayCreateWithoutLikesInput, HomestayUncheckedCreateWithoutLikesInput>
+    where?: HomestayWhereInput
+  }
+
+  export type HomestayUpdateToOneWithWhereWithoutLikesInput = {
+    where?: HomestayWhereInput
+    data: XOR<HomestayUpdateWithoutLikesInput, HomestayUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type HomestayUpdateWithoutLikesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutLikesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
   }
 
   export type UserCreateWithoutSavedPostsInput = {
@@ -37353,6 +46698,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSavedPostsInput = {
@@ -37396,6 +46745,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSavedPostsInput = {
@@ -37418,6 +46771,7 @@ export namespace Prisma {
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     notifications?: NotificationCreateNestedManyWithoutPostInput
@@ -37439,6 +46793,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
@@ -37501,6 +46856,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedPostsInput = {
@@ -37543,6 +46902,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutSavedByInput = {
@@ -37570,6 +46933,7 @@ export namespace Prisma {
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     notifications?: NotificationUpdateManyWithoutPostNestedInput
@@ -37590,6 +46954,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
@@ -37662,6 +47027,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -37705,6 +47074,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -37813,6 +47186,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -37855,6 +47232,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageReactionUpsertWithWhereUniqueWithoutMessageInput = {
@@ -37914,6 +47295,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -37957,6 +47342,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -38048,6 +47437,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -38090,6 +47483,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -38170,6 +47567,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsCreatedInput = {
@@ -38213,6 +47614,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsCreatedInput = {
@@ -38329,6 +47734,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsCreatedInput = {
@@ -38371,6 +47780,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ConversationParticipantUpsertWithWhereUniqueWithoutConversationInput = {
@@ -38471,6 +47884,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipantsInput = {
@@ -38514,6 +47931,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipantsInput = {
@@ -38601,6 +48022,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipantsInput = {
@@ -38643,6 +48068,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsSentInput = {
@@ -38686,6 +48115,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsSentInput = {
@@ -38729,6 +48162,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsSentInput = {
@@ -38777,6 +48214,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsRecvInput = {
@@ -38820,6 +48261,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsRecvInput = {
@@ -38842,6 +48287,7 @@ export namespace Prisma {
     author: UserCreateNestedOneWithoutPostsInput
     taggedUsers?: PostTagCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
     savedBy?: SavedPostCreateNestedManyWithoutPostInput
@@ -38863,6 +48309,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
     taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    taggedHomestays?: PostHomestayUncheckedCreateNestedManyWithoutPostInput
     sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
@@ -38954,6 +48401,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsSentInput = {
@@ -38996,6 +48447,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutNotificationsRecvInput = {
@@ -39049,6 +48504,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsRecvInput = {
@@ -39091,6 +48550,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutNotificationsInput = {
@@ -39118,6 +48581,7 @@ export namespace Prisma {
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
@@ -39138,6 +48602,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
@@ -39218,6 +48683,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTripsInput = {
@@ -39261,6 +48730,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTripsInput = {
@@ -39352,6 +48825,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTripsInput = {
@@ -39394,6 +48871,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SharedPostUpsertWithWhereUniqueWithoutTripInput = {
@@ -39453,6 +48934,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStoriesInput = {
@@ -39496,6 +48981,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStoriesInput = {
@@ -39587,6 +49076,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStoriesInput = {
@@ -39629,6 +49122,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SharedPostUpsertWithWhereUniqueWithoutStoryInput = {
@@ -39688,6 +49185,10 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportsInput = {
@@ -39731,6 +49232,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportsInput = {
@@ -39789,6 +49294,10 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsInput = {
@@ -39831,6 +49340,10 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDestinationsInput = {
@@ -39874,6 +49387,10 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDestinationsInput = {
@@ -39917,6 +49434,10 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDestinationsInput = {
@@ -39951,6 +49472,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutDestinationsInput
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
@@ -39984,6 +49506,7 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
@@ -40022,6 +49545,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutDestinationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
@@ -40055,6 +49579,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
@@ -40070,6 +49595,93 @@ export namespace Prisma {
     data: DestinationCreateManyParentInput | DestinationCreateManyParentInput[]
   }
 
+  export type HomestayCreateWithoutDestinationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutDestinationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutDestinationInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutDestinationInput, HomestayUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type HomestayCreateManyDestinationInputEnvelope = {
+    data: HomestayCreateManyDestinationInput | HomestayCreateManyDestinationInput[]
+  }
+
   export type LikeCreateWithoutDestinationInput = {
     id?: string
     type: string
@@ -40077,6 +49689,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutLikesInput
     post?: PostCreateNestedOneWithoutLikesInput
     comment?: CommentCreateNestedOneWithoutLikesInput
+    homestay?: HomestayCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutDestinationInput = {
@@ -40221,6 +49834,10 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationsInput = {
@@ -40263,6 +49880,10 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DestinationUpsertWithoutSubLocationsInput = {
@@ -40302,6 +49923,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
@@ -40334,6 +49956,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
@@ -40354,6 +49977,22 @@ export namespace Prisma {
   export type DestinationUpdateManyWithWhereWithoutParentInput = {
     where: DestinationScalarWhereInput
     data: XOR<DestinationUpdateManyMutationInput, DestinationUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type HomestayUpsertWithWhereUniqueWithoutDestinationInput = {
+    where: HomestayWhereUniqueInput
+    update: XOR<HomestayUpdateWithoutDestinationInput, HomestayUncheckedUpdateWithoutDestinationInput>
+    create: XOR<HomestayCreateWithoutDestinationInput, HomestayUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type HomestayUpdateWithWhereUniqueWithoutDestinationInput = {
+    where: HomestayWhereUniqueInput
+    data: XOR<HomestayUpdateWithoutDestinationInput, HomestayUncheckedUpdateWithoutDestinationInput>
+  }
+
+  export type HomestayUpdateManyWithWhereWithoutDestinationInput = {
+    where: HomestayScalarWhereInput
+    data: XOR<HomestayUpdateManyMutationInput, HomestayUncheckedUpdateManyWithoutDestinationInput>
   }
 
   export type LikeUpsertWithWhereUniqueWithoutDestinationInput = {
@@ -40448,6 +50087,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutDestinationsInput
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
@@ -40481,6 +50121,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
@@ -40532,6 +50173,10 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDestinationViewsInput = {
@@ -40575,6 +50220,10 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDestinationViewsInput = {
@@ -40620,6 +50269,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
@@ -40652,6 +50302,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
@@ -40708,6 +50359,10 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationViewsInput = {
@@ -40750,6 +50405,10 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DestinationCreateWithoutReviewsInput = {
@@ -40780,6 +50439,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutDestinationsInput
     parent?: DestinationCreateNestedOneWithoutSubLocationsInput
     subLocations?: DestinationCreateNestedManyWithoutParentInput
+    homestays?: HomestayCreateNestedManyWithoutDestinationInput
     likes?: LikeCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
     views?: DestinationViewCreateNestedManyWithoutDestinationInput
@@ -40813,6 +50473,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    homestays?: HomestayUncheckedCreateNestedManyWithoutDestinationInput
     likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
     taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
     views?: DestinationViewUncheckedCreateNestedManyWithoutDestinationInput
@@ -40864,6 +50525,10 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     destinations?: DestinationCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDestinationReviewsInput = {
@@ -40907,6 +50572,10 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDestinationReviewsInput = {
@@ -40952,6 +50621,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
     views?: DestinationViewUpdateManyWithoutDestinationNestedInput
@@ -40984,6 +50654,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
     views?: DestinationViewUncheckedUpdateManyWithoutDestinationNestedInput
@@ -41040,6 +50711,10 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationReviewsInput = {
@@ -41082,6 +50757,1972 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutOwnedHomestaysInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOwnedHomestaysInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOwnedHomestaysInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOwnedHomestaysInput, UserUncheckedCreateWithoutOwnedHomestaysInput>
+  }
+
+  export type DestinationCreateWithoutHomestaysInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDestinationsInput
+    parent?: DestinationCreateNestedOneWithoutSubLocationsInput
+    subLocations?: DestinationCreateNestedManyWithoutParentInput
+    likes?: LikeCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewCreateNestedManyWithoutDestinationInput
+    taggedInPosts?: PostDestinationCreateNestedManyWithoutDestinationInput
+    views?: DestinationViewCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationUncheckedCreateWithoutHomestaysInput = {
+    id?: string
+    title: string
+    description?: string | null
+    location: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    category?: DestinationCreatecategoryInput | string[]
+    imageUrl?: DestinationCreateimageUrlInput | string[]
+    tags?: DestinationCreatetagsInput | string[]
+    visitCount?: number
+    likeCount?: number
+    reviewCount?: number
+    rating?: number
+    bestTimeToVisit?: string | null
+    entryFee?: InputJsonValue | null
+    openingHours?: string | null
+    facilities?: DestinationCreatefacilitiesInput | string[]
+    activities?: DestinationCreateactivitiesInput | string[]
+    travelTips?: DestinationCreatetravelTipsInput | string[]
+    isPublic?: boolean
+    parentId?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subLocations?: DestinationUncheckedCreateNestedManyWithoutParentInput
+    likes?: LikeUncheckedCreateNestedManyWithoutDestinationInput
+    reviews?: DestinationReviewUncheckedCreateNestedManyWithoutDestinationInput
+    taggedInPosts?: PostDestinationUncheckedCreateNestedManyWithoutDestinationInput
+    views?: DestinationViewUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationCreateOrConnectWithoutHomestaysInput = {
+    where: DestinationWhereUniqueInput
+    create: XOR<DestinationCreateWithoutHomestaysInput, DestinationUncheckedCreateWithoutHomestaysInput>
+  }
+
+  export type BookingCreateWithoutHomestayInput = {
+    id?: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    guest: UserCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutHomestayInput = {
+    id?: string
+    guestId: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateOrConnectWithoutHomestayInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutHomestayInput, BookingUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type BookingCreateManyHomestayInputEnvelope = {
+    data: BookingCreateManyHomestayInput | BookingCreateManyHomestayInput[]
+  }
+
+  export type HomestayReviewCreateWithoutHomestayInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutHomestayReviewsInput
+  }
+
+  export type HomestayReviewUncheckedCreateWithoutHomestayInput = {
+    id?: string
+    userId: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayReviewCreateOrConnectWithoutHomestayInput = {
+    where: HomestayReviewWhereUniqueInput
+    create: XOR<HomestayReviewCreateWithoutHomestayInput, HomestayReviewUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type HomestayReviewCreateManyHomestayInputEnvelope = {
+    data: HomestayReviewCreateManyHomestayInput | HomestayReviewCreateManyHomestayInput[]
+  }
+
+  export type HomestayViewCreateWithoutHomestayInput = {
+    id?: string
+    viewedAt?: Date | string
+    user: UserCreateNestedOneWithoutHomestayViewsInput
+  }
+
+  export type HomestayViewUncheckedCreateWithoutHomestayInput = {
+    id?: string
+    userId: string
+    viewedAt?: Date | string
+  }
+
+  export type HomestayViewCreateOrConnectWithoutHomestayInput = {
+    where: HomestayViewWhereUniqueInput
+    create: XOR<HomestayViewCreateWithoutHomestayInput, HomestayViewUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type HomestayViewCreateManyHomestayInputEnvelope = {
+    data: HomestayViewCreateManyHomestayInput | HomestayViewCreateManyHomestayInput[]
+  }
+
+  export type PostHomestayCreateWithoutHomestayInput = {
+    id?: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutTaggedHomestaysInput
+  }
+
+  export type PostHomestayUncheckedCreateWithoutHomestayInput = {
+    id?: string
+    postId: string
+    createdAt?: Date | string
+  }
+
+  export type PostHomestayCreateOrConnectWithoutHomestayInput = {
+    where: PostHomestayWhereUniqueInput
+    create: XOR<PostHomestayCreateWithoutHomestayInput, PostHomestayUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type PostHomestayCreateManyHomestayInputEnvelope = {
+    data: PostHomestayCreateManyHomestayInput | PostHomestayCreateManyHomestayInput[]
+  }
+
+  export type LikeCreateWithoutHomestayInput = {
+    id?: string
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLikesInput
+    post?: PostCreateNestedOneWithoutLikesInput
+    comment?: CommentCreateNestedOneWithoutLikesInput
+    destination?: DestinationCreateNestedOneWithoutLikesInput
+  }
+
+  export type LikeUncheckedCreateWithoutHomestayInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type LikeCreateOrConnectWithoutHomestayInput = {
+    where: LikeWhereUniqueInput
+    create: XOR<LikeCreateWithoutHomestayInput, LikeUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type LikeCreateManyHomestayInputEnvelope = {
+    data: LikeCreateManyHomestayInput | LikeCreateManyHomestayInput[]
+  }
+
+  export type UserUpsertWithoutOwnedHomestaysInput = {
+    update: XOR<UserUpdateWithoutOwnedHomestaysInput, UserUncheckedUpdateWithoutOwnedHomestaysInput>
+    create: XOR<UserCreateWithoutOwnedHomestaysInput, UserUncheckedCreateWithoutOwnedHomestaysInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOwnedHomestaysInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOwnedHomestaysInput, UserUncheckedUpdateWithoutOwnedHomestaysInput>
+  }
+
+  export type UserUpdateWithoutOwnedHomestaysInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOwnedHomestaysInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DestinationUpsertWithoutHomestaysInput = {
+    update: XOR<DestinationUpdateWithoutHomestaysInput, DestinationUncheckedUpdateWithoutHomestaysInput>
+    create: XOR<DestinationCreateWithoutHomestaysInput, DestinationUncheckedCreateWithoutHomestaysInput>
+    where?: DestinationWhereInput
+  }
+
+  export type DestinationUpdateToOneWithWhereWithoutHomestaysInput = {
+    where?: DestinationWhereInput
+    data: XOR<DestinationUpdateWithoutHomestaysInput, DestinationUncheckedUpdateWithoutHomestaysInput>
+  }
+
+  export type DestinationUpdateWithoutHomestaysInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
+    parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
+    subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    likes?: LikeUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
+    taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
+    views?: DestinationViewUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationUncheckedUpdateWithoutHomestaysInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    category?: DestinationUpdatecategoryInput | string[]
+    imageUrl?: DestinationUpdateimageUrlInput | string[]
+    tags?: DestinationUpdatetagsInput | string[]
+    visitCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    bestTimeToVisit?: NullableStringFieldUpdateOperationsInput | string | null
+    entryFee?: InputJsonValue | InputJsonValue | null
+    openingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    facilities?: DestinationUpdatefacilitiesInput | string[]
+    activities?: DestinationUpdateactivitiesInput | string[]
+    travelTips?: DestinationUpdatetravelTipsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
+    reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
+    taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
+    views?: DestinationViewUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type BookingUpsertWithWhereUniqueWithoutHomestayInput = {
+    where: BookingWhereUniqueInput
+    update: XOR<BookingUpdateWithoutHomestayInput, BookingUncheckedUpdateWithoutHomestayInput>
+    create: XOR<BookingCreateWithoutHomestayInput, BookingUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type BookingUpdateWithWhereUniqueWithoutHomestayInput = {
+    where: BookingWhereUniqueInput
+    data: XOR<BookingUpdateWithoutHomestayInput, BookingUncheckedUpdateWithoutHomestayInput>
+  }
+
+  export type BookingUpdateManyWithWhereWithoutHomestayInput = {
+    where: BookingScalarWhereInput
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutHomestayInput>
+  }
+
+  export type HomestayReviewUpsertWithWhereUniqueWithoutHomestayInput = {
+    where: HomestayReviewWhereUniqueInput
+    update: XOR<HomestayReviewUpdateWithoutHomestayInput, HomestayReviewUncheckedUpdateWithoutHomestayInput>
+    create: XOR<HomestayReviewCreateWithoutHomestayInput, HomestayReviewUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type HomestayReviewUpdateWithWhereUniqueWithoutHomestayInput = {
+    where: HomestayReviewWhereUniqueInput
+    data: XOR<HomestayReviewUpdateWithoutHomestayInput, HomestayReviewUncheckedUpdateWithoutHomestayInput>
+  }
+
+  export type HomestayReviewUpdateManyWithWhereWithoutHomestayInput = {
+    where: HomestayReviewScalarWhereInput
+    data: XOR<HomestayReviewUpdateManyMutationInput, HomestayReviewUncheckedUpdateManyWithoutHomestayInput>
+  }
+
+  export type HomestayViewUpsertWithWhereUniqueWithoutHomestayInput = {
+    where: HomestayViewWhereUniqueInput
+    update: XOR<HomestayViewUpdateWithoutHomestayInput, HomestayViewUncheckedUpdateWithoutHomestayInput>
+    create: XOR<HomestayViewCreateWithoutHomestayInput, HomestayViewUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type HomestayViewUpdateWithWhereUniqueWithoutHomestayInput = {
+    where: HomestayViewWhereUniqueInput
+    data: XOR<HomestayViewUpdateWithoutHomestayInput, HomestayViewUncheckedUpdateWithoutHomestayInput>
+  }
+
+  export type HomestayViewUpdateManyWithWhereWithoutHomestayInput = {
+    where: HomestayViewScalarWhereInput
+    data: XOR<HomestayViewUpdateManyMutationInput, HomestayViewUncheckedUpdateManyWithoutHomestayInput>
+  }
+
+  export type PostHomestayUpsertWithWhereUniqueWithoutHomestayInput = {
+    where: PostHomestayWhereUniqueInput
+    update: XOR<PostHomestayUpdateWithoutHomestayInput, PostHomestayUncheckedUpdateWithoutHomestayInput>
+    create: XOR<PostHomestayCreateWithoutHomestayInput, PostHomestayUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type PostHomestayUpdateWithWhereUniqueWithoutHomestayInput = {
+    where: PostHomestayWhereUniqueInput
+    data: XOR<PostHomestayUpdateWithoutHomestayInput, PostHomestayUncheckedUpdateWithoutHomestayInput>
+  }
+
+  export type PostHomestayUpdateManyWithWhereWithoutHomestayInput = {
+    where: PostHomestayScalarWhereInput
+    data: XOR<PostHomestayUpdateManyMutationInput, PostHomestayUncheckedUpdateManyWithoutHomestayInput>
+  }
+
+  export type LikeUpsertWithWhereUniqueWithoutHomestayInput = {
+    where: LikeWhereUniqueInput
+    update: XOR<LikeUpdateWithoutHomestayInput, LikeUncheckedUpdateWithoutHomestayInput>
+    create: XOR<LikeCreateWithoutHomestayInput, LikeUncheckedCreateWithoutHomestayInput>
+  }
+
+  export type LikeUpdateWithWhereUniqueWithoutHomestayInput = {
+    where: LikeWhereUniqueInput
+    data: XOR<LikeUpdateWithoutHomestayInput, LikeUncheckedUpdateWithoutHomestayInput>
+  }
+
+  export type LikeUpdateManyWithWhereWithoutHomestayInput = {
+    where: LikeScalarWhereInput
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyWithoutHomestayInput>
+  }
+
+  export type HomestayCreateWithoutBookingsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutBookingsInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutBookingsInput, HomestayUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type UserCreateWithoutBookingsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBookingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type HomestayUpsertWithoutBookingsInput = {
+    update: XOR<HomestayUpdateWithoutBookingsInput, HomestayUncheckedUpdateWithoutBookingsInput>
+    create: XOR<HomestayCreateWithoutBookingsInput, HomestayUncheckedCreateWithoutBookingsInput>
+    where?: HomestayWhereInput
+  }
+
+  export type HomestayUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: HomestayWhereInput
+    data: XOR<HomestayUpdateWithoutBookingsInput, HomestayUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type HomestayUpdateWithoutBookingsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutBookingsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type UserUpsertWithoutBookingsInput = {
+    update: XOR<UserUpdateWithoutBookingsInput, UserUncheckedUpdateWithoutBookingsInput>
+    create: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBookingsInput, UserUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type UserUpdateWithoutBookingsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBookingsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type HomestayCreateWithoutReviewsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutReviewsInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutReviewsInput, HomestayUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type UserCreateWithoutHomestayReviewsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayViews?: HomestayViewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHomestayReviewsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayViews?: HomestayViewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHomestayReviewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutHomestayReviewsInput, UserUncheckedCreateWithoutHomestayReviewsInput>
+  }
+
+  export type HomestayUpsertWithoutReviewsInput = {
+    update: XOR<HomestayUpdateWithoutReviewsInput, HomestayUncheckedUpdateWithoutReviewsInput>
+    create: XOR<HomestayCreateWithoutReviewsInput, HomestayUncheckedCreateWithoutReviewsInput>
+    where?: HomestayWhereInput
+  }
+
+  export type HomestayUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: HomestayWhereInput
+    data: XOR<HomestayUpdateWithoutReviewsInput, HomestayUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type HomestayUpdateWithoutReviewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutReviewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type UserUpsertWithoutHomestayReviewsInput = {
+    update: XOR<UserUpdateWithoutHomestayReviewsInput, UserUncheckedUpdateWithoutHomestayReviewsInput>
+    create: XOR<UserCreateWithoutHomestayReviewsInput, UserUncheckedCreateWithoutHomestayReviewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHomestayReviewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHomestayReviewsInput, UserUncheckedUpdateWithoutHomestayReviewsInput>
+  }
+
+  export type UserUpdateWithoutHomestayReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayViews?: HomestayViewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHomestayReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayViews?: HomestayViewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type HomestayCreateWithoutViewsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutViewsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    taggedInPosts?: PostHomestayUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutViewsInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutViewsInput, HomestayUncheckedCreateWithoutViewsInput>
+  }
+
+  export type UserCreateWithoutHomestayViewsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationCreateNestedManyWithoutRecipientInput
+    trips?: TripCreateNestedManyWithoutUserInput
+    reports?: ReportCreateNestedManyWithoutReporterInput
+    followers?: FollowCreateNestedManyWithoutFollowerInput
+    following?: FollowCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostCreateNestedManyWithoutRecipientInput
+    stories?: StoryCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHomestayViewsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    name: string
+    phoneNumber?: string | null
+    profilePic?: string | null
+    bio?: string | null
+    gender?: string | null
+    dob?: Date | string | null
+    address?: string | null
+    verified?: boolean
+    lastLogin?: Date | string | null
+    accountStatus?: boolean
+    private?: boolean
+    role: number
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deleteAt?: Date | string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    savedPosts?: SavedPostUncheckedCreateNestedManyWithoutUserInput
+    notificationsSent?: NotificationUncheckedCreateNestedManyWithoutSenderInput
+    notificationsRecv?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    reports?: ReportUncheckedCreateNestedManyWithoutReporterInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput
+    taggedInPosts?: PostTagUncheckedCreateNestedManyWithoutUserInput
+    sharedPostsSent?: SharedPostUncheckedCreateNestedManyWithoutSenderInput
+    sharedPostsReceived?: SharedPostUncheckedCreateNestedManyWithoutRecipientInput
+    stories?: StoryUncheckedCreateNestedManyWithoutUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationParticipants?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageReactions?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    destinationReviews?: DestinationReviewUncheckedCreateNestedManyWithoutUserInput
+    destinationViews?: DestinationViewUncheckedCreateNestedManyWithoutUserInput
+    ownedHomestays?: HomestayUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutGuestInput
+    homestayReviews?: HomestayReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHomestayViewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutHomestayViewsInput, UserUncheckedCreateWithoutHomestayViewsInput>
+  }
+
+  export type HomestayUpsertWithoutViewsInput = {
+    update: XOR<HomestayUpdateWithoutViewsInput, HomestayUncheckedUpdateWithoutViewsInput>
+    create: XOR<HomestayCreateWithoutViewsInput, HomestayUncheckedCreateWithoutViewsInput>
+    where?: HomestayWhereInput
+  }
+
+  export type HomestayUpdateToOneWithWhereWithoutViewsInput = {
+    where?: HomestayWhereInput
+    data: XOR<HomestayUpdateWithoutViewsInput, HomestayUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type HomestayUpdateWithoutViewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutViewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type UserUpsertWithoutHomestayViewsInput = {
+    update: XOR<UserUpdateWithoutHomestayViewsInput, UserUncheckedUpdateWithoutHomestayViewsInput>
+    create: XOR<UserCreateWithoutHomestayViewsInput, UserUncheckedCreateWithoutHomestayViewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHomestayViewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHomestayViewsInput, UserUncheckedUpdateWithoutHomestayViewsInput>
+  }
+
+  export type UserUpdateWithoutHomestayViewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUpdateManyWithoutRecipientNestedInput
+    trips?: TripUpdateManyWithoutUserNestedInput
+    reports?: ReportUpdateManyWithoutReporterNestedInput
+    followers?: FollowUpdateManyWithoutFollowerNestedInput
+    following?: FollowUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHomestayViewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePic?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accountStatus?: BoolFieldUpdateOperationsInput | boolean
+    private?: BoolFieldUpdateOperationsInput | boolean
+    role?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleteAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    savedPosts?: SavedPostUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSent?: NotificationUncheckedUpdateManyWithoutSenderNestedInput
+    notificationsRecv?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    reports?: ReportUncheckedUpdateManyWithoutReporterNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
+    taggedInPosts?: PostTagUncheckedUpdateManyWithoutUserNestedInput
+    sharedPostsSent?: SharedPostUncheckedUpdateManyWithoutSenderNestedInput
+    sharedPostsReceived?: SharedPostUncheckedUpdateManyWithoutRecipientNestedInput
+    stories?: StoryUncheckedUpdateManyWithoutUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationParticipants?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageReactions?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    destinationReviews?: DestinationReviewUncheckedUpdateManyWithoutUserNestedInput
+    destinationViews?: DestinationViewUncheckedUpdateManyWithoutUserNestedInput
+    ownedHomestays?: HomestayUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutGuestNestedInput
+    homestayReviews?: HomestayReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostCreateWithoutTaggedHomestaysInput = {
+    id?: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
+    taggedUsers?: PostTagCreateNestedManyWithoutPostInput
+    taggedDestinations?: PostDestinationCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostCreateNestedManyWithoutPostInput
+    notifications?: NotificationCreateNestedManyWithoutPostInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutTaggedHomestaysInput = {
+    id?: string
+    authorId: string
+    imageUrl?: PostCreateimageUrlInput | string[]
+    caption?: string | null
+    location?: string | null
+    tags?: PostCreatetagsInput | string[]
+    isPublic?: boolean
+    likeCount?: number
+    commentCount?: number
+    sharedCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taggedUsers?: PostTagUncheckedCreateNestedManyWithoutPostInput
+    taggedDestinations?: PostDestinationUncheckedCreateNestedManyWithoutPostInput
+    sharedPosts?: SharedPostUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+    savedBy?: SavedPostUncheckedCreateNestedManyWithoutPostInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPostInput
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutTaggedHomestaysInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutTaggedHomestaysInput, PostUncheckedCreateWithoutTaggedHomestaysInput>
+  }
+
+  export type HomestayCreateWithoutTaggedInPostsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedHomestaysInput
+    destination?: DestinationCreateNestedOneWithoutHomestaysInput
+    bookings?: BookingCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewCreateNestedManyWithoutHomestayInput
+    likes?: LikeCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayUncheckedCreateWithoutTaggedInPostsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingUncheckedCreateNestedManyWithoutHomestayInput
+    reviews?: HomestayReviewUncheckedCreateNestedManyWithoutHomestayInput
+    views?: HomestayViewUncheckedCreateNestedManyWithoutHomestayInput
+    likes?: LikeUncheckedCreateNestedManyWithoutHomestayInput
+  }
+
+  export type HomestayCreateOrConnectWithoutTaggedInPostsInput = {
+    where: HomestayWhereUniqueInput
+    create: XOR<HomestayCreateWithoutTaggedInPostsInput, HomestayUncheckedCreateWithoutTaggedInPostsInput>
+  }
+
+  export type PostUpsertWithoutTaggedHomestaysInput = {
+    update: XOR<PostUpdateWithoutTaggedHomestaysInput, PostUncheckedUpdateWithoutTaggedHomestaysInput>
+    create: XOR<PostCreateWithoutTaggedHomestaysInput, PostUncheckedCreateWithoutTaggedHomestaysInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutTaggedHomestaysInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutTaggedHomestaysInput, PostUncheckedUpdateWithoutTaggedHomestaysInput>
+  }
+
+  export type PostUpdateWithoutTaggedHomestaysInput = {
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
+    taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUpdateManyWithoutPostNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutTaggedHomestaysInput = {
+    authorId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: PostUpdateimageUrlInput | string[]
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostUpdatetagsInput | string[]
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    likeCount?: IntFieldUpdateOperationsInput | number
+    commentCount?: IntFieldUpdateOperationsInput | number
+    sharedCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+    taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+    savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPostNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type HomestayUpsertWithoutTaggedInPostsInput = {
+    update: XOR<HomestayUpdateWithoutTaggedInPostsInput, HomestayUncheckedUpdateWithoutTaggedInPostsInput>
+    create: XOR<HomestayCreateWithoutTaggedInPostsInput, HomestayUncheckedCreateWithoutTaggedInPostsInput>
+    where?: HomestayWhereInput
+  }
+
+  export type HomestayUpdateToOneWithWhereWithoutTaggedInPostsInput = {
+    where?: HomestayWhereInput
+    data: XOR<HomestayUpdateWithoutTaggedInPostsInput, HomestayUncheckedUpdateWithoutTaggedInPostsInput>
+  }
+
+  export type HomestayUpdateWithoutTaggedInPostsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutTaggedInPostsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
   }
 
   export type PostCreateManyAuthorInput = {
@@ -41302,6 +52943,74 @@ export namespace Prisma {
     viewedAt?: Date | string
   }
 
+  export type HomestayCreateManyOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    destinationId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateManyGuestInput = {
+    id?: string
+    homestayId: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayReviewCreateManyUserInput = {
+    id?: string
+    homestayId: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayViewCreateManyUserInput = {
+    id?: string
+    homestayId: string
+    viewedAt?: Date | string
+  }
+
   export type PostUpdateWithoutAuthorInput = {
     imageUrl?: PostUpdateimageUrlInput | string[]
     caption?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41315,6 +53024,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUpdateManyWithoutPostNestedInput
@@ -41335,6 +53045,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     taggedUsers?: PostTagUncheckedUpdateManyWithoutPostNestedInput
     taggedDestinations?: PostDestinationUncheckedUpdateManyWithoutPostNestedInput
+    taggedHomestays?: PostHomestayUncheckedUpdateManyWithoutPostNestedInput
     sharedPosts?: SharedPostUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     savedBy?: SavedPostUncheckedUpdateManyWithoutPostNestedInput
@@ -41395,6 +53106,7 @@ export namespace Prisma {
     post?: PostUpdateOneWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
     destination?: DestinationUpdateOneWithoutLikesNestedInput
+    homestay?: HomestayUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutUserInput = {
@@ -41824,6 +53536,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     parent?: DestinationUpdateOneWithoutSubLocationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
@@ -41856,6 +53569,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
@@ -41937,6 +53651,208 @@ export namespace Prisma {
     viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HomestayUpdateWithoutOwnerInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destination?: DestinationUpdateOneWithoutHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutOwnerInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateManyWithoutOwnerInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    destinationId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUpdateWithoutGuestInput = {
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutGuestInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUncheckedUpdateManyWithoutGuestInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewUpdateWithoutUserInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type HomestayReviewUncheckedUpdateWithoutUserInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewUncheckedUpdateManyWithoutUserInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewUpdateWithoutUserInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type HomestayViewUncheckedUpdateWithoutUserInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewUncheckedUpdateManyWithoutUserInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PostTagCreateManyPostInput = {
     id?: string
     userId: string
@@ -41946,6 +53862,12 @@ export namespace Prisma {
   export type PostDestinationCreateManyPostInput = {
     id?: string
     destinationId: string
+    createdAt?: Date | string
+  }
+
+  export type PostHomestayCreateManyPostInput = {
+    id?: string
+    homestayId: string
     createdAt?: Date | string
   }
 
@@ -42023,6 +53945,21 @@ export namespace Prisma {
 
   export type PostDestinationUncheckedUpdateManyWithoutPostInput = {
     destinationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayUpdateWithoutPostInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    homestay?: HomestayUpdateOneRequiredWithoutTaggedInPostsNestedInput
+  }
+
+  export type PostHomestayUncheckedUpdateWithoutPostInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayUncheckedUpdateManyWithoutPostInput = {
+    homestayId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42146,6 +54083,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
     destination?: DestinationUpdateOneWithoutLikesNestedInput
+    homestay?: HomestayUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutPostInput = {
@@ -42263,6 +54201,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
     post?: PostUpdateOneWithoutLikesNestedInput
     destination?: DestinationUpdateOneWithoutLikesNestedInput
+    homestay?: HomestayUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutCommentInput = {
@@ -42484,6 +54423,40 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type HomestayCreateManyDestinationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    country: string
+    latitude?: number | null
+    longitude?: number | null
+    imageUrl?: HomestayCreateimageUrlInput | string[]
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    pricePerNight: number
+    currency?: string
+    maxGuests?: number
+    bedrooms?: number
+    beds?: number
+    bathrooms?: number
+    amenities?: HomestayCreateamenitiesInput | string[]
+    houseRules?: HomestayCreatehouseRulesInput | string[]
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    rating?: number
+    reviewCount?: number
+    viewCount?: number
+    likeCount?: number
+    isActive?: boolean
+    isVerified?: boolean
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type LikeCreateManyDestinationInput = {
     id?: string
     userId: string
@@ -42541,6 +54514,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDestinationsNestedInput
     subLocations?: DestinationUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUpdateManyWithoutDestinationNestedInput
     likes?: LikeUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUpdateManyWithoutDestinationNestedInput
@@ -42573,6 +54547,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subLocations?: DestinationUncheckedUpdateManyWithoutParentNestedInput
+    homestays?: HomestayUncheckedUpdateManyWithoutDestinationNestedInput
     likes?: LikeUncheckedUpdateManyWithoutDestinationNestedInput
     reviews?: DestinationReviewUncheckedUpdateManyWithoutDestinationNestedInput
     taggedInPosts?: PostDestinationUncheckedUpdateManyWithoutDestinationNestedInput
@@ -42606,12 +54581,122 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HomestayUpdateWithoutDestinationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedHomestaysNestedInput
+    bookings?: BookingUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateWithoutDestinationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUncheckedUpdateManyWithoutHomestayNestedInput
+    reviews?: HomestayReviewUncheckedUpdateManyWithoutHomestayNestedInput
+    views?: HomestayViewUncheckedUpdateManyWithoutHomestayNestedInput
+    taggedInPosts?: PostHomestayUncheckedUpdateManyWithoutHomestayNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutHomestayNestedInput
+  }
+
+  export type HomestayUncheckedUpdateManyWithoutDestinationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: HomestayUpdateimageUrlInput | string[]
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerNight?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    maxGuests?: IntFieldUpdateOperationsInput | number
+    bedrooms?: IntFieldUpdateOperationsInput | number
+    beds?: IntFieldUpdateOperationsInput | number
+    bathrooms?: IntFieldUpdateOperationsInput | number
+    amenities?: HomestayUpdateamenitiesInput | string[]
+    houseRules?: HomestayUpdatehouseRulesInput | string[]
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likeCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LikeUpdateWithoutDestinationInput = {
     type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
     post?: PostUpdateOneWithoutLikesNestedInput
     comment?: CommentUpdateOneWithoutLikesNestedInput
+    homestay?: HomestayUpdateOneWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutDestinationInput = {
@@ -42687,6 +54772,182 @@ export namespace Prisma {
   export type DestinationViewUncheckedUpdateManyWithoutDestinationInput = {
     userId?: StringFieldUpdateOperationsInput | string
     viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateManyHomestayInput = {
+    id?: string
+    guestId: string
+    checkInDate: Date | string
+    checkOutDate: Date | string
+    numberOfGuests?: number
+    totalPrice: number
+    status?: string
+    specialRequests?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayReviewCreateManyHomestayInput = {
+    id?: string
+    userId: string
+    rating: number
+    comment?: string | null
+    cleanliness?: number | null
+    accuracy?: number | null
+    checkIn?: number | null
+    communication?: number | null
+    location?: number | null
+    value?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomestayViewCreateManyHomestayInput = {
+    id?: string
+    userId: string
+    viewedAt?: Date | string
+  }
+
+  export type PostHomestayCreateManyHomestayInput = {
+    id?: string
+    postId: string
+    createdAt?: Date | string
+  }
+
+  export type LikeCreateManyHomestayInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type BookingUpdateWithoutHomestayInput = {
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    guest?: UserUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutHomestayInput = {
+    guestId?: StringFieldUpdateOperationsInput | string
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUncheckedUpdateManyWithoutHomestayInput = {
+    guestId?: StringFieldUpdateOperationsInput | string
+    checkInDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkOutDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    numberOfGuests?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    specialRequests?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewUpdateWithoutHomestayInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutHomestayReviewsNestedInput
+  }
+
+  export type HomestayReviewUncheckedUpdateWithoutHomestayInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayReviewUncheckedUpdateManyWithoutHomestayInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    cleanliness?: NullableFloatFieldUpdateOperationsInput | number | null
+    accuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    checkIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    communication?: NullableFloatFieldUpdateOperationsInput | number | null
+    location?: NullableFloatFieldUpdateOperationsInput | number | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewUpdateWithoutHomestayInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutHomestayViewsNestedInput
+  }
+
+  export type HomestayViewUncheckedUpdateWithoutHomestayInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomestayViewUncheckedUpdateManyWithoutHomestayInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayUpdateWithoutHomestayInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutTaggedHomestaysNestedInput
+  }
+
+  export type PostHomestayUncheckedUpdateWithoutHomestayInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHomestayUncheckedUpdateManyWithoutHomestayInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUpdateWithoutHomestayInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
+    post?: PostUpdateOneWithoutLikesNestedInput
+    comment?: CommentUpdateOneWithoutLikesNestedInput
+    destination?: DestinationUpdateOneWithoutLikesNestedInput
+  }
+
+  export type LikeUncheckedUpdateWithoutHomestayInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUncheckedUpdateManyWithoutHomestayInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -66,6 +66,16 @@ export class PostController {
     return await this.postsService.findByDestination(userId, destinationId);
   }
 
+  @Get('by-homestay')
+  @Roles(Role.User, Role.Admin)
+  async findByHomestay(
+    @Req() req: any,
+    @Query('homestayId') homestayId: string,
+  ) {
+    const userId = req.user.id;
+    return await this.postsService.findByHomestay(userId, homestayId);
+  }
+
   @Get('feed')
   @Roles(Role.User, Role.Admin)
   async getFeed(

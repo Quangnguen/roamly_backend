@@ -349,6 +349,85 @@ exports.Prisma.DestinationReviewScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HomestayScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  city: 'city',
+  country: 'country',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  imageUrl: 'imageUrl',
+  phoneNumber: 'phoneNumber',
+  email: 'email',
+  website: 'website',
+  pricePerNight: 'pricePerNight',
+  currency: 'currency',
+  maxGuests: 'maxGuests',
+  bedrooms: 'bedrooms',
+  beds: 'beds',
+  bathrooms: 'bathrooms',
+  amenities: 'amenities',
+  houseRules: 'houseRules',
+  checkInTime: 'checkInTime',
+  checkOutTime: 'checkOutTime',
+  rating: 'rating',
+  reviewCount: 'reviewCount',
+  viewCount: 'viewCount',
+  likeCount: 'likeCount',
+  isActive: 'isActive',
+  isVerified: 'isVerified',
+  destinationId: 'destinationId',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  homestayId: 'homestayId',
+  guestId: 'guestId',
+  checkInDate: 'checkInDate',
+  checkOutDate: 'checkOutDate',
+  numberOfGuests: 'numberOfGuests',
+  totalPrice: 'totalPrice',
+  status: 'status',
+  specialRequests: 'specialRequests',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HomestayReviewScalarFieldEnum = {
+  id: 'id',
+  homestayId: 'homestayId',
+  userId: 'userId',
+  rating: 'rating',
+  comment: 'comment',
+  cleanliness: 'cleanliness',
+  accuracy: 'accuracy',
+  checkIn: 'checkIn',
+  communication: 'communication',
+  location: 'location',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HomestayViewScalarFieldEnum = {
+  id: 'id',
+  homestayId: 'homestayId',
+  userId: 'userId',
+  viewedAt: 'viewedAt'
+};
+
+exports.Prisma.PostHomestayScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  homestayId: 'homestayId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -365,6 +444,7 @@ exports.NotificationType = exports.$Enums.NotificationType = {
   MESSAGE: 'MESSAGE',
   TAG: 'TAG',
   TRIP_SHARED: 'TRIP_SHARED',
+  BOOKING: 'BOOKING',
   SYSTEM: 'SYSTEM'
 };
 
@@ -393,7 +473,12 @@ exports.Prisma.ModelName = {
   Report: 'Report',
   Destination: 'Destination',
   DestinationView: 'DestinationView',
-  DestinationReview: 'DestinationReview'
+  DestinationReview: 'DestinationReview',
+  Homestay: 'Homestay',
+  Booking: 'Booking',
+  HomestayReview: 'HomestayReview',
+  HomestayView: 'HomestayView',
+  PostHomestay: 'PostHomestay'
 };
 
 /**

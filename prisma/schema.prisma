@@ -15,6 +15,7 @@ enum NotificationType {
   MESSAGE
   TAG
   TRIP_SHARED
+  BOOKING
   SYSTEM
 }
 
@@ -61,6 +62,10 @@ model User {
   destinations             Destination[]             @relation("UserDestinations")
   destinationReviews       DestinationReview[]       @relation("DestinationReviews")
   destinationViews         DestinationView[]         @relation("UserDestinationViews")
+  ownedHomestays           Homestay[]                @relation("OwnerHomestays")
+  bookings                 Booking[]                 @relation("GuestBookings")
+  homestayReviews          HomestayReview[]          @relation("HomestayReviews")
+  homestayViews            HomestayView[]            @relation("UserHomestayViews")
 
   @@map("users")
 }
@@ -96,6 +101,7 @@ model Post {
   author              User              @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
   taggedUsers         PostTag[]
   taggedDestinations  PostDestination[]
+  taggedHomestays     PostHomestay[]
   sharedPosts         SharedPost[]
   comments            Comment[]
   savedBy             SavedPost[]
@@ -184,6 +190,7 @@ model Like {
   post        Post?        @relation("PostLikes", fields: [targetId], references: [id], onDelete: Cascade)
   comment     Comment?     @relation("CommentLikes", fields: [targetId], references: [id], onDelete: Cascade)
   destination Destination? @relation("DestinationLikes", fields: [targetId], references: [id], onDelete: Cascade)
+  homestay    Homestay?    @relation("HomestayLikes", fields: [targetId], references: [id], onDelete: Cascade)
 
   @@unique([userId, targetId, type])
   @@map("likes")
@@ -367,6 +374,7 @@ model Destination {
   user          User                  @relation("UserDestinations", fields: [userId], references: [id], onDelete: Cascade)
   parent        Destination?          @relation("DestinationHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   subLocations  Destination[]         @relation("DestinationHierarchy")
+  homestays     Homestay[]            @relation("DestinationHomestays")
   likes         Like[]                @relation("DestinationLikes")
   reviews       DestinationReview[]
   taggedInPosts PostDestination[]     @relation("PostDestinations")
@@ -406,4 +414,119 @@ model DestinationReview {
 
   @@unique([destinationId, userId])
   @@map("destination_reviews")
+}
+
+// ==================== HOMESTAY MODELS ====================
+
+model Homestay {
+  id              String   @id @default(uuid()) @map("_id")
+  name            String
+  description     String?
+  address         String
+  city            String
+  country         String
+  latitude        Float?
+  longitude       Float?
+  imageUrl        String[] @default([])
+  phoneNumber     String?
+  email           String?
+  website         String?
+  pricePerNight   Float
+  currency        String   @default("VND")
+  maxGuests       Int      @default(2)
+  bedrooms        Int      @default(1)
+  beds            Int      @default(1)
+  bathrooms       Int      @default(1)
+  amenities       String[] @default([]) // Wifi, Kitchen, Air conditioning, etc.
+  houseRules      String[] @default([])
+  checkInTime     String?  @default("14:00")
+  checkOutTime    String?  @default("12:00")
+  rating          Float    @default(0)
+  reviewCount     Int      @default(0)
+  viewCount       Int      @default(0)
+  likeCount       Int      @default(0)
+  isActive        Boolean  @default(true)
+  isVerified      Boolean  @default(false)
+  destinationId   String? // Homestay có thể thuộc về một destination
+  ownerId         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  owner          User               @relation("OwnerHomestays", fields: [ownerId], references: [id], onDelete: Cascade)
+  destination    Destination?       @relation("DestinationHomestays", fields: [destinationId], references: [id], onDelete: SetNull)
+  bookings       Booking[]
+  reviews        HomestayReview[]
+  views          HomestayView[]     @relation("HomestayViews")
+  taggedInPosts  PostHomestay[]
+  likes          Like[]             @relation("HomestayLikes")
+
+  @@map("homestays")
+}
+
+model Booking {
+  id            String   @id @default(uuid()) @map("_id")
+  homestayId    String
+  guestId       String
+  checkInDate   DateTime
+  checkOutDate  DateTime
+  numberOfGuests Int     @default(1)
+  totalPrice    Float
+  status        String   @default("pending") // pending, confirmed, cancelled, completed
+  specialRequests String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  homestay Homestay @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+  guest    User     @relation("GuestBookings", fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@map("bookings")
+}
+
+model HomestayReview {
+  id          String   @id @default(uuid()) @map("_id")
+  homestayId  String
+  userId      String
+  rating      Float
+  comment     String?
+  cleanliness Float?
+  accuracy    Float?
+  checkIn     Float?
+  communication Float?
+  location    Float?
+  value       Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  homestay Homestay @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+  user     User     @relation("HomestayReviews", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([homestayId, userId])
+  @@map("homestay_reviews")
+}
+
+model HomestayView {
+  id         String   @id @default(uuid()) @map("_id")
+  homestayId String
+  userId     String
+  viewedAt   DateTime @default(now())
+
+  homestay Homestay @relation("HomestayViews", fields: [homestayId], references: [id], onDelete: Cascade)
+  user     User     @relation("UserHomestayViews", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([homestayId, userId])
+  @@index([homestayId])
+  @@map("homestay_views")
+}
+
+model PostHomestay {
+  id         String   @id @default(uuid()) @map("_id")
+  postId     String
+  homestayId String
+  createdAt  DateTime @default(now())
+
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  homestay Homestay @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, homestayId])
+  @@map("post_homestays")
 }

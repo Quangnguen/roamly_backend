@@ -69,6 +69,7 @@ export class CommentService {
         postId,
         commentId: comment.id,
         username: sender?.username,
+        content: comment.content,
       });
     }
 

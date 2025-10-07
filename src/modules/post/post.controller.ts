@@ -55,6 +55,17 @@ export class PostController {
     const userId = req.user.id;
     return this.postsService.findAll(userId);
   }
+
+  @Get('by-destination')
+  @Roles(Role.User, Role.Admin)
+  async findByDestination(
+    @Req() req: any,
+    @Query('destinationId') destinationId: string,
+  ) {
+    const userId = req.user.id;
+    return await this.postsService.findByDestination(userId, destinationId);
+  }
+
   @Get('feed')
   @Roles(Role.User, Role.Admin)
   async getFeed(

@@ -150,6 +150,127 @@ export class PostService {
       postsWithLikes,
     );
   }
+
+  // Lấy danh sách bài viết theo địa điểm (destinationId)
+  async findByDestination(userId: string, destinationId: string) {
+    if (!destinationId) {
+      return response('Vui lòng cung cấp destinationId', 400, 'error', null);
+    }
+
+    // Kiểm tra destination có tồn tại không
+    const destination = await this.prisma.destination.findUnique({
+      where: { id: destinationId },
+      select: { id: true, title: true },
+    });
+
+    if (!destination) {
+      return response('Không tìm thấy địa điểm này', 404, 'error', null);
+    }
+
+    // Lấy tất cả postId có tag destination này
+    const postDestinations = await this.prisma.postDestination.findMany({
+      where: {
+        destinationId: destinationId,
+      },
+      select: { postId: true },
+    });
+
+    const postIds = postDestinations.map((pd) => pd.postId);
+
+    // Nếu không có post nào tag destination này
+    if (postIds.length === 0) {
+      return response(
+        `Không có bài viết nào tại ${destination.title}`,
+        200,
+        'success',
+        [],
+      );
+    }
+
+    // Lấy chi tiết các posts
+    const posts = await this.prisma.post.findMany({
+      where: {
+        id: { in: postIds },
+      },
+      include: {
+        author: {
+          select: {
+            username: true,
+            profilePic: true,
+          },
+        },
+        taggedDestinations: {
+          include: {
+            destination: {
+              select: {
+                id: true,
+                title: true,
+                location: true,
+                city: true,
+                country: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc', // Sắp xếp mới nhất trước
+      },
+    });
+
+    // Filter out null destinations
+    posts.forEach((post) => {
+      if (post.taggedDestinations) {
+        post.taggedDestinations = post.taggedDestinations.filter(
+          (td) => td.destination !== null,
+        );
+      }
+    });
+
+    // Đếm số lượt like
+    const likeCounts = await this.prisma.like.groupBy({
+      by: ['targetId'],
+      where: {
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      _count: {
+        targetId: true,
+      },
+    });
+
+    const likeCountMap = new Map(
+      likeCounts.map((item) => [item.targetId, item._count.targetId]),
+    );
+
+    // Kiểm tra user đã like post nào
+    const userLikes = await this.prisma.like.findMany({
+      where: {
+        userId: userId,
+        targetId: { in: postIds },
+        type: 'post',
+      },
+      select: { targetId: true },
+    });
+
+    const likedPostIds = new Set(userLikes.map((like) => like.targetId));
+
+    // Gắn thông tin like
+    const postsWithLikes = posts.map((post) => ({
+      ...post,
+      likeCount: likeCountMap.get(post.id) || 0,
+      isLike: likedPostIds.has(post.id),
+    }));
+
+    return response(
+      `Lấy danh sách bài viết tại ${destination.title} thành công`,
+      200,
+      'success',
+      postsWithLikes,
+    );
+  }
+
   // async getFeed(userId: string, page = 1, limit = 10) {
   //   const skip = (page - 1) * limit;
 

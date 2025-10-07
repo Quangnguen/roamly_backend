@@ -16,3 +16,89 @@ API user:
 4. Huyr tai khoan:
    truyền access_token 
    end_point: patch http://localhost:3000/users/soft-delete
+
+API Post:
+1. Lấy tất cả bài viết:
+   truyền access_token
+   end_point: GET http://localhost:3000/posts
+
+2. Lấy danh sách bài viết theo địa điểm (destinationId):
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/by-destination?destinationId=<destination_id>
+   query params:
+   - destinationId: string (required) - ID của địa điểm muốn lọc
+   
+   Ví dụ: GET http://localhost:3000/posts/by-destination?destinationId=abc-123-xyz
+   
+   Response: Danh sách bài viết có tag địa điểm đó
+   {
+     "message": "Lấy danh sách bài viết tại Ninh Bình thành công",
+     "statusCode": 200,
+     "status": "success",
+     "data": [
+       {
+         "id": "...",
+         "caption": "...",
+         "imageUrl": [...],
+         "author": {
+           "username": "...",
+           "profilePic": "..."
+         },
+         "taggedDestinations": [
+           {
+             "destination": {
+               "id": "abc-123-xyz",
+               "title": "Ninh Bình",
+               "location": "...",
+               "city": "Ninh Bình",
+               "country": "Việt Nam",
+               "imageUrl": [...]
+             }
+           }
+         ],
+         "likeCount": 15,
+         "isLike": true,
+         "createdAt": "2024-..."
+       }
+     ]
+   }
+
+3. Lấy feed bài viết:
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/feed?page=1&limit=10
+
+4. Lấy bài viết của tôi:
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/my-posts
+
+5. Lấy bài viết theo userId:
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/get-posts/:userId
+
+6. Tìm kiếm bài viết:
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/search?q=keyword&page=1&limit=20
+
+7. Lấy chi tiết bài viết:
+   truyền access_token
+   end_point: GET http://localhost:3000/posts/:id
+
+8. Tạo bài viết mới:
+   truyền access_token
+   end_point: POST http://localhost:3000/posts
+   body: form-data
+   - images: file[] (multiple files)
+   - caption: string
+   - taggedDestinations: string[] (array of destination IDs)
+
+9. Cập nhật bài viết:
+   truyền access_token
+   end_point: PATCH http://localhost:3000/posts/:id
+   body: form-data
+   - images: file[] (optional)
+   - caption: string (optional)
+   - removedImages: string[] (optional)
+
+10. Xóa bài viết:
+    truyền access_token
+    end_point: DELETE http://localhost:3000/posts/:id
